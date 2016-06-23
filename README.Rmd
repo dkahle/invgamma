@@ -7,7 +7,6 @@ output:
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, echo = FALSE}
-
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -20,8 +19,8 @@ knitr::opts_chunk$set(
 # __invgamma__
 
 The functions in __invgamma__ match those for the gamma distribution provided by the __stats__ package.  Namely, it uses as its density
-$$f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{-(alpha+1)} e^{-\beta/x},$$
-where $\alpha = $`shape` and $\beta = $`rate`.
+_f(x) = (b^a / Gamma(a)) x^-(alpha+1) e^(-b/x),_
+where a = `shape` and b = `rate`.
 
 ```{r}
 library(invgamma)
