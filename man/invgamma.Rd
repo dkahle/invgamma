@@ -62,7 +62,7 @@ q <- 2
 integrate(f, 0, q)
 (p <- pinvgamma(q, 7, 10))
 qinvgamma(p, 7, 10) # = q
-mean(rinvgamma(1e5, 7, 10) <= 2)
+mean(rinvgamma(1e5, 7, 10) <= q)
 
 
 
