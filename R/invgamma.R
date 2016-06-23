@@ -8,6 +8,10 @@
 #' e^(-rate/x)} it is the inverse of the standard gamma
 #' parameterzation in R.
 #'
+#' The functions (d/p/q/r)invgamma simply wrap those of the standard
+#' (d/p/q/r)gamma R implementation, so look at, say,
+#' \code{\link{dgamma}} for details.
+#'
 #'
 #' @param x,q vector of quantiles.
 #' @param p vector of probabilities.
@@ -16,20 +20,24 @@
 #' @param shape inverse gamma shape parameter
 #' @param rate inverse gamma rate parameter
 #' @param scale alternative to rate; scale = 1/rate
-#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
+#' @param log,log.p logical; if TRUE, probabilities p are given as
+#'   log(p).
 #' @param lower.tail logical; if TRUE (default), probabilities are
 #'   P[X <= x] otherwise, P[X > x].
+#' @seealso \code{\link{dgamma}}; these functions just wrap the
+#'   (d/p/q/r)gamma functions.
 #' @name invgamma
 #' @examples
 #'
 #' s <- seq(0, 5, .01)
-#' plot(s, dinvgamma(s, .5, .8))
+#' plot(s, dinvgamma(s, 7, 10), type = 'l')
 #'
-#' f <- function(x) dinvgamma(x, .5, .8)
-#' integrate(f, 0, 2)
-#' pinvgamma(2, .5, .8)
-#' qinvgamma(0.3710934, .5, .8)
-#' mean(rinvgamma(1e5, .5, .8) <= 2)
+#' f <- function(x) dinvgamma(x, 7, 10)
+#' q <- 2
+#' integrate(f, 0, q)
+#' (p <- pinvgamma(q, 7, 10))
+#' qinvgamma(p, 7, 10) # = q
+#' mean(rinvgamma(1e5, 7, 10) <= 2)
 #'
 #'
 #'

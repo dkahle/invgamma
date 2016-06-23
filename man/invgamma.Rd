@@ -27,7 +27,8 @@ rinvgamma(n, shape, rate, scale = 1/rate)
 
 \item{scale}{alternative to rate; scale = 1/rate}
 
-\item{log, log.p}{logical; if TRUE, probabilities p are given as log(p).}
+\item{log, log.p}{logical; if TRUE, probabilities p are given as
+log(p).}
 
 \item{lower.tail}{logical; if TRUE (default), probabilities are
 P[X <= x] otherwise, P[X > x].}
@@ -46,19 +47,28 @@ The inverse gamma distribution with parameters shape and rate has
 density \emph{f(x) = rate^shape/Gamma(shape) x^(-1-shape)
 e^(-rate/x)} it is the inverse of the standard gamma
 parameterzation in R.
+
+The functions (d/p/q/r)invgamma simply wrap those of the standard
+(d/p/q/r)gamma R implementation, so look at, say,
+\code{\link{dgamma}} for details.
 }
 \examples{
 
 s <- seq(0, 5, .01)
-plot(s, dinvgamma(s, .5, .8))
+plot(s, dinvgamma(s, 7, 10), type = 'l')
 
-f <- function(x) dinvgamma(x, .5, .8)
-integrate(f, 0, 2)
-pinvgamma(2, .5, .8)
-qinvgamma(0.3710934, .5, .8)
-mean(rinvgamma(1e5, .5, .8) <= 2)
+f <- function(x) dinvgamma(x, 7, 10)
+q <- 2
+integrate(f, 0, q)
+(p <- pinvgamma(q, 7, 10))
+qinvgamma(p, 7, 10) # = q
+mean(rinvgamma(1e5, 7, 10) <= 2)
 
 
 
+}
+\seealso{
+\code{\link{dgamma}}; these functions just wrap the
+  (d/p/q/r)gamma functions.
 }
 
