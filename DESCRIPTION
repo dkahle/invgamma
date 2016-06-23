@@ -5,6 +5,8 @@ Version: 0.0
 URL: https://github.com/dkahle/invgamma
 BugReports: https://github.com/dkahle/invgamma/issues
 Authors@R: person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre"))
-Description: Standard distribution functions for the inverse gamma distribution.
+Description: Standard distribution functions for the inverse gamma distribution,
+  wrapping those for the gamma distribution that are already provided in the
+  stats package.
 License: GPL-2
 RoxygenNote: 5.0.1
