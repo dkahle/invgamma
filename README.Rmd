@@ -22,6 +22,8 @@ The functions in __invgamma__ match those for the gamma distribution provided by
 _f(x) = (b^a / Gamma(a)) x^-(a+1) e^(-b/x),_
 where a = `shape` and b = `rate`.
 
+
+
 ```{r}
 library(invgamma)
 s <- seq(0, 5, .01)
