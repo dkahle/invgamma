@@ -4,7 +4,10 @@ Title: The Inverse Gamma Distribution
 Version: 0.0
 URL: https://github.com/dkahle/invgamma
 BugReports: https://github.com/dkahle/invgamma/issues
-Authors@R: person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre"))
+Authors@R: c(
+    person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre", "cph")),
+    person("James", "Stamey", email = "james_stamey@baylor.edu", role = c("aut", "cph"))
+  )
 Description: Standard distribution functions for the inverse gamma distribution,
   wrapping those for the gamma distribution that are already provided in the
   stats package.
