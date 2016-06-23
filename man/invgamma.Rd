@@ -8,22 +8,26 @@
 \alias{rinvgamma}
 \title{The Inverse Gamma Distribution}
 \usage{
-dinvgamma(x, shape, rate, log = FALSE)
+dinvgamma(x, shape, rate, scale = 1/rate, log = FALSE)
 
-pinvgamma(q, shape, rate, lower.tail = TRUE)
+pinvgamma(q, shape, rate, scale = 1/rate, lower.tail = TRUE,
+  log.p = FALSE)
 
-qinvgamma(p, shape, rate)
+qinvgamma(p, shape, rate, scale = 1/rate, lower.tail = TRUE,
+  log.p = FALSE)
 
-rinvgamma(n, shape, rate)
+rinvgamma(n, shape, rate, scale = 1/rate)
 }
 \arguments{
 \item{x, q}{vector of quantiles.}
 
-\item{shape}{inverse gamma parameter shape}
+\item{shape}{inverse gamma shape parameter}
 
-\item{rate}{inverse gamma parameter rate}
+\item{rate}{inverse gamma rate parameter}
 
-\item{log}{logical; if TRUE, probabilities p are given as log(p).}
+\item{scale}{alternative to rate; scale = 1/rate}
+
+\item{log, log.p}{logical; if TRUE, probabilities p are given as log(p).}
 
 \item{lower.tail}{logical; if TRUE (default), probabilities are
 P[X <= x] otherwise, P[X > x].}
