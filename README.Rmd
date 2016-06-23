@@ -19,6 +19,10 @@ knitr::opts_chunk$set(
 
 # __invgamma__
 
+The functions in __invgamma__ match those for the gamma distribution provided by the __stats__ package.  Namely, it uses as its density
+$$f(x) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{-(alpha+1)} e^{-\beta/x},$$
+where $\alpha = $`shape` and $\beta = $`rate`.
+
 ```{r}
 library(invgamma)
 s <- seq(0, 5, .01)
