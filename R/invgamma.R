@@ -90,6 +90,21 @@ qinvgamma <- function(p, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p =
 #' @export
 rinvgamma <- function(n, shape, rate, scale = 1/rate) {
   if(missing(rate) && !missing(scale)) rate <- 1/scale
-  rgamma(n, shape, rate)^(-1)
+  1 / rgamma(n, shape, rate)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
