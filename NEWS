@@ -1,0 +1,14 @@
+Version 0.1
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* dinvgamma() is now tied to dgamma() in base, instead of being a custom
+  implementation of the density.
+
+
+
+Version 0.0
+-------------------------------------------------------------------------
+
+PACKAGE GENESIS
