@@ -22,13 +22,21 @@ integrate(f, 0, q)
 qinvgamma(p, 7, 10) # = q
 #> [1] 2
 mean(rinvgamma(1e5, 7, 10) <= 2)
-#> [1] 0.76218
+#> [1] 0.76398
 ```
 
 Installation
 ------------
 
+To install from [CRAN](https://cran.r-project.org):
+
 ``` r
-# install.packages("devtools")
+install.packages("invgamma")
+```
+
+To install the developmental version:
+
+``` r
+install.packages("devtools")
 devtools::install_github("dkahle/invgamma")
 ```
