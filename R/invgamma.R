@@ -51,7 +51,7 @@ NULL
 #' @export
 dinvgamma <- function(x, shape, rate, scale = 1/rate, log = FALSE) {
   if(missing(rate) && !missing(scale)) rate <- 1/scale
-  log_f <- shape*log(rate) - lgamma(shape) + (-1-shape)*log(x) - rate/x
+  log_f <- dgamma(1/x, shape, rate, log = TRUE) - 2*log(x)
   if(log) return(log_f)
   exp(log_f)
 }
