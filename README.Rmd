@@ -9,7 +9,7 @@ output:
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
+  comment = "# ",
   fig.path = "figures/README-",
   dpi = 250
 )
@@ -17,6 +17,26 @@ knitr::opts_chunk$set(
 
 
 # __invgamma__
+
+__invgamma__ implements the `(d/p/q/r)` statistics functions for the inverse gamma distribution in [R](http://cran.r-project.org).  It is ideal for using in other packages since it is lightweight and leverages the `(d/p/q/r)gamma()` line of functions maintained by CRAN.
+
+
+
+## Getting __invgamma__
+
+There are two ways to get __invgamma__.  For the CRAN version, use
+```{r, eval=FALSE}
+install.packages("invgamma")
+```
+For the development version, use
+```{r, eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("dkahle/invgamma")
+```
+
+
+
+## The `(d/p/q/r)invgamma()` functions
 
 The functions in __invgamma__ match those for the gamma distribution provided by the __stats__ package.  Namely, it uses as its density
 _f(x) = (b^a / Gamma(a)) x^-(a+1) e^(-b/x),_
@@ -40,29 +60,10 @@ mean(rinvgamma(1e5, 7, 10) <= 2)
 ```
 
 
-## Installation
-
-To install from [CRAN](https://cran.r-project.org):
-```{r, eval=FALSE}
-install.packages("invgamma")
-```
-
-
-To install the developmental version:
-
-```{r, eval=FALSE}
-install.packages("devtools")
-devtools::install_github("dkahle/invgamma")
-```
 
 
 
-
-
-
-
-
-
+## The `(d/p/q/r)invchisq()` and `(d/p/q/r)invexp()` functions
 
 
 
