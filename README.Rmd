@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 # __invgamma__
 
-__invgamma__ implements the `(d/p/q/r)` statistics functions for the inverse gamma distribution in [R](http://cran.r-project.org).  It is ideal for using in other packages since it is lightweight and leverages the `(d/p/q/r)gamma()` line of functions maintained by CRAN.
+__invgamma__ implements the `(d/p/q/r)` statistics functions for the [inverse gamma distribution](https://en.wikipedia.org/wiki/Inverse-gamma_distribution) in [R](http://cran.r-project.org).  It is ideal for using in other packages since it is lightweight and leverages the `(d/p/q/r)gamma()` line of functions maintained by CRAN.
 
 
 
@@ -43,29 +43,39 @@ _f(x) = (b^a / Gamma(a)) x^-(a+1) e^(-b/x),_
 where a = `shape` and b = `rate`.
 
 
-
+The [PDF](https://en.wikipedia.org/wiki/Probability_density_function) (the _f(x)_ above) can be evaluated with the `dinvgamma()` function:
 ```{r}
 library(invgamma)
 s <- seq(0, 5, .01)
 plot(s, dinvgamma(s, 7, 10), type = 'l')
 ```
 
+
+The [CDF](https://en.wikipedia.org/wiki/Cumulative_distribution_function) can be evaluated with the `pinvgamma()` function:
 ```{r}
 f <- function(x) dinvgamma(x, 7, 10)
 q <- 2
 integrate(f, 0, q)
 (p <- pinvgamma(q, 7, 10))
+```
+
+The [quantile function](https://en.wikipedia.org/wiki/Quantile_function) can be evaluated with `qinvgamma()`:
+```{r}
 qinvgamma(p, 7, 10) # = q
+```
+
+And random number generation can be performed with `rinvgamma()`:
+```{r}
+rinvgamma(5, 7, 10)
 mean(rinvgamma(1e5, 7, 10) <= 2)
 ```
 
 
 
 
-
 ## The `(d/p/q/r)invchisq()` and `(d/p/q/r)invexp()` functions
 
-
+The [gamma distribution](https://en.wikipedia.org/wiki/Gamma_distribution) subsumes the [chi-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution) and [exponential](https://en.wikipedia.org/wiki/Exponential_distribution) [distributions](https://en.wikipedia.org/wiki/Probability_distribution#Continuous_probability_distribution), so it makes sense to include the `*invchisq()` and `*invexp()` functions in __invgamma__.  Their implementations, however, wrap `*chisq()` and `*exp()`, not `*invgamma()`.  
 
 
 
