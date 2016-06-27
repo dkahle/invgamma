@@ -44,7 +44,7 @@ where a = `shape` and b = `rate`.
 
 
 The [PDF](https://en.wikipedia.org/wiki/Probability_density_function) (the _f(x)_ above) can be evaluated with the `dinvgamma()` function:
-```{r}
+```{r, fig.height = 3}
 library(invgamma)
 library(ggplot2); theme_set(theme_bw())
 x <- seq(0, 5, .01)
@@ -76,7 +76,7 @@ samples <- rinvgamma(1e5, 7, 10)
 mean(samples <= q)
 ```
 Moreover, we can check the consistency and correctness of the implementation with
-```{r}
+```{r, fig.height = 3}
 qplot(samples, geom = "density") + 
   stat_function(fun = f,  color = "red")
 ```
