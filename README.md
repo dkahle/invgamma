@@ -4,8 +4,7 @@
 
 **invgamma** implements the `(d/p/q/r)` statistics functions for the [inverse gamma distribution](https://en.wikipedia.org/wiki/Inverse-gamma_distribution) in [R](http://cran.r-project.org). It is ideal for using in other packages since it is lightweight and leverages the `(d/p/q/r)gamma()` line of functions maintained by CRAN.
 
-Getting **invgamma**
---------------------
+### Getting **invgamma**
 
 There are two ways to get **invgamma**. For the [CRAN version](https://cran.r-project.org/package=invgamma), use
 
@@ -20,8 +19,7 @@ For the development version, use
 devtools::install_github("dkahle/invgamma")
 ```
 
-The `(d/p/q/r)invgamma()` functions
------------------------------------
+### The `(d/p/q/r)invgamma()` functions
 
 The functions in **invgamma** match those for the gamma distribution provided by the **stats** package. Namely, it uses as its density *f(x) = (b^a / Gamma(a)) x^-(a+1) e^(-b/x),* where a = `shape` and b = `rate`.
 
@@ -80,7 +78,6 @@ qplot(samples, geom = "density") +
 
 ![](figures/README-unnamed-chunk-9-1.png)
 
-The `(d/p/q/r)invchisq()` and `(d/p/q/r)invexp()` functions
------------------------------------------------------------
+### The `(d/p/q/r)invchisq()` and `(d/p/q/r)invexp()` functions
 
 The [gamma distribution](https://en.wikipedia.org/wiki/Gamma_distribution) subsumes the [chi-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution) and [exponential](https://en.wikipedia.org/wiki/Exponential_distribution) [distributions](https://en.wikipedia.org/wiki/Probability_distribution#Continuous_probability_distribution), so it makes sense to include the `*invchisq()` and `*invexp()` functions in **invgamma**. Their implementations, however, wrap `*chisq()` and `*exp()`, not `*invgamma()`.

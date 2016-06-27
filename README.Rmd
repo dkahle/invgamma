@@ -22,7 +22,7 @@ __invgamma__ implements the `(d/p/q/r)` statistics functions for the [inverse ga
 
 
 
-## Getting __invgamma__
+### Getting __invgamma__
 
 There are two ways to get __invgamma__.  For the [CRAN version](https://cran.r-project.org/package=invgamma), use
 ```{r, eval=FALSE}
@@ -36,7 +36,7 @@ devtools::install_github("dkahle/invgamma")
 
 
 
-## The `(d/p/q/r)invgamma()` functions
+### The `(d/p/q/r)invgamma()` functions
 
 The functions in __invgamma__ match those for the gamma distribution provided by the __stats__ package.  Namely, it uses as its density
 _f(x) = (b^a / Gamma(a)) x^-(a+1) e^(-b/x),_
@@ -85,7 +85,7 @@ qplot(samples, geom = "density") +
 
 
 
-## The `(d/p/q/r)invchisq()` and `(d/p/q/r)invexp()` functions
+### The `(d/p/q/r)invchisq()` and `(d/p/q/r)invexp()` functions
 
 The [gamma distribution](https://en.wikipedia.org/wiki/Gamma_distribution) subsumes the [chi-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution) and [exponential](https://en.wikipedia.org/wiki/Exponential_distribution) [distributions](https://en.wikipedia.org/wiki/Probability_distribution#Continuous_probability_distribution), so it makes sense to include the `*invchisq()` and `*invexp()` functions in __invgamma__.  Their implementations, however, wrap `*chisq()` and `*exp()`, not `*invgamma()`.  
 
