@@ -24,7 +24,7 @@ __invgamma__ implements the `(d/p/q/r)` statistics functions for the [inverse ga
 
 ## Getting __invgamma__
 
-There are two ways to get __invgamma__.  For the CRAN version, use
+There are two ways to get __invgamma__.  For the [CRAN version](https://cran.r-project.org/package=invgamma), use
 ```{r, eval=FALSE}
 install.packages("invgamma")
 ```

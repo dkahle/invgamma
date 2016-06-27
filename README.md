@@ -7,7 +7,7 @@
 Getting **invgamma**
 --------------------
 
-There are two ways to get **invgamma**. For the CRAN version, use
+There are two ways to get **invgamma**. For the [CRAN version](https://cran.r-project.org/package=invgamma), use
 
 ``` r
 install.packages("invgamma")
