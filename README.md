@@ -29,8 +29,10 @@ The [PDF](https://en.wikipedia.org/wiki/Probability_density_function) (the *f(x)
 
 ``` r
 library(invgamma)
-s <- seq(0, 5, .01)
-plot(s, dinvgamma(s, 7, 10), type = 'l')
+library(ggplot2); theme_set(theme_bw())
+x <- seq(0, 5, .01)
+qplot(x, dinvgamma(x, 7, 10), geom = "line")
+#  Warning: Removed 1 rows containing missing values (geom_path).
 ```
 
 ![](figures/README-unnamed-chunk-4-1.png)
@@ -56,11 +58,27 @@ qinvgamma(p, 7, 10) # = q
 And random number generation can be performed with `rinvgamma()`:
 
 ``` r
+set.seed(1)
 rinvgamma(5, 7, 10)
-#  [1] 1.074881 1.948394 1.231966 1.384182 1.707418
-mean(rinvgamma(1e5, 7, 10) <= 2)
-#  [1] 0.76173
+#  [1] 1.9996157 0.9678268 0.9853343 1.3157697 3.1578177
 ```
+
+`rinvgamma()` can be used to obtain a [Monte Carlo](https://en.wikipedia.org/wiki/Monte_Carlo_method) estimate of the probability given by `pinvgamma()` above:
+
+``` r
+samples <- rinvgamma(1e5, 7, 10)
+mean(samples <= q)
+#  [1] 0.7621
+```
+
+Moreover, we can check the consistency and correctness of the implementation with
+
+``` r
+qplot(samples, geom = "density") + 
+  stat_function(fun = f,  color = "red")
+```
+
+![](figures/README-unnamed-chunk-9-1.png)
 
 The `(d/p/q/r)invchisq()` and `(d/p/q/r)invexp()` functions
 -----------------------------------------------------------
