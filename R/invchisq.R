@@ -21,6 +21,7 @@
 #'   P[X <= x] otherwise, P[X > x].
 #' @seealso \code{\link{dchisq}}; these functions just wrap the
 #'   (d/p/q/r)chisq functions.
+#' @importFrom stats dchisq pchisq qchisq rchisq
 #' @name invchisq
 #' @examples
 #'

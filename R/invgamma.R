@@ -27,7 +27,7 @@
 #' @seealso \code{\link{dgamma}}; these functions just wrap the
 #'   (d/p/q/r)gamma functions.
 #' @name invgamma
-#' @importFrom stats pgamma qgamma rgamma
+#' @importFrom stats dgamma pgamma qgamma rgamma
 #' @examples
 #'
 #' s <- seq(0, 5, .01)

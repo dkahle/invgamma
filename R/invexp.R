@@ -20,6 +20,7 @@
 #'   P[X <= x] otherwise, P[X > x].
 #' @seealso \code{\link{dexp}}; these functions just wrap the
 #'   (d/p/q/r)exp functions.
+#' @importFrom stats dexp pexp qexp rexp
 #' @name invexp
 #' @examples
 #'
