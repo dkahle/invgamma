@@ -8,8 +8,8 @@ Authors@R: c(
     person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre", "cph")),
     person("James", "Stamey", email = "james_stamey@baylor.edu", role = c("aut", "cph"))
   )
-Description: Standard distribution functions for the inverse gamma distribution,
-  wrapping those for the gamma distribution that are already provided in the
-  stats package.
+Description: Light weight implementation of the standard distribution
+  functions for the inverse gamma distribution, wrapping those for the gamma
+  distribution in the stats package.
 License: GPL-2
 RoxygenNote: 5.0.1
