@@ -8,15 +8,15 @@
 \alias{rinvgamma}
 \title{The Inverse Gamma Distribution}
 \usage{
-dinvgamma(x, shape, rate, scale = 1/rate, log = FALSE)
+dinvgamma(x, shape, rate = 1, scale = 1/rate, log = FALSE)
 
-pinvgamma(q, shape, rate, scale = 1/rate, lower.tail = TRUE,
+pinvgamma(q, shape, rate = 1, scale = 1/rate, lower.tail = TRUE,
   log.p = FALSE)
 
-qinvgamma(p, shape, rate, scale = 1/rate, lower.tail = TRUE,
+qinvgamma(p, shape, rate = 1, scale = 1/rate, lower.tail = TRUE,
   log.p = FALSE)
 
-rinvgamma(n, shape, rate, scale = 1/rate)
+rinvgamma(n, shape, rate = 1, scale = 1/rate)
 }
 \arguments{
 \item{x, q}{vector of quantiles.}

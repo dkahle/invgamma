@@ -49,7 +49,7 @@ NULL
 
 #' @rdname invgamma
 #' @export
-dinvgamma <- function(x, shape, rate, scale = 1/rate, log = FALSE) {
+dinvgamma <- function(x, shape, rate = 1, scale = 1/rate, log = FALSE) {
   if(missing(rate) && !missing(scale)) rate <- 1/scale
   log_f <- dgamma(1/x, shape, rate, log = TRUE) - 2*log(x)
   if(log) return(log_f)
@@ -61,7 +61,7 @@ dinvgamma <- function(x, shape, rate, scale = 1/rate, log = FALSE) {
 
 #' @rdname invgamma
 #' @export
-pinvgamma <- function(q, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p = FALSE) {
+pinvgamma <- function(q, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log.p = FALSE) {
   if(missing(rate) && !missing(scale)) rate <- 1/scale
   pgamma(1/q, shape, rate, lower.tail = !lower.tail, log.p = log.p)
 }
@@ -73,7 +73,7 @@ pinvgamma <- function(q, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p =
 
 #' @rdname invgamma
 #' @export
-qinvgamma <- function(p, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p = FALSE) {
+qinvgamma <- function(p, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log.p = FALSE) {
   if(missing(rate) && !missing(scale)) rate <- 1/scale
   qgamma(1-p, shape, rate, lower.tail = lower.tail, log.p = log.p)^(-1)
 }
@@ -88,7 +88,7 @@ qinvgamma <- function(p, shape, rate, scale = 1/rate, lower.tail = TRUE, log.p =
 
 #' @rdname invgamma
 #' @export
-rinvgamma <- function(n, shape, rate, scale = 1/rate) {
+rinvgamma <- function(n, shape, rate = 1, scale = 1/rate) {
   if(missing(rate) && !missing(scale)) rate <- 1/scale
   1 / rgamma(n, shape, rate)
 }
