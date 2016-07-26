@@ -1,7 +1,7 @@
 Package: invgamma
 Type: Package
 Title: The Inverse Gamma Distribution
-Version: 1.0
+Version: 1.0.999
 URL: https://github.com/dkahle/invgamma
 BugReports: https://github.com/dkahle/invgamma/issues
 Authors@R: c(
