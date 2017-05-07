@@ -6,6 +6,10 @@ NEW FEATURES
 * (d/p/q/r)invgamma() now defaults the rate parameter to 1, like
   (d/p/q/r)gamma().
 
+FIXES
+
+* README images moved from figures/ to tools/
+
 
 Version 1.0
 -------------------------------------------------------------------------
