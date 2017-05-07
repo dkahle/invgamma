@@ -33,7 +33,7 @@ qplot(x, dinvgamma(x, 7, 10), geom = "line")
 #  Warning: Removed 1 rows containing missing values (geom_path).
 ```
 
-![](figures/README-unnamed-chunk-4-1.png)
+![](tools/README-unnamed-chunk-4-1.png)
 
 The [CDF](https://en.wikipedia.org/wiki/Cumulative_distribution_function) can be evaluated with the `pinvgamma()` function:
 
@@ -76,7 +76,7 @@ qplot(samples, geom = "density") +
   stat_function(fun = f,  color = "red")
 ```
 
-![](figures/README-unnamed-chunk-9-1.png)
+![](tools/README-unnamed-chunk-9-1.png)
 
 ### The `(d/p/q/r)invchisq()` and `(d/p/q/r)invexp()` functions
 
