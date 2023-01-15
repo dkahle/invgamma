@@ -1,31 +1,31 @@
 #' The Inverse Gamma Distribution
 #'
-#' Density, distribution function, quantile function and random
-#' generation for the inverse gamma distribution.
+#' Density, distribution function, quantile function and random generation for
+#' the inverse gamma distribution.
 #'
-#' The inverse gamma distribution with parameters shape and rate has
-#' density \emph{f(x) = rate^shape/Gamma(shape) x^(-1-shape)
-#' e^(-rate/x)} it is the inverse of the standard gamma
-#' parameterzation in R.
+#' The inverse gamma distribution with parameters shape and rate has density
+#' \deqn{f(x) = \frac{rate^{shape}}{\Gamma(shape)} x^{-1-shape} e^{-rate/x}} it
+#' is the inverse of the standard gamma parameterzation in R. If \eqn{X \sim
+#' InvGamma(shape, rate)}, \deqn{E[X] = \frac{rate}{shape-1}} when \eqn{shape > 1}
+#' and \deqn{Var(X) = \frac{rate^2}{(shape - 1)^2(shape - 2)}} for \eqn{shape > 2}.
 #'
-#' The functions (d/p/q/r)invgamma simply wrap those of the standard
-#' (d/p/q/r)gamma R implementation, so look at, say,
-#' \code{\link{dgamma}} for details.
+#' The functions `(d/p/q/r)invgamma()` simply wrap those of the standard
+#' `(d/p/q/r)gamma()` R implementation, so look at, say, [stats::dgamma()] for
+#' details.
 #'
 #'
 #' @param x,q vector of quantiles.
 #' @param p vector of probabilities.
-#' @param n number of observations. If length(n) > 1, the length is
-#'   taken to be the number required.
+#' @param n number of observations. If length(n) > 1, the length is taken to be
+#'   the number required.
 #' @param shape inverse gamma shape parameter
 #' @param rate inverse gamma rate parameter
 #' @param scale alternative to rate; scale = 1/rate
-#' @param log,log.p logical; if TRUE, probabilities p are given as
-#'   log(p).
-#' @param lower.tail logical; if TRUE (default), probabilities are
-#'   P[X <= x] otherwise, P[X > x].
-#' @seealso \code{\link{dgamma}}; these functions just wrap the
-#'   (d/p/q/r)gamma functions.
+#' @param log,log.p logical; if `TRUE`, probabilities p are given as log(p).
+#' @param lower.tail logical; if `TRUE` (default), probabilities are \eqn{P[X
+#'   \leq x]}; if `FALSE` \eqn{P[X > x]}.
+#' @seealso [stats::dgamma()]; these functions just wrap the `(d/p/q/r)gamma()`
+#'   functions.
 #' @name invgamma
 #' @importFrom stats dgamma pgamma qgamma rgamma
 #' @examples
@@ -40,7 +40,17 @@
 #' qinvgamma(p, 7, 10) # = q
 #' mean(rinvgamma(1e5, 7, 10) <= q)
 #'
+#' shape <- 3; rate <- 7
+#' x <- rinvgamma(1e6, shape, rate)
+#' mean(x) # = rate / (shape - 1)
+#' var(x)  # = rate^2 / ( (shape - 1)^2 * (shape - 2) )
 #'
+#' shape <- 7; rate <- 2.01
+#' x <- rinvgamma(1e6, shape, rate)
+#' mean(x) # = rate / (shape - 1)
+#' var(x)  # = rate^2 / ( (shape - 1)^2 * (shape - 2) )
+#'
+#' rinvgamma(10, .001, rate)
 #'
 NULL
 
@@ -65,8 +75,9 @@ pinvgamma <- function(q, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log
   if(missing(rate) && !missing(scale)) rate <- 1/scale
   pgamma(1/q, shape, rate, lower.tail = !lower.tail, log.p = log.p)
 }
-# pgamma(q) = P(X <= q) = P(1/X >= 1/q) = 1 - P(1/X < 1/q)
-# P(1/X < x) = 1 - pgamma(1/x)
+# pgamma(q) = P(X <= q) = P(1/q <= 1/X) = 1 - P(1/X < 1/q)
+# so P(1/X <= 1/q) = P(1/X < 1/q) = 1 - pgamma(q).
+# if x = 1/q, P(1/X <= x) = 1 - pgamma(1/x)
 
 
 
@@ -90,6 +101,7 @@ qinvgamma <- function(p, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log
 #' @export
 rinvgamma <- function(n, shape, rate = 1, scale = 1/rate) {
   if(missing(rate) && !missing(scale)) rate <- 1/scale
+  if (shape <= .01) stop("`rinvgamma()` is unreliable for `shape` <= .01.")
   1 / rgamma(n, shape, rate)
 }
 

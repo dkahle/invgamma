@@ -1,26 +1,24 @@
 #' The Inverse (non-central) Chi-Squared Distribution
 #'
-#' Density, distribution function, quantile function and random
-#' generation for the inverse chi-squared distribution.
+#' Density, distribution function, quantile function and random generation for
+#' the inverse chi-squared distribution.
 #'
-#' The functions (d/p/q/r)invchisq simply wrap those of the standard
-#' (d/p/q/r)chisq R implementation, so look at, say,
-#' \code{\link{dchisq}} for details.
+#' The functions `(d/p/q/r)invchisq()` simply wrap those of the standard
+#' `(d/p/q/r)chisq()` R implementation, so look at, say, [stats::dchisq()] for
+#' details.
 #'
 #'
 #' @param x,q vector of quantiles.
 #' @param p vector of probabilities.
-#' @param n number of observations. If length(n) > 1, the length is
-#'   taken to be the number required.
-#' @param df degrees of freedom (non-negative, but can be
-#'   non-integer).
+#' @param n number of observations. If length(n) > 1, the length is taken to be
+#'   the number required.
+#' @param df degrees of freedom (non-negative, but can be non-integer).
 #' @param ncp non-centrality parameter (non-negative).
-#' @param log,log.p logical; if TRUE, probabilities p are given as
-#'   log(p).
-#' @param lower.tail logical; if TRUE (default), probabilities are
-#'   P[X <= x] otherwise, P[X > x].
-#' @seealso \code{\link{dchisq}}; these functions just wrap the
-#'   (d/p/q/r)chisq functions.
+#' @param log,log.p logical; if `TRUE`, probabilities p are given as log(p).
+#' @param lower.tail logical; if `TRUE` (default), probabilities are \eqn{P[X
+#'   \leq x]}; if `FALSE` \eqn{P[X > x]}.
+#' @seealso [stats::dchisq()]; these functions just wrap the `(d/p/q/r)chisq()`
+#'   functions.
 #' @importFrom stats dchisq pchisq qchisq rchisq
 #' @name invchisq
 #' @examples

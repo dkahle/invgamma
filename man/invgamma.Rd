@@ -10,11 +10,9 @@
 \usage{
 dinvgamma(x, shape, rate = 1, scale = 1/rate, log = FALSE)
 
-pinvgamma(q, shape, rate = 1, scale = 1/rate, lower.tail = TRUE,
-  log.p = FALSE)
+pinvgamma(q, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log.p = FALSE)
 
-qinvgamma(p, shape, rate = 1, scale = 1/rate, lower.tail = TRUE,
-  log.p = FALSE)
+qinvgamma(p, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log.p = FALSE)
 
 rinvgamma(n, shape, rate = 1, scale = 1/rate)
 }
@@ -27,30 +25,30 @@ rinvgamma(n, shape, rate = 1, scale = 1/rate)
 
 \item{scale}{alternative to rate; scale = 1/rate}
 
-\item{log, log.p}{logical; if TRUE, probabilities p are given as
-log(p).}
+\item{log, log.p}{logical; if \code{TRUE}, probabilities p are given as log(p).}
 
-\item{lower.tail}{logical; if TRUE (default), probabilities are
-P[X <= x] otherwise, P[X > x].}
+\item{lower.tail}{logical; if \code{TRUE} (default), probabilities are \eqn{P[X
+\leq x]}; if \code{FALSE} \eqn{P[X > x]}.}
 
 \item{p}{vector of probabilities.}
 
-\item{n}{number of observations. If length(n) > 1, the length is
-taken to be the number required.}
+\item{n}{number of observations. If length(n) > 1, the length is taken to be
+the number required.}
 }
 \description{
-Density, distribution function, quantile function and random
-generation for the inverse gamma distribution.
+Density, distribution function, quantile function and random generation for
+the inverse gamma distribution.
 }
 \details{
-The inverse gamma distribution with parameters shape and rate has
-density \emph{f(x) = rate^shape/Gamma(shape) x^(-1-shape)
-e^(-rate/x)} it is the inverse of the standard gamma
-parameterzation in R.
+The inverse gamma distribution with parameters shape and rate has density
+\deqn{f(x) = \frac{rate^{shape}}{\Gamma(shape)} x^{-1-shape} e^{-rate/x}} it
+is the inverse of the standard gamma parameterzation in R. If \eqn{X \sim
+InvGamma(shape, rate)}, \deqn{E[X] = \frac{rate}{shape-1}} when \eqn{shape > 1}
+and \deqn{Var(X) = \frac{rate^2}{(shape - 1)^2(shape - 2)}} for \eqn{shape > 2}.
 
-The functions (d/p/q/r)invgamma simply wrap those of the standard
-(d/p/q/r)gamma R implementation, so look at, say,
-\code{\link{dgamma}} for details.
+The functions \verb{(d/p/q/r)invgamma()} simply wrap those of the standard
+\verb{(d/p/q/r)gamma()} R implementation, so look at, say, \code{\link[stats:GammaDist]{stats::dgamma()}} for
+details.
 }
 \examples{
 
@@ -64,10 +62,18 @@ integrate(f, 0, q)
 qinvgamma(p, 7, 10) # = q
 mean(rinvgamma(1e5, 7, 10) <= q)
 
+shape <- 3; rate <- 7
+x <- rinvgamma(1e6, shape, rate)
+mean(x) # = rate / (shape - 1)
+var(x)  # = rate^2 / ( (shape - 1)^2 * (shape - 2) )
 
+shape <- 7; rate <- 2.01
+x <- rinvgamma(1e6, shape, rate)
+mean(x) # = rate / (shape - 1)
+var(x)  # = rate^2 / ( (shape - 1)^2 * (shape - 2) )
 
 }
 \seealso{
-\code{\link{dgamma}}; these functions just wrap the
-  (d/p/q/r)gamma functions.
+\code{\link[stats:GammaDist]{stats::dgamma()}}; these functions just wrap the \verb{(d/p/q/r)gamma()}
+functions.
 }

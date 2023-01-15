@@ -1,25 +1,23 @@
 #' The Inverse Exponential Distribution
 #'
-#' Density, distribution function, quantile function and random
-#' generation for the inverse exponential distribution.
+#' Density, distribution function, quantile function and random generation for
+#' the inverse exponential distribution.
 #'
-#' The functions (d/p/q/r)invexp simply wrap those of the standard
-#' (d/p/q/r)exp R implementation, so look at, say,
-#' \code{\link{dexp}} for details.
+#' The functions `(d/p/q/r)invexp()` simply wrap those of the standard
+#' `(d/p/q/r)exp()` R implementation, so look at, say, [stats::dexp()] for
+#' details.
 #'
 #'
 #' @param x,q vector of quantiles.
 #' @param p vector of probabilities.
-#' @param n number of observations. If length(n) > 1, the length is
-#'   taken to be the number required.
-#' @param rate degrees of freedom (non-negative, but can be
-#'   non-integer).
-#' @param log,log.p logical; if TRUE, probabilities p are given as
-#'   log(p).
-#' @param lower.tail logical; if TRUE (default), probabilities are
-#'   P[X <= x] otherwise, P[X > x].
-#' @seealso \code{\link{dexp}}; these functions just wrap the
-#'   (d/p/q/r)exp functions.
+#' @param n number of observations. If length(n) > 1, the length is taken to be
+#'   the number required.
+#' @param rate degrees of freedom (non-negative, but can be non-integer).
+#' @param log,log.p logical; if TRUE, probabilities p are given as log(p).
+#' @param lower.tail logical; if `TRUE` (default), probabilities are \eqn{P[X
+#'   \leq x]}; if `FALSE` \eqn{P[X > x]}.
+#' @seealso [stats::dexp()]; these functions just wrap the `(d/p/q/r)exp()`
+#'   functions.
 #' @importFrom stats dexp pexp qexp rexp
 #' @name invexp
 #' @examples

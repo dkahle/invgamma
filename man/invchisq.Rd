@@ -19,30 +19,28 @@ rinvchisq(n, df, ncp = 0)
 \arguments{
 \item{x, q}{vector of quantiles.}
 
-\item{df}{degrees of freedom (non-negative, but can be
-non-integer).}
+\item{df}{degrees of freedom (non-negative, but can be non-integer).}
 
 \item{ncp}{non-centrality parameter (non-negative).}
 
-\item{log, log.p}{logical; if TRUE, probabilities p are given as
-log(p).}
+\item{log, log.p}{logical; if \code{TRUE}, probabilities p are given as log(p).}
 
-\item{lower.tail}{logical; if TRUE (default), probabilities are
-P[X <= x] otherwise, P[X > x].}
+\item{lower.tail}{logical; if \code{TRUE} (default), probabilities are \eqn{P[X
+\leq x]}; if \code{FALSE} \eqn{P[X > x]}.}
 
 \item{p}{vector of probabilities.}
 
-\item{n}{number of observations. If length(n) > 1, the length is
-taken to be the number required.}
+\item{n}{number of observations. If length(n) > 1, the length is taken to be
+the number required.}
 }
 \description{
-Density, distribution function, quantile function and random
-generation for the inverse chi-squared distribution.
+Density, distribution function, quantile function and random generation for
+the inverse chi-squared distribution.
 }
 \details{
-The functions (d/p/q/r)invchisq simply wrap those of the standard
-(d/p/q/r)chisq R implementation, so look at, say,
-\code{\link{dchisq}} for details.
+The functions \verb{(d/p/q/r)invchisq()} simply wrap those of the standard
+\verb{(d/p/q/r)chisq()} R implementation, so look at, say, \code{\link[stats:Chisquare]{stats::dchisq()}} for
+details.
 }
 \examples{
 
@@ -70,6 +68,6 @@ mean(rinvchisq(1e7, 3, ncp = 2) <= q)
 
 }
 \seealso{
-\code{\link{dchisq}}; these functions just wrap the
-  (d/p/q/r)chisq functions.
+\code{\link[stats:Chisquare]{stats::dchisq()}}; these functions just wrap the \verb{(d/p/q/r)chisq()}
+functions.
 }

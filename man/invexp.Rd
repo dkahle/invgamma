@@ -19,28 +19,26 @@ rinvexp(n, rate = 1)
 \arguments{
 \item{x, q}{vector of quantiles.}
 
-\item{rate}{degrees of freedom (non-negative, but can be
-non-integer).}
+\item{rate}{degrees of freedom (non-negative, but can be non-integer).}
 
-\item{log, log.p}{logical; if TRUE, probabilities p are given as
-log(p).}
+\item{log, log.p}{logical; if TRUE, probabilities p are given as log(p).}
 
-\item{lower.tail}{logical; if TRUE (default), probabilities are
-P[X <= x] otherwise, P[X > x].}
+\item{lower.tail}{logical; if \code{TRUE} (default), probabilities are \eqn{P[X
+\leq x]}; if \code{FALSE} \eqn{P[X > x]}.}
 
 \item{p}{vector of probabilities.}
 
-\item{n}{number of observations. If length(n) > 1, the length is
-taken to be the number required.}
+\item{n}{number of observations. If length(n) > 1, the length is taken to be
+the number required.}
 }
 \description{
-Density, distribution function, quantile function and random
-generation for the inverse exponential distribution.
+Density, distribution function, quantile function and random generation for
+the inverse exponential distribution.
 }
 \details{
-The functions (d/p/q/r)invexp simply wrap those of the standard
-(d/p/q/r)exp R implementation, so look at, say,
-\code{\link{dexp}} for details.
+The functions \verb{(d/p/q/r)invexp()} simply wrap those of the standard
+\verb{(d/p/q/r)exp()} R implementation, so look at, say, \code{\link[stats:Exponential]{stats::dexp()}} for
+details.
 }
 \examples{
 
@@ -60,6 +58,6 @@ pinvgamma(q, 1, 2)
 
 }
 \seealso{
-\code{\link{dexp}}; these functions just wrap the
-  (d/p/q/r)exp functions.
+\code{\link[stats:Exponential]{stats::dexp()}}; these functions just wrap the \verb{(d/p/q/r)exp()}
+functions.
 }
