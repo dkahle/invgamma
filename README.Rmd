@@ -69,7 +69,7 @@ qinvgamma(p, shape, rate) # = q
 
 And random number generation can be performed with `rinvgamma()`:
 ```{r}
-set.seed(1)
+set.seed(1234)
 rinvgamma(5, shape, rate)
 ```
 `rinvgamma()` can be used to obtain a [Monte Carlo](https://en.wikipedia.org/wiki/Monte_Carlo_method) estimate of the probability given by `pinvgamma()` above:
@@ -120,7 +120,7 @@ One of the challenges to using naive implementations of distributions is that th
 In January 2023 I did a little poking around into this for `rinvgamma()` and found that it performs poorly when the shape parameter is less than .001 or so. The resulting distributions are very heavy-tailed, and the draws from these distributions returned by `rinvgamma()` are so large that they get rounded to either very large numbers (where the floating point representation of numbers does not provide many numbers) or infinity. Example:
 
 ```{r}
-rinvgamma(10, shape = .01, rate = 1)
+rinvgamma(10, shape = 3, rate = 7)
 ```
 
 #### KS tests for sampling accuracy
@@ -142,7 +142,7 @@ The function returns the $p$-value associated with the KS test, so "small" value
 
 We want to see the behavior of the sampler `rinvgamma()` across a wide array of parameter values. To do this, we use a range of parameter values running from small ($10^-4$) to large ($10^3$):
 
-```{r}
+```{r, message=FALSE}
 library("tidyverse"); library("scales")
 theme_set(theme_minimal())
 theme_update(panel.grid.minor = element_blank())
@@ -211,6 +211,7 @@ param_grid <- param_grid %>%
 
 plan(sequential)
 
+
 # plot results
 ggplot(param_grid, aes(shape, rate, color = p_val)) +
   geom_point() +
@@ -238,6 +239,7 @@ param_grid <- param_grid %>%
   ))
 
 plan(sequential)
+
 
 # plot results
 ggplot(param_grid, aes(shape, rate, color = p_val)) +

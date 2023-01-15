@@ -70,9 +70,9 @@ qinvgamma(p, shape, rate) # = q
 And random number generation can be performed with `rinvgamma()`:
 
 ``` r
-set.seed(1)
+set.seed(1234)
 rinvgamma(5, shape, rate)
-#  [1] 1.9996157 0.9678268 0.9853343 1.3157697 3.1578177
+#  [1] 2.640734 1.364965 1.342591 2.095975 1.273201
 ```
 
 `rinvgamma()` can be used to obtain a [Monte
@@ -82,7 +82,7 @@ probability given by `pinvgamma()` above:
 ``` r
 samples <- rinvgamma(1e5, shape, rate)
 mean(samples <= q)
-#  [1] 0.7621
+#  [1] 0.76401
 ```
 
 Moreover, we can check the consistency and correctness of the
@@ -104,7 +104,7 @@ ks.test(
 #   Asymptotic one-sample Kolmogorov-Smirnov test
 #  
 #  data:  samples
-#  D = 0.0017754, p-value = 0.9109
+#  D = 0.0029822, p-value = 0.3361
 #  alternative hypothesis: two-sided
 ```
 
@@ -157,9 +157,9 @@ point representation of numbers does not provide many numbers) or
 infinity. Example:
 
 ``` r
-rinvgamma(10, shape = .01, rate = 1)
-#   [1]  1.690802e+54  2.897256e+50  1.536919e+06  5.033363e+53  1.398488e+64
-#   [6]  4.436872e+72  2.850708e+10  2.155008e+48 2.457325e+122  4.204507e+23
+rinvgamma(10, shape = 3, rate = 7)
+#   [1] 3.252524 4.540151 2.352486 3.012428 1.679808 2.265310 4.428625 1.836283
+#   [9] 2.276005 1.746593
 ```
 
 #### KS tests for sampling accuracy
@@ -179,9 +179,7 @@ test_for_shape_rate <- function(shape, rate, n = 1e6) {
 }
 
 test_for_shape_rate(3, 7)
-#  Warning in ks.test.default(samples, function(p) pinvgamma(p, shape, rate)): ties
-#  should not be present for the Kolmogorov-Smirnov test
-#  [1] 0.6098342
+#  [1] 0.4950153
 ```
 
 The function returns the *p*-value associated with the KS test, so
@@ -199,26 +197,6 @@ values running from small (10<sup>−</sup>4) to large (10<sup>3</sup>):
 
 ``` r
 library("tidyverse"); library("scales")
-#  ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-#  ✔ ggplot2 3.4.0.9000     ✔ purrr   0.3.5     
-#  ✔ tibble  3.1.8          ✔ dplyr   1.0.10    
-#  ✔ tidyr   1.2.1          ✔ stringr 1.4.1     
-#  ✔ readr   2.1.3          ✔ forcats 0.5.2     
-#  ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-#  ✖ dplyr::filter() masks stats::filter()
-#  ✖ dplyr::lag()    masks stats::lag()
-#  
-#  Attaching package: 'scales'
-#  
-#  
-#  The following object is masked from 'package:purrr':
-#  
-#      discard
-#  
-#  
-#  The following object is masked from 'package:readr':
-#  
-#      col_factor
 theme_set(theme_minimal())
 theme_update(panel.grid.minor = element_blank())
 
@@ -328,6 +306,7 @@ param_grid <- param_grid %>%
 
 plan(sequential)
 
+
 # plot results
 ggplot(param_grid, aes(shape, rate, color = p_val)) +
   geom_point() +
@@ -372,6 +351,7 @@ param_grid <- param_grid %>%
   ))
 
 plan(sequential)
+
 
 # plot results
 ggplot(param_grid, aes(shape, rate, color = p_val)) +
