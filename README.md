@@ -241,9 +241,7 @@ library("furrr"); furrr_options(seed = TRUE)
 plan(multisession(workers = parallelly::availableCores()))
 
 param_grid <- param_grid %>% 
-  mutate(
-    p_val = future_map2_dbl(shape, rate, test_for_shape_rate)
-  )
+  mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
 
 plan(sequential)
 ```
@@ -282,9 +280,7 @@ param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 # rerun the simulation
 plan(multisession(workers = parallelly::availableCores()))
 param_grid <- param_grid %>% 
-  mutate(
-    p_val = future_map2_dbl(shape, rate, test_for_shape_rate)
-  )
+  mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
 plan(sequential)
 
 
@@ -311,9 +307,7 @@ param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 # rerun the simulation
 plan(multisession(workers = parallelly::availableCores()))
 param_grid <- param_grid %>% 
-  mutate(
-    p_val = future_map2_dbl(shape, rate, test_for_shape_rate)
-  )
+  mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
 plan(sequential)
 
 
