@@ -235,17 +235,15 @@ Now, we run our test for each point in the design space in parallel.
 (Note: we’ve suppressed warnings here that are relevant.)
 
 ``` r
-library("furrr")
+library("furrr"); furrr_options(seed = TRUE)
 #  Loading required package: future
+#  <furrr_options>
 plan(multisession(workers = parallelly::availableCores()))
 
 param_grid <- param_grid %>% 
-  mutate(p_val = future_map2_dbl(
-    shape, 
-    rate, 
-    test_for_shape_rate, 
-    .options = furrr_options(seed = TRUE)
-  ))
+  mutate(
+    p_val = future_map2_dbl(shape, rate, test_for_shape_rate)
+  )
 
 plan(sequential)
 ```
@@ -285,7 +283,7 @@ param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 plan(multisession(workers = parallelly::availableCores()))
 param_grid <- param_grid %>% 
   mutate(
-    p_val = future_map2_dbl(shape, rate, test_for_shape_rate, .options = furrr_options(seed = TRUE))
+    p_val = future_map2_dbl(shape, rate, test_for_shape_rate)
   )
 plan(sequential)
 
@@ -314,7 +312,7 @@ param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 plan(multisession(workers = parallelly::availableCores()))
 param_grid <- param_grid %>% 
   mutate(
-    p_val = future_map2_dbl(shape, rate, test_for_shape_rate, .options = furrr_options(seed = TRUE))
+    p_val = future_map2_dbl(shape, rate, test_for_shape_rate)
   )
 plan(sequential)
 
