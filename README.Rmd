@@ -197,18 +197,15 @@ The cutoff seems to be right around `shape = .01`, so let's rerun the simulation
 ```{r, warning=FALSE}
 # reset the grid
 param_vals_small <- 10^seq(-2.5, -1.5, length.out = N)
-(param_grid <- expand_grid(shape = param_vals_small, rate = param_vals))
+param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 
 
 # rerun the simulation
 plan(multisession(workers = parallelly::availableCores()))
-
 param_grid <- param_grid %>% 
-  mutate(p_val = future_map2_dbl(
-    shape, rate, test_for_shape_rate, 
-    .options = furrr_options(seed = TRUE)
-  ))
-
+  mutate(
+    p_val = future_map2_dbl(shape, rate, test_for_shape_rate, .options = furrr_options(seed = TRUE))
+  )
 plan(sequential)
 
 
@@ -226,18 +223,15 @@ The cutoff appears to be a little below `0.01`, but I include this in the warnin
 ```{r, warning=FALSE}
 # reset the grid
 param_vals_small <- 10^seq(-2.1, -2, length.out = N)
-(param_grid <- expand_grid(shape = param_vals_small, rate = param_vals))
+param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 
 
 # rerun the simulation
 plan(multisession(workers = parallelly::availableCores()))
-
 param_grid <- param_grid %>% 
-  mutate(p_val = future_map2_dbl(
-    shape, rate, test_for_shape_rate, 
-    .options = furrr_options(seed = TRUE)
-  ))
-
+  mutate(
+    p_val = future_map2_dbl(shape, rate, test_for_shape_rate, .options = furrr_options(seed = TRUE))
+  )
 plan(sequential)
 
 

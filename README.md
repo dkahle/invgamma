@@ -278,32 +278,15 @@ simulation zooming in on that boundary.
 ``` r
 # reset the grid
 param_vals_small <- 10^seq(-2.5, -1.5, length.out = N)
-(param_grid <- expand_grid(shape = param_vals_small, rate = param_vals))
-#  # A tibble: 676 × 2
-#       shape     rate
-#       <dbl>    <dbl>
-#   1 0.00316 0.0001  
-#   2 0.00316 0.000209
-#   3 0.00316 0.000437
-#   4 0.00316 0.000912
-#   5 0.00316 0.00191 
-#   6 0.00316 0.00398 
-#   7 0.00316 0.00832 
-#   8 0.00316 0.0174  
-#   9 0.00316 0.0363  
-#  10 0.00316 0.0759  
-#  # … with 666 more rows
+param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 
 
 # rerun the simulation
 plan(multisession(workers = parallelly::availableCores()))
-
 param_grid <- param_grid %>% 
-  mutate(p_val = future_map2_dbl(
-    shape, rate, test_for_shape_rate, 
-    .options = furrr_options(seed = TRUE)
-  ))
-
+  mutate(
+    p_val = future_map2_dbl(shape, rate, test_for_shape_rate, .options = furrr_options(seed = TRUE))
+  )
 plan(sequential)
 
 
@@ -324,32 +307,15 @@ bit more…
 ``` r
 # reset the grid
 param_vals_small <- 10^seq(-2.1, -2, length.out = N)
-(param_grid <- expand_grid(shape = param_vals_small, rate = param_vals))
-#  # A tibble: 676 × 2
-#       shape     rate
-#       <dbl>    <dbl>
-#   1 0.00794 0.0001  
-#   2 0.00794 0.000209
-#   3 0.00794 0.000437
-#   4 0.00794 0.000912
-#   5 0.00794 0.00191 
-#   6 0.00794 0.00398 
-#   7 0.00794 0.00832 
-#   8 0.00794 0.0174  
-#   9 0.00794 0.0363  
-#  10 0.00794 0.0759  
-#  # … with 666 more rows
+param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 
 
 # rerun the simulation
 plan(multisession(workers = parallelly::availableCores()))
-
 param_grid <- param_grid %>% 
-  mutate(p_val = future_map2_dbl(
-    shape, rate, test_for_shape_rate, 
-    .options = furrr_options(seed = TRUE)
-  ))
-
+  mutate(
+    p_val = future_map2_dbl(shape, rate, test_for_shape_rate, .options = furrr_options(seed = TRUE))
+  )
 plan(sequential)
 
 
