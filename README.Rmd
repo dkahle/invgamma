@@ -18,6 +18,10 @@ knitr::opts_chunk$set(
 
 # __invgamma__
 
+<!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/dkahle/invgamma/graph/badge.svg)](https://app.codecov.io/gh/dkahle/invgamma)
+<!-- badges: end -->
+
 __invgamma__ implements the `(d/p/q/r)` statistics functions for the [inverse gamma distribution](https://en.wikipedia.org/wiki/Inverse-gamma_distribution) in [R](http://cran.r-project.org).  It is ideal for using in other packages since it is lightweight and leverages the `(d/p/q/r)gamma()` line of functions maintained by CRAN.
 
 _Please see the section on parameterizations below to avoid any unintended mistakes!_
@@ -125,6 +129,9 @@ rinvgamma(10, shape = 3, rate = 7)
 
 #### KS tests for sampling accuracy
 
+
+##### `rinvgamma()`
+
 Here is a more detailed Monte Carlo investigation that checks sampler quality using [the Kolmogorov-Smirnov test](https://en.wikipedia.org/wiki/Kolmogorov–Smirnov_test).
 
 First, we write a basic Monte Carlo test for the sampler that works by generating a large (`n = 1e6`) sample of draws from the inverse gamma distribution for a given shape and rate:
@@ -147,7 +154,7 @@ library("tidyverse"); library("scales")
 theme_set(theme_minimal())
 theme_update(panel.grid.minor = element_blank())
 
-N <- 26
+N <- 11
 param_vals <- 10^seq(-4, 4, length.out = N)
 (param_grid <- expand_grid(shape = param_vals, rate = param_vals))
 ```
@@ -159,7 +166,7 @@ ggplot(param_grid, aes(shape, rate)) +
   geom_point() +
   scale_x_log10(n.breaks = 10, labels = label_number()) +
   scale_y_log10(n.breaks = 10, labels = label_number()) +
-  coord_equal()
+  labs("title" = "Parameter Values at Which to Test `rinvgamma()`")
 ```
 
 Now, we run our test for each point in the design space in parallel. (Note: we've suppressed warnings here that are relevant.)
@@ -168,7 +175,7 @@ Now, we run our test for each point in the design space in parallel. (Note: we'v
 library("furrr"); furrr_options(seed = TRUE)
 plan(multisession(workers = parallelly::availableCores()))
 
-param_grid <- param_grid %>% 
+param_grid <- param_grid |> 
   mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
 
 plan(sequential)
@@ -181,8 +188,8 @@ ggplot(param_grid, aes(shape, rate, color = p_val)) +
   geom_point() +
   scale_x_log10(n.breaks = 10, labels = label_number()) +
   scale_y_log10(n.breaks = 10, labels = label_number()) +
-  scale_color_viridis_b(breaks = c(0, .05, 1)) +
-  coord_equal()
+  scale_color_binned(breaks = c(0, .05, 1)) +
+  labs("title" = "KS GoF Test of Draws for Different Parameter Values")
 ```
 
 If the sampler were working correctly, the $p$-values would be approximately IID uniform(0,1), so we would expect about 5% of the points to be purple, and those 5% would be uniformly distributed over the whole space with no patterns. Obviously, that's not the case: when the shape parameter is small, the test is always rejecting. Clearly, when `shape` is small, the sampler does not work well.
@@ -197,7 +204,7 @@ param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 
 # rerun the simulation
 plan(multisession(workers = parallelly::availableCores()))
-param_grid <- param_grid %>% 
+param_grid <- param_grid |> 
   mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
 plan(sequential)
 
@@ -207,7 +214,8 @@ ggplot(param_grid, aes(shape, rate, color = p_val)) +
   geom_point() +
   scale_x_log10(n.breaks = 10, labels = label_number()) +
   scale_y_log10(n.breaks = 10, labels = label_number()) +
-  scale_color_viridis_b(breaks = c(0, .05, 1))
+  scale_color_binned(breaks = c(0, .05, 1)) +
+  labs("title" = "KS GoF Test of Draws for Different Parameter Values")
 ```
 
 
@@ -221,7 +229,7 @@ param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 
 # rerun the simulation
 plan(multisession(workers = parallelly::availableCores()))
-param_grid <- param_grid %>% 
+param_grid <- param_grid|> 
   mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
 plan(sequential)
 
@@ -231,18 +239,10 @@ ggplot(param_grid, aes(shape, rate, color = p_val)) +
   geom_point() +
   scale_x_log10(n.breaks = 10, labels = label_number()) +
   scale_y_log10(n.breaks = 10, labels = label_number()) +
-  scale_color_viridis_b(breaks = c(0, .05, 1))
+  scale_color_binned(breaks = c(0, .05, 1)) +
+  labs("title" = "KS GoF Test of Draws for Different Parameter Values")
 ```
 
 The simulation confirms that over a reasonably large range of the parameters the quality of the sampler depends almost entirely on `shape` (though there is roughly a linear dependence on `shape` and `rate`). As an easy rule, the sampler can be considered unreliable for `shape` values less than `0.01`.
-
-
-
-
-
-
-
-
-
 
 

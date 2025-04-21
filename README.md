@@ -2,6 +2,12 @@
 
 # **invgamma**
 
+<!-- badges: start -->
+
+[![Codecov test
+coverage](https://codecov.io/gh/dkahle/invgamma/graph/badge.svg)](https://app.codecov.io/gh/dkahle/invgamma)
+<!-- badges: end -->
+
 **invgamma** implements the `(d/p/q/r)` statistics functions for the
 [inverse gamma
 distribution](https://en.wikipedia.org/wiki/Inverse-gamma_distribution)
@@ -164,6 +170,8 @@ rinvgamma(10, shape = 3, rate = 7)
 
 #### KS tests for sampling accuracy
 
+##### `rinvgamma()`
+
 Here is a more detailed Monte Carlo investigation that checks sampler
 quality using [the Kolmogorov-Smirnov
 test](https://en.wikipedia.org/wiki/Kolmogorov–Smirnov_test).
@@ -200,23 +208,23 @@ library("tidyverse"); library("scales")
 theme_set(theme_minimal())
 theme_update(panel.grid.minor = element_blank())
 
-N <- 26
+N <- 11
 param_vals <- 10^seq(-4, 4, length.out = N)
 (param_grid <- expand_grid(shape = param_vals, rate = param_vals))
-#  # A tibble: 676 × 2
-#      shape     rate
-#      <dbl>    <dbl>
-#   1 0.0001 0.0001  
-#   2 0.0001 0.000209
-#   3 0.0001 0.000437
-#   4 0.0001 0.000912
-#   5 0.0001 0.00191 
-#   6 0.0001 0.00398 
-#   7 0.0001 0.00832 
-#   8 0.0001 0.0174  
-#   9 0.0001 0.0363  
-#  10 0.0001 0.0759  
-#  # … with 666 more rows
+#  # A tibble: 121 × 2
+#      shape        rate
+#      <dbl>       <dbl>
+#   1 0.0001    0.0001  
+#   2 0.0001    0.000631
+#   3 0.0001    0.00398 
+#   4 0.0001    0.0251  
+#   5 0.0001    0.158   
+#   6 0.0001    1       
+#   7 0.0001    6.31    
+#   8 0.0001   39.8     
+#   9 0.0001  251.      
+#  10 0.0001 1585.      
+#  # ℹ 111 more rows
 ```
 
 Here’s what the experiment’s design space looks like:
@@ -226,7 +234,7 @@ ggplot(param_grid, aes(shape, rate)) +
   geom_point() +
   scale_x_log10(n.breaks = 10, labels = label_number()) +
   scale_y_log10(n.breaks = 10, labels = label_number()) +
-  coord_equal()
+  labs("title" = "Parameter Values at Which to Test `rinvgamma()`")
 ```
 
 ![](tools/README-unnamed-chunk-14-1.png)
@@ -240,7 +248,7 @@ library("furrr"); furrr_options(seed = TRUE)
 #  <furrr_options>
 plan(multisession(workers = parallelly::availableCores()))
 
-param_grid <- param_grid %>% 
+param_grid <- param_grid |> 
   mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
 
 plan(sequential)
@@ -255,8 +263,8 @@ ggplot(param_grid, aes(shape, rate, color = p_val)) +
   geom_point() +
   scale_x_log10(n.breaks = 10, labels = label_number()) +
   scale_y_log10(n.breaks = 10, labels = label_number()) +
-  scale_color_viridis_b(breaks = c(0, .05, 1)) +
-  coord_equal()
+  scale_color_binned(breaks = c(0, .05, 1)) +
+  labs("title" = "KS GoF Test of Draws for Different Parameter Values")
 ```
 
 ![](tools/README-unnamed-chunk-16-1.png)
@@ -279,7 +287,7 @@ param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 
 # rerun the simulation
 plan(multisession(workers = parallelly::availableCores()))
-param_grid <- param_grid %>% 
+param_grid <- param_grid |> 
   mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
 plan(sequential)
 
@@ -289,7 +297,8 @@ ggplot(param_grid, aes(shape, rate, color = p_val)) +
   geom_point() +
   scale_x_log10(n.breaks = 10, labels = label_number()) +
   scale_y_log10(n.breaks = 10, labels = label_number()) +
-  scale_color_viridis_b(breaks = c(0, .05, 1))
+  scale_color_binned(breaks = c(0, .05, 1)) +
+  labs("title" = "KS GoF Test of Draws for Different Parameter Values")
 ```
 
 ![](tools/README-unnamed-chunk-17-1.png)
@@ -306,7 +315,7 @@ param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 
 # rerun the simulation
 plan(multisession(workers = parallelly::availableCores()))
-param_grid <- param_grid %>% 
+param_grid <- param_grid|> 
   mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
 plan(sequential)
 
@@ -316,7 +325,8 @@ ggplot(param_grid, aes(shape, rate, color = p_val)) +
   geom_point() +
   scale_x_log10(n.breaks = 10, labels = label_number()) +
   scale_y_log10(n.breaks = 10, labels = label_number()) +
-  scale_color_viridis_b(breaks = c(0, .05, 1))
+  scale_color_binned(breaks = c(0, .05, 1)) +
+  labs("title" = "KS GoF Test of Draws for Different Parameter Values")
 ```
 
 ![](tools/README-unnamed-chunk-18-1.png)

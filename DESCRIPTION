@@ -12,6 +12,9 @@ Description: Light weight implementation of the standard distribution
   functions for the inverse gamma distribution, wrapping those for the gamma
   distribution in the stats package.
 License: MIT + file LICENSE
-RoxygenNote: 7.2.2
+RoxygenNote: 7.3.2
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
