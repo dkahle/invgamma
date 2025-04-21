@@ -208,23 +208,23 @@ library("tidyverse"); library("scales")
 theme_set(theme_minimal())
 theme_update(panel.grid.minor = element_blank())
 
-N <- 11
+N <- 26
 param_vals <- 10^seq(-4, 4, length.out = N)
 (param_grid <- expand_grid(shape = param_vals, rate = param_vals))
-#  # A tibble: 121 × 2
-#      shape        rate
-#      <dbl>       <dbl>
-#   1 0.0001    0.0001  
-#   2 0.0001    0.000631
-#   3 0.0001    0.00398 
-#   4 0.0001    0.0251  
-#   5 0.0001    0.158   
-#   6 0.0001    1       
-#   7 0.0001    6.31    
-#   8 0.0001   39.8     
-#   9 0.0001  251.      
-#  10 0.0001 1585.      
-#  # ℹ 111 more rows
+#  # A tibble: 676 × 2
+#      shape     rate
+#      <dbl>    <dbl>
+#   1 0.0001 0.0001  
+#   2 0.0001 0.000209
+#   3 0.0001 0.000437
+#   4 0.0001 0.000912
+#   5 0.0001 0.00191 
+#   6 0.0001 0.00398 
+#   7 0.0001 0.00832 
+#   8 0.0001 0.0174  
+#   9 0.0001 0.0363  
+#  10 0.0001 0.0759  
+#  # ℹ 666 more rows
 ```
 
 Here’s what the experiment’s design space looks like:

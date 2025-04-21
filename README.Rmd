@@ -154,7 +154,7 @@ library("tidyverse"); library("scales")
 theme_set(theme_minimal())
 theme_update(panel.grid.minor = element_blank())
 
-N <- 11
+N <- 26
 param_vals <- 10^seq(-4, 4, length.out = N)
 (param_grid <- expand_grid(shape = param_vals, rate = param_vals))
 ```
