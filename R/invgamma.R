@@ -5,7 +5,7 @@
 #'
 #' The inverse gamma distribution with parameters shape and rate has density
 #' \deqn{f(x) = \frac{rate^{shape}}{\Gamma(shape)} x^{-1-shape} e^{-rate/x}} it
-#' is the inverse of the standard gamma parameterzation in R. If \eqn{X \sim
+#' is the inverse of the standard gamma parameterization in R. If \eqn{X \sim
 #' InvGamma(shape, rate)}, \deqn{E[X] = \frac{rate}{shape-1}} when \eqn{shape > 1}
 #' and \deqn{Var(X) = \frac{rate^2}{(shape - 1)^2(shape - 2)}} for \eqn{shape > 2}.
 #'
