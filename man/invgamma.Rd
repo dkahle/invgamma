@@ -19,11 +19,10 @@ rinvgamma(n, shape, rate = 1, scale = 1/rate)
 \arguments{
 \item{x, q}{vector of quantiles.}
 
-\item{shape}{inverse gamma shape parameter}
-
-\item{rate}{inverse gamma rate parameter}
-
-\item{scale}{alternative to rate; scale = 1/rate}
+\item{shape, rate, scale}{\code{shape}, \code{rate}, and \code{scale} parameters of
+corresponding gamma distribution. In particular, \code{rate} and \code{scale} are
+\strong{not} the rate and scale of the inverse gamma distribution, but of the
+\emph{gamma} distribution.}
 
 \item{log, log.p}{logical; if \code{TRUE}, probabilities p are given as log(p).}
 
@@ -44,7 +43,8 @@ The inverse gamma distribution with parameters shape and rate has density
 \deqn{f(x) = \frac{rate^{shape}}{\Gamma(shape)} x^{-1-shape} e^{-rate/x}} it
 is the inverse of the standard gamma parameterzation in R. If \eqn{X \sim
 InvGamma(shape, rate)}, \deqn{E[X] = \frac{rate}{shape-1}} when \eqn{shape > 1}
-and \deqn{Var(X) = \frac{rate^2}{(shape - 1)^2(shape - 2)}} for \eqn{shape > 2}.
+and \deqn{Var(X) = \frac{rate^2}{(shape - 1)^2(shape - 2)}} for \eqn{shape >
+2}.
 
 The functions \verb{(d/p/q/r)invgamma()} simply wrap those of the standard
 \verb{(d/p/q/r)gamma()} R implementation, so look at, say, \code{\link[stats:GammaDist]{stats::dgamma()}} for
@@ -71,6 +71,18 @@ shape <- 7; rate <- 2.01
 x <- rinvgamma(1e6, shape, rate)
 mean(x) # = rate / (shape - 1)
 var(x)  # = rate^2 / ( (shape - 1)^2 * (shape - 2) )
+
+qnorm(log(.25), log.p = TRUE)
+qnorm(.25)
+
+qinvgamma(log(.25), shape = shape, rate = rate, log.p = TRUE)
+qinvgamma(.25, shape = shape, rate = rate)
+
+\dontrun{ `rinvgamma()` warns when shape <= .01
+
+rinvgamma(10, .01, rate) # warns
+
+}
 
 }
 \seealso{
