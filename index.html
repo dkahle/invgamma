@@ -76,7 +76,7 @@
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">.01</span><span class="op">)</span></span>
 <span><span class="va">shape</span> <span class="op">&lt;-</span> <span class="fl">7</span>; <span class="va">rate</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="reference/invgamma.html">dinvgamma</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">shape</span>, <span class="va">rate</span><span class="op">)</span>, type <span class="op">=</span> <span class="st">"l"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tools/README-unnamed-chunk-4-1.png"></p>
+<p><img src="tools/README-unnamed-chunk-4-1.png"><!-- --></p>
 <p>The <a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function" class="external-link">CDF</a> can be evaluated with the <code><a href="reference/invgamma.html">pinvgamma()</a></code> function:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="reference/invgamma.html">dinvgamma</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">shape</span>, <span class="va">rate</span><span class="op">)</span></span>
@@ -96,23 +96,33 @@
 <span><span class="co">#  [1] 2.640734 1.364965 1.342591 2.095975 1.273201</span></span></code></pre></div>
 <p><code><a href="reference/invgamma.html">rinvgamma()</a></code> can be used to obtain a <a href="https://en.wikipedia.org/wiki/Monte_Carlo_method" class="external-link">Monte Carlo</a> estimate of the probability given by <code><a href="reference/invgamma.html">pinvgamma()</a></code> above:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/invgamma.html">rinvgamma</a></span><span class="op">(</span><span class="fl">1e5</span>, <span class="va">shape</span>, <span class="va">rate</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">samples</span> <span class="op">&lt;=</span> <span class="va">q</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">1e5</span></span>
+<span><span class="va">draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/invgamma.html">rinvgamma</a></span><span class="op">(</span><span class="va">n</span>, <span class="va">shape</span>, <span class="va">rate</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">draws</span> <span class="op">&lt;=</span> <span class="va">q</span><span class="op">)</span></span>
 <span><span class="co">#  [1] 0.76401</span></span></code></pre></div>
 <p>Moreover, we can check the consistency and correctness of the implementation with</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">samples</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/density.html" class="external-link">density</a></span><span class="op">(</span><span class="va">draws</span><span class="op">)</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/curve.html" class="external-link">curve</a></span><span class="op">(</span><span class="fu">f</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tools/README-unnamed-chunk-9-1.png"> Or</p>
+<p><img src="tools/README-unnamed-chunk-9-1.png"><!-- --></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/qqnorm.html" class="external-link">qqplot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/ppoints.html" class="external-link">ppoints</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="reference/invgamma.html">qinvgamma</a></span><span class="op">(</span><span class="va">shape</span>, <span class="va">rate</span><span class="op">)</span>,</span>
+<span>  <span class="va">draws</span>,</span>
+<span>  main <span class="op">=</span> <span class="st">"QQ plot for inverse gamma draws"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html" class="external-link">abline</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tools/README-unnamed-chunk-10-1.png"><!-- --></p>
+<p>As an inferential alternative, we can use a <a href="https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test" class="external-link">KS test</a>:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html" class="external-link">ks.test</a></span><span class="op">(</span></span>
-<span>  <span class="va">samples</span>, </span>
+<span>  <span class="va">draws</span>, </span>
 <span>  <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu"><a href="reference/invgamma.html">pinvgamma</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">shape</span>, <span class="va">rate</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#  </span></span>
 <span><span class="co">#   Asymptotic one-sample Kolmogorov-Smirnov test</span></span>
 <span><span class="co">#  </span></span>
-<span><span class="co">#  data:  samples</span></span>
+<span><span class="co">#  data:  draws</span></span>
 <span><span class="co">#  D = 0.0029822, p-value = 0.3361</span></span>
 <span><span class="co">#  alternative hypothesis: two-sided</span></span></code></pre></div>
 </div>
@@ -132,7 +142,7 @@
 <p><strong>invgamma</strong> was intended to be a lightweight and simple, largely self-maintaining package implementing the inverse gamma, inverse chi-square, and inverse exponential distributions. It uses <a href="https://en.wikipedia.org/wiki/Random_variable#Functions_of_random_variables" class="external-link">the transformation theorem</a> in all cases.</p>
 <p>One of the challenges to using naive implementations of distributions is that their <a href="https://en.wikipedia.org/wiki/Floating-point_arithmetic" class="external-link">numerics</a> may not work well. Arithmetic on a computer is not the same as arithmetic in theory, the kind that you meet in math classes, and as a consequence the best computer implementations of mathematical facts/algorithms need to be tailored to the specific cases at hand.</p>
 <p>In January 2023 I did a little poking around into this for <code><a href="reference/invgamma.html">rinvgamma()</a></code> and found that it performs poorly when the shape parameter is less than .001 or so. The resulting distributions are very heavy-tailed, and the draws from these distributions returned by <code><a href="reference/invgamma.html">rinvgamma()</a></code> are so large that they get rounded to either very large numbers (where the floating point representation of numbers does not provide many numbers) or infinity. Example:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/invgamma.html">rinvgamma</a></span><span class="op">(</span><span class="fl">10</span>, shape <span class="op">=</span> <span class="fl">3</span>, rate <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
 <span><span class="co">#   [1] 3.252524 4.540151 2.352486 3.012428 1.679808 2.265310 4.428625 1.836283</span></span>
 <span><span class="co">#   [9] 2.276005 1.746593</span></span></code></pre></div>
@@ -145,107 +155,113 @@
 </h5>
 <p>Here is a more detailed Monte Carlo investigation that checks sampler quality using <a href="https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test" class="external-link">the Kolmogorov-Smirnov test</a>.</p>
 <p>First, we write a basic Monte Carlo test for the sampler that works by generating a large (<code>n = 1e6</code>) sample of draws from the inverse gamma distribution for a given shape and rate:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">test_for_shape_rate</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">shape</span>, <span class="va">rate</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1e6</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/invgamma.html">rinvgamma</a></span><span class="op">(</span><span class="fl">1e6</span>, <span class="va">shape</span>, <span class="va">rate</span><span class="op">)</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html" class="external-link">ks.test</a></span><span class="op">(</span><span class="va">samples</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu"><a href="reference/invgamma.html">pinvgamma</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">shape</span>, <span class="va">rate</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span></span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">test_invgamma</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">shape</span>, <span class="va">rate</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/invgamma.html">rinvgamma</a></span><span class="op">(</span><span class="va">n</span>, <span class="va">shape</span>, <span class="va">rate</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html" class="external-link">ks.test</a></span><span class="op">(</span><span class="va">draws</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu"><a href="reference/invgamma.html">pinvgamma</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">shape</span>, <span class="va">rate</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="fu">test_for_shape_rate</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span></span>
-<span><span class="co">#  [1] 0.4950153</span></span></code></pre></div>
-<p>The function returns the <em>p</em>-value associated with the KS test, so “small” values suggest a departure from the null hypothesis that the distribution is from the corresponding inverse gamma distribution: the sampler is performing poorly. Under the null hypothesis, <a href="https://en.wikipedia.org/wiki/P-value#p-value_as_the_statistic_for_performing_significance_tests" class="external-link">the <em>p</em>-value has an approximate uniform distribution</a>, a fact that can be found in most advanced mathematical statistics books, so we would expect some proportion to be small regardless.</p>
-<p>We want to see the behavior of the sampler <code><a href="reference/invgamma.html">rinvgamma()</a></code> across a wide array of parameter values. To do this, we use a range of parameter values running from small (10<sup>−</sup>4) to large (10<sup>3</sup>):</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://tidyverse.tidyverse.org" class="external-link">"tidyverse"</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://scales.r-lib.org" class="external-link">"scales"</a></span><span class="op">)</span></span>
-<span><span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">theme_update</span><span class="op">(</span>panel.grid.minor <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">26</span></span>
-<span><span class="va">param_vals</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span>, length.out <span class="op">=</span> <span class="va">N</span><span class="op">)</span></span>
-<span><span class="op">(</span><span class="va">param_grid</span> <span class="op">&lt;-</span> <span class="fu">expand_grid</span><span class="op">(</span>shape <span class="op">=</span> <span class="va">param_vals</span>, rate <span class="op">=</span> <span class="va">param_vals</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#  # A tibble: 676 × 2</span></span>
-<span><span class="co">#      shape     rate</span></span>
-<span><span class="co">#      &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span><span class="co">#   1 0.0001 0.0001  </span></span>
-<span><span class="co">#   2 0.0001 0.000209</span></span>
-<span><span class="co">#   3 0.0001 0.000437</span></span>
-<span><span class="co">#   4 0.0001 0.000912</span></span>
-<span><span class="co">#   5 0.0001 0.00191 </span></span>
-<span><span class="co">#   6 0.0001 0.00398 </span></span>
-<span><span class="co">#   7 0.0001 0.00832 </span></span>
-<span><span class="co">#   8 0.0001 0.0174  </span></span>
-<span><span class="co">#   9 0.0001 0.0363  </span></span>
-<span><span class="co">#  10 0.0001 0.0759  </span></span>
-<span><span class="co">#  # ℹ 666 more rows</span></span></code></pre></div>
-<p>Here’s what the experiment’s design space looks like:</p>
+<span><span class="fu">test_invgamma</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span></span>
+<span><span class="co">#  [1] 0.3464601</span></span></code></pre></div>
+<p>The function returns the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-value associated with the KS test, so “small” values suggest a departure from the null hypothesis that the distribution is from the corresponding inverse gamma distribution: the sampler is performing poorly. Under the null hypothesis, <a href="https://en.wikipedia.org/wiki/P-value#p-value_as_the_statistic_for_performing_significance_tests" class="external-link">the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-value has an approximate uniform distribution</a>, a fact that can be found in most advanced mathematical statistics books, so we would expect some proportion to be small regardless.</p>
+<p>We want to see the behavior of the sampler <code><a href="reference/invgamma.html">rinvgamma()</a></code> across a wide array of parameter values. To do this, we use a range of parameter values running from small (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>10</mn><mo>−</mo></msup><mn>4</mn></mrow><annotation encoding="application/x-tex">10^-4</annotation></semantics></math>) to large (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mn>4</mn></msup><annotation encoding="application/x-tex">10^4</annotation></semantics></math>):</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">param_grid</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">shape</span>, <span class="va">rate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_x_log10</span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">label_number</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_y_log10</span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">label_number</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span><span class="st">"title"</span> <span class="op">=</span> <span class="st">"Parameter Values at Which to Test `rinvgamma()`"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tools/README-unnamed-chunk-14-1.png"></p>
-<p>Now, we run our test for each point in the design space in parallel. (Note: we’ve suppressed warnings here that are relevant.)</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/DavisVaughan/furrr" class="external-link">"furrr"</a></span><span class="op">)</span>; <span class="fu">furrr_options</span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co">#  Loading required package: future</span></span>
+<code class="sourceCode R"><span><span class="co"># load tidyverse and related</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://tidyverse.tidyverse.org" class="external-link">"tidyverse"</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://patchwork.data-imaginist.com" class="external-link">"patchwork"</a></span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://scales.r-lib.org" class="external-link">"scales"</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>; <span class="fu">theme_update</span><span class="op">(</span>panel.grid.minor <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># load furrr for parallel computing</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/DavisVaughan/furrr" class="external-link">"furrr"</a></span><span class="op">)</span>; <span class="fu">furrr_options</span><span class="op">(</span>seed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#  &lt;furrr_options&gt;</span></span>
 <span><span class="fu">plan</span><span class="op">(</span><span class="fu">multisession</span><span class="op">(</span>workers <span class="op">=</span> <span class="fu">parallelly</span><span class="fu">::</span><span class="fu">availableCores</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">param_grid</span> <span class="op">&lt;-</span> <span class="va">param_grid</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>p_val <span class="op">=</span> <span class="fu">future_map2_dbl</span><span class="op">(</span><span class="va">shape</span>, <span class="va">rate</span>, <span class="va">test_for_shape_rate</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>And we visualize the distribution of the <em>p</em>-values over that space, binning the colors to at .05 to highlight the rejections of the tests at the 5% level:</p>
+<span><span class="co"># set parameter values to test</span></span>
+<span><span class="va">n_grid</span> <span class="op">&lt;-</span> <span class="fl">51</span></span>
+<span><span class="va">param_vals</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span>, length.out <span class="op">=</span> <span class="va">n_grid</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">param_grid</span> <span class="op">&lt;-</span> <span class="fu">expand_grid</span><span class="op">(</span><span class="st">"shape"</span> <span class="op">=</span> <span class="va">param_vals</span>, <span class="st">"rate"</span> <span class="op">=</span> <span class="va">param_vals</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#  # A tibble: 2,601 × 2</span></span>
+<span><span class="co">#      shape     rate</span></span>
+<span><span class="co">#      &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span><span class="co">#   1 0.0001 0.0001  </span></span>
+<span><span class="co">#   2 0.0001 0.000145</span></span>
+<span><span class="co">#   3 0.0001 0.000209</span></span>
+<span><span class="co">#   4 0.0001 0.000302</span></span>
+<span><span class="co">#   5 0.0001 0.000437</span></span>
+<span><span class="co">#   6 0.0001 0.000631</span></span>
+<span><span class="co">#   7 0.0001 0.000912</span></span>
+<span><span class="co">#   8 0.0001 0.00132 </span></span>
+<span><span class="co">#   9 0.0001 0.00191 </span></span>
+<span><span class="co">#  10 0.0001 0.00275 </span></span>
+<span><span class="co">#  # ℹ 2,591 more rows</span></span></code></pre></div>
+<p>Here’s what the experiment’s design space looks like:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># make axes labeller</span></span>
+<span><span class="va">fmt</span> <span class="op">&lt;-</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu">math_format</span><span class="op">(</span><span class="fl">10</span><span class="op">^</span><span class="va">.x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># make plot</span></span>
+<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">param_grid</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">shape</span>, <span class="va">rate</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_x_log10</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">alpha</span><span class="op">)</span>, n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">fmt</span><span class="op">(</span><span class="op">-</span><span class="fl">5</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_log10</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">lambda</span><span class="op">)</span>, n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">fmt</span><span class="op">(</span><span class="op">-</span><span class="fl">5</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span><span class="st">"title"</span> <span class="op">=</span> <span class="st">"Parameter Values at Which to Test `rinvgamma()`"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tools/README-unnamed-chunk-15-1.png"><!-- --></p>
+<p>Now, we run our test for each point in the design space in parallel. (Note: we’ve suppressed warnings here that are relevant.)</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">param_grid</span> <span class="op">&lt;-</span> <span class="va">param_grid</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span>p_val <span class="op">=</span> <span class="fu">future_map2_dbl</span><span class="op">(</span><span class="va">shape</span>, <span class="va">rate</span>, <span class="va">test_invgamma</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>And we visualize the distribution of the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-values over that space, binning the colors to at .05 to highlight the rejections of the tests at the 5% level:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">param_grid</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">shape</span>, <span class="va">rate</span>, color <span class="op">=</span> <span class="va">p_val</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_x_log10</span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">label_number</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_y_log10</span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">label_number</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_x_log10</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">alpha</span><span class="op">)</span>, n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">fmt</span><span class="op">(</span><span class="op">-</span><span class="fl">5</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">scale_y_log10</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">lambda</span><span class="op">)</span>, n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">fmt</span><span class="op">(</span><span class="op">-</span><span class="fl">5</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_color_binned</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.05</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span><span class="st">"title"</span> <span class="op">=</span> <span class="st">"KS GoF Test of Draws for Different Parameter Values"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tools/README-unnamed-chunk-16-1.png"></p>
-<p>If the sampler were working correctly, the <em>p</em>-values would be approximately IID uniform(0,1), so we would expect about 5% of the points to be purple, and those 5% would be uniformly distributed over the whole space with no patterns. Obviously, that’s not the case: when the shape parameter is small, the test is always rejecting. Clearly, when <code>shape</code> is small, the sampler does not work well.</p>
-<p>The cutoff seems to be right around <code>shape = .01</code>, so let’s rerun the simulation zooming in on that boundary.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># reset the grid</span></span>
-<span><span class="va">param_vals_small</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2.5</span>, <span class="op">-</span><span class="fl">1.5</span>, length.out <span class="op">=</span> <span class="va">N</span><span class="op">)</span></span>
-<span><span class="va">param_grid</span> <span class="op">&lt;-</span> <span class="fu">expand_grid</span><span class="op">(</span>shape <span class="op">=</span> <span class="va">param_vals_small</span>, rate <span class="op">=</span> <span class="va">param_vals</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="co"># rerun the simulation</span></span>
-<span><span class="va">param_grid</span> <span class="op">&lt;-</span> <span class="va">param_grid</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>p_val <span class="op">=</span> <span class="fu">future_map2_dbl</span><span class="op">(</span><span class="va">shape</span>, <span class="va">rate</span>, <span class="va">test_for_shape_rate</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="co"># plot results</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">param_grid</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">shape</span>, <span class="va">rate</span>, color <span class="op">=</span> <span class="va">p_val</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_x_log10</span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">label_number</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_y_log10</span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">label_number</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_color_binned</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.05</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span><span class="st">"title"</span> <span class="op">=</span> <span class="st">"KS GoF Test of Draws for Different Parameter Values"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tools/README-unnamed-chunk-17-1.png"></p>
-<p>The cutoff appears to be a little below <code>0.01</code>, but I include this in the warning in <code><a href="reference/invgamma.html">rinvgamma()</a></code> as a good rule of thumb. Let’s zoom in a bit more…</p>
+<span>  <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"p value"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">labs</span><span class="op">(</span><span class="st">"title"</span> <span class="op">=</span> <span class="st">"KS GoF Test of Draws for Different Parameter Values"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tools/README-unnamed-chunk-17-1.png"><!-- --></p>
+<p>If the sampler were working correctly, the <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-values would be approximately IID uniform(0,1), so we would expect about 5% of the points to be purple, and those 5% would be uniformly distributed over the whole space with no patterns. Obviously, that’s not the case: when the shape parameter is small, the test is always rejecting. Clearly, when <code>shape</code> is small, the sampler does not work well. Further investigations reveal that, as an easy rule, the sampler can be considered unreliable for <code>shape</code> values less than <code>0.01</code>. As a consequence, <code><a href="reference/invgamma.html">rinvgamma()</a></code> issues a warning in those circumstances. (This warning has been suppressed in the above computations.)</p>
+</div>
+<div class="section level5">
+<h5 id="rinvchisq-and-rinvexp">
+<code>rinvchisq()</code> and <code>rinvexp()</code>
+<a class="anchor" aria-label="anchor" href="#rinvchisq-and-rinvexp"></a>
+</h5>
+<p>Similar investigations using the inverse chi-squared and inverse exponential reveal that <code><a href="reference/invchisq.html">rinvchisq()</a></code> should not be trusted when <code>df &lt;= .01</code> and <code>ncp &lt;= 10</code> and <code><a href="reference/invexp.html">rinvexp()</a></code> is trustworthy for all values. Here is the illustration for the inverse chi-squared:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># reset the grid</span></span>
-<span><span class="va">param_vals_small</span> <span class="op">&lt;-</span> <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2.1</span>, <span class="op">-</span><span class="fl">2</span>, length.out <span class="op">=</span> <span class="va">N</span><span class="op">)</span></span>
-<span><span class="va">param_grid</span> <span class="op">&lt;-</span> <span class="fu">expand_grid</span><span class="op">(</span>shape <span class="op">=</span> <span class="va">param_vals_small</span>, rate <span class="op">=</span> <span class="va">param_vals</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">test_rinvchisq</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">ncp</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/invchisq.html">rinvchisq</a></span><span class="op">(</span><span class="va">n</span>, <span class="va">df</span>, <span class="va">ncp</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html" class="external-link">ks.test</a></span><span class="op">(</span><span class="va">draws</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu"><a href="reference/invchisq.html">pinvchisq</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">df</span>, <span class="va">ncp</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span></span>
+<span><span class="op">}</span></span>
 <span></span>
+<span><span class="fu">expand_grid</span><span class="op">(</span><span class="st">"df"</span> <span class="op">=</span> <span class="va">param_vals</span>, <span class="st">"ncp"</span> <span class="op">=</span> <span class="va">param_vals</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span><span class="st">"p_val"</span> <span class="op">=</span> <span class="fu">future_map2_dbl</span><span class="op">(</span><span class="va">df</span>, <span class="va">ncp</span>, <span class="va">test_rinvchisq</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">df</span>, <span class="va">ncp</span>, color <span class="op">=</span> <span class="va">p_val</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_x_log10</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">nu</span><span class="op">)</span>, n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">fmt</span><span class="op">(</span><span class="op">-</span><span class="fl">5</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_y_log10</span><span class="op">(</span><span class="st">"ncp"</span>, n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">fmt</span><span class="op">(</span><span class="op">-</span><span class="fl">5</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_color_binned</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.05</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">labs</span><span class="op">(</span>color <span class="op">=</span> <span class="st">"p value"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tools/README-unnamed-chunk-18-1.png"><!-- --></p>
+<p>And here is the illustration for the inverse exponential:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">test_rinvexp</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">rate</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">draws</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/invexp.html">rinvexp</a></span><span class="op">(</span><span class="va">n</span>, rate <span class="op">=</span> <span class="va">rate</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/ks.test.html" class="external-link">ks.test</a></span><span class="op">(</span><span class="va">draws</span>, <span class="kw">function</span><span class="op">(</span><span class="va">p</span><span class="op">)</span> <span class="fu"><a href="reference/invexp.html">pinvexp</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">rate</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">p.value</span></span>
+<span><span class="op">}</span></span>
 <span></span>
-<span><span class="co"># rerun the simulation</span></span>
-<span><span class="va">param_grid</span> <span class="op">&lt;-</span> <span class="va">param_grid</span><span class="op">|&gt;</span> </span>
-<span>  <span class="fu">mutate</span><span class="op">(</span>p_val <span class="op">=</span> <span class="fu">future_map2_dbl</span><span class="op">(</span><span class="va">shape</span>, <span class="va">rate</span>, <span class="va">test_for_shape_rate</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="co"># plot results</span></span>
-<span><span class="fu">ggplot</span><span class="op">(</span><span class="va">param_grid</span>, <span class="fu">aes</span><span class="op">(</span><span class="va">shape</span>, <span class="va">rate</span>, color <span class="op">=</span> <span class="va">p_val</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_x_log10</span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">label_number</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_y_log10</span><span class="op">(</span>n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">label_number</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_color_binned</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.05</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span><span class="st">"title"</span> <span class="op">=</span> <span class="st">"KS GoF Test of Draws for Different Parameter Values"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tools/README-unnamed-chunk-18-1.png"></p>
-<p>The simulation confirms that over a reasonably large range of the parameters the quality of the sampler depends almost entirely on <code>shape</code> (though there is roughly a linear dependence on <code>shape</code> and <code>rate</code>). As an easy rule, the sampler can be considered unreliable for <code>shape</code> values less than <code>0.01</code>.</p>
-<p>Similar investigations using the inverse chi-squared and inverse exponential reveal that <code><a href="reference/invchisq.html">rinvchisq()</a></code> should not be trusted when <code>df &lt;= .01</code> and <code>ncp &lt;= 10</code> and <code><a href="reference/invexp.html">rinvexp()</a></code> is trustworthy for all values.</p>
+<span><span class="fu">tibble</span><span class="op">(</span><span class="st">"rate"</span> <span class="op">=</span> <span class="fl">10</span><span class="op">^</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4</span>, <span class="fl">4</span>, length.out <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="va">n_grid</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">mutate</span><span class="op">(</span><span class="st">"p_val"</span> <span class="op">=</span> <span class="fu">future_map_dbl</span><span class="op">(</span><span class="va">rate</span>, <span class="va">test_rinvexp</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu">ggplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span><span class="va">rate</span>, <span class="fl">0</span>, color <span class="op">=</span> <span class="va">p_val</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_x_log10</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">lambda</span><span class="op">)</span>, n.breaks <span class="op">=</span> <span class="fl">10</span>, labels <span class="op">=</span> <span class="fu">fmt</span><span class="op">(</span><span class="op">-</span><span class="fl">5</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">scale_color_binned</span><span class="op">(</span>breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.05</span>, <span class="fl">1</span><span class="op">)</span>, guide <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">theme</span><span class="op">(</span>axis.text.y <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>, axis.title.y <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>          panel.grid.major.y <span class="op">=</span> <span class="fu">element_blank</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu">coord_equal</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="tools/README-unnamed-chunk-19-1.png"><!-- --></p>
 </div>
 </div>
 </div>
