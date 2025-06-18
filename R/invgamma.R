@@ -74,7 +74,6 @@ NULL
 dinvgamma <- function(x, shape, rate = 1, scale = 1/rate, log = FALSE) {
   if(missing(rate) && !missing(scale)) rate <- 1/scale
   log_f <- dgamma(1/x, shape, rate, log = TRUE) - 2*log(x)
-  # log_f[x == 0] <- -Inf
   if(log) log_f else exp(log_f)
 }
 
@@ -100,7 +99,7 @@ pinvgamma <- function(q, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log
 qinvgamma <- function(p, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log.p = FALSE) {
   if(missing(rate) && !missing(scale)) rate <- 1/scale
   if (log.p) {
-    qgamma(p, shape, rate, lower.tail = !lower.tail, log.p = log.p)^(-1)
+    qgamma(  p, shape, rate, lower.tail = !lower.tail, log.p = log.p)^(-1)
   } else {
     qgamma(1-p, shape, rate, lower.tail = lower.tail, log.p = log.p)^(-1)
   }
@@ -130,7 +129,10 @@ qinvgamma <- function(p, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log
 #' @export
 rinvgamma <- function(n, shape, rate = 1, scale = 1/rate) {
   if(missing(rate) && !missing(scale)) rate <- 1/scale
-  if (shape <= .01) warning("`rinvgamma()` is unreliable for `shape` <= .01.", call. = FALSE, immediate. = TRUE)
+  if (shape <= .01) {
+    warning("`rinvgamma()` is unreliable for `shape` <= .01.",
+            call. = FALSE, immediate. = TRUE)
+  }
   1 / rgamma(n, shape, rate)
 }
 

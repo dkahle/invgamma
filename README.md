@@ -8,12 +8,12 @@
 coverage](https://codecov.io/gh/dkahle/invgamma/graph/badge.svg)](https://app.codecov.io/gh/dkahle/invgamma)
 <!-- badges: end -->
 
-**invgamma** implements the `(d/p/q/r)` statistics functions for the
+**invgamma** implements the `[dpqr]` statistics functions for the
 [inverse gamma
 distribution](https://en.wikipedia.org/wiki/Inverse-gamma_distribution)
 in [R](http://cran.r-project.org). It is ideal for using in other
-packages since it is lightweight and leverages the `(d/p/q/r)gamma()`
-line of functions maintained by CRAN.
+packages since it is lightweight and leverages the `[dpqr]gamma()` line
+of functions maintained by CRAN.
 
 *Please see the section on parameterizations below to avoid any
 unintended mistakes!*
@@ -34,7 +34,7 @@ For the development version, use
 devtools::install_github("dkahle/invgamma")
 ```
 
-### The `(d/p/q/r)invgamma()` functions
+### The `[dpqr]invgamma()` functions
 
 The functions in **invgamma** match those for the gamma distribution
 provided by the **stats** package. Namely, it uses as its density *f(x)
@@ -114,7 +114,7 @@ ks.test(
 #  alternative hypothesis: two-sided
 ```
 
-### The `(d/p/q/r)invchisq()` and `(d/p/q/r)invexp()` functions
+### The `[dpqr]invchisq()` and `[dpqr]invexp()` functions
 
 The [gamma
 distribution](https://en.wikipedia.org/wiki/Gamma_distribution) subsumes
@@ -250,8 +250,6 @@ plan(multisession(workers = parallelly::availableCores()))
 
 param_grid <- param_grid |> 
   mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
-
-plan(sequential)
 ```
 
 And we visualize the distribution of the *p*-values over that space,
@@ -286,10 +284,8 @@ param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 
 
 # rerun the simulation
-plan(multisession(workers = parallelly::availableCores()))
 param_grid <- param_grid |> 
   mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
-plan(sequential)
 
 
 # plot results
@@ -314,10 +310,8 @@ param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 
 
 # rerun the simulation
-plan(multisession(workers = parallelly::availableCores()))
 param_grid <- param_grid|> 
   mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
-plan(sequential)
 
 
 # plot results
@@ -336,3 +330,8 @@ parameters the quality of the sampler depends almost entirely on `shape`
 (though there is roughly a linear dependence on `shape` and `rate`). As
 an easy rule, the sampler can be considered unreliable for `shape`
 values less than `0.01`.
+
+Similar investigations using the inverse chi-squared and inverse
+exponential reveal that `rinvchisq()` should not be trusted when
+`df <= .01` and `ncp <= 10` and `rinvexp()` is trustworthy for all
+values.

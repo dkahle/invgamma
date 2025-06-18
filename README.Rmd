@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/dkahle/invgamma/graph/badge.svg)](https://app.codecov.io/gh/dkahle/invgamma)
 <!-- badges: end -->
 
-__invgamma__ implements the `(d/p/q/r)` statistics functions for the [inverse gamma distribution](https://en.wikipedia.org/wiki/Inverse-gamma_distribution) in [R](http://cran.r-project.org).  It is ideal for using in other packages since it is lightweight and leverages the `(d/p/q/r)gamma()` line of functions maintained by CRAN.
+__invgamma__ implements the `[dpqr]` statistics functions for the [inverse gamma distribution](https://en.wikipedia.org/wiki/Inverse-gamma_distribution) in [R](http://cran.r-project.org).  It is ideal for using in other packages since it is lightweight and leverages the `[dpqr]gamma()` line of functions maintained by CRAN.
 
 _Please see the section on parameterizations below to avoid any unintended mistakes!_
 
@@ -42,7 +42,7 @@ devtools::install_github("dkahle/invgamma")
 
 
 
-### The `(d/p/q/r)invgamma()` functions
+### The `[dpqr]invgamma()` functions
 
 The functions in __invgamma__ match those for the gamma distribution provided by the __stats__ package.  Namely, it uses as its density
 _f(x) = (b^a / Gamma(a)) x^-(a+1) e^(-b/x),_
@@ -98,7 +98,7 @@ ks.test(
 
 
 
-### The `(d/p/q/r)invchisq()` and `(d/p/q/r)invexp()` functions
+### The `[dpqr]invchisq()` and `[dpqr]invexp()` functions
 
 The [gamma distribution](https://en.wikipedia.org/wiki/Gamma_distribution) subsumes the [chi-squared](https://en.wikipedia.org/wiki/Chi-squared_distribution) and [exponential](https://en.wikipedia.org/wiki/Exponential_distribution) [distributions](https://en.wikipedia.org/wiki/Probability_distribution#Continuous_probability_distribution), so it makes sense to include the `*invchisq()` and `*invexp()` functions in __invgamma__.  Their implementations, however, wrap `*chisq()` and `*exp()`, not `*invgamma()`.  
 
@@ -177,8 +177,6 @@ plan(multisession(workers = parallelly::availableCores()))
 
 param_grid <- param_grid |> 
   mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
-
-plan(sequential)
 ```
 
 And we visualize the distribution of the $p$-values over that space, binning the colors to at .05 to highlight the rejections of the tests at the 5% level:
@@ -203,10 +201,8 @@ param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 
 
 # rerun the simulation
-plan(multisession(workers = parallelly::availableCores()))
 param_grid <- param_grid |> 
   mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
-plan(sequential)
 
 
 # plot results
@@ -228,10 +224,8 @@ param_grid <- expand_grid(shape = param_vals_small, rate = param_vals)
 
 
 # rerun the simulation
-plan(multisession(workers = parallelly::availableCores()))
 param_grid <- param_grid|> 
   mutate(p_val = future_map2_dbl(shape, rate, test_for_shape_rate))
-plan(sequential)
 
 
 # plot results
@@ -246,3 +240,4 @@ ggplot(param_grid, aes(shape, rate, color = p_val)) +
 The simulation confirms that over a reasonably large range of the parameters the quality of the sampler depends almost entirely on `shape` (though there is roughly a linear dependence on `shape` and `rate`). As an easy rule, the sampler can be considered unreliable for `shape` values less than `0.01`.
 
 
+Similar investigations using the inverse chi-squared and inverse exponential reveal that `rinvchisq()` should not be trusted when `df <= .01` and `ncp <= 10` and `rinvexp()` is trustworthy for all values.

@@ -83,6 +83,10 @@ qinvchisq <- function(p, df, ncp = 0, lower.tail = TRUE, log.p = FALSE) {
 #' @rdname invchisq
 #' @export
 rinvchisq <- function(n, df, ncp = 0) {
+  if (df <= .01 && ncp <= 10) {
+    warning("`rinvchisq()` is unreliable for `df` <= .01 and `ncp` <= 10.",
+            call. = FALSE, immediate. = TRUE)
+  }
   1 / rchisq(n, df, ncp)
 }
 
