@@ -60,8 +60,10 @@ can be evaluated with the `pinvgamma()` function:
 ``` r
 f <- function(x) dinvgamma(x, shape, rate)
 q <- 2
+
 integrate(f, 0, q)
 #  0.7621835 with absolute error < 7.3e-05
+
 (p <- pinvgamma(q, shape, rate))
 #  [1] 0.7621835
 ```
@@ -94,7 +96,8 @@ mean(draws <= q)
 ```
 
 Moreover, we can check the consistency and correctness of the
-implementation with
+implementation with first a [kernel density
+estimate](https://en.wikipedia.org/wiki/Kernel_density_estimation)…
 
 ``` r
 plot(density(draws), xlim = c(0,5))
@@ -103,10 +106,11 @@ curve(f(x), col = "red", add = TRUE)
 
 ![](tools/README-unnamed-chunk-9-1.png)<!-- -->
 
+…and also a [quantile plot](https://en.wikipedia.org/wiki/Q–Q_plot)…
+
 ``` r
-qqplot(
-  ppoints(n) |> qinvgamma(shape, rate),
-  draws,
+qqplot( "x" = ppoints(n) |> qinvgamma(shape, rate), "y" = draws,
+  xlab = "Theoretical quantiles", ylab = "Sample quantiles",
   main = "QQ plot for inverse gamma draws"
 )
 abline(0, 1, col = "red")
@@ -114,7 +118,8 @@ abline(0, 1, col = "red")
 
 ![](tools/README-unnamed-chunk-10-1.png)<!-- -->
 
-As an inferential alternative, we can use a [KS
+Both of these indicate that the samplers are consistent. As an
+inferential alternative, we can use a [KS
 test](https://en.wikipedia.org/wiki/Kolmogorov–Smirnov_test):
 
 ``` r
@@ -179,9 +184,10 @@ point representation of numbers does not provide many numbers) or
 infinity. Example:
 
 ``` r
-rinvgamma(10, shape = 3, rate = 7)
-#   [1] 3.252524 4.540151 2.352486 3.012428 1.679808 2.265310 4.428625 1.836283
-#   [9] 2.276005 1.746593
+rinvgamma(10, shape = .001, rate = 7)
+#  Warning: `rinvgamma()` is unreliable for `shape` <= .01.
+#   [1]           Inf           Inf 1.192692e+213           Inf 3.289218e+167
+#   [6]           Inf           Inf 7.899428e+197  3.938612e+97           Inf
 ```
 
 #### KS tests for sampling accuracy

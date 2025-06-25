@@ -48,7 +48,8 @@ where a = `shape` and b = `rate`.
 
 
 The [PDF](https://en.wikipedia.org/wiki/Probability_density_function) (the _f(x)_ above) can be evaluated with the `dinvgamma()` function:
-```{r, fig.height = 3}
+```{r}
+#| fig.height: 3
 library("invgamma")
 x <- seq(0, 5, .01)
 shape <- 7; rate <- 10
@@ -60,7 +61,9 @@ The [CDF](https://en.wikipedia.org/wiki/Cumulative_distribution_function) can be
 ```{r}
 f <- function(x) dinvgamma(x, shape, rate)
 q <- 2
+
 integrate(f, 0, q)
+
 (p <- pinvgamma(q, shape, rate))
 ```
 
@@ -80,22 +83,25 @@ n <- 1e5
 draws <- rinvgamma(n, shape, rate)
 mean(draws <= q)
 ```
-Moreover, we can check the consistency and correctness of the implementation with
-```{r, fig.height = 3}
+Moreover, we can check the consistency and correctness of the implementation with first a [kernel density estimate](https://en.wikipedia.org/wiki/Kernel_density_estimation)... 
+```{r}
+#| fig.height: 3
 plot(density(draws), xlim = c(0,5))
 curve(f(x), col = "red", add = TRUE)
 ```
 
+...and also a [quantile plot](https://en.wikipedia.org/wiki/Q–Q_plot)...
+
 ```{r}
-qqplot(
-  ppoints(n) |> qinvgamma(shape, rate),
-  draws,
+#| fig.height: 3
+qqplot( "x" = ppoints(n) |> qinvgamma(shape, rate), "y" = draws,
+  xlab = "Theoretical quantiles", ylab = "Sample quantiles",
   main = "QQ plot for inverse gamma draws"
 )
 abline(0, 1, col = "red")
 ```
 
-As an inferential alternative, we can use a [KS test](https://en.wikipedia.org/wiki/Kolmogorov–Smirnov_test):
+Both of these indicate that the samplers are consistent. As an inferential alternative, we can use a [KS test](https://en.wikipedia.org/wiki/Kolmogorov–Smirnov_test):
 
 ```{r}
 ks.test(
@@ -131,11 +137,14 @@ As detailed [here](https://github.com/dkahle/invgamma/issues/1), the parameteriz
 
 One of the challenges to using naive implementations of distributions is that their [numerics](https://en.wikipedia.org/wiki/Floating-point_arithmetic) may not work well. Arithmetic on a computer is not the same as arithmetic in theory, the kind that you meet in math classes, and as a consequence the best computer implementations of mathematical facts/algorithms need to be tailored to the specific cases at hand.
 
-In January 2023 I did a little poking around into this for `rinvgamma()` and found that it performs poorly when the shape parameter is less than .001 or so. The resulting distributions are very heavy-tailed, and the draws from these distributions returned by `rinvgamma()` are so large that they get rounded to either very large numbers (where the floating point representation of numbers does not provide many numbers) or infinity. Example:
+In January 2023 I did a little poking around into this for `rinvgamma()` and found that it performs poorly when the shape parameter is less than .001 or so. The resulting distributions are very heavy-tailed, and the draws from these distributions returned by `rinvgamma()` are so large that they get rounded to either very large numbers (where the floating point representation of numbers does not provide many numbers) or infinity. Here's an example:
 
 ```{r}
-rinvgamma(10, shape = 3, rate = 7)
+#| warn: true
+rinvgamma(10, shape = .001, rate = 7)
 ```
+
+
 
 #### KS tests for sampling accuracy
 
