@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">invgamma</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.900</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,11 +42,15 @@
 <div class="section level3">
 <h3 id="changes-1-2">Changes<a class="anchor" aria-label="anchor" href="#changes-1-2"></a></h3>
 <ul><li>
-<code><a href="../reference/invgamma.html">rinvgamma()</a></code> now errors for <code>shape</code> parameter less than 0.01, as it is unreliable there.</li>
+<code><a href="../reference/invgamma.html">rinvgamma()</a></code> now warns for <code>shape</code> less than 0.01, as it is unreliable there.</li>
+<li>
+<code><a href="../reference/invchisq.html">rinvchisq()</a></code> now warns for <code>df &lt;= .01</code> and <code>ncp &lt;= 10</code>, as it is unreliable there.</li>
+<li>PDF functions now return <code>0</code> at <code>x = 0</code> and <code>-Inf</code> at <code>x = 0</code> on a log scale, consistent with the gamma distribution functions.</li>
 <li>
 <strong>invgamma</strong> now cautions users about the parameterizations used in <code>(d/p/q/r)invgamma()</code> functions.</li>
 <li>
 <strong>invgamma</strong> now has a MIT license.</li>
+<li>Quantile functions now perform properly on a log scale, thanks to Keefe Murphy!</li>
 </ul></div>
 </div>
     <div class="section level2">

@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">invgamma</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.900</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -143,12 +143,13 @@
 </h3>
 <p><strong>invgamma</strong> was intended to be a lightweight and simple, largely self-maintaining package implementing the inverse gamma, inverse chi-square, and inverse exponential distributions. It uses <a href="https://en.wikipedia.org/wiki/Random_variable#Functions_of_random_variables" class="external-link">the transformation theorem</a> in all cases.</p>
 <p>One of the challenges to using naive implementations of distributions is that their <a href="https://en.wikipedia.org/wiki/Floating-point_arithmetic" class="external-link">numerics</a> may not work well. Arithmetic on a computer is not the same as arithmetic in theory, the kind that you meet in math classes, and as a consequence the best computer implementations of mathematical facts/algorithms need to be tailored to the specific cases at hand.</p>
-<p>In January 2023 I did a little poking around into this for <code><a href="reference/invgamma.html">rinvgamma()</a></code> and found that it performs poorly when the shape parameter is less than .001 or so. The resulting distributions are very heavy-tailed, and the draws from these distributions returned by <code><a href="reference/invgamma.html">rinvgamma()</a></code> are so large that they get rounded to either very large numbers (where the floating point representation of numbers does not provide many numbers) or infinity. Example:</p>
+<p>In January 2023 I did a little poking around into this for <code><a href="reference/invgamma.html">rinvgamma()</a></code> and found that it performs poorly when the shape parameter is less than .001 or so. The resulting distributions are very heavy-tailed, and the draws from these distributions returned by <code><a href="reference/invgamma.html">rinvgamma()</a></code> are so large that they get rounded to either very large numbers (where the floating point representation of numbers does not provide many numbers) or infinity. Here’s an example:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/invgamma.html">rinvgamma</a></span><span class="op">(</span><span class="fl">10</span>, shape <span class="op">=</span> <span class="fl">.001</span>, rate <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
 <span><span class="co">#  Warning: `rinvgamma()` is unreliable for `shape` &lt;= .01.</span></span>
 <span><span class="co">#   [1]           Inf           Inf 1.192692e+213           Inf 3.289218e+167</span></span>
 <span><span class="co">#   [6]           Inf           Inf 7.899428e+197  3.938612e+97           Inf</span></span></code></pre></div>
+<p>Notice that <code><a href="reference/invgamma.html">rinvgamma()</a></code> issues a warning in this circumstance; this is the general behavior of <strong>invgamma</strong>: if a particular parameter configuration is known to not produce valid results, a warning is issued.</p>
 <div class="section level4">
 <h4 id="ks-tests-for-sampling-accuracy">KS tests for sampling accuracy<a class="anchor" aria-label="anchor" href="#ks-tests-for-sampling-accuracy"></a>
 </h4>
