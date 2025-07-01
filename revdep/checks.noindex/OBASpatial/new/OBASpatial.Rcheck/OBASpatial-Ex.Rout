@@ -1,0 +1,551 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "OBASpatial"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('OBASpatial')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("dnsrposoba")
+> ### * dnsrposoba
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dnsrposoba
+> ### Title: Objective posterior density for the NSR model
+> ### Aliases: dnsrposoba
+> 
+> ### ** Examples
+> 
+> 
+> 
+> data(dataelev)
+> 
+> ######### Using reference prior ###########
+> dnsrposoba(x=5,prior="reference",formula=elevation~1,
++ kappa=1,cov.model="matern",data=dataelev)
+             [,1]
+[1,] 2.338614e-73
+> 
+> ######### Using Jeffreys' rule prior ###########
+> dnsrposoba(x=5,prior="jef.rul",formula=elevation~1,
++ kappa=1,cov.model="matern",data=dataelev)
+             [,1]
+[1,] 4.827383e-75
+> 
+> ######### Using vague independent prior ###########
+> dnsrposoba(x=5,prior="vague",formula=elevation~1,
++ kappa=0.3,cov.model="matern",data=dataelev,intphi=c(0.1,10))
+             [,1]
+[1,] 1.738054e-80
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dnsrprioroba")
+> ### * dnsrprioroba
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dnsrprioroba
+> ### Title: Objective prior density for the NSR model
+> ### Aliases: dnsrprioroba
+> 
+> ### ** Examples
+> 
+> 
+> data(dataelev)## data using by Berger et. al (2001)
+> 
+> ######### Using reference prior ###########
+> dnsrprioroba(x=20,kappa=0.3,cov.model="matern",data=dataelev)
+[1] 0.008085687
+> 
+> 
+> ######### Using jef.rule prior###########
+> dnsrprioroba(x=20,prior="jef.rul",kappa=0.3,cov.model="matern",
++ data=dataelev)
+[1] 0.05616234
+> 
+> ######### Using  jef.ind prior ###########
+> dnsrprioroba(x=20,prior="jef.ind",trend=0,
++ kappa=0.3,cov.model="matern",data=dataelev)
+[1] 0.04494265
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dtsrposoba")
+> ### * dtsrposoba
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dtsrposoba
+> ### Title: Objective posterior density for the TSR model
+> ### Aliases: dtsrposoba
+> 
+> ### ** Examples
+> 
+> data(dataca20)
+> 
+> ######### Using reference prior ###########
+> dtsrposoba(x=c(5,11),prior="reference",formula=calcont~altitude+area,
++ kappa=0.3,cov.model="matern",data=dataca20)
+              [,1]
+[1,] 2.721604e-179
+> 
+> ######### Using Jeffreys' rule prior ###########
+> dtsrposoba(x=c(5,11),prior="jef.rul",formula=calcont~altitude+area,
++ kappa=0.3,cov.model="matern",data=dataca20)
+              [,1]
+[1,] 5.196067e-180
+> 
+> 
+> ######### Using Jeffreys' independent prior ###########
+> dtsrposoba(x=c(5,11),prior="jef.ind",formula=calcont~altitude+area
++ ,kappa=0.3,cov.model="matern",data=dataca20)
+              [,1]
+[1,] 3.095632e-186
+> 
+> ######### Using vague independent prior ###########
+> dtsrposoba(x=c(5,11,.3),prior="vague",formula=calcont~altitude+area,
++ kappa=0.3,cov.model="matern",data=dataca20,intphi=c(0.1,10),
++ intnu=c(4.1,30))
+              [,1]
+[1,] 4.952856e-180
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dtsrprioroba")
+> ### * dtsrprioroba
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dtsrprioroba
+> ### Title: Objective prior density for the TSR model
+> ### Aliases: dtsrprioroba
+> 
+> ### ** Examples
+> 
+> data(dataca20)
+> 
+> ######### Using reference prior and a constant trend###########
+> dtsrprioroba(x=c(6,100),kappa=0.3,cov.model="matern",data=dataca20)
+[1] 0.0003875967
+> 
+> 
+> ######### Using jef.rule prior and 1st trend###########
+> dtsrprioroba(x=c(6,100),prior="jef.rul",trend=~altitude+area,
++ kappa=0.3,cov.model="matern",data=dataca20)
+[1] 0.1216191
+> 
+> ######### Using  jef.ind prior ###########
+> dtsrprioroba(x=c(6,100),prior="jef.ind",trend=0,
++ kappa=0.3,cov.model="matern",data=dataca20)
+[1] 6.515983e-05
+> 
+> 
+> 
+> cleanEx()
+> nameEx("intmT")
+> ### * intmT
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: intmT
+> ### Title: Marginal posterior density for a model.
+> ### Aliases: intmT
+> 
+> ### ** Examples
+> 
+> 
+> ## Don't show: 
+> set.seed(25)
+> data(dataca20)
+> 
+> ######### Using reference prior ###########
+> m1=intmT(prior="reference",formula=calcont~altitude+area,
++ kappa=0.3,cov.model="matern",data=dataca20,maxEval=1)
+> 
+> ## End(Don't show)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("intmnorm")
+> ### * intmnorm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: intmnorm
+> ### Title: Marginal posterior density for a model.
+> ### Aliases: intmnorm
+> 
+> ### ** Examples
+> 
+> 
+> ## Don't show: 
+> data(dataca20)
+> 
+> set.seed(25)
+> data(dataelev)## data using by Berger et. al (2001)
+> 
+> ######### Using reference prior ###########
+> m1=intmnorm(prior="reference",formula=elevation~1,
++ kappa=0.5,cov.model="matern",data=dataelev,maxEval=1)
+> 
+> log(m1)
+[1] -169.224
+> 
+> 
+> ######### Using reference prior kappa=1 ###########
+> m2=intmnorm(prior="reference",formula=elevation~1,
++ kappa=1,cov.model="matern",data=dataelev,maxEval=1)
+> log(m2)
+[1] -167.0761
+> 
+> ######### Using reference prior kappa=1.5 ###########
+> m3=intmnorm(prior="reference",formula=elevation~1
++ ,kappa=1.5,cov.model="matern",data=dataelev,maxEval=1)
+> log(m3)
+[1] -169.0016
+> 
+> tot=m1+m2+m3
+> 
+> ########posterior probabilities: higher probability:
+> #########prior="reference", kappa=1
+> p1=m1/tot
+> p2=m2/tot
+> p3=m3/tot
+> 
+> 
+> ## End(Don't show)
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("nsroba")
+> ### * nsroba
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: nsroba
+> ### Title: Bayesian estimation for the NSR model.
+> ### Aliases: nsroba
+> 
+> ### ** Examples
+> 
+> 
+> ## Don't show: 
+> set.seed(25)
+> data(dataelev)
+> 
+> 
+> ######covariance matern: kappa=0.5
+> res=nsroba(elevation~1, kappa = 0.5, cov.model = "matern", data=dataelev,
++ ini.pars=c(10,390),iter=2,burn=0,thin=1)
+Iteration  1  of  2 > 
+> summary(res)
+
+Call:
+summary.nsroba(object = res)
+
+
+
+---------------------------------------------------
+  Objective Bayesian Analysis for NSR model  
+---------------------------------------------------
+
+*Formula:
+elevation ~ 1
+
+*Prior: reference
+*Covariance structure: matern
+---------
+Estimates
+---------
+
+       beta 0   sigma2      phi
+[1,] 879.7731 3326.603 195.5943
+> 
+> ## End(Don't show)
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("nsrobapred")
+> ### * nsrobapred
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: nsrobapred1
+> ### Title: Prediction under Normal Objective Bayesian Analysis (OBA).
+> ### Aliases: nsrobapred1
+> 
+> ### ** Examples
+> 
+> 
+> 
+> ## Don't show: 
+> set.seed(25)
+> data(dataelev)
+> d1=dataelev[1:42,]
+> 
+> reselev=nsroba(elevation~1, kappa = 0.5, cov.model = "matern", data=d1,
++ ini.pars=c(10,3),intphi=c(0.8,10),iter=2,burn=0,thin=1)
+Iteration  1  of  2 > 
+> datapred1=dataelev[43:52,]
+> coordspred1=datapred1[,1:2]
+> nsrobapred1(obj=reselev,coordspred=coordspred1,xpred=rep(1,10))
+$pred
+ [1] 922.2659 909.8248 911.5080 936.5461 890.5575 903.5605 898.6847 910.1996
+ [9] 874.8795 677.7674
+
+$intcre
+          [,1]     [,2]     [,3]     [,4]     [,5]     [,6]     [,7]     [,8]
+lower 897.0968 909.2049 882.2828 893.8061 882.5454 885.5714 886.0390 895.1697
+upper 947.4350 910.4447 940.7332 979.2861 898.5696 921.5495 911.3305 925.2295
+          [,9]    [,10]
+lower 826.4640 656.0425
+upper 923.2949 699.4923
+
+> ## End(Don't show)
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("summary.nsroba")
+> ### * summary.nsroba
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: summary.nsroba
+> ### Title: Summary of a nsroba object
+> ### Aliases: summary.nsroba
+> 
+> ### ** Examples
+> 
+> 
+> ## Don't show: 
+> set.seed(25)
+> data(dataelev)
+> 
+> 
+> ######covariance matern: kappa=0.5
+> resa=nsroba(elevation~1, kappa = 0.5, cov.model = "matern", data=dataelev,
++ ini.pars=c(10,3),iter=2,burn=0,thin=1)
+Iteration  1  of  2 > summary(resa)
+
+Call:
+summary.nsroba(object = resa)
+
+
+
+---------------------------------------------------
+  Objective Bayesian Analysis for NSR model  
+---------------------------------------------------
+
+*Formula:
+elevation ~ 1
+
+*Prior: reference
+*Covariance structure: matern
+---------
+Estimates
+---------
+
+       beta 0   sigma2 phi
+[1,] 885.9416 5040.563   3
+> 
+> ## End(Don't show)
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("summary.tsroba")
+> ### * summary.tsroba
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: summary.tsroba
+> ### Title: Summary of a nsroba object
+> ### Aliases: summary.tsroba
+> 
+> ### ** Examples
+> 
+> 
+> ## Don't show: 
+> 
+> set.seed(25)
+> data(dataca20)
+> d1=dataca20[1:158,]
+> 
+> ######covariance matern: kappa=0.3 prior:reference
+> rest=tsroba(calcont~altitude+area, kappa = 0.3, data=d1,
++            ini.pars=c(10,3,10),iter=2,burn=0,thin=1)
+Iteration  1  of  2 > 
+> summary(rest)
+
+Call:
+summary.tsroba(object = rest)
+
+
+
+---------------------------------------------------
+  Objective Bayesian Analysis for TSR model  
+---------------------------------------------------
+
+*Formula:
+calcont ~ altitude + area
+
+*Prior: reference
+*Covariance structure: matern
+---------
+Estimates
+---------
+
+      beta 0  beta 1 beta 2  beta 3  sigma2 phi nu
+[1,] 45.5097 -1.2761 6.7273 16.1283 56.2957   3 10
+> 
+> ## End(Don't show)
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("tsroba")
+> ### * tsroba
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: tsroba
+> ### Title: Bayesian estimation for the TSR model.
+> ### Aliases: tsroba
+> 
+> ### ** Examples
+> 
+> 
+> ## Don't show: 
+> 
+> set.seed(25)
+> data(dataca20)
+> d1=dataca20[1:158,]
+> 
+> xpred=model.matrix(calcont~altitude+area,data=dataca20[159:178,])
+> xobs=model.matrix(calcont~altitude+area,data=dataca20[1:158,])
+> coordspred=dataca20[159:178,1:2]
+> 
+> ######covariance matern: kappa=0.3 prior:reference
+> res=tsroba(calcont~altitude+area, kappa = 0.3, data=d1,
++            ini.pars=c(10,390,10),iter=2,burn=0,thin=1)
+Iteration  1  of  2 > 
+> ## End(Don't show)
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("tsrobapred")
+> ### * tsrobapred
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: tsrobapred
+> ### Title: Prediction under Student-t Objective Bayesian Analysis (OBA).
+> ### Aliases: tsrobapred
+> 
+> ### ** Examples
+> 
+> ## Don't show: 
+> set.seed(25)
+> data(dataca20)
+> d1=dataca20[1:158,]
+> 
+> ######covariance matern: kappa=0.3 prior:reference
+> res=tsroba(calcont~altitude+area, kappa = 0.3, data=d1,
++ ini.pars=c(10,3,10),iter=2,thin=1,burn=0)
+Iteration  1  of  2 > 
+> datapred=dataca20[159:178,]
+> formula=calcont~altitude+area
+> xpred=model.matrix(formula,data=datapred)
+> 
+> tsrobapred(res,xpred=xpred,coordspred=dataca20[159:178,1:2])
+$pred
+ [1] 54.87968 48.64254 38.45412 47.48023 30.83635 48.41620 42.97663 48.50260
+ [9] 54.18346 49.38548 55.46828 54.39433 41.42627 40.63850 57.65584 44.70137
+[17] 55.53036 44.84752 55.34541 51.03005
+
+$intcre
+         lower    upper
+ [1,] 53.30426 56.45510
+ [2,] 45.11832 52.16677
+ [3,] 33.74748 43.16076
+ [4,] 40.44041 54.52006
+ [5,] 30.04451 31.62819
+ [6,] 45.95440 50.87800
+ [7,] 42.69136 43.26189
+ [8,] 44.84561 52.15958
+ [9,] 51.40621 56.96071
+[10,] 43.72363 55.04733
+[11,] 48.25042 62.68613
+[12,] 48.30831 60.48035
+[13,] 33.18113 49.67142
+[14,] 37.58045 43.69656
+[15,] 55.54646 59.76523
+[16,] 29.43070 59.97205
+[17,] 54.28555 56.77516
+[18,] 43.65380 46.04125
+[19,] 55.19997 55.49086
+[20,] 44.22462 57.83548
+
+> ## End(Don't show)
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  1.997 0.134 2.498 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

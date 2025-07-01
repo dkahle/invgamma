@@ -1,0 +1,717 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "catalytic"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('catalytic')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("cat_cox")
+> ### * cat_cox
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_cox
+> ### Title: Catalytic Cox Proportional Hazards Model (COX) Fitting Function
+> ###   with Fixed Tau
+> ### Aliases: cat_cox
+> 
+> ### ** Examples
+> 
+> library(survival)
+> data("cancer")
+> cancer$status[cancer$status == 1] <- 0
+> cancer$status[cancer$status == 2] <- 1
+> 
+> cat_init <- cat_cox_initialization(
++   formula = Surv(time, status) ~ 1, # formula for simple model
++   data = cancer,
++   syn_size = 100, # Synthetic data size
++   hazard_constant = 0.1, # Hazard rate value
++   entry_points = rep(0, nrow(cancer)), # Entry points of each observation
++   x_degree = rep(1, ncol(cancer) - 2), # Degrees for polynomial expansion of predictors
++   resample_only = FALSE, # Whether to perform resampling only
++   na_replace = stats::na.omit # How to handle NA values in data
++ )
+> 
+> cat_model_cre <- cat_cox(
++   formula = ~.,
++   cat_init = cat_init, # Only accept object generated from `cat_cox_initialization`
++   tau = 1, # Weight for synthetic data
++   method = "CRE", # Choose from `"CRE"` or `"WME"`
++   init_coefficients = rep(0, ncol(cat_init$x)), # Initial coefficient values (Only for `CRE`)
++   tol = 1e-1, # Tolerance for convergence criterion  (Only for `CRE`)
++   max_iter = 3 # Maximum number of iterations for convergence  (Only for `CRE`)
++ )
+> cat_model_cre
+cat_cox
+ formula:                survival::Surv(time, status) ~ .
+ covariates dimention:   167 (Observation) + 100 (Synthetic) = 267 rows with 8 column(s)
+ tau:                    1
+ method:                 CRE
+ iter:                   3 / 3
+------
+coefficients' information:
+     inst       age       sex   ph.ecog  ph.karno pat.karno  meal.cal   wt.loss 
+   -0.027    -0.008    -0.631     0.516     0.005    -0.018     0.000    -0.017 
+
+------
+* For help interpreting the printed output see ?print.cat
+> 
+> cat_model_wme <- cat_cox(
++   formula = ~.,
++   cat_init = cat_init, # Only accept object generated from `cat_cox_initialization`
++   tau = 1, # Weight for synthetic data
++   method = "WME"
++ )
+> cat_model_wme
+cat_cox
+ formula:                survival::Surv(time, status) ~ .
+ covariates dimention:   167 (Observation) + 100 (Synthetic) = 267 rows with 8 column(s)
+ tau:                    1
+ method:                 WME
+------
+coefficients' information:
+     inst       age       sex   ph.ecog  ph.karno pat.karno  meal.cal   wt.loss 
+   -0.029     0.012    -0.558     0.887     0.026    -0.011     0.000    -0.016 
+
+------
+* For help interpreting the printed output see ?print.cat
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:survival’
+
+> nameEx("cat_cox_bayes")
+> ### * cat_cox_bayes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_cox_bayes
+> ### Title: Bayesian Estimation for Catalytic Cox Proportional-Hazards Model
+> ###   (COX) with Fixed tau
+> ### Aliases: cat_cox_bayes
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cat_cox_bayes_joint")
+> ### * cat_cox_bayes_joint
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_cox_bayes_joint
+> ### Title: Bayesian Estimation for Catalytic Cox Proportional-Hazards Model
+> ###   (COX) with adaptive tau
+> ### Aliases: cat_cox_bayes_joint
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cat_cox_initialization")
+> ### * cat_cox_initialization
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_cox_initialization
+> ### Title: Initialization for Catalytic Cox proportional hazards model
+> ###   (COX)
+> ### Aliases: cat_cox_initialization
+> 
+> ### ** Examples
+> 
+> library(survival)
+> data("cancer")
+> cancer$status[cancer$status == 1] <- 0
+> cancer$status[cancer$status == 2] <- 1
+> 
+> cat_init <- cat_cox_initialization(
++   formula = Surv(time, status) ~ 1, # formula for simple model
++   data = cancer,
++   syn_size = 100, # Synthetic data size
++   hazard_constant = NULL, # Hazard rate value
++   entry_points = rep(0, nrow(cancer)), # Entry points of each observation
++   x_degree = rep(1, ncol(cancer) - 2), # Degrees for polynomial expansion of predictors
++   resample_only = FALSE, # Whether to perform resampling only
++   na_replace = stats::na.omit # How to handle NA values in data
++ )
+> cat_init
+cat_cox_initialization
+ formula:               Surv(time, status) ~ 1
+ covariates dimention:  167 (Observation) + 100 (Synthetic) = 267 rows with 8 column(s)
+------
+Observation Data Information:
+ covariates dimention:  167 rows with  8 column(s)
+ head(data) :              
+ [only show the head of first 10 columns] 
+
+  inst time status age sex ph.ecog ph.karno pat.karno meal.cal wt.loss
+2    3  455      1  68   1       0       90        90     1225      15
+4    5  210      1  57   1       1       90        60     1150      11
+6   12 1022      0  74   1       1       50        80      513       0
+7    7  310      1  68   2       2       70        60      384      10
+8   11  361      1  71   2       2       60        80      538       1
+9    1  218      1  53   1       1       70        80      825      16
+
+------
+Synthetic Data Information:
+ covariates dimention:  100 rows with  8  column(s)
+ head(data):              
+ [only show the head of first 10 columns] 
+
+  inst age sex ph.ecog ph.karno pat.karno  meal.cal     wt.loss       time
+1   13  59   1       0       80        70 1039.0000   0.7224015  491.25232
+2   22  80   2       0       80        90  781.4762  34.0000000 1092.88054
+3    1  69   2       0       80        70 1099.3078   3.4745579   64.40139
+4   22  71   2       1       90       100  191.9218  10.0000000  133.47819
+5    1  64   2       2       60        80  628.5031 -24.0000000  277.94995
+6    6  68   1       0       70        80  910.0000  13.0000000  523.31959
+  status
+1      1
+2      1
+3      1
+4      1
+5      1
+6      1
+
+ data generation process:
+ [only show the first 10 columns] 
+
+               Covariate                   Type                Process
+1 inst                   Continuous             Coordinate            
+2 age                    Continuous             Coordinate            
+3 sex                    Category               Coordinate            
+4 ph.ecog                Continuous             Coordinate            
+5 ph.karno               Continuous             Coordinate            
+6 pat.karno              Continuous             Coordinate            
+7 meal.cal               Continuous             Coordinate->Deskewing 
+8 wt.loss                Continuous             Coordinate->Deskewing 
+
+------
+* For help interpreting the printed output see ?print.cat_initialization
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:survival’
+
+> nameEx("cat_cox_tune")
+> ### * cat_cox_tune
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_cox_tune
+> ### Title: Catalytic Cox Proportional-Hazards Model (COX) Fitting Function
+> ###   by Tuning tau from a Sequence of tau Values
+> ### Aliases: cat_cox_tune
+> 
+> ### ** Examples
+> 
+> library(survival)
+> data("cancer")
+> cancer$status[cancer$status == 1] <- 0
+> cancer$status[cancer$status == 2] <- 1
+> 
+> cat_init <- cat_cox_initialization(
++   formula = Surv(time, status) ~ 1, # formula for simple model
++   data = cancer,
++   syn_size = 100, # Synthetic data size
++   hazard_constant = 0.1, # Hazard rate value
++   entry_points = rep(0, nrow(cancer)), # Entry points of each observation
++   x_degree = rep(1, ncol(cancer) - 2), # Degrees for polynomial expansion of predictors
++   resample_only = FALSE, # Whether to perform resampling only
++   na_replace = stats::na.omit # How to handle NA values in data
++ )
+> 
+> cat_model <- cat_cox_tune(
++   formula = ~., # Should at least include response variables
++   cat_init = cat_init, # Only accept object generated from `cat_cox_initialization`
++   tau_seq = c(1, 2), # Vector of weights for synthetic data
++   cross_validation_fold_num = 5 # number of folds for cross-validation
++ )
+> cat_model
+cat_cox_tune
+ formula:                 survival::Surv(time, status) ~ .
+ covariates dimention:    167 (Observation) + 100 (Synthetic) = 267 rows with 8 column(s)
+ tau sequnce:             1, 2
+
+ optimal tau:             1
+ method:                  CRE
+ maximun likelihood:      -119.78
+------
+coefficients' information:
+
+     inst       age       sex   ph.ecog  ph.karno pat.karno  meal.cal   wt.loss 
+   -0.027    -0.009    -0.642     0.484     0.004    -0.019     0.000    -0.017 
+
+------
+* For help interpreting the printed output see ?print.cat_tune
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:survival’
+
+> nameEx("cat_glm")
+> ### * cat_glm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_glm
+> ### Title: Catalytic Generalized Linear Models (GLMs) Fitting Function with
+> ###   Fixed Tau
+> ### Aliases: cat_glm
+> 
+> ### ** Examples
+> 
+> gaussian_data <- data.frame(
++   X1 = stats::rnorm(10),
++   X2 = stats::rnorm(10),
++   Y = stats::rnorm(10)
++ )
+> 
+> cat_init <- cat_glm_initialization(
++   formula = Y ~ 1, # formula for simple model
++   data = gaussian_data,
++   syn_size = 100, # Synthetic data size
++   custom_variance = NULL, # User customized variance value
++   gaussian_known_variance = TRUE, # Indicating whether the data variance is known
++   x_degree = c(1, 1), # Degrees for polynomial expansion of predictors
++   resample_only = FALSE, # Whether to perform resampling only
++   na_replace = stats::na.omit # How to handle NA values in data
++ )
+> 
+> cat_model <- cat_glm(
++   formula = ~.,
++   cat_init = cat_init, # Only accept object generated from `cat_glm_initialization`
++   tau = 1 # Weight for synthetic data
++ )
+> cat_model
+cat_glm
+ formula:                Y ~ .
+ covariates dimention:   10 (Observation) + 100 (Synthetic) = 110 rows with 2 column(s)
+ tau:                    1
+ family:                 gaussian [identity]
+------
+coefficients' information:
+(Intercept)          X1          X2 
+     -0.149      -0.643       0.339 
+
+------
+* For help interpreting the printed output see ?print.cat
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cat_glm_bayes")
+> ### * cat_glm_bayes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_glm_bayes
+> ### Title: Bayesian Estimation for Catalytic Generalized Linear Models
+> ###   (GLMs) with Fixed tau
+> ### Aliases: cat_glm_bayes
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cat_glm_bayes_joint")
+> ### * cat_glm_bayes_joint
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_glm_bayes_joint
+> ### Title: Bayesian Estimation for Catalytic Generalized Linear Models
+> ###   (GLMs) with adaptive tau
+> ### Aliases: cat_glm_bayes_joint
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cat_glm_bayes_joint_gibbs")
+> ### * cat_glm_bayes_joint_gibbs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_glm_bayes_joint_gibbs
+> ### Title: Bayesian Estimation with Gibbs Sampling for Catalytic
+> ###   Generalized Linear Models (GLMs) Binomial Family for Coefficients and
+> ###   tau
+> ### Aliases: cat_glm_bayes_joint_gibbs
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cat_glm_initialization")
+> ### * cat_glm_initialization
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_glm_initialization
+> ### Title: Initialization for Catalytic Generalized Linear Models (GLMs)
+> ### Aliases: cat_glm_initialization
+> 
+> ### ** Examples
+> 
+> gaussian_data <- data.frame(
++   X1 = stats::rnorm(10),
++   X2 = stats::rnorm(10),
++   Y = stats::rnorm(10)
++ )
+> 
+> cat_init <- cat_glm_initialization(
++   formula = Y ~ 1, # formula for simple model
++   data = gaussian_data,
++   syn_size = 100, # Synthetic data size
++   custom_variance = NULL, # User customized variance value
++   gaussian_known_variance = TRUE, # Indicating whether the data variance is known
++   x_degree = c(1, 1), # Degrees for polynomial expansion of predictors
++   resample_only = FALSE, # Whether to perform resampling only
++   na_replace = stats::na.omit # How to handle NA values in data
++ )
+> cat_init
+cat_glm_initialization
+ formula:               Y ~ 1
+ model:                 Known Variance: Generates variance based on data and function.
+ custom variance:       NULL
+ family:                gaussian [identity]
+ covariates dimention:  10 (Observation) + 100 (Synthetic) = 110 rows with 2 column(s)
+------
+Observation Data Information:
+ covariates dimention:  10 rows with  2 column(s)
+ head(data) :              
+ [only show the head of first 10 columns] 
+
+          X1          X2           Y
+1 -0.6264538  1.51178117  0.91897737
+2  0.1836433  0.38984324  0.78213630
+3 -0.8356286 -0.62124058  0.07456498
+4  1.5952808 -2.21469989 -1.98935170
+5  0.3295078  1.12493092  0.61982575
+6 -0.8204684 -0.04493361 -0.05612874
+
+------
+Synthetic Data Information:
+ covariates dimention:  100 rows with  2  column(s)
+ head(data):              
+ [only show the head of first 10 columns] 
+
+          X1         X2          Y
+1 -0.8356286  0.5953590 -0.1336732
+2 -0.3053884  0.6855034 -0.1336732
+3 -0.8204684  0.3898432 -0.1336732
+4  0.7383247  0.5939013 -0.1336732
+5  0.1836433  0.7523157 -0.1336732
+6  0.1836433 -0.7461351 -0.1336732
+
+ data generation process:
+ [only show the first 10 columns] 
+
+               Covariate                   Type                Process
+1 X1                     Continuous             Coordinate            
+2 X2                     Continuous             Coordinate->Deskewing 
+
+------
+* For help interpreting the printed output see ?print.cat_initialization
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cat_glm_tune")
+> ### * cat_glm_tune
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_glm_tune
+> ### Title: Catalytic Generalized Linear Models (GLMs) Fitting Function by
+> ###   Tuning tau from a Sequence of tau Values
+> ### Aliases: cat_glm_tune
+> 
+> ### ** Examples
+> 
+> gaussian_data <- data.frame(
++   X1 = stats::rnorm(10),
++   X2 = stats::rnorm(10),
++   Y = stats::rnorm(10)
++ )
+> 
+> cat_init <- cat_glm_initialization(
++   formula = Y ~ 1, # formula for simple model
++   data = gaussian_data,
++   syn_size = 100, # Synthetic data size
++   custom_variance = NULL, # User customized variance value
++   gaussian_known_variance = TRUE, # Indicating whether the data variance is known
++   x_degree = c(1, 1), # Degrees for polynomial expansion of predictors
++   resample_only = FALSE, # Whether to perform resampling only
++   na_replace = stats::na.omit # How to handle NA values in data
++ )
+> 
+> cat_model <- cat_glm_tune(
++   formula = ~.,
++   cat_init = cat_init, # Only accept object generated from `cat_glm_initialization`
++   risk_estimate_method = "parametric_bootstrap",
++   discrepancy_method = "mean_square_error",
++   tau_seq = c(1, 2), # Weight for synthetic data
++   tau_0 = 2,
++   parametric_bootstrap_iteration_times = 20, # Number of bootstrap iterations
++   cross_validation_fold_num = 5 # Number of folds
++ )
+> cat_model
+cat_glm_tune
+ formula:                 Y ~ .
+ covariates dimention:    10 (Observation) + 100 (Synthetic) = 110 rows with 2 column(s)
+ tau sequnce:             1, 2
+ family:                  gaussian
+ risk estimate method:    parametric_bootstrap
+ discrepancy method:      mean_square_error
+
+ optimal tau:             2
+ minimun risk estimate:   2.102
+------
+coefficients' information:
+
+(Intercept)          X1          X2 
+     -0.163      -0.599       0.328 
+
+------
+* For help interpreting the printed output see ?print.cat_tune
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cat_lmm")
+> ### * cat_lmm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_lmm
+> ### Title: Catalytic Linear Mixed Model (LMM) Fitting Function with fixed
+> ###   tau
+> ### Aliases: cat_lmm
+> 
+> ### ** Examples
+> 
+> data(mtcars)
+> cat_init <- cat_lmm_initialization(
++   formula = mpg ~ wt + (1 | cyl), # formula for simple model
++   data = mtcars,
++   x_cols = c("wt"), # Fixed effects
++   y_col = "mpg", # Response variable
++   z_cols = c("disp", "hp", "drat", "qsec", "vs", "am", "gear", "carb"), # Random effects
++   group_col = "cyl", # Grouping column
++   syn_size = 100, # Synthetic data size
++   resample_by_group = FALSE, # Resampling option
++   resample_only = FALSE, # Resampling method
++   na_replace = mean # NA replacement method
++ )
+> 
+> cat_model <- cat_lmm(
++   cat_init = cat_init, # Only accept object generated from cat_lmm_initialization
++   tau = 1, # Weight for synthetic data
++   residual_variance_0 = 1, # Initial value for residual variance
++   random_effect_variance_0 = 1, # Initial value for random effect variance
++   coefs_0 = c(1), # Initial coefficient vector
++   optimize_domain = c(0, 10), # Optimization range for residual and random effect variance
++   max_iter = 2, # Maximum number of iterations for convergence
++   tol = 1e-01 # Tolerance for convergence criterion
++ )
+> cat_model
+cat_lmm
+ formula:                NULL
+ covariates dimention:   32 (Observation) + 100 (Synthetic) = 132 rows with 1 column(s)
+ tau:                    1
+ iteration:              2 / 2
+ tolerance:              0.1
+ optimize domain:        [0, 10]
+------
+coefficients' information:
+    wt 
+-4.273 
+
+------
+* For help interpreting the printed output see ?print.cat
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cat_lmm_initialization")
+> ### * cat_lmm_initialization
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_lmm_initialization
+> ### Title: Initialization for Catalytic Linear Mixed Model (LMM)
+> ### Aliases: cat_lmm_initialization
+> 
+> ### ** Examples
+> 
+> data(mtcars)
+> cat_init <- cat_lmm_initialization(
++   formula = mpg ~ wt + (1 | cyl), # formula for simple model
++   data = mtcars,
++   x_cols = c("wt"), # Fixed effects
++   y_col = "mpg", # Response variable
++   z_cols = c("disp", "hp", "drat", "qsec", "vs", "am", "gear", "carb"), # Random effects
++   group_col = "cyl", # Grouping column
++   syn_size = 100, # Synthetic data size
++   resample_by_group = FALSE, # Resampling option
++   resample_only = FALSE, # Resampling method
++   na_replace = mean # NA replacement method
++ )
+> cat_init
+cat_lmm_initialization
+ formula:               mpg ~ wt + (1 | cyl)
+ covariates dimention:  32 (Observation) + 100 (Synthetic) = 132 rows with 1 column(s)
+------
+Observation Data Information:
+ covariates dimention:  32 rows with  1 column(s)
+ head(data) :              
+ [only show the head of first 10 columns] 
+
+                   mpg cyl disp  hp drat    wt  qsec vs am gear
+Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4
+Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4
+Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4
+Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3
+Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3
+Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3
+
+------
+Synthetic Data Information:
+ covariates dimention:  100 rows with  1  column(s)
+ head(data):              
+ [only show the head of first 10 columns] 
+
+     wt  disp  hp drat  qsec vs am gear     carb cyl
+1 1.513  95.1 175 3.07 14.60  1  0    4 4.000000   8
+2 4.070  79.0  95 3.90 18.52  0  0    3 2.670589   6
+3 5.424 275.8  91 4.93 17.30  0  1    4 4.387347   8
+4 2.620  79.0  95 4.08 17.42  1  1    4 3.000000   6
+5 3.730 160.0 205 3.15 17.02  0  0    3 3.000000   6
+6 2.465 160.0 175 3.08 18.52  0  1    3 3.858083   8
+
+ data generation process:
+ [only show the first 10 columns] 
+
+               Covariate                   Type                Process
+1 wt                     Continuous             Coordinate            
+2 disp                   Continuous             Coordinate            
+3 hp                     Continuous             Coordinate            
+4 drat                   Continuous             Coordinate            
+5 qsec                   Continuous             Coordinate            
+6 vs                     Category               Coordinate            
+7 am                     Category               Coordinate            
+8 gear                   Continuous             Coordinate            
+9 carb                   Continuous             Coordinate->Deskewing 
+
+------
+* For help interpreting the printed output see ?print.cat_initialization
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cat_lmm_tune")
+> ### * cat_lmm_tune
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat_lmm_tune
+> ### Title: Catalytic Linear Mixed Model (LMM) Fitting Function by Tuning
+> ###   tau from a Sequence of tau Values
+> ### Aliases: cat_lmm_tune
+> 
+> ### ** Examples
+> 
+> data(mtcars)
+> cat_init <- cat_lmm_initialization(
++   formula = mpg ~ wt + (1 | cyl), # formula for simple model
++   data = mtcars,
++   x_cols = c("wt"), # Fixed effects
++   y_col = "mpg", # Response variable
++   z_cols = c("disp", "hp", "drat", "qsec", "vs", "am", "gear", "carb"), # Random effects
++   group_col = "cyl", # Grouping column
++   syn_size = 100, # Synthetic data size
++   resample_by_group = FALSE, # Resampling option
++   resample_only = FALSE, # Resampling method
++   na_replace = mean # NA replacement method
++ )
+> 
+> cat_model <- cat_lmm_tune(
++   cat_init = cat_init, # Only accept object generated from cat_lmm_initialization
++   tau_seq = c(1, 2), # Vector of weights for synthetic data
++   cross_validation_fold_num = 3 # number of folds for cross-validation
++ )
+> cat_model
+cat_lmm_tune
+ formula:                 NULL
+ covariates dimention:    32 (Observation) + 100 (Synthetic) = 132 rows with 1 column(s)
+ tau sequnce:             1, 2
+
+ optimal tau:             1
+ minimun risk estimate:   12.449
+------
+coefficients' information:
+
+(Intercept)          wt 
+     30.877      -3.310 
+
+------
+* For help interpreting the printed output see ?print.cat_tune
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  1.652 0.132 2.957 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

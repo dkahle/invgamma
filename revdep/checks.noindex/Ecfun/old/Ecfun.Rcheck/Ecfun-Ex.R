@@ -1,0 +1,4378 @@
+pkgname <- "Ecfun"
+source(file.path(R.home("share"), "R", "examples-header.R"))
+options(warn = 1)
+library('Ecfun')
+
+base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+cleanEx()
+nameEx("Arrows")
+### * Arrows
+
+flush(stderr()); flush(stdout())
+
+### Name: Arrows
+### Title: Draw arrows between pairs of points.
+### Aliases: Arrows
+### Keywords: aplot
+
+### ** Examples
+
+##
+## 1. Simple example: 
+##    3 arrows, the first with length 0 is suppressed 
+##
+plot(1:3, type='n')
+Arrows(1, 1, c(1, 2, 2), c(1, 2:3), col=1:3, length=c(1, .2, .6))
+
+##
+## 2.  with an NA
+##
+plot(1:3, type='n')
+Arrows(1, 1, c(1, 2, 2), c(1, 2, NA), col=1:3, length=c(1, .2, .6))
+
+
+
+
+cleanEx()
+nameEx("BoxCox")
+### * BoxCox
+
+flush(stderr()); flush(stdout())
+
+### Name: BoxCox
+### Title: Box-Cox power transformation and its inverse
+### Aliases: BoxCox invBoxCox
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  A simple example to check the two algorithms 
+##
+Days <- 0:9
+bc1 <- BoxCox(Days, c(0.01, 1))
+# Taylor expansion used for obs 1:7; expm1 for 8:10 
+
+# check 
+GM <- exp(mean(log(abs(Days+1))))
+
+bc0 <- (((Days+1)^0.01)-1)/0.01
+bc1. <- (bc0 / (GM^(0.01-1)))  
+# log(Days+1) ranges from 0 to 4.4 
+# lambda = 0.01 will invoke both the obvious
+# algorithm and the alternative assumed to be 
+# more accurate for (lambda(log(y)) < 0.02).  
+attr(bc1., 'lambda') <- c(0.01, 1)  
+attr(bc1., 'rescale') <- TRUE 
+attr(bc1., 'GeometricMean') <- GM 
+class(bc1.) <- 'BoxCox'
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(bc1, bc1.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  another simple example with lambda=0
+##
+bc0.4 <- BoxCox(1:5, 0)
+GM5 <- prod(1:5)^.2
+bc0.4. <- log(1:5)*GM5
+attr(bc0.4., 'lambda') <- 0  
+attr(bc0.4., 'rescale') <- TRUE 
+attr(bc0.4., 'GeometricMean') <- GM5 
+class(bc0.4.) <- 'BoxCox'
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(bc0.4, bc0.4.)
+## Don't show: 
+)
+## End(Don't show)
+
+bc0.4e9 <- BoxCox(1:5, .Machine$double.eps)
+bc0.4ex <- log(1:5)*exp(mean(log(1:5)))
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(bc0.4ex, as.numeric(bc0.4e9))
+## Don't show: 
+)
+## End(Don't show)
+
+# now invert:  
+
+bc0.4i <- invBoxCox(bc0.4.)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(1:5, bc0.4i)
+## Don't show: 
+)
+## End(Don't show)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(1:5, invBoxCox(bc0.4e9))
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 3.  The "boxcox" function in the MASS package 
+##     computes a maximum likelihood estimate with  
+##     BoxCox(Days+1, lambda=0.21) 
+##     with a 95 percent confidence interval of 
+##     approximately (0.08, 0.35)
+##
+bcDays1 <- BoxCox(MASS::quine$Days, c(0.21, 1))
+
+# check 
+GeoMean <- exp(mean(log(abs(MASS::quine$Days+1))))
+
+bcDays1. <- ((((MASS::quine$Days+1)^0.21)-1) / 
+               (0.21*GeoMean^(0.21-1)))  
+# log(Days+1) ranges from 0 to 4.4 
+attr(bcDays1., 'lambda') <- c(0.21, 1)  
+attr(bcDays1., 'rescale') <- TRUE 
+attr(bcDays1., 'GeometricMean') <- GeoMean 
+class(bcDays1.) <- 'BoxCox'
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(bcDays1, bcDays1.)
+## Don't show: 
+)
+## End(Don't show)
+
+iDays <- invBoxCox(bcDays1)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(iDays, MASS::quine$Days)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 4.  Easily computed example 
+##
+bc2 <- BoxCox(c(1, 4), 2)
+
+# check 
+bc2. <- (c(1, 4)^2-1)/4
+attr(bc2., 'lambda') <- 2
+attr(bc2., 'rescale') <- TRUE 
+attr(bc2., 'GeometricMean') <- 2 
+class(bc2.) <- 'BoxCox'
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(bc2, bc2.)
+## Don't show: 
+)
+## End(Don't show)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(invBoxCox(bc2), c(1, 4))
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 5.  plot(BoxCox())
+##
+y0 <- seq(-2, 2, .1)
+z2 <- BoxCox(y0, 2, rescale=FALSE)
+plot(y0, z2)
+
+# check 
+z2. <- (sign(y0)*y0^2-1)/2
+
+attr(z2., 'lambda') <- 2
+attr(z2., 'sign.y') <- sign(y0, 1)
+attr(z2., 'rescale') <- FALSE 
+attr(z2., 'GeometricMean') <- 0
+class(z2.) <- 'BoxCox'
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(z2, z2.)
+## Don't show: 
+)
+## End(Don't show)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(invBoxCox(z2), y0)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+
+cleanEx()
+nameEx("Date3to1")
+### * Date3to1
+
+flush(stderr()); flush(stdout())
+
+### Name: Date3to1
+### Title: Convert three YMD vectors to a Date
+### Aliases: Date3to1
+### Keywords: manip
+
+### ** Examples
+
+date.frame <- data.frame(Year=c(NA, -1, 1971:1979), 
+      Month=c(1:2, -1, NA, 13, 2, 12, 6:9), 
+      Day=c(0, 0:6, NA, -1, 32) )
+     
+DateVecS <- Date3to1(date.frame)
+DateVecE <- Date3to1(date.frame, "End")
+                         
+# check 
+na <- c(1:5, 9:11)
+DateVs <- as.Date(c(NA, NA, 
+  '1971-01-01', '1972-01-01', '1973-01-01', 
+  '1974-02-04', '1975-12-05', '1976-06-06', 
+  '1977-07-01', '1978-08-01', '1979-09-01') ) 
+DateVe <- as.Date(c(NA, NA, 
+  '1971-12-31', '1972-12-31', '1973-12-31', 
+  '1974-02-04', '1975-12-05', '1976-06-06', 
+  '1977-07-31', '1978-08-31', '1979-09-30') ) 
+
+attr(DateVs, 'missing') <- na
+attr(DateVe, 'missing') <- na
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(DateVecS, DateVs)
+## Don't show: 
+)
+## End(Don't show)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(DateVecE, DateVe)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("Dates3to1")
+### * Dates3to1
+
+flush(stderr()); flush(stdout())
+
+### Name: Dates3to1
+### Title: Convert 3-column dates in data to class Date
+### Aliases: Dates3to1
+### Keywords: manip
+
+### ** Examples
+
+cow0 <- data.frame(rec=1:3, startMonth=4:6, startDay=7:9, 
+    startYear=1971:1973, endMonth1=10:12, endDay1=13:15, 
+    endYear1=1974:1976, txt=letters[1:3])
+
+cow0. <- Dates3to1(cow0)
+
+# check 
+cow0x <- data.frame(rec=1:3, txt=letters[1:3], 
+    start=as.Date(c('1971-04-07', '1972-05-08', '1973-06-09')), 
+    end1=as.Date(c('1974-10-13', '1975-11-14', '1976-12-15')) )
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(cow0., cow0x)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("Interp")
+### * Interp
+
+flush(stderr()); flush(stdout())
+
+### Name: Interp
+### Title: Interpolate between numbers or numbers of characters
+### Aliases: Interp Interp.default InterpChkArgs InterpChar InterpNum
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  numerics 
+## 
+# 1.1.  standard 
+xNum <- interpChar(1:3, 4:5, (0:3)/4)
+# answer 
+xN. <- c(1, 2.75, 3.5, 4)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(xNum, xN.)
+## Don't show: 
+)
+## End(Don't show)
+
+# 1.2.  with x but not y:  
+# return that vector with a warning
+## Don't show: 
+InterpChkArgs(1:4, p=.5) # $xout 1:4 OK 
+## End(Don't show)
+xN1 <- Interp(1:4, p=.5)
+# answer 
+xN1. <- 1:4
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(xN1, xN1.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  Single character vector 
+##
+## Don't show: 
+argChk.x.3 <- InterpChkArgs(c('a', 'bc', 'def'), 
+        p=0.3)
+argC.5 <- list(xout=c('a', 'bc', 'def'))
+all.equal(argChk.x.3, argC.5)
+
+argChk.x0.3 <- InterpChkArgs(c('a', 'bc', 'def'), 
+        character(0), p=0.3)
+all.equal(argChk.x0.3, argC.5)
+
+argChk.3 <- InterpChkArgs(c('a', 'bc', 'def'), 
+        character(1), p=0.3)
+argC.3 <- list(algorithm="Character", 
+      x=c("a", "bc", "def"), y=character(3), 
+      proportion=rep(.3, 3), pLength1=TRUE, 
+      raw=FALSE, outClass=NULL)
+all.equal(argChk.3, argC.3)
+
+argChk.3p <- InterpChkArgs(c('a', 'bc', 'def'), 
+        character(1), p=rep(0.3, 3))
+argC.3p <- list(algorithm="Character", 
+      x=c("a", "bc", "def"), y=character(3), 
+      proportion=rep(.3, 3), pLength1=FALSE, 
+      raw=FALSE, outClass=NULL)
+all.equal(argChk.3p, argC.3p)
+## End(Don't show)
+
+i.5 <- Interp(c('a', 'bc', 'def'), character(0), p=0.3)
+# with y = NULL or character(0), 
+# Interp returns x 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(i.5, c('a', 'bc', 'def'))
+## Don't show: 
+)
+## End(Don't show)
+
+i.5b <- Interp('', c('a', 'bc', 'def'), p=0.3)
+# Cumulative characters (length(proportion)=1):  
+#     0.3*(total 6 characters) = 1.2 characters
+i.5. <- c('a', 'b', '')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(i.5b, i.5.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 3.  Reverse character example 
+##
+i.5c <- Interp(c('a', 'bc', 'def'), '', 0.3)
+# check:  0.7*(total 6 characers) = 4.2 characters
+i.5c. <- c('a', 'bc', 'd')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(i.5c, i.5c.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 4.  More complicated example
+##
+xCh <- Interp('', c('Do it', 'with R.'), 
+              c(0, .5, .9)) 
+# answer 
+xCh. <- c('', 'with', 'Do i') 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(xCh, xCh.)
+## Don't show: 
+)
+## End(Don't show)
+##
+## 5.  Still more complicated 
+##
+xC2 <- Interp(c('a', 'fabulous', 'bug'), 
+                  c('bigger or', 'just', 'big'), 
+                  c(.3, .3, 1) )
+x.y.longer <- c('bigger or', 'fabulous', 'big')
+# use y with ties 
+# nch smaller        1          4         3
+# nch larger         9          8         3
+# d.char             8,         4,        0 
+# prop              .3,        .7,        1 
+# prop*d.char      2.4,       2.8,        0
+# smaller+p*d        3,         7,        3
+xC2. <- c('big', 'fabulou', 'big')                 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(xC2, xC2.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 6.  with one NULL 
+##
+null1 <- Interp(NULL, 1, .3)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(null1, 1)
+## Don't show: 
+)
+## End(Don't show)
+
+null2 <- Interp('abc', NULL, .3)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(null2, 'abc')
+## Don't show: 
+)
+## End(Don't show)
+##
+## 7.  length=0 
+##
+log0 <- interpChar(logical(0), 2, .6)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(log0, 1.2)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 8.  Date
+##
+(Jan1.1980 <- as.Date('1980-01-01'))
+
+Jan1.1972i <- Interp(0, Jan1.1980, .2)
+# check 
+Jan1.1972 <- as.Date('1972-01-01')
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(Jan1.1972, round(Jan1.1972i))
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 9.  POSIXct 
+##
+(Jan1.1980c <- as.POSIXct(Jan1.1980))
+
+(Jan1.1972ci <- Interp(0, Jan1.1980c, .2))
+# check 
+(Jan1.1972ct <- as.POSIXct(Jan1.1972))
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+abs(difftime(Jan1.1972ct, Jan1.1972ci, 
+             units="days"))<0.5
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("Newdata")
+### * Newdata
+
+flush(stderr()); flush(stdout())
+
+### Name: Newdata
+### Title: Create a new data.frame for predict
+### Aliases: Newdata
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  A reasonable test with numerics, dates, 
+##     an ordered factor and character variables
+##
+xDate <- as.Date('2001-02-03')+1:4
+tstDF <- data.frame(x1=1:4, xDate=xDate, 
+  xD2=as.POSIXct(xDate), 
+  sex=ordered(c('M', 'F', 'M', 'F')), 
+  huh=letters[c(1:3, 3)], stringsAsFactors=FALSE)
+
+newDat <- Newdata(tstDF, 'xDate', n=5)
+
+# check
+newD <- data.frame(x1=2.5, 
+  xDate=xDate[1]+seq(0, 3, length=5), 
+  xD2=as.POSIXct(xDate[2]+0.5), 
+  sex=ordered(c('M', 'F', 'M', 'F'))[2], 
+  huh=letters[3], stringsAsFactors=FALSE)
+attr(newD, 'out.attrs') <- attr(newDat, 'out.attrs')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(newDat, newD)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  Test with only one column 
+##
+newDat1 <- Newdata(tstDF[, 2, drop=FALSE], 'xDate', n=5)
+
+# check 
+newDat1. <- newD[, 2, drop=FALSE]
+attr(newDat1., 'out.attrs') <- attr(newDat1, 'out.attrs')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(newDat1, newDat1.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 3.  Test with a factor 
+##
+newSex <- Newdata(tstDF, 'sex')
+
+# check 
+newS <- with(tstDF, data.frame(
+  x1=2.5, xDate=xDate[1]+1.5, 
+  xD2=as.POSIXct(xDate[1]+1.5), 
+  sex=ordered(c('M', 'F'))[2:1], 
+  huh=letters[3], stringsAsFactors=FALSE) )
+attr(newS, 'out.attrs') <- attr(newSex, 'out.attrs')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(newSex, newS)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 4.  Test with an integer column number 
+##
+newDat2 <- Newdata(tstDF, 2, n=5)
+
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(newDat2, newD)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 5.  Test with all
+##
+NewAll <- Newdata(tstDF)
+
+# check 
+tstLvls <- as.list(tstDF[c(1, 4), ])
+tstLvls$sex <- tstDF$sex[2:1]
+tstLvls$huh <- letters[c(3, 1)]
+tstLvls$stringsAsFactors <- FALSE
+
+NewA. <- do.call(expand.grid, tstLvls)
+attr(NewA., 'out.attrs') <- attr(NewAll, 'out.attrs')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(NewAll, NewA.)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("Ping")
+### * Ping
+
+flush(stderr()); flush(stdout())
+
+### Name: Ping
+### Title: ping a Uniform resource locator (URL)
+### Aliases: Ping
+### Keywords: IO
+
+### ** Examples
+
+##
+## Some ISPs play games with ping.
+## Therefore, the results are not reliable.
+##
+## Not run: 
+##D ##
+##D ## good
+##D ##
+##D (google <- Ping('https://google.com/ping works on host not pages'))
+##D 
+##D \dontshow{stopifnot(}
+##D with(google, (counts[1]>0) && (counts[3]<1))
+##D \dontshow{)}
+##D 
+##D ##
+##D ## ping oops <<-- at one time, this failed.
+##D ##      However, with some ISPs, it works, so don't test it.
+##D ##
+##D 
+##D ##
+##D (couldnotfindhost <- Ping('oops'))
+##D 
+##D \dontshow{stopifnot(}
+##D with(couldnotfindhost,
+##D      length(grep('could not find host', rawResults))>0)
+##D \dontshow{)}
+##D 
+##D ##
+##D ## impossible, but not so obvious
+##D ##
+##D (requesttimedout <- Ping('requesttimedout.com'))
+##D 
+##D \dontshow{stopifnot(}
+##D with(requesttimedout, (counts[1]>0) && (counts[2]<1) &&
+##D          (counts[3]>0))
+##D \dontshow{)}
+## End(Not run)
+
+
+
+cleanEx()
+nameEx("as.Date1970")
+### * as.Date1970
+
+flush(stderr()); flush(stdout())
+
+### Name: as.Date1970
+### Title: Date from a number of days since the start of 1970.
+### Aliases: as.Date1970
+### Keywords: manip
+
+### ** Examples
+
+days <- c(0, 1, 365)
+Dates <- as.Date1970(days)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(c('1970-01-01', '1970-01-02', '1971-01-01'),
+          as.character(Dates))
+## Don't show: 
+)
+## End(Don't show)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(days, as.numeric(Dates))
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+
+cleanEx()
+nameEx("asNumericDF")
+### * asNumericDF
+
+flush(stderr()); flush(stdout())
+
+### Name: asNumericDF
+### Title: Coerce to numeric dropping commas and info after a blank
+### Aliases: asNumericChar asNumericDF
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  an example 
+##
+(xDate <- as.Date('1970-01-01')+c(0, 365))
+(xPOSIX <- as.POSIXct(xDate)+c(1, 99))
+xMSdate <- as.Date(1, 
+    as.Date('1899-12-31'))+1:2
+(fakeF1 <- data.frame(yr=c('1948', 
+            '1947 (1)'),
+      q1=c(' 1,234 ', ''), duh=rep(NA, 2), 
+      dol=c('$1,234', ''), 
+      pct=c('1%', '2%'), 
+      xDate=format(xDate, '%Y-%m-%d'), 
+      xPOSIX=format(xPOSIX, '%Y-%m-%d %H:%M:%S'), 
+      xMSdate=2:3, junk=c('this is',
+          'junk')))
+            
+# This converts the last 3 columns to NAs and drops them:
+
+str(nF1.1 <- asNumericChar(fakeF1$yr))
+str(nF1.2 <- asNumericChar(fakeF1$q1))
+str(nF1.3 <- asNumericChar(fakeF1$duh))
+(nF1.4 <- asNumericChar('1969-12-31 18:00:01',
+                        class.='POSIXct'))
+
+(nF1 <- asNumericDF(fakeF1))
+(nF2 <- asNumericDF(fakeF1, Dates=6, 
+    MSdate='xMSdate', 
+    ignore=c('junk', 'xPOSIX'), 
+    format.='%Y-%m-%d'))
+# check 
+nF1. <- data.frame(yr=
+        asNumericChar(fakeF1$yr),
+      q1=asNumericChar(fakeF1$q1), 
+      dol=asNumericChar(fakeF1$dol), 
+      pct=c(.01, .02), xMSdate=2:3)
+
+nF1c <- data.frame(yr=1948:1947, 
+      q1=c(1234, NA), dol=c(1234, NA), 
+      pct=c(.01, .02), xMSdate=2:3)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(nF1, nF1.)
+## Don't show: 
+)
+## End(Don't show)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(nF1., nF1c)
+## Don't show: 
+)
+## End(Don't show)
+
+## 
+## 2.  as.Date default example
+##
+  xD <- asNumericChar(
+    as.character(xDate), class.='Date')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+  all.equal(xDate, xD)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 3.  as.POSIXct default example 
+##
+xPOSIX
+(xPOSIXch <- as.character(xPOSIX))
+(xP <- asNumericChar(xPOSIXch, class.='POSIXct'))
+attr(xPOSIX, 'tzone')
+attr(xP, 'tzone')
+# R-Devel after 4.2.1 breaks earlier code; fix
+if(is.null(attr(xPOSIX, 'tzone')))
+    attr(xPOSIX, 'tzone') <- attr(xP, 'tzone')
+(dP <- difftime(xPOSIX, xP, units='secs'))
+(madP <- max(abs(as.numeric(dP))))
+## Don't show: 
+stopifnot(
+## End(Don't show)
+{
+#all.equal(xPOSIX, xP)
+# As of 2022-10-06 I don't know how to write code
+# that will get a consistent answer with 
+# different version R-devel with differences
+# less than an hour
+if(madP>(6*60*60)){
+  madPmsg <- paste('Discrepancy betw fn and manual comp ', 
+       'too large; is ', madP, 'seconds')
+  stop(madPmsg)
+}
+TRUE
+}
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 4.  orderBy=1:2
+##
+nF. <- asNumericDF(fakeF1, orderBy=1:2)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(nF., nF1c[2:1,])
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 5.  Will it work for a tibble?  
+##
+if(require(tibble)){
+  nF1t <- asNumericDF(as_tibble(fakeF1))
+## Don't show: 
+stopifnot(
+## End(Don't show)
+  all.equal(nF1, nF1t)
+## Don't show: 
+)
+## End(Don't show)
+}
+
+
+
+
+cleanEx()
+nameEx("camelParse")
+### * camelParse
+
+flush(stderr()); flush(stdout())
+
+### Name: camelParse
+### Title: Split a character string where a capital letter follows a
+###   lowercase letter
+### Aliases: camelParse
+### Keywords: manip
+
+### ** Examples
+
+tst <- c('Smith, JohnJohn Smith',
+         'EducationNational DefenseOther Committee',
+         'McCain, JohnJohn McCain')
+tst. <- camelParse(tst)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst., list(c('Smith, John', 'John Smith'),
+    c('Education', 'National Defense', 'Other Committee'),
+    c('McCain, John', 'John McCain') ) )
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("canbeNumeric")
+### * canbeNumeric
+
+flush(stderr()); flush(stdout())
+
+### Name: canbeNumeric
+### Title: Can a variable reasonably be coerced to numeric?
+### Aliases: canbeNumeric
+### Keywords: aplot
+
+### ** Examples
+
+##
+## Examples adapted from "mode"
+##
+cex4 <- c('letters[1:4]', "as.Date('2014-01-02')", 
+  'factor(letters[1:4])', "NULL", "1", "1:1", "1i", 
+  "list(1)", "data.frame(x = 1)","pairlist(pi)", 
+  "c", "lm", "formals(lm)[[1]]",  "formals(lm)[[2]]",
+  "y ~ x","expression((1))[[1]]", "(y ~ x)[[1]]",
+  "expression(x <- pi)[[1]][[1]]")
+lex4 <- sapply(cex4, function(x) eval(parse(text = x)))
+mex4 <- t(sapply(lex4, function(x) 
+    c(typeof(x), storage.mode(x), mode(x), canbeNumeric(x))))
+dimnames(mex4) <- list(cex4, 
+    c("typeof(.)","storage.mode(.)","mode(.)", 'canbeNumeric(x)'))
+mex4
+
+# check 
+mex. <- as.character(as.logical(c(0, 1, 0, 0, 1, 1, rep(0, 12))))
+names(mex.) <- cex4
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(mex4[,4], mex.)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("checkNames")
+### * checkNames
+
+flush(stderr()); flush(stdout())
+
+### Name: checkNames
+### Title: Check and return names
+### Aliases: checkNames
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  standard operation with no names 
+## 
+tst1 <- checkNames(1:2)
+
+# check 
+tst1. <- make.names(character(2), unique=TRUE)
+attr(tst1., 'message') <- paste(
+  "1:2:  names = NULL; returning", 
+  "make.names(character(length(x))), TRUE)")
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst1, tst1.)
+## Don't show: 
+)
+## End(Don't show)
+##
+## 2.  avoid=c('\\.0$', '\\.1$')
+##
+tst2 <-checkNames(1:2, 
+    avoid=c('\\.0$', '.2', 
+            '\\.1$', '.3') )
+
+# check 
+tst2. <-c('X', 'X.3')
+attr(tst2., 'message') <- paste(
+  "1:2:  names = NULL; returning", 
+  "make.names(character(length(x))), TRUE)")
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst2, tst2.)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("classIndex")
+### * classIndex
+
+flush(stderr()); flush(stdout())
+
+### Name: classIndex
+### Title: Convert class to an integer 1-8 and vice versa
+### Aliases: classIndex index2class
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  classIndex
+##
+x1 <- classIndex(NULL)
+x2 <- classIndex(logical(0))
+x3 <- classIndex(integer(1))
+x4 <- classIndex(numeric(2))
+x5 <- classIndex(complex(3))
+x6 <- classIndex(raw(4))
+x7 <- classIndex(character(5))
+x8 <- classIndex(list())
+
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(c(x1, x2, x3, x4, x5, x6, x7, x8), 1:8)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  index2class 
+##
+c1 <- index2class(1)
+c2 <- index2class(2)
+c3 <- index2class(3)
+c4 <- index2class(4)
+c5 <- index2class(5) 
+c6 <- index2class(6) 
+c7 <- index2class(7)
+c8 <- index2class(8)
+c8o <- index2class(8, FALSE)
+
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(c(c1, c2, c3, c4, c5, c6, c7, c8, c8o), 
+          c('NULL', 'logical', 'integer', 'numeric', 
+            'complex', 'raw', 'character', 'character', 
+            'other'))
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+
+cleanEx()
+nameEx("compareLengths")
+### * compareLengths
+
+flush(stderr()); flush(stdout())
+
+### Name: compareLengths
+### Title: Compare the lengths of two objects
+### Aliases: compareLengths
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  equal 
+##
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(compareLengths(1:3, 4:6), c("equal", ''))
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  compatible 
+##
+a <- 1:2
+b <- letters[1:6]
+comp.ab <- compareLengths(a, b, message0='Chk:')
+comp.ba <- compareLengths(b, a, message0='Chk:')
+# check 
+chk.ab <- c('compatible', 
+            'Chk: length(b) = 6 is 3 times length(a) = 2')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(comp.ab, chk.ab) 
+## Don't show: 
+)
+## End(Don't show)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(comp.ba, chk.ab) 
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 3.  incompatible 
+##
+Z <- LETTERS[1:3]
+comp.aZ <- compareLengths(a, Z)
+# check 
+chk.aZ <- c('incompatible', 
+    ' length(Z) = 3 is not a multiple of length(a) = 2')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(comp.aZ, chk.aZ) 
+## Don't show: 
+)
+## End(Don't show)
+##
+## 4.  problems with name.x and name.y 
+##
+comp.ab2 <- compareLengths(a, b, '', '')
+# check 
+chk.ab2 <- c('compatible', 
+             'in compareLengths: length(y) = 6 is 3 times length(x) = 2')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(comp.ab2, chk.ab2) 
+## Don't show: 
+)
+## End(Don't show)
+##
+## 5.  zeroLength 
+##
+zeroLen <- compareLengths(logical(0), 1) 
+# check 
+zeroL <- c('compatible', ' length(logical(0)) = 0')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(zeroLen, zeroL)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("compareOverlap")
+### * compareOverlap
+
+flush(stderr()); flush(stdout())
+
+### Name: compareOverlap
+### Title: Compare y between newDat and refDat for shared values of x
+### Aliases: compareOverlap
+### Keywords: hplot
+
+### ** Examples
+
+nDat <- data.frame(yr=2000:2015, 
+          Y=0:15)
+rDat <- data.frame(Yr=2018:2011, 
+          y=c(17:13, 13:11))
+nrDat <- compareOverlap(
+  newDat=nDat, refDat=rDat)
+
+# Correct answer
+NRdat <- data.frame(yr=2011:2015, 
+  YNew=11:15, yRef=c(11:13, 13:14), 
+  dy=c(0,0,0, 1, 1), 
+  dyRef=c(0,0,0, 1,1) / 
+        c(11:13, 13:14))
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(nrDat, NRdat)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("confint.var")
+### * confint.var
+
+flush(stderr()); flush(stdout())
+
+### Name: confint.var
+### Title: Confidence interval for sample variance or standard deviation
+### Aliases: confint.var confint.sd
+### Keywords: htest
+
+### ** Examples
+
+##
+## 1.  simple examples 
+##
+(CI.v <- confint.var(c(1,1,4), c(1, 9, 9))) 
+(CI.s <- confint.sd(c(1,1,2), c(1, 9, 9))) 
+
+# Compare with the examples on Wikipedia
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(CI.s, sqrt(CI.v))
+## Don't show: 
+)
+## End(Don't show)
+
+WikipEx <- t(matrix(c(0.45, 31.9, 0.69, 1.83, 1.38, 3.66), 
+                  nrow=2))
+colnames(WikipEx) <- c('lower', 'upper')
+
+(dCI <- (CI.s-WikipEx))
+#Confirm within 2-digit roundoff
+## Don't show: 
+stopifnot(
+## End(Don't show)
+max(abs(dCI))<0.0102
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  test df attributes
+##
+v <- c(1,1,4)
+attr(v, 'df.') <- c(1, 9, 9)
+class(v) <- 'var'
+vCI <- confint(v)
+
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(vCI, CI.v)
+## Don't show: 
+)
+## End(Don't show)
+
+s <- sqrt(v)
+class(s) <- 'sd'
+sCI <- confint(s)
+
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(sCI, CI.s)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+
+cleanEx()
+nameEx("countByYear")
+### * countByYear
+
+flush(stderr()); flush(stdout())
+
+### Name: countByYear
+### Title: Allocate a total by year
+### Aliases: countByYear
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  All in one year
+##
+start73 <- as.Date('1973-01-22')
+tst1 <- countByYear(start73, start73+99, 123)
+
+# check 
+tst1. <- 123
+names(tst1.) <- 1973
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst1, tst1.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  Two years 
+##
+tst2 <- countByYear(start73, start73+365, 123) 
+
+# check 
+dur <- 366
+days1 <- (365-21)
+days2 <- 22
+tst2. <- 123 * c(days1, days2)/dur 
+names(tst2.) <- 1973:1974 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst2, tst2.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 3.  Ten years 
+## 
+tst10 <- countByYear(start73, start73+10*365.2, 123)
+
+# check 
+days <- (c(rep(c(rep(365, 3), 366), length=10), 0)
+         + c(-21, rep(0, 9), 22) )
+tst10. <- 123 * days/(10*365.2+1) 
+names(tst10.) <- 1973:1983 
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst10, tst10.)
+## Don't show: 
+)
+## End(Don't show)
+          
+
+
+
+cleanEx()
+nameEx("countsByYear")
+### * countsByYear
+
+flush(stderr()); flush(stdout())
+
+### Name: countsByYear
+### Title: Allocate totals by year
+### Aliases: countsByYear
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  data.frame(WarName, Start1, End1, BatDeath)
+##
+start73 <- as.Date('1973-01-22')
+tstWars <- data.frame(WarName=c('short', '2yr', '10yr'), 
+    Start1=c(start73, start73+365, start73-365), 
+    End1=start73+c(99, 2*365, NA), 
+    BatDeath=c(100, 123, 456)) 
+##
+## 2.  do
+##
+deathsByYr <- countsByYear(tstWars, 
+              endNA=start73+9*365.2)
+
+# check 
+Counts <- matrix(0, 11, 3, 
+    dimnames=list(c(1972:1982), tstWars$WarName) )
+Counts['1973', 1] <- 100
+Counts[as.character(1974:1975), 2] <- with(tstWars, 
+    countByYear(Start1[2], End1[2], BatDeath[2]) )
+Counts[as.character(1972:1982), 3] <- with(tstWars, 
+    countByYear(Start1[3], start73+9*365.2, BatDeath[3]) )
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(deathsByYr, Counts)
+## Don't show: 
+)
+## End(Don't show)
+  
+
+
+
+cleanEx()
+nameEx("createMessage")
+### * createMessage
+
+flush(stderr()); flush(stdout())
+
+### Name: createMessage
+### Title: Compose a message as a single substring from a character vector
+### Aliases: createMessage
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  typical use 
+##
+tstVec <- c('Now', 'is', 'the', 'time')
+msg <- createMessage(tstVec, 9, collapse=':', 
+                     endchars='//')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(msg, 'Now:is://')
+## Don't show: 
+)
+## End(Don't show)
+##
+## 2.  in a function 
+##
+tstFn <- function(cl)createMessage(deparse(cl), 9)
+Cl <- quote(plot(1:3, y=4:6, col='red', main='Title'))
+msg0 <- tstFn(Cl)
+# check 
+msg. <- 'plot(1...'
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(msg0, msg.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 3.  default 
+##
+y <- createMessage(character(3), default='y') 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(y, 'y')
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+
+cleanEx()
+nameEx("createX2matchY")
+### * createX2matchY
+
+flush(stderr()); flush(stdout())
+
+### Name: createX2matchY
+### Title: Create X to match Y
+### Aliases: createX2matchY
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  NULL 
+## -
+null <- createX2matchY(NULL, NULL)
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(null, NULL)
+## Don't show: 
+)
+## End(Don't show)
+##
+## 2.  logical 
+##
+lgcl3 <- createX2matchY(NULL, 
+           c(FALSE, TRUE, FALSE))
+
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(lgcl3, logical(3))
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 3.  integer
+##
+int3 <- createX2matchY(integer(0), 
+           c(FALSE, TRUE, FALSE))
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(int3, integer(3))
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 4.  list -> character
+##
+ch3 <- createX2matchY(integer(0), 
+         list(a=1, b=2, c=3))
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(ch3, character(3))
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("dateCols")
+### * dateCols
+
+flush(stderr()); flush(stdout())
+
+### Name: dateCols
+### Title: Identify YMD names in a character vector
+### Aliases: dateCols
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  character vector 
+##
+colNames <- c('war', 'StartMonth1', 
+      'StartDay1', 'StartYear1', 
+      'EndMonth1', 'EndMonth2', 
+      'EndDay2', 'EndYear2', 'Initiator')
+
+colNums <- dateCols(colNames)
+# Should issue a warning:  
+# Warning message:
+# In dateCols(colNames) :
+#   number of matches for Year = 2 
+#   != number of matches for Month = 3
+
+# check 
+colN <- list(Start1=c(Year=4, Month=2, Day=3), 
+             End2=c(Year=8, Month=6, Day=7) )
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(colNums, colN)
+## Don't show: 
+)
+## End(Don't show)
+##
+## 2.  array 
+##
+A <- matrix(ncol=length(colNames), 
+      dimnames=list(NULL, colNames))
+
+Anums <- dateCols(A)
+
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(Anums, colN)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("findCountry")
+### * findCountry
+
+flush(stderr()); flush(stdout())
+
+### Name: findCountry
+### Title: Find a 3-letter country code in rworldmap::countrySynonyms
+### Aliases: findCountry
+### Keywords: manip
+
+### ** Examples
+
+tstCodes <- findCountry(
+    c('Iran', 'Christmas Island', 'eSwatini'))
+    
+answer <- c(Iran='IRN', 
+  'Christmas Island'="referenceTable[53, 2] = ''", 
+  'eSwatini'="No match found for country eSwatini")    
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tstCodes, answer)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("getElement2")
+### * getElement2
+
+flush(stderr()); flush(stdout())
+
+### Name: getElement2
+### Title: Extract a named element from an object with a default
+### Aliases: getElement2
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  name in object, return 
+##
+e1 <- getElement2(list(ab=1), 'ab', 2) # 1
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(e1, 1)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  name not in object, return default
+##
+eNA <- getElement2(list(), 'ab') # default default = NA
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(eNA, NA)
+## Don't show: 
+)
+## End(Don't show)
+
+e0 <- getElement2(list(), 'ab', 2) # name not in object
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(e0, 2)
+## Don't show: 
+)
+## End(Don't show)
+
+e2 <- getElement2(list(ab=1), 'a', 2) # partial matching not used 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(e2, 2)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 3.  name NULL in object, return default 
+##
+ed <- getElement2(list(a=NULL), 'a',2) # 2 with a warning
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(ed, 2)
+## Don't show: 
+)
+## End(Don't show)
+
+e. <- getElement2(list(a=NULL), 'a', 2, warn.NULL=FALSE) # NULL
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(e., NULL)
+## Don't show: 
+)
+## End(Don't show)
+
+eNULL <- getElement2(list(a=NULL), 'a', NULL) # NULL
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(eNULL, NULL)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 4.  Language:  find, eval, return 
+##
+Qte <- quote(plot(1:4, y=x, col=c2))
+if(require(pryr)){ 
+  Qt <- pryr::standardise_call(Qte) # add the name 'x' 
+  fn <- getElement2(Qt)
+  eQuote <- getElement2(Qt, 'y')
+  Col2 <- getElement2(Qt, 'col', envir=list(c2=2))
+# check
+## Don't show: 
+stopifnot(
+## End(Don't show)
+  all.equal(fn, 'plot')
+## Don't show: 
+)
+## End(Don't show)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+  all.equal(eQuote, 1:4)
+## Don't show: 
+)
+## End(Don't show)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+  all.equal(Col2, 2)
+## Don't show: 
+)
+## End(Don't show)
+}
+
+
+
+cleanEx()
+nameEx("grepNonStandardCharacters")
+### * grepNonStandardCharacters
+
+flush(stderr()); flush(stdout())
+
+### Name: grepNonStandardCharacters
+### Title: grep for nonstandard characters
+### Aliases: grepNonStandardCharacters
+### Keywords: manip
+
+### ** Examples
+
+Names <- c('Raul', 'Ra`l', 'Torres,Raul', 'Torres, Raul')
+#  confusion in character sets can create
+#  names like Names[2]
+
+chk <- grepNonStandardCharacters(Names)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(chk, 2)
+## Don't show: 
+)
+## End(Don't show)
+
+chkv <- grepNonStandardCharacters(Names, TRUE)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(chkv, Names[2])
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("interpChar")
+### * interpChar
+
+flush(stderr()); flush(stdout())
+
+### Name: interpChar
+### Title: Interpolate between numbers or numbers of characters
+### Aliases: interpChar interpChar.list interpChar.default
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  numerics 
+## 
+# 1.1.  standard 
+xNum <- interpChar(1:3, 4:5, (0:3)/4)
+# answer 
+xN. <- c(1, 2.75, 3.5, 4)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(xNum, xN.)
+## Don't show: 
+)
+## End(Don't show)
+
+# 1.2.  list of length 1 with a numeric vector: 
+#       return that vector with a warning
+xN1 <- interpChar(list(a.0=1:4), .5)
+# answer 
+xN1. <- 1:4
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(xN1, xN1.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  Single character vector 
+##
+i.5 <- interpChar(list(c('a', 'bc', 'def')), .p=0.3)
+# If cumulative characters:  
+#        0.3*(total 6 characters) = 1.8 characters
+#
+# However, the current code does something different, 
+# returning "a", "bc", "d" <- like using 1-.p?  
+# This is a problem with the defaults with a single 
+# argument;  ignore this issue for now.  
+# 2014-06-04
+i.5. <- c('a', 'b', '')
+#all.equal(i.5, i.5.)
+
+##
+## 3.  Reverse character example 
+##
+i.5c <- interpChar(c('a', 'bc', 'def'), '', 0.3)
+# check:  0.7*(total 6 characers) = 4.2 characters
+i.5c. <- c('a', 'bc', 'd')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(i.5c, i.5c.)
+## Don't show: 
+)
+## End(Don't show)
+
+#  The same thing specified in a list 
+i.5d <- interpChar(list(c('a', 'bc', 'def'), ''), 0.3)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(i.5d, i.5c.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 4.  More complicated example
+##
+xCh <- interpChar(list(c('Do it', 'with R.')), 
+                  c(0, .5, .9)) 
+# answer 
+xCh. <- c('', 'with', 'Do ') 
+# With only one input, it's assumed to be y.  
+# It is replicated to length(.proportion), 
+# With nchar = 5, 7, 5, cum = 5, 12, 17.  
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(xCh, xCh.)
+## Don't show: 
+)
+## End(Don't show)
+##
+## 5.  Still more complicated 
+##
+xC2 <- interpChar(c('a', 'fabulous', 'bug'), 
+                  c('bigger or', 'just', 'big'), 
+                  c(.3, .3, 1) )
+# answer 
+x.y.longer <- c('bigger or', 'fabulous', 'big')
+# use y with ties 
+# nch smaller        1          4         3
+# nch larger         9          8         3
+# d.char             8,         4,        0 
+# cum characters     8,        12,       12 
+# prop              .3,        .7,        1 
+# prop*12          3.6,       8.4,       12
+# cum.sm             1,         5,        8
+# cum.sm+prop*12     5,        13,       20
+#   -cum(larger[-1]) 5,         4,        3
+xC2. <- c('bigge', 'fabu', 'big')                 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(xC2, xC2.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 6.  with one NULL 
+##
+null1 <- interpChar(NULL, 1, 1)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(null1, 1)
+## Don't show: 
+)
+## End(Don't show)
+
+null2 <- interpChar('abc', NULL, .3)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(null2, 'ab')
+## Don't show: 
+)
+## End(Don't show)
+##
+## 7.  length=0 
+##
+log0 <- interpChar(logical(0), 2, .6)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(log0, 1.2)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 8.  Date
+##
+
+
+
+##
+## 9.  POSIXct 
+##
+
+
+
+
+cleanEx()
+nameEx("interpPairs")
+### * interpPairs
+
+flush(stderr()); flush(stdout())
+
+### Name: interpPairs
+### Title: interpolate between pairs of vectors in a list
+### Aliases: interpPairs interpPairs.call interpPairs.function
+###   interpPairs.list
+### Keywords: manip
+
+### ** Examples
+
+###
+###
+### 1.  interpPairs.function
+###
+###
+
+##
+## 1.1.  simple 
+##
+plot0 <- quote(plot(0))
+plot0. <- interpPairs(plot0)
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(plot0, plot0.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 1.2.  no op 
+##
+noop <- interpPairs(plot0, iFrame=-1)
+# check
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(noop, enquote(NULL))
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 1.3.  a more typical example
+## example function for interpPairs 
+tstPlot <- function(){
+  plot(1:2, 1:2, type='n')
+  lines(firstFrame=1:3, 
+        lastFrame=4, 
+        x.1=seq(1, 2, .5), 
+        y.1=x, 
+        z.0=0, z.1=1, 
+        txt.1=c('CRAN is', 'good', '...'), 
+        col='red')
+}
+tstbo <- body(tstPlot)
+iPlot <- interpPairs(tstbo[[2]])
+# check 
+iP <- quote(plot(1:2, 1:2, type='n'))
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(iPlot, iP)
+## Don't show: 
+)
+## End(Don't show)
+
+iLines <- interpPairs(tstbo[[3]], nFrames=5, iFrame=2)
+# check:  
+# .proportion = (iFrame-firstFrame)/(lastFrame-firstFrame)
+#  = c(1/3, 0, -1/3)
+# if x.0 = 0 and y.0 = 0 by default:  
+iL <- quote(linex(x=c(1/3, 0), y=c(1/9, 0), z=c(1/3, 0), 
+           tst=c('CR', '')))
+##
+##**** This example seems to give the wrong answer
+##**** 2014-06-03:  Ignore for the moment 
+##           
+#all.equal(iLines, iL)
+
+##
+## 1.4.  Don't throw a cryptic error with NULL 
+##
+ip0 <- interpPairs(quote(text(labels.1=NULL)))
+  
+  
+###
+###
+### 2.  interpPairs.list
+###
+###
+
+##
+## 2.1.  (x.0, y.0, x.1, y.1) -> (x,y)
+##
+tstList <- list(x.0=1:5, y.0=5:9, y.1=9:5, x.1=9,
+                ignore=letters, col=1:5)
+xy <- interpPairs(tstList, 0.1)
+# check 
+xy. <- list(ignore=letters, col=1:5, 
+            x=1:5 + 0.1*(9-1:5), 
+            y=5:9 + 0.1*(9:5-5:9) )
+# New columns, 'x' and 'y', come after 
+# columns 'col' and 'ignore' already in tstList 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(xy, xy.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.2.  Select the middle 2:  
+##      x=(1-(0,1))*3:4+0:1*0=(3,0)
+##
+xy0 <- interpPairs(tstList[-4], c(-Inf, -1, 0, 1, 2) )
+# check 
+xy0. <- list(ignore=letters, col=3:4, x=c(3,0), y=7:6)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(xy0, xy0.)
+## Don't show: 
+)
+## End(Don't show)
+##
+## 2.3.  Null interpolation because of absence of y.1 and x.0  
+##
+xy02 <- interpPairs(tstList[c(2, 4)], 0.1)
+# check 
+#### NOT the current default answer;  revisit later.  
+xy02. <- list(y=5:9, x=9)
+
+# NOTE:  length(x) = 1 = length(x.1) in testList
+#all.equal(xy02, xy02.)
+
+##
+## 2.4.  Select an empty list (make sure this works)
+##
+x0 <- interpPairs(list(), 0:1)
+# check 
+x0. <- list()
+names(x0.) <- character(0)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(x0, x0.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.5.  subset one vector only 
+##
+xyz <- interpPairs(list(x=1:4), c(-1, 0, 1, 2))
+# check 
+xyz. <- list(x=2:3)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(xyz, xyz.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.6.  with elements of class call
+##
+xc <- interpPairs(list(x=1:3, y=quote(x+sin(pi*x/6))), 0:1)
+# check
+xc. <- list(x=1:3, y=quote(x+sin(pi*x/6)))
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(xc, xc.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.7. text
+##
+#  2 arguments 
+j.5 <- interpPairs(list(x.0='', x.1=c('a', 'bc', 'def')), 0.5)
+# check  
+j.5. <- list(x=c('a', 'bc', ''))
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(j.5, j.5.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+##  2.8.  text, 1 argument as a list 
+##
+j.50 <- interpPairs(list(x.1=c('a', 'bc', 'def')), 0.5)
+# check  
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(j.50, j.5.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.9.  A more complicated example with elements to eval
+##
+logo.jpg <- paste(R.home(), "doc", "html", "logo.jpg",
+                  sep = .Platform$file.sep)
+if(require(jpeg)){
+  Rlogo <- try(readJPEG(logo.jpg))
+  if(!inherits(Rlogo, 'try-error')){
+# argument list for a call to rasterImage or rasterImageAdj   
+    RlogoLoc <- list(image=Rlogo,
+      xleft.0 = c(NZ=176.5,CH=172,US=171,  
+                  CN=177,RU= 9.5,UK= 8),
+      xleft.1 = c(NZ=176.5,CH=  9,US=-73.5,
+                  CN=125,RU= 37, UK= 2),
+      ybottom.0=c(NZ=-37,  CH=-34,US=-34,  
+                  CN=-33,RU= 48, UK=47),
+      ybottom.1=c(NZ=-37,  CH= 47,US= 46,  
+                  CN= 32,RU=55.6,UK=55),
+      xright=quote(xleft+xinch(0.6)),
+      ytop = quote(ybottom+yinch(0.6)),
+      angle.0 =0,
+      angle.1 =c(NZ=0,CH=3*360,US=5*360, 
+                 CN=2*360,RU=360,UK=360)
+    )
+
+    RlogoInterp <- interpPairs(RlogoLoc, 
+            .proportion=rep(c(0, -1), c(2, 4)) )
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+  all.equal(names(RlogoInterp), 
+      c('image', 'xright', 'ytop', 
+        'xleft', 'ybottom', 'angle'))
+## Don't show: 
+)
+## End(Don't show)
+ 
+
+# NOTE:  'xleft', and 'ybottom' were created in interpPairs, 
+# and therefore come after 'xright' and 'ytop', which were 
+# already there.  
+
+##
+## 2.10.  using envir
+##
+    RlogoDiag <- list(x0=quote(Rlogo.$xleft), 
+                  y0=quote(Rlogo.$ybottom), 
+                  x1=quote(Rlogo.$xright), 
+                  y1=quote(Rlogo.$ytop) ) 
+
+    RlogoD <- interpPairs(RlogoDiag, .p=1, 
+                    envir=list(Rlogo.=RlogoInterp) ) 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+    all.equal(RlogoD, RlogoDiag)
+## Don't show: 
+)
+## End(Don't show)
+  }
+}
+##
+## 2.11.  assign;  no interp but should work   
+##
+tstAsgn <- as.list(quote(op <- (1:3)^2))
+intAsgn <- interpPairs(tstAsgn, 1)
+
+# check 
+intA. <- tstAsgn 
+names(intA.) <- c('X', 'X.3', 'X.2')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(intAsgn, intA.)
+## Don't show: 
+)
+## End(Don't show)
+
+#   op <- par(...)
+tstP <- quote(op <- par(mar=c(5, 4, 2, 2)+0.1))
+tstPar <- as.list(tstP)
+intPar <- interpPairs(tstPar, 1)
+
+# check 
+intP. <- list(quote(`<-`), quote(op), 
+              quote(par(mar=c(5, 4, 2, 2)+0.1)) )
+names(intP.) <- c("X", 'X.3', 'X.2')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(intPar, intP.)
+## Don't show: 
+)
+## End(Don't show)
+
+intP. <- interpPairs(tstP)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(intP., tstP)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## NULL 
+## 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(interpPairs(NULL), quote(NULL)) 
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+cleanEx()
+nameEx("logVarCor")
+### * logVarCor
+
+flush(stderr()); flush(stdout())
+
+### Name: logVarCor
+### Title: Log-diagonal representation of a variance matrix
+### Aliases: logVarCor
+### Keywords: multivariate
+
+### ** Examples
+
+##
+## 1.  Trivial 1 x 1 matrix
+##
+# 1.1.  convert vector to "matrix"
+mat1 <- logVarCor(1)
+# check
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(mat1, matrix(exp(1), 1))
+## Don't show: 
+)
+## End(Don't show)
+          
+
+# 1.2.  Convert 1 x 1 matrix to vector 
+lVCd1 <- logVarCor(diag(1))
+# check 
+lVCd1. <- 0
+attr(lVCd1., 'corr') <- numeric(0)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(lVCd1, lVCd1.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  simple 2 x 2 matrix 
+##
+# 2.1.  convert 1:2 into a matrix 
+lVC2 <- logVarCor(1:2)
+# check 
+lVC2. <- diag(exp(1:2))
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(lVC2, lVC2.)
+## Don't show: 
+)
+## End(Don't show)
+
+# 2.2.  Convert a matrix into a vector 
+lVC2d <- logVarCor(diag(1:2))
+# check 
+lVC2d. <- log(1:2)
+attr(lVC2d., 'corr') <- 0 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(lVC2d, lVC2d.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 3.  3-d covariance matrix with nonzero correlations 
+##
+# 3.1.  Create matrix 
+(ex3 <- tcrossprod(matrix(c(rep(1,3), 0:2), 3)))
+dimnames(ex3) <- list(letters[1:3], letters[1:3])
+
+# 3.2.  Convert to vector 
+(Ex3 <- logVarCor(ex3))
+
+# check 
+Ex3. <- log(c(1, 2, 5))
+names(Ex3.) <- letters[1:3]
+attr(Ex3., 'corr') <- c(1/sqrt(2), 1/sqrt(5), 3/sqrt(10))
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(Ex3, Ex3.)
+## Don't show: 
+)
+## End(Don't show)
+
+# 3.3.  Convert back to a matrix 
+Ex3.2 <- logVarCor(Ex3)
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(ex3, Ex3.2)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("match.data.frame")
+### * match.data.frame
+
+flush(stderr()); flush(stdout())
+
+### Name: match.data.frame
+### Title: Identify the row of 'y' best matching each row of 'x'
+### Aliases: match.data.frame
+### Keywords: manip
+
+### ** Examples
+
+newdata <- data.frame(state=c("AL", "MI","NY"),
+                      surname=c("Rogers", "Rogers", "Smith"),
+                      givenName=c("Mike R.", "Mike K.", "Al"),
+                      stringsAsFactors=FALSE)
+reference <- data.frame(state=c("NY", "NY", "MI", "AL", "NY", "MI"),
+                      surname=c("Smith", "Rogers", "Rogers (MI)",
+                                "Rogers (AL)", "Smith", 'Jones'),
+                      givenName=c("John", "Mike", "Mike", "Mike",
+                                "T. Albert", 'Al Thomas'),
+                      stringsAsFactors=FALSE)
+newInRef <- match.data.frame(newdata, reference,
+       grep.=c(NA, 'agrep', 'agrep'))
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(newInRef, c(4, 3, 5))
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("matchName")
+### * matchName
+
+flush(stderr()); flush(stdout())
+
+### Name: matchName
+### Title: Match surname and givenName in a table
+### Aliases: matchName matchName1
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  Names to match exercising many possibile combinations 
+##     of surname with 0, 1, >1 matches possibly after 
+##     replacing with subNonStandardNames 
+##     combined with possibly multiple givenName combinations 
+##     with 0, 1, >1 matches possibly requiring replacing with 
+##     subNonStandardNames or nicknames 
+##
+# NOTE:  "-" could also be "e" with an accent;  
+#    not included with this documentation, because 
+#    non-English characters generate warnings in standard tests.  
+Names2mtch <- c("Andr_ Bruce C_rdenas", "Dolores Ella Feinstein",
+           "George Homer", "Inez Jane Kappa", "Luke Michael Noel", 
+           "Oscar Papa", "Quincy Ra_l Stevens", 
+           "Thomas U. Vel_zquez", "William X. Young", 
+           "Zebra")
+##
+## 2.  Data = matrix(..., byrow=TRUE) to exercise the combinations 
+##     the combinations from 1 
+##
+Data1 <- matrix(c("Feld", "Don", "789", 
+                  "C_rdenas", "Don", "456", 
+                  "C_rdenas", "Andre B.", "123", 
+                  "Smith", "George", "aaa", 
+                  "Young", "Bill", "369"), 
+                ncol=3, byrow=TRUE)
+Data1. <- subNonStandardNames(Data1)                
+##
+## 3.  matchName1
+##        
+parceNm1 <- parseName(Names2mtch)
+match1.1 <- matchName1(parceNm1[, 'surname'], Data1.)
+
+# check
+match1.1s <- vector('list', 10)
+match1.1s[[1]] <- 2:3
+match1.1s[[9]] <- 5
+names(match1.1s) <- parceNm1[, 'surname'] 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(match1.1, match1.1s)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 4.  matchName1 with name = multiple columns 
+##
+match1.2 <- matchName1(c('Cardenas', 'Don'), Data1., 
+                       name=Data1.[, 1:2])
+
+# check 
+match1.2a <- list(Cardenas=2:3, Don=1:2)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(match1.2, match1.2a)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 5.  matchName 
+##
+nickNames <- matrix(c("William", "Bill"), 1, byrow=TRUE)
+
+match1 <- matchName(Names2mtch, Data1, nicknames=nickNames)
+                  
+# check 
+match1a <- list("Cardenas, Andre Bruce"=Data1[3,, drop=FALSE ], 
+                "Feinstein, Dolores Ella"=NULL, 
+                "Homer, George"=NULL, "Kappa, Inez Jane"=NULL, 
+                "Noel, Luke Michael"=NULL, "Papa, Oscar"=NULL, 
+                "Stevens, Quincy Raul"=NULL, 
+                "Velazquez, Thomas U."=NULL, 
+                "Young, William X."=Data1[5,, drop=FALSE], 
+                "Zebra"=NULL)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(match1, match1a)
+## Don't show: 
+)
+## End(Don't show)
+##
+## 6.  namesNotFound 
+##
+tstNotFound <- matchName('xx_x', Data1)
+
+# check 
+tstNF <- list('xx_x'=NULL)
+attr(tstNF, 'namesNotFound') <- 'xx_x'
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tstNotFound, tstNF)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 7.  matchName(NULL) to simplify use 
+##
+mtchNULL <- matchName(NULL, Data1)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(mtchNULL, NULL)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("matchQuote")
+### * matchQuote
+
+flush(stderr()); flush(stdout())
+
+### Name: matchQuote
+### Title: Match isolated quotes across records
+### Aliases: matchQuote
+### Keywords: manip
+
+### ** Examples
+
+chvec <- c('abc', 'de"f', ' ', '",', 'g"h',
+            'matched"quotes"', '')
+ch. <- matchQuote(chvec)
+
+# check 
+chv. <- c('abc', 'de"f ",', 'g"h', 
+          'matched"quotes"', '')
+attr(chv., 'unmatchedQuotes') <- c(2, 4, 5)
+attr(chv., 'blankLinesDropped') <- 3
+attr(chv., 'quoteLinesAppended') <- 4
+attr(chv., 'ncharsAppended') <- 2 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(ch., chv.)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("mergeVote")
+### * mergeVote
+
+flush(stderr()); flush(stdout())
+
+### Name: mergeVote
+### Title: Merge Roll Call Vote
+### Aliases: mergeVote
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  Test good cases
+##
+votetst <- data.frame(
+  surName=c('Smith', 'Jones', 'Graves', 'Jsn', 'Jsn', 'Gay'),
+  givenName=c("Sam", "", "", "John", "John", ''),
+  votex=factor(c('Y', 'N', 'abstain', 'Y', 'Y', 'Y')),
+  State=factor(rep(c("CA", "", "SC", "NY"), c(1, 2, 1, 2))),
+  district=rep(c("13", "1", "2", "1"), c(1, 2, 2, 1)),
+  stringsAsFactors=FALSE )
+
+x1 <- data.frame(
+  Office=factor(rep(c("House", "Senate"), e=8)),
+  state=rep(c("NY", "SC", "SD", "CA", "AK", "AR", "NY", "NJ"), 2),
+  District=rep(c("2", "2", "At Large", "13", "1", "9", "1", "3"), 2),
+  surname=rep(c('Jsn', 'Jsn', 'Smith', 'Smith', 'Jones',
+       'Graves', 'Rx', 'Agnew'), 2),
+  givenName=rep(c("John D.", "John J.",
+    "Samual", "Samual", "Mary", "Mary", "Susan", 'Spiro'), 2),
+  don=1:16, stringsAsFactors=FALSE)
+
+x1. <- mergeVote(x1, votetst)
+
+x2 <- cbind(x1, votex=factor( rep(
+   c('Y', 'notEligible', 'Y', 'N', 'abstain', 'Y', 'notEligible'),
+   c(2,1,1,1,1,1,9) ) ) )
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(x1., x2)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  Test a case with a vote error in x
+##
+
+x1a <- cbind(x1, voterr=rep(
+     c('notEligible', 'Y', 'notEligible'), c(7, 1, 8)))
+
+x1a. <- try(mergeVote(x1a, votetst))
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+class(x1a.)=='try-error'
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+
+cleanEx()
+nameEx("missing0")
+### * missing0
+
+flush(stderr()); flush(stdout())
+
+### Name: missing0
+### Title: Missing or length 0
+### Aliases: missing0
+### Keywords: manip
+
+### ** Examples
+
+tstFn <- function(x)missing0(x)
+# missing 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tstFn(), TRUE)
+## Don't show: 
+)
+## End(Don't show)
+
+# length 0 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tstFn(logical()), TRUE)
+## Don't show: 
+)
+## End(Don't show)
+
+# supplied 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tstFn(1), FALSE)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+
+cleanEx()
+nameEx("nchar0")
+### * nchar0
+
+flush(stderr()); flush(stdout())
+
+### Name: nchar0
+### Title: Zero characters or NULL
+### Aliases: nchar0
+### Keywords: manip
+
+### ** Examples
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(nchar0(NULL), TRUE)
+## Don't show: 
+)
+## End(Don't show)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(nchar0(character(0)), TRUE)
+## Don't show: 
+)
+## End(Don't show)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(nchar0(character(3)), TRUE)
+## Don't show: 
+)
+## End(Don't show)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(nchar0(c('a', 'c')), FALSE)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("parseCommas")
+### * parseCommas
+
+flush(stderr()); flush(stdout())
+
+### Name: parseCommas
+### Title: Convert character string with Dollar signs and commas to
+###   numerics
+### Aliases: parseCommas parseCommas.default parseCommas.data.frame
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  a character vector
+##
+X2 <- c('-$2,500', '$5,000.50')
+x2 <- parseDollars(X2)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(x2, c(-2500, 5000.5))
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## A data.frame
+##
+chDF <- data.frame(let=letters[1:2], Dol=X2, dol=x2)
+numDF <- parseCommas(chDF)
+
+chkDF <- chDF
+chkDF$Dol <- x2
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(numDF, chkDF)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("parseDollars")
+### * parseDollars
+
+flush(stderr()); flush(stdout())
+
+### Name: parseDollars
+### Title: Convert character string with Dollar signs and commas to
+###   numerics
+### Aliases: parseDollars
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  a character vector
+##
+X2 <- c('-$2,500', '$5,000.50')
+x2 <- parseDollars(X2)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(x2, c(-2500, 5000.5))
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## A data.frame
+##
+chDF <- data.frame(let=letters[1:2], Dol=X2, dol=x2)
+numDF <- parseCommas(chDF)
+
+chkDF <- chDF
+chkDF$Dol <- x2
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(numDF, chkDF)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("parseName")
+### * parseName
+
+flush(stderr()); flush(stdout())
+
+### Name: parseName
+### Title: Parse surname and given name
+### Aliases: parseName
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  Parse standard first-last name format
+##
+tstParse <- c('Joe Smith (AL)', 'Teresa Angelica Sanchez de Gomez',
+         'John Brown, Jr.', 'John Brown Jr.',
+         'John W. Brown III', 'John Q. Brown,I',
+         'Linda Rosa Smith-Johnson', 'Anastasio Somoza Debayle',
+         'Ra_l Vel_zquez', 'Sting', 'Colette, ')
+parsed <- parseName(tstParse)
+
+tstParse2 <- matrix(c('Smith', 'Joe', 'Gomez', 'Teresa Angelica Sanchez de',
+  'Brown', 'John, Jr.', 'Brown', 'John, Jr.',
+  'Brown', 'John W., III', 'Brown', 'John Q., I',
+  'Smith-Johnson', 'Linda Rosa', 'Debayle', 'Anastasio Somoza',
+  'Velazquez', 'Raul', '', 'Sting', 'Colette', ''),
+  ncol=2, byrow=TRUE)
+# NOTE:  The 'Anastasio Somoza Debayle' is in the Spanish tradition
+# and is handled incorrectly by the current algorithm.
+# The correct answer should be "Somoza Debayle", "Anastasio".
+# However, fixing that would complicate the algorithm excessively for now.
+colnames(tstParse2) <- c("surname", 'givenName')
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(parsed, tstParse2)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  Parse "surname, given name" format
+##
+tst3 <- c('Smith (AL),Joe', 'Sanchez de Gomez, Teresa Angelica',
+     'Brown, John, Jr.', 'Brown, John W., III', 'Brown, John Q., I',
+     'Smith-Johnson, Linda Rosa', 'Somoza Debayle, Anastasio',
+     'Vel_zquez, Ra_l', ', Sting', 'Colette,')
+tst4 <- parseName(tst3)
+
+tst5 <- matrix(c('Smith', 'Joe', 'Sanchez de Gomez', 'Teresa Angelica',
+  'Brown', 'John, Jr.', 'Brown', 'John W., III', 'Brown', 'John Q., I',
+  'Smith-Johnson', 'Linda Rosa', 'Somoza Debayle', 'Anastasio',
+  'Velazquez', 'Raul', '','Sting', 'Colette',''),
+  ncol=2, byrow=TRUE)
+colnames(tst5) <- c("surname", 'givenName')
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst4, tst5)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 3.  secondLine 
+##
+L2 <- parseName(c('Adam\n2nd line', 'Ed  \n --Vacancy', 'Frank'))
+
+# check 
+L2. <- matrix(c('', 'Adam', '', 'Ed', '', 'Frank'), 
+              ncol=2, byrow=TRUE)
+colnames(L2.) <- c('surname', 'givenName')
+attr(L2., 'secondLine') <- c('2nd line', ' --Vacancy', NA)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(L2, L2.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 4.  Force surnameFirst when in a minority 
+##
+snf <- c('Sting', 'Madonna', 'Smith, Al')
+SNF <- parseName(snf, surnameFirst=TRUE)
+
+# check 
+SNF2 <- matrix(c('', 'Sting', '', 'Madonna', 'Smith', 'Al'), 
+               ncol=2, byrow=TRUE)
+colnames(SNF2) <- c('surname', 'givenName')               
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(SNF, SNF2)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 5.  nameNotFound
+##
+noSub <- parseName('xx_x')
+
+# check 
+noSub. <- matrix(c('', 'xx_x'), 1)
+colnames(noSub.) <- c('surname', 'givenName')               
+attr(noSub., 'namesNotFound') <- 'xx_x'
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(noSub, noSub.)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("pmatch2")
+### * pmatch2
+
+flush(stderr()); flush(stdout())
+
+### Name: pmatch2
+### Title: Value matching or partial matching
+### Aliases: pmatch2
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  common examples 
+##
+x2match <- c('Pete', 'Peter', 'Ma', 'Mo', 'Paul', 
+             'Cardenas')
+
+tbl <- c('Peter', 'Mary', 'Martha', 'John Paul', 'Peter', 
+         'Cardenas', 'Cardenas') 
+
+x2mtchd <- pmatch2(x2match, tbl) 
+
+# answer
+x2mtchd. <- list(Pete=c(1, 5), Peter=c(1, 5), Ma=2:3, 
+    Mo=integer(0), Paul=4, Cardenas=6:7)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(x2mtchd, x2mtchd.)
+## Don't show: 
+)
+## End(Don't show)
+##
+## 2.  strange cases that caused errors and are now warnings
+##
+huh <- pmatch2("(7", tbl)
+
+# answer 
+huh. <- list("(7"=integer(0))
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(huh, huh.)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+
+cleanEx()
+nameEx("pmatchIC")
+### * pmatchIC
+
+flush(stderr()); flush(stdout())
+
+### Name: pmatchIC
+### Title: pmatch ignoring case
+### Aliases: pmatchIC
+### Keywords: manip
+
+### ** Examples
+
+yr <- pmatchIC('Yr', c('y1', 'yr', 'y2'))
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal('yr', yr)
+## Don't show: 
+)
+## End(Don't show)
+
+# integer
+m2 <- pmatchIC(2, table=letters)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(m2, 'b')
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("qqnorm2")
+### * qqnorm2
+
+flush(stderr()); flush(stdout())
+
+### Name: qqnorm2
+### Title: Normal Probability Plot with Multiple Symbols
+### Aliases: qqnorm2 plot.qqnorm2 lines.qqnorm2 points.qqnorm2
+### Keywords: plot
+
+### ** Examples
+
+##
+## a simple test data.frame to illustrate the plot
+## but too small to illustrate qqnorm concepts
+##
+tstDF <- data.frame(y=1:3, z1=1:3, z2=c(TRUE, TRUE, FALSE),
+                    z3=c('tell', 'me', 'why'), z4=c(1, 2.4, 3.69) )
+# plotting symbols circle, triangle, and "+"
+qn1 <- with(tstDF, qqnorm2(y, z1))
+
+# plotting symbols "x" and "o"
+qn2 <- with(tstDF, qqnorm2(y, z2))
+
+# plotting with "-" and "+"
+qn. <- with(tstDF, qqnorm2(y, z2, pch=c('FALSE'='-', 'TRUE'='+')))
+
+# plotting with "tell", "me", "why"
+qn3 <- with(tstDF, qqnorm2(y, z3))
+
+# plotting with the numeric values
+qn4 <- with(tstDF, qqnorm2(y, z4))
+
+##
+## test plot, lines, points
+##
+plot(qn4, type='n') # establish the scales
+lines(qn4)          # add a line
+points(qn4)         # add points
+
+##
+## Check the objects created above
+##
+# check qn1
+qn1. <- qqnorm(1:3, datax=TRUE, plot.it=FALSE)
+qn1.$xlab <- 'y'
+qn1.$ylab <- 'Normal scores'
+qn1.$z <- tstDF$z1
+qn1.$pch <- 1:3
+names(qn1.$pch) <- 1:3
+qn11 <- qn1.[c(3:4, 1:2, 5:6)]
+class(qn11) <- 'qqnorm2'
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(qn1, qn11)
+## Don't show: 
+)
+## End(Don't show)
+
+# check qn2
+qn2. <- qqnorm(1:3, datax=TRUE, plot.it=FALSE)
+qn2.$xlab <- 'y'
+qn2.$ylab <- 'Normal scores'
+qn2.$z <- tstDF$z2
+qn2.$pch <- c('FALSE'=4, 'TRUE'=1)
+qn22 <- qn2.[c(3:4, 1:2, 5:6)]
+class(qn22) <- 'qqnorm2'
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(qn2, qn22)
+## Don't show: 
+)
+## End(Don't show)
+
+# check qn.
+qn.. <- qqnorm(1:3, datax=TRUE, plot.it=FALSE)
+qn..$xlab <- 'y'
+qn..$ylab <- 'Normal scores'
+qn..$z <- tstDF$z2
+qn..$pch <- c('FALSE'='-', 'TRUE'='+')
+qn.2 <- qn..[c(3:4, 1:2, 5:6)]
+class(qn.2) <- 'qqnorm2'
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(qn., qn.2)
+## Don't show: 
+)
+## End(Don't show)
+
+# check qn3
+qn3. <- qqnorm(1:3, datax=TRUE, plot.it=FALSE)
+qn3.$xlab <- 'y'
+qn3.$ylab <- 'Normal scores'
+qn3.$z <- as.character(tstDF$z3)
+qn3.$pch <- as.character(tstDF$z3)
+names(qn3.$pch) <- qn3.$pch
+qn33 <- qn3.[c(3:4, 1:2, 5:6)]
+class(qn33) <- 'qqnorm2'
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(qn3, qn33)
+## Don't show: 
+)
+## End(Don't show)
+
+# check qn4
+qn4. <- qqnorm(1:3, datax=TRUE, plot.it=FALSE)
+qn4.$xlab <- 'y'
+qn4.$ylab <- 'Normal scores'
+qn4.$z <- tstDF$z4
+qn44 <- qn4.[c(3:4, 1:2, 5)]
+qn44$pch <- NULL
+class(qn44) <- 'qqnorm2'
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(qn4, qn44)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## Test lines(qn4) without z
+##
+#  just as a test, so this code can be used 
+#  in other contexts
+qn4. <- qn4
+qn4.$z <- NULL
+plot(qn4.)
+
+
+
+
+
+cleanEx()
+nameEx("qqnorm2s")
+### * qqnorm2s
+
+flush(stderr()); flush(stdout())
+
+### Name: qqnorm2s
+### Title: Normal Probability Plot with Multiple Lines and Multiple Symbols
+### Aliases: qqnorm2s plot.qqnorm2s
+### Keywords: plot
+
+### ** Examples
+
+##
+## One data.frame
+##
+tstDF2 <- data.frame(y=1:3, y2=3:5, 
+    z2=c(TRUE, TRUE, FALSE),
+    z3=c('tell', 'me', 'why'), 
+    z4=c(1, 2.4, 3.69) )
+# produce the object and plot it
+Qn2 <- qqnorm2s(c('y', 'y2'), 'z2', tstDF2)
+
+# plot the object previously created
+plot(Qn2)
+
+# Check the object
+qy <- with(tstDF2, qqnorm2(y, z2, type='b'))
+qy$col <- 1
+qy2 <- with(tstDF2, qqnorm2(y2, z2, type='b'))
+qy2$col <- 2
+legend. <- list(
+  pch=list(x='right', 
+      legend=c('FALSE', 'TRUE'),
+      pch=c('FALSE'=4, 'TRUE'= 1)),
+  col=list(x='bottomright', 
+      legend=c('y', 'y2'), lty=1, col=1:2))
+Qn2. <- list(y=qy, y2=qy2, legend.=legend.)
+class(Qn2.) <- 'qqnorm2s'
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(Qn2, Qn2.)
+## Don't show: 
+)
+## End(Don't show)
+##
+## Two data.frames
+##
+tstDF2b <- tstDF2
+tstDF2b$y <- c(0.1, 0.1, 9)
+Qn2b <- qqnorm2s('y', 'z2', 
+    list(tstDF2, tstDF2b), 
+    outnames=c('ok', 'oops'), log='x' )
+##
+## Split one data.frame 
+##
+tstDF2. <- rbind(cbind(tstDF2, z1=1), 
+                 cbind(tstDF2b, z1=2) )
+Qn2. <- qqnorm2s('y', 'z1', tstDF2.)
+# Plot has only one line, because only 1 y variable.  
+##
+## Two data.frames without z
+##
+Qn2.0 <- qqnorm2s('y', 
+    data.=list(tstDF2, tstDF2b), 
+    outnames=c('ok', 'oops'), log='x' )
+
+
+
+cleanEx()
+nameEx("qqnorm2t")
+### * qqnorm2t
+
+flush(stderr()); flush(stdout())
+
+### Name: qqnorm2t
+### Title: Normal Probability Plot with Multiple Lines and Multiple Symbols
+### Aliases: qqnorm2t
+### Keywords: plot
+
+### ** Examples
+
+##
+## One data.frame
+##
+tstDF2 <- data.frame(y=1:6, x=c('a','b'), 
+    z2=c(TRUE, TRUE, FALSE),
+    z3=c('tell', 'me', 'why') )
+# produce the object and plot it
+Qnt <- qqnorm2t('y', 'x', 'z2', tstDF2)
+
+# plot the object previously created
+plot(Qnt)
+
+Qnt0 <- qqnorm2t('y', 'x', data.=tstDF2)
+# without z 
+qqnorm2t('y', 'x', data.=tstDF2)
+
+
+
+cleanEx()
+nameEx("rasterImageAdj")
+### * rasterImageAdj
+
+flush(stderr()); flush(stdout())
+
+### Name: rasterImageAdj
+### Title: rasterImage adjusting to zero distortion
+### Aliases: rasterImageAdj
+### Keywords: hplot
+
+### ** Examples
+
+# something to plot 
+logo.jpg <- file.path(R.home('doc'), 'html', 'logo.jpg')
+if(require(jpeg)){
+##
+## 1.  Shrink as required
+##
+  Rlogo <- try(readJPEG(logo.jpg))
+  if(inherits(Rlogo, 'array')){  
+  ## Don't show: 
+stopifnot(
+## End(Don't show)
+    all.equal(dim(Rlogo), c(76, 100, 3))
+  ## Don't show: 
+)
+## End(Don't show)
+
+    plot(1:2)
+# default
+    rasterImageAdj(Rlogo)
+
+    plot(1:2, type='n', asp=0.75)
+# Tall and thin
+    rasterImage(Rlogo, 1, 1, 1.2, 2)
+# Fix
+    rasterImageAdj(Rlogo, 1.2, 1, 1.4, 2)
+
+# short and wide
+    rasterImage(Rlogo, 1.4, 1, 2, 1.2)
+# Fix
+    rasterImage(Rlogo, 1.4, 1.2, 2, 1.4)
+##
+## 2.  rotate 
+##
+#  2.1.  angle=90:  rasterImage left of rasterImageAdj
+    plot(0:1, 0:1, type='n', asp=1)
+    rasterImageAdj(Rlogo, .5, .5, 1, 1, 90)
+    rasterImage(Rlogo, .5, .5, 1, 1, 90)
+#  2.2.  angle=180:  rasterImage left and below 
+    plot(0:1, 0:1, type='n', asp=1)
+    rasterImageAdj(Rlogo, .5, .5, 1, 1, 180)
+    rasterImage(Rlogo, .5, .5, 1, 1, 180)
+#  2.3.  angle=270:  rasterImage below 
+    plot(0:1, 0:1, type='n', asp=1)
+    rasterImageAdj(Rlogo, .5, .5, 1, 1, 270)
+    rasterImage(Rlogo, .5, .5, 1, 1, 270)
+## 
+## 3.  subset 
+##
+  dim(Rlogo)
+# 76 100 3
+  Rraster <- as.raster(Rlogo)
+  dim(Rraster)
+# 76 100:  
+# x=1:100, left to right 
+# y=1:76, top to bottom 
+  rasterImageAdj(Rlogo, 0, 0, .5, .5, xsub=40:94)
+}
+}
+
+
+
+cleanEx()
+nameEx("read.transpose")
+### * read.transpose
+
+flush(stderr()); flush(stdout())
+
+### Name: read.transpose
+### Title: Read a data table in transpose form
+### Aliases: read.transpose
+### Keywords: IO
+
+### ** Examples
+
+#  Find demoFiles/*.csv
+demoDir <- system.file('demoFiles', package='Ecdat')
+(demoCsv <- dir(demoDir, pattern='csv$', full.names=TRUE))
+
+# Use the fourth example
+# to ensure the code will handle commas in a name
+# and NAs
+nipa6.16D <- read.transpose(demoCsv[4])
+str(nipa6.16D)
+
+
+
+cleanEx()
+nameEx("readDW_NOMINATE")
+### * readDW_NOMINATE
+
+flush(stderr()); flush(stdout())
+
+### Name: readDW_NOMINATE
+### Title: Read the DW-NOMINATE data from their website.
+### Aliases: readDW_NOMINATE
+### Keywords: IO
+
+### ** Examples
+
+# Wrap in try(...) so it won't throw an error 
+# if the Voteview website is not available. 
+
+Nominate <- try(readDW_NOMINATE())
+
+
+
+cleanEx()
+nameEx("readDates3to1")
+### * readDates3to1
+
+flush(stderr()); flush(stdout())
+
+### Name: readDates3to1
+### Title: read.csv with Dates in 3 columns
+### Aliases: readDates3to1
+### Keywords: IO
+
+### ** Examples
+
+##
+## 1.  Write a file to be read
+##
+cow0 <- data.frame(rec=1:3, startMonth=4:6, 
+    startDay=7:9, startYear=1971:1973, 
+    endMonth1=10:12, endDay1=13:15, 
+    endYear1=1974:1976, txt=letters[1:3])
+
+cowFile <- tempfile('cow0')    
+write.csv(cow0, cowFile, row.names=FALSE)
+##
+## 2.  Read it 
+##
+cow0. <- readDates3to1(cowFile)
+
+# check 
+cow0x <- data.frame(rec=1:3, txt=letters[1:3], 
+    start=as.Date(c('1971-04-07', '1972-05-08', '1973-06-09')), 
+    end1=as.Date(c('1974-10-13', '1975-11-14', '1976-12-15')) )
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(cow0., cow0x)
+## Don't show: 
+)
+## End(Don't show)
+
+## Don't show: 
+# delete the temp file written above 
+file.remove(cowFile)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("readNIPA")
+### * readNIPA
+
+flush(stderr()); flush(stdout())
+
+### Name: readNIPA
+### Title: Read a National Income and Product Accounts data table
+### Aliases: readNIPA
+### Keywords: IO
+
+### ** Examples
+
+#  Find demoFiles/*.csv
+demoDir <- system.file('demoFiles', package='Ecdat')
+(demoCsv <- dir(demoDir, pattern='csv$', full.names=TRUE))
+
+nipa6.16 <- readNIPA(demoCsv)
+str(nipa6.16)
+
+
+
+cleanEx()
+nameEx("recode2")
+### * recode2
+
+flush(stderr()); flush(stdout())
+
+### Name: recode2
+### Title: bivariate recode
+### Aliases: recode2
+### Keywords: manip
+
+### ** Examples
+
+contrib <- c(-1, 0, 0, 1)
+contrib0 <- c(FALSE, FALSE, TRUE, FALSE)
+
+contribCodes <- recode2(contrib>0, contrib0,
+   c('returned', 'received', '0', 'ERR') )
+
+cC <- c('returned', 'returned', '0', 'received')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(contribCodes, cC)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+
+cleanEx()
+nameEx("rgrep")
+### * rgrep
+
+flush(stderr()); flush(stdout())
+
+### Name: rgrep
+### Title: Reverse grep
+### Aliases: rgrep
+### Keywords: aplot
+
+### ** Examples
+
+##
+## 1.  return index 
+##
+dd <- data.frame(a = gl(3,4), b = gl(4,1,12)) # balanced 2-way
+mm <- model.matrix(~ a + b, dd)
+
+b. <- rgrep(names(dd), colnames(mm)[5])
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(b., 2)
+## Don't show: 
+)
+## End(Don't show)
+##
+## 2.  return value 
+##
+bv <- rgrep(names(dd), colnames(mm)[5], value=TRUE)
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(bv, 'b')
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("sign")
+### * sign
+
+flush(stderr()); flush(stdout())
+
+### Name: sign
+### Title: Sign function with zero option
+### Aliases: sign
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  default
+##
+sx <- sign((-2):2)
+
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(sx, base::sign((-2):2))
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  with zero = 1
+##
+s1 <- sign((-2):2, 1)
+
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(s1, rep(c(-1, 1), c(2,3)))
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("simulate.bic.glm")
+### * simulate.bic.glm
+
+flush(stderr()); flush(stdout())
+
+### Name: simulate.bic.glm
+### Title: A "simulate" method for a 'BMA::bic.glm' object
+### Aliases: simulate.bic.glm
+### Keywords: datagen
+
+### ** Examples
+
+library(BMA)
+library(mvtnorm)
+##
+## 1.  a factor and a numeric 
+##
+PoisReg2 <- data.frame(
+  x=factor(rep(0:2, 2)), x1=rep(1:2, e=3))
+bicGLM2 <- bic.glm(PoisReg2, y=1:6, poisson)
+
+newDat2 <- data.frame(
+  x=factor(rep(c(0, 2), 2), levels=0:2), 
+  x1=3:6)
+# NOTE:  Force newDat2['x'] to have the same levels
+# as PoisReg2['x']
+
+bicGLMsim2n <- simulate(bicGLM2, nsim=5, seed=2,
+  newdata=newDat2[1:3,])
+
+##
+## 2.  One variable:  BMA returns
+##     a mixture of constant & linear models
+##
+PoisRegDat <- data.frame(x=1:2, y=c(5, 10))
+bicGLMex <- bic.glm(PoisRegDat['x'], 
+                     PoisRegDat[, 'y'], poisson)
+(postprob <- bicGLMex[['postprob']])
+bicGLMex['mle']
+
+# Simulate for the model data 
+bicGLMsim <- simulate(bicGLMex, nsim=2, seed=1)  
+
+# Simulate for new data
+newDat <- data.frame(x=3:4, 
+      row.names=paste0('f', 3:4))
+bicGLMsin <- simulate(bicGLMex, nsim=3, seed=2, 
+                      newdata=newDat)
+                      
+# Refit with bic.glm.matrix and confirm 
+# that simulate returns the same answers
+
+bicGLMat <- bic.glm(as.matrix(PoisRegDat['x']), 
+                         PoisRegDat[, 'y'], poisson)
+bicGLMatsim <- simulate(bicGLMat, nsim=3, seed=2, 
+                      newdata=newDat)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+                      
+all.equal(bicGLMsin, bicGLMatsim)                      
+## Don't show: 
+)
+## End(Don't show)
+
+# The same problem using bic.glm.formula                  
+bicGLMfmla <- bic.glm(y ~ x, PoisRegDat, poisson)
+bicGLMfmlsim <- simulate(bicGLMfmla, nsim=3, seed=2, 
+                      newdata=newDat)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+                      
+all.equal(bicGLMsin, bicGLMfmlsim)                      
+## Don't show: 
+)
+## End(Don't show)
+                      
+##
+## 2a.  Compute the correct answers manually 
+##
+GLMex1 <- glm(y~x, poisson, PoisRegDat)
+GLMex0 <- glm(y~1, poisson, PoisRegDat)
+
+postProb <- bicGLMfmla$postprob
+nComp <- length(postProb)
+newMat <- model.matrix(~., newDat)
+set.seed(2)
+(rmdl <- sample(1:nComp, 3, TRUE, 
+          postprob))
+GLMsim. <- matrix(NA, 2, 3)
+dimnames(GLMsim.) <- list(
+  rownames(newMat), 
+  paste0('sim_', 1:3) )
+          
+sim1 <- mvtnorm::rmvnorm(2, coef(GLMex1), 
+                         vcov(GLMex1))
+sim0 <- mvtnorm::rmvnorm(1, coef(GLMex0), 
+                         vcov(GLMex0))
+GLMsim.[, rmdl==1] <- tcrossprod(newMat, sim1)
+GLMsim.[, rmdl==2] <- tcrossprod(
+          newMat[, 1, drop=FALSE], sim0)
+                      
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(bicGLMsin[[2]], data.frame(GLMsim.), 
+    tolerance=4*sqrt(.Machine$double.eps))
+# tcrossprod numeric precision is mediocre 
+# for the constant model in this example.  
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("simulate.glm")
+### * simulate.glm
+
+flush(stderr()); flush(stdout())
+
+### Name: simulate.glm
+### Title: A "simulate" method for a glm object
+### Aliases: simulate.glm
+### Keywords: datagen
+
+### ** Examples
+
+library(mvtnorm)
+##
+## 1.  a factor and a numeric 
+##
+PoisReg2 <- data.frame(y=1:6, 
+    x=factor(rep(0:2, 2)), x1=rep(1:2, e=3))
+GLMpoisR2 <- glm(y~x+x1, poisson, PoisReg2)
+
+newDat. <- data.frame(
+  x=factor(rep(c(0, 2), 2), levels=0:2), 
+  x1=3:6)
+# NOTE:  Force newDat2['x'] to have the same levels
+# as PoisReg2['x']
+
+GLMsim2n <- simulate(GLMpoisR2, nsim=3, seed=2,
+  newdata=newDat.)
+
+##
+## 2.  One variable:  BMA returns
+##     a mixture of constant & linear models
+##
+PoisRegDat <- data.frame(x=1:2, y=c(5, 10))
+GLMex <- glm(y~x, poisson, PoisRegDat)
+
+# Simulate for the model data 
+GLMsig <- simulate(GLMex, nsim=2, seed=1)  
+
+# Simulate for new data
+newDat <- data.frame(x=3:4, 
+      row.names=paste0('f', 3:4))
+GLMsio <- simulate(GLMex, nsim=3, seed=2, 
+                      newdata=newDat)
+
+##
+## 2a.  Compute the correct answers manually 
+##
+newMat <- model.matrix(~., newDat)
+RNGstate <- structure(2, kind = as.list(RNGkind()))
+set.seed(2)
+
+sim <- mvtnorm::rmvnorm(3, coef(GLMex), 
+                         vcov(GLMex))
+rownames(sim) <- paste0('sim_', 1:3)
+simDF <- data.frame(t(sim))
+
+GLMsim.l <- tcrossprod(newMat, sim)
+colnames(GLMsim.l) <- paste0('sim_', 1:3)
+GLMsim.r <- exp(GLMsim.l) 
+GLMsim2 <- list(coef=simDF, 
+  link=data.frame(GLMsim.l), 
+  response=data.frame(GLMsim.r) )
+attr(GLMsim2, 'seed') <- RNGstate  
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(GLMsio, GLMsim2)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("strsplit1")
+### * strsplit1
+
+flush(stderr()); flush(stdout())
+
+### Name: strsplit1
+### Title: Split the first field
+### Aliases: strsplit1
+### Keywords: manip
+
+### ** Examples
+
+chars2split <- c(qs00='abcdefg', qs01='abc,def', 
+   qs10a='"abcdefg', qs10b='abc"defg', 
+   qs1.1='"abc,def', qs20='"abc" def', 
+   qs2.1='"ab,c" def', qs21='"abc", def', qs22.1='"a,b",c')    
+
+split <- strsplit1(chars2split)
+
+# answer
+split. <- list(c(qs00='abcdefg', qs01='abc', qs10a='"abcdefg', 
+   qs10b='abc"defg', qs1.1='"abc,def', qs20='"abc" def', 
+   qs2.1='"ab,c" def', qs21='"abc"', qs22.1='"a,b"'), 
+               c(qs00='', qs01='def', qs10a='', 
+   qs10b='', qs1.1='', qs20='', qs2.1='', 
+   qs21=' def', qs22.1='c') )
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(split, split.)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("subNonStandardCharacters")
+### * subNonStandardCharacters
+
+flush(stderr()); flush(stdout())
+
+### Name: subNonStandardCharacters
+### Title: sub nonstandard characters with replacement
+### Aliases: subNonStandardCharacters
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1. Consider Names = Ruben, Avila and Jose, where 
+##    "e" and "A" in these examples carry an accent.  
+##    With the default values for standardCharacters and
+##    replacement, these might be converted to something
+##    like Rub_n, _vila, and Jos_, with different software
+##    possibly mangling the names differently.  (The
+##    standard checks for R packages in an English locale 
+##    complains about non-ASCII characters, because they
+##    are not portable.)
+##
+nonstdNames <- c('Ra`l', 'Ra`', '`l', 'Torres, Raul',
+           "Robert C. \\Bobby\\\\", NA, '', '  ', 
+           '$12', '12%')
+#  confusion in character sets can create
+#  names like Names[2]
+Name2 <- subNonStandardCharacters(nonstdNames)
+str(Name2)
+
+# check 
+Name2. <- c('Ra_l', 'Ra_', '_l', nonstdNames[4],
+            'Robert C. "Bobby"', NA, '', '  ', 
+            '$12', '12%')
+str(Name2.)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(Name2, Name2.)
+## Don't show: 
+)
+## End(Don't show)
+##
+## 2.  Example from iconv
+##
+icx <- c("Ekstr\u{f8}m", "J\u{f6}reskog", 
+         "bi\u{df}chen Z\u{fc}rcher")
+icx2 <- subNonStandardCharacters(icx)
+
+# check 
+icx. <- c('Ekstrom', 'Joreskog', 'bisschen Zurcher')
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(icx2, icx.)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("subNonStandardNames")
+### * subNonStandardNames
+
+flush(stderr()); flush(stdout())
+
+### Name: subNonStandardNames
+### Title: sub for nonstandard names
+### Aliases: subNonStandardNames
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  Example 
+##
+tstSNSN <- c('Raul', 'Ra`l', 'Torres,Raul', 
+    'Torres, Ra`l', "Robert C. \\Bobby\\\\", 
+    'Ed  \n --Vacancy', '', '  ')
+#  confusion in character sets can create
+#  names like Names[2]
+##
+## 2.  subNonStandardNames(vector)
+##
+SNS2 <- subNonStandardNames(tstSNSN)
+SNS2
+
+# check 
+SNS2. <- c('Raul', 'Raul', 'Torres,Raul', 'Torres, Raul',
+            'Robert C. "Bobby"', 'Ed', '', '')
+attr(SNS2., 'secondLine') <- c(rep(NA, 5), ' --Vacancy',
+        NA, NA)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(SNS2, SNS2.)
+## Don't show: 
+)
+## End(Don't show)
+##
+## 3.  subNonStandardNames(matrix)
+##
+tstmat <- parseName(tstSNSN, surnameFirst=TRUE)
+submat <- subNonStandardNames(tstmat)
+
+# check 
+SNSmat <- parseName(SNS2., surnameFirst=TRUE)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(submat, SNSmat)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 4.  subNonStandardNames(data.frame)
+##
+tstdf <- as.data.frame(tstmat)
+subdf <- subNonStandardNames(tstdf)
+
+# check 
+SNSdf <- as.data.frame(SNSmat, stringsAsFactors=FALSE)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(subdf, SNSdf)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 5.  namesNotFound 
+##
+noSub <- subNonStandardNames('xx_x')
+
+# check 
+noSub. <- 'xx_x'
+attr(noSub., 'namesNotFound') <- 'xx_x'
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(noSub, noSub.)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+cleanEx()
+nameEx("trimImage")
+### * trimImage
+
+flush(stderr()); flush(stdout())
+
+### Name: trimImage
+### Title: Trim zero rows or columns from an object of class 'Image'.
+### Aliases: trimImage
+### Keywords: manip
+
+### ** Examples
+
+##
+## 1.  trim a simple matrix
+##
+tst1 <- matrix(.Machine$double.eps, 3, 3,
+    dimnames=list(letters[1:3], LETTERS[1:3]))
+tst1[2,2] <- 1
+tst1t <- trimImage(tst1)
+
+# check
+tst1. <- matrix(1, 1, 1,
+          dimnames=list(letters[2], LETTERS[2]))
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst1t, tst1.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  returnIndices2Keep
+##
+tst2i <- trimImage(tst1, returnIndices2Keep=TRUE)
+tst2a <- trimImage(tst1, returnIndices2Keep=tst2i)
+
+tst2i. <- list(index1=2, index2=2)
+
+
+# check
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst2i, tst2i.)
+## Don't show: 
+)
+## End(Don't show)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst2a, tst1.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 3.  trim 0's only
+##
+tst3 <- array(0, dim=3:5)
+tst3[2, 2:3, ] <- 0.5*.Machine$double.eps
+tst3[3,,] <- 1
+
+tst3t <- trimImage(tst3, 0)
+
+# check
+tst3t. <- tst3[2:3,, ]
+
+# check
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst3t, tst3t.)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 4.  trim NAs
+##
+tst4 <- tst1
+tst4[1,1] <- NA
+tst4[3,] <- NA
+
+tst4t <- trimImage(tst4)
+# tst4o == tst4
+tst4o <- trimImage(tst4, na.rm=FALSE)
+
+# check
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst4t, tst1[2, 2, drop=FALSE])
+## Don't show: 
+)
+## End(Don't show)
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst4o, tst4)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 5.  trim all
+##
+tst4a <- trimImage(tst1, 1)
+
+tst4a. <- matrix(0,0,0,
+     dimnames=list(NULL, NULL))
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(tst4a, tst4a.)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+
+
+cleanEx()
+nameEx("truncdist")
+### * truncdist
+
+flush(stderr()); flush(stdout())
+
+### Name: truncdist
+### Title: Truncated distribution
+### Aliases: truncdist dtruncdist ptruncdist qtruncdist rtruncdist
+### Keywords: distribution
+
+### ** Examples
+
+##
+## 1.  dtruncdist
+##
+#  1.1.  Normal 
+dx <- dtruncdist(1:4)
+
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(dx, dnorm(1:4))
+## Don't show: 
+)
+## End(Don't show)
+
+#  1.2.  Truncated normal between 0 and 1
+dx01 <- dtruncdist(seq(-1, 2, .5), truncmin=0, truncmax=1)
+
+# check 
+dx01. <- c(0, 0, 0, dnorm(c(.5, 1))/(pnorm(1)-pnorm(0)), 
+           0, 0)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(dx01, dx01.)
+## Don't show: 
+)
+## End(Don't show)
+
+#  1.3.  lognormal meanlog=log(100), sdlog = 2, truncmin=500 
+x10 <- 10^(0:9)
+dx10 <- dtruncdist(x10, log(100), 2, dist='lnorm', 
+                   truncmin=500)
+                  
+# check 
+dx10. <- (dtruncdist(log(x10), log(100), 2,  
+                    truncmin=log(500)) / x10) 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(dx10, dx10.)
+## Don't show: 
+)
+## End(Don't show)
+
+#  1.4.  log density of the previous example 
+dx10log <- dtruncdist(x10, log(100), 2, log=TRUE, 
+                  dist='lnorm', truncmin=500)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(dx10log, log(dx10))
+## Don't show: 
+)
+## End(Don't show)
+
+#  1.5.  Poisson without 0.  
+
+dPois0.9 <-dtruncdist(0:9, lambda=1, dist='pois', truncmin=0) 
+
+# check 
+dP0.9 <- c(0, dpois(1:9, lambda=1)/ppois(0, lambda=1, lower.tail=FALSE))
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(dPois0.9, dP0.9)
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 2.  ptruncdist
+##
+#  2.1.  Normal 
+px <- ptruncdist(1:4)
+
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(px, pnorm(1:4))
+## Don't show: 
+)
+## End(Don't show)
+
+#  2.2.  Truncated normal between 0 and 1 
+px01 <- ptruncdist(seq(-1, 2, .5), truncmin=0, truncmax=1)
+
+# check 
+px01. <- c(0, 0, (pnorm(c(0, .5, 1)) - pnorm(0))
+                     /(pnorm(1)-pnorm(0)), 1, 1)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(px01, px01.)
+## Don't show: 
+)
+## End(Don't show)
+
+#  2.3.  lognormal meanlog=log(100), sdlog = 2, truncmin=500 
+x10 <- 10^(0:9)
+px10 <- ptruncdist(x10, log(100), 2, dist='lnorm', 
+                  truncmin=500)
+                  
+# check 
+px10. <- (ptruncdist(log(x10), log(100), 2,  
+                     truncmin=log(500))) 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(px10, px10.)
+## Don't show: 
+)
+## End(Don't show)
+
+#  2.4.  log of the previous probabilities 
+px10log <- ptruncdist(x10, log(100), 2, log=TRUE, 
+                  dist='lnorm', truncmin=500)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(px10log, log(px10))
+## Don't show: 
+)
+## End(Don't show)
+
+##
+## 3.  qtruncdist
+##
+#  3.1.  Normal 
+qx <- qtruncdist(seq(0, 1, .2))
+
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(qx, qnorm(seq(0, 1, .2)))
+## Don't show: 
+)
+## End(Don't show)
+
+#  3.2.  Normal truncated outside (0, 1)
+qx01 <- qtruncdist(seq(0, 1, .2), 
+            truncmin=0, truncmax=1)
+
+# check 
+pxmin <- pnorm(0)
+pxmax <- pnorm(1)
+unp <- (pxmin + seq(0, 1, .2)*(pxmax-pxmin))
+qx01. <- qnorm(unp)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(qx01, qx01.)
+## Don't show: 
+)
+## End(Don't show)
+
+#  3.3.  lognormal meanlog=log(100), 
+#             sdlog=2, truncmin=500
+qlx10 <- qtruncdist(seq(0, 1, .2), log(100), 2, 
+                   dist='lnorm', truncmin=500)
+                  
+# check 
+plxmin <- plnorm(500, log(100), 2)
+unp. <- (plxmin + seq(0, 1, .2)*(1-plxmin))
+
+qlx10. <- qlnorm(unp., log(100), 2)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(qlx10, qlx10.)
+## Don't show: 
+)
+## End(Don't show)
+
+#  3.4.  previous example with log probabilities 
+qlx10l <- qtruncdist(log(seq(0, 1, .2)), 
+      log(100), 2, log.p=TRUE, dist='lnorm',
+      truncmin=500)
+
+# check 
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(qlx10, qlx10l)
+## Don't show: 
+)
+## End(Don't show)
+
+## 
+## 4.  rtruncdist 
+##
+#  4.1.  Normal 
+set.seed(1)
+rx <- rtruncdist(9)
+
+# check 
+set.seed(1)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(rx[1], rnorm(1))
+## Don't show: 
+)
+## End(Don't show)
+# Only the first observation matches;  check that.  
+
+#  4.2.  Normal truncated outside (0, 1)
+set.seed(1)
+rx01 <- rtruncdist(9, truncmin=0, truncmax=1)
+
+# check 
+pxmin <- pnorm(0)
+pxmax <- pnorm(1)
+set.seed(1)
+rnp <- (pxmin + runif(9)*(pxmax-pxmin))
+rx01. <- qnorm(rnp)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(rx01, rx01.)
+## Don't show: 
+)
+## End(Don't show)
+
+#  4.3.  lognormal meanlog=log(100), sdlog=2, truncmin=500
+set.seed(1)
+rlx10 <- rtruncdist(9, log(100), 2, 
+                   dist='lnorm', truncmin=500)
+                  
+# check 
+plxmin <- plnorm(500, log(100), 2)
+set.seed(1)
+rnp. <- (plxmin + runif(9)*(1-plxmin))
+
+rlx10. <- qlnorm(rnp., log(100), 2)
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(rlx10, rlx10.)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+
+cleanEx()
+nameEx("whichAeqB")
+### * whichAeqB
+
+flush(stderr()); flush(stdout())
+
+### Name: whichAeqB
+### Title: Index of a single match
+### Aliases: whichAeqB
+### Keywords: plot
+
+### ** Examples
+
+a2b <- whichAeqB(letters, 'b')
+
+## Don't show: 
+stopifnot(
+## End(Don't show)
+all.equal(a2b, 2)
+## Don't show: 
+)
+## End(Don't show)
+
+
+
+### * <FOOTER>
+###
+cleanEx()
+options(digits = 7L)
+base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+grDevices::dev.off()
+###
+### Local variables: ***
+### mode: outline-minor ***
+### outline-regexp: "\\(> \\)?### [*]+" ***
+### End: ***
+quit('no')

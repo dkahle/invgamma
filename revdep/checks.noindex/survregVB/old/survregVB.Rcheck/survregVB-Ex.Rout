@@ -1,0 +1,173 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "survregVB"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('survregVB')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("survregVB")
+> ### * survregVB
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: survregVB
+> ### Title: Variational Bayesian Analysis of Survival Data Using a
+> ###   Log-Logistic Accelerated Failure Time Model
+> ### Aliases: survregVB
+> 
+> ### ** Examples
+> 
+> # Data frame containing survival data
+> fit <- survregVB(
++   formula = survival::Surv(time, infect) ~ trt + fev,
++   data = dnase,
++   alpha_0 = 501,
++   omega_0 = 500,
++   mu_0 = c(4.4, 0.25, 0.04),
++   v_0 = 1,
++   max_iteration = 100,
++   threshold = 0.0005
++ )
+> summary(fit)
+Call:
+survregVB(formula = survival::Surv(time, infect) ~ trt + fev, 
+    data = dnase, alpha_0 = 501, omega_0 = 500, mu_0 = c(4.4, 
+        0.25, 0.04), v_0 = 1, max_iteration = 100, threshold = 5e-04)
+            Value    SD 95% CI Lower 95% CI Upper
+(Intercept) 4.112 0.190        3.739        4.485
+trt         0.415 0.141        0.139        0.692
+fev         0.021 0.003        0.016        0.027
+scale       0.908 0.033        0.844        0.974
+
+ELBO=  -4857.094 
+
+Number of iterations=  9 
+
+n= 645 
+> 
+> # Call the survregVB function with shared frailty
+> fit2 <- survregVB(
++   formula = survival::Surv(Time.15, delta.15) ~ x1 + x2,
++   data = simulation_frailty,
++   alpha_0 = 3,
++   omega_0 = 2,
++   mu_0 = c(0, 0, 0),
++   v_0 = 0.1,
++   lambda_0 = 3,
++   eta_0 = 2,
++   cluster = cluster,
++   max_iteration = 100,
++   threshold = 0.01
++ )
+> summary(fit2)
+Call:
+survregVB(formula = survival::Surv(Time.15, delta.15) ~ x1 + 
+    x2, data = simulation_frailty, alpha_0 = 3, omega_0 = 2, 
+    mu_0 = c(0, 0, 0), v_0 = 0.1, lambda_0 = 3, eta_0 = 2, cluster = cluster, 
+    max_iteration = 100, threshold = 0.01)
+             Value     SD 95% CI Lower 95% CI Upper
+(Intercept) -0.392  0.690       -1.745        0.961
+x1           0.897  0.650       -0.376        2.171
+x2           0.547  0.247        0.062        1.032
+scale        0.665  0.082        0.516        0.831
+frailty      1.079  0.376        0.501        1.804
+
+ELBO=  -260 
+
+Number of iterations=  12 
+
+n= 75 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("survregVB.fit")
+> ### * survregVB.fit
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: survregVB.fit
+> ### Title: Variational Bayesian Analysis of Survival Data Using a
+> ###   Log-Logistic Accelerated Failure Time Model
+> ### Aliases: survregVB.fit
+> 
+> ### ** Examples
+> 
+> fit <- survregVB.fit(
++   Y = survival::Surv(simulation_nofrailty$Time, simulation_nofrailty$delta),
++   X = matrix(c(rep(1, 300), simulation_nofrailty$x1, simulation_nofrailty$x2), nrow = 300),
++   alpha_0 = 11,
++   omega_0 = 10,
++   mu_0 = c(0, 0, 0),
++   v_0 = 1
++ )
+Warning in survregVB.fit(Y = survival::Surv(simulation_nofrailty$Time, simulation_nofrailty$delta),  :
+  The max iteration has been achieved and the algorithm has not converged
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("survregVB.frailty.fit")
+> ### * survregVB.frailty.fit
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: survregVB.frailty.fit
+> ### Title: Variational Bayesian Analysis of Correlated Survival Data Using
+> ###   a Log-Logistic Accelerated Failure Time Model
+> ### Aliases: survregVB.frailty.fit
+> 
+> ### ** Examples
+> 
+> fit <- survregVB.frailty.fit(
++   X = matrix(c(rep(1, 75), simulation_frailty$x1, simulation_frailty$x2), nrow = 75),
++   Y = survival::Surv(simulation_frailty$Time, simulation_frailty$delta),
++   alpha_0 = 3,
++   omega_0 = 2,
++   mu_0 = c(0, 0, 0),
++   v_0 = 0.1,
++   lambda_0 = 3,
++   eta_0 = 2,
++   cluster = simulation_frailty$cluster
++ )
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  1.545 0.045 2.335 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

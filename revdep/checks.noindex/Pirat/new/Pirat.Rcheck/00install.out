@@ -1,0 +1,13 @@
+* installing *source* package ‘Pirat’ ...
+** this is package ‘Pirat’ version ‘1.2.0’
+** using non-staged installation via StagedInstall field
+** R
+** data
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (Pirat)

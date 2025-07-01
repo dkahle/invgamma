@@ -1,0 +1,7 @@
+Library: /Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/invgamma/new
+invgamma (1.2)
+
+Library: /Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/ERPeq
+pracma (2.4.4)
+rmutil (1.1.10)
+VGAM   (1.1-13)

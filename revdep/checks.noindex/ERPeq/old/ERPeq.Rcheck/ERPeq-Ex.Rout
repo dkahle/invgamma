@@ -1,0 +1,1871 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "ERPeq"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('ERPeq')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("cdfbsgdp")
+> ### * cdfbsgdp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdfbsgdp
+> ### Title: Cumulative distribution function of the
+> ###   Birnbaum-Saunders-Generalized Pareto distribution
+> ### Aliases: cdfbsgdp
+> 
+> ### ** Examples
+> 
+> cdfbsgdp(c(0.5,2,0.5),3)
+[1] 0.6696802
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdfeexp")
+> ### * cdfeexp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdfeexp
+> ### Title: Cumulative distribution function of the exponentiated
+> ###   exponential distribution
+> ### Aliases: cdfeexp
+> 
+> ### ** Examples
+> 
+> cdfeexp(c(0.5,0.3),2)
+[1] 0.6717056
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdfer")
+> ### * cdfer
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdfer
+> ### Title: Cumulative distribution function of the exponentiated Rayleigh
+> ###   distribution
+> ### Aliases: cdfer
+> 
+> ### ** Examples
+> 
+> cdfer(c(0.5,0.3),2)
+[1] 0.835946
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdfew")
+> ### * cdfew
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdfew
+> ### Title: Cumulative distribution function of the exponentiated Weibull
+> ###   distribution
+> ### Aliases: cdfew
+> 
+> ### ** Examples
+> 
+> cdfew(c(0.5,0.3,0.6),2)
+[1] 0.9539143
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdfgamma")
+> ### * cdfgamma
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdfgamma
+> ### Title: Cumulative distribution function of the Gamma distribution
+> ### Aliases: cdfgamma
+> 
+> ### ** Examples
+> 
+> cdfgamma(c(2,3),5)
+[1] 0.9999951
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdfggamma")
+> ### * cdfggamma
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdfggamma
+> ### Title: Cumulative distribution function of the generalized gamma
+> ###   distribution
+> ### Aliases: cdfggamma
+> 
+> ### ** Examples
+> 
+> pdfggamma(c(2,5,3),3)
+[1] 0.5304282
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdfgumbel")
+> ### * cdfgumbel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdfgumbel
+> ### Title: Cumulative distribution function of the gumbel distribution
+> ### Aliases: cdfgumbel
+> 
+> ### ** Examples
+> 
+> pdfgumbel(c(0.5,0.3),2)
+[1] 0.022309
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdfinvgamma")
+> ### * cdfinvgamma
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdfinvgamma
+> ### Title: Cumulative distribution function of the inverse gamma
+> ###   distribution
+> ### Aliases: cdfinvgamma
+> 
+> ### ** Examples
+> 
+> cdfinvgamma(c(2,5,3),3)
+[1] 0.5036683
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdfiwweibull")
+> ### * cdfiwweibull
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdfiwweibull
+> ### Title: Cumulative distribution function of the inverse Weibull
+> ###   distribution
+> ### Aliases: cdfiwweibull
+> 
+> ### ** Examples
+> 
+> cdfiwweibull(c(2,3),5)
+[1] 0.938005
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdflevy")
+> ### * cdflevy
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdflevy
+> ### Title: Cumulative distribution function of the Levy distribution
+> ### Aliases: cdflevy
+> 
+> ### ** Examples
+> 
+> cdflevy(c(0.5,0.3),2)
+[1] 0.6547208
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdflnormal")
+> ### * cdflnormal
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdflnormal
+> ### Title: Cumulative distribution function of the log-normal distribution
+> ### Aliases: cdflnormal
+> 
+> ### ** Examples
+> 
+> cdflnormal(c(2,3),5)
+[1] 0.4482091
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdfpareto")
+> ### * cdfpareto
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdfpareto
+> ### Title: Cumulative distribution function of the Pareto distribution
+> ### Aliases: cdfpareto
+> 
+> ### ** Examples
+> 
+> cdfpareto(c(2,5),2)
+[1] 0
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdfrayleigh")
+> ### * cdfrayleigh
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdfrayleigh
+> ### Title: Cumulative distribution function of the Rayleigh distribution
+> ### Aliases: cdfrayleigh
+> 
+> ### ** Examples
+> 
+> cdfrayleigh(c(2),5)
+[1] 0.9560631
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdfweibull")
+> ### * cdfweibull
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdfweibull
+> ### Title: Cumulative distribution function of the Weibull distribution
+> ### Aliases: cdfweibull
+> 
+> ### ** Examples
+> 
+> cdfweibull(c(2,3),5)
+[1] 0.9378235
+> 
+> 
+> 
+> cleanEx()
+> nameEx("expexpcp")
+> ### * expexpcp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: expexpcp
+> ### Title: Probabilistic estimation of earthquake recurrence interval using
+> ###   exponentiated exponential distribution
+> ### Aliases: expexpcp
+> 
+> ### ** Examples
+> 
+> fit=fitexpexp(c(1,1),data=data_earthquake_7)
+> expexpcp(fit,r=2,te=5)
+[1] 0.2283006
+> 
+> 
+> 
+> cleanEx()
+> nameEx("expraycp")
+> ### * expraycp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: expraycp
+> ### Title: Probabilistic estimation of earthquake recurrence interval using
+> ###   exponentiated Rayleigh distribution
+> ### Aliases: expraycp
+> 
+> ### ** Examples
+> 
+> fit=fitexprayleigh(c(0.5,0.5),data=data_earthquake_7)
+> expraycp(fit,r=2,te=5)
+[1] 0.1843173
+> 
+> 
+> 
+> cleanEx()
+> nameEx("expweicp")
+> ### * expweicp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: expweicp
+> ### Title: Probabilistic estimation of earthquake recurrence interval using
+> ###   exponentiated Weibull distribution
+> ### Aliases: expweicp
+> 
+> ### ** Examples
+> 
+> fit=fitexpweibull(c(1,1,1),data=data_earthquake_7)
+> expweicp(fit,r=2,te=5)
+[1] 0.2368759
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fitbsgpd")
+> ### * fitbsgpd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitbsgpd
+> ### Title: Fitting the Birnbaum-Saunders-Generalized Pareto distribution
+> ### Aliases: fitbsgpd
+> 
+> ### ** Examples
+> 
+> library(VGAM)
+Loading required package: stats4
+Loading required package: splines
+
+Attaching package: ‘VGAM’
+
+The following object is masked from ‘package:ERPeq’:
+
+    rlevy
+
+> data=ERPeq::rbsgpd(500,5,0.7,0.2)
+> fitbsgpd(starts =c(1,1),data=data)
+$KS
+
+	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  data
+D = 0.045011, p-value = 0.2642
+alternative hypothesis: two-sided
+
+
+$mle
+[1] 0.6850933 0.2058329
+
+$lower.bound.parameter
+[1] 5.006777
+
+$AIC
+[1] 3065.77
+
+$CAIC
+[1] 3065.794
+
+$BIC
+[1] 3074.195
+
+$HQIC
+[1] 3069.076
+
+$StdError
+[1] 0.04841332 0.05550007
+
+$log_ll
+[1] 1530.885
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:VGAM’, ‘package:splines’, ‘package:stats4’
+
+> nameEx("fitexpexp")
+> ### * fitexpexp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitexpexp
+> ### Title: Fitting the exponentiated exponential distribution
+> ### Aliases: fitexpexp
+> 
+> ### ** Examples
+> 
+> data=rexpexp(500,2,3)
+> fitexpexp(starts =c(2,2),data=data)
+$KS
+
+	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  data
+D = 0.052839, p-value = 0.1226
+alternative hypothesis: two-sided
+
+
+$mle
+[1] 2.213608 3.194925
+
+$AIC
+[1] 181.5387
+
+$CAIC
+[1] 181.5628
+
+$BIC
+[1] 189.9679
+
+$HQIC
+[1] 184.8463
+
+$StdError
+[1] 0.1529114 0.1575105
+
+$logll
+[1] 88.76934
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fitexprayleigh")
+> ### * fitexprayleigh
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitexprayleigh
+> ### Title: Fitting the exponentiated exponentiated Rayleigh distribution
+> ### Aliases: fitexprayleigh
+> 
+> ### ** Examples
+> 
+> data=rexprayleigh(500,2,3)
+> fitexprayleigh(starts =c(2,2),data=data)
+$KS
+
+	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  data
+D = 0.052821, p-value = 0.1228
+alternative hypothesis: two-sided
+
+
+$mle
+[1] 2.213409 3.194848
+
+$AIC
+[1] -27.15826
+
+$CAIC
+[1] -27.13412
+
+$BIC
+[1] -18.72905
+
+$HQIC
+[1] -23.85065
+
+$StdError
+[1] 0.1528900 0.1575048
+
+$logll
+[1] -15.57913
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fitexpweibull")
+> ### * fitexpweibull
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitexpweibull
+> ### Title: Fitting the exponentiated Weibull distribution
+> ### Aliases: fitexpweibull
+> 
+> ### ** Examples
+> 
+> data=rexpweibull(500,2,3,5)
+> fitexpweibull(starts =c(2,2,2),data=data)
+$KS
+
+	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  data
+D = 0.038662, p-value = 0.4436
+alternative hypothesis: two-sided
+
+
+$mle
+[1]  1.618442  2.284214 10.378124
+
+$AIC
+[1] 1496.452
+
+$CAIC
+[1] 1496.5
+
+$BIC
+[1] 1509.096
+
+$HQIC
+[1] 1501.413
+
+$StdError
+[1] 0.2265364 0.4204790 4.4313965
+
+$logll
+[1] 745.226
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fitgamma")
+> ### * fitgamma
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitgamma
+> ### Title: Fitting the gamma distribution
+> ### Aliases: fitgamma
+> 
+> ### ** Examples
+> 
+> datagamma=rgamma(500,2,2)
+> fitgamma(starts =c(2,2),data=datagamma)
+$KS
+
+	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  data
+D = 0.027531, p-value = 0.843
+alternative hypothesis: two-sided
+
+
+$mle
+[1] 1.895738 1.949940
+
+$AIC
+[1] 874.9841
+
+$CAIC
+[1] 875.0083
+
+$BIC
+[1] 883.4133
+
+$HQIC
+[1] 878.2917
+
+$StdError
+[1] 0.1109632 0.1305311
+
+$logll
+[1] 435.4921
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fitggamma")
+> ### * fitggamma
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitggamma
+> ### Title: Fitting the generalized gamma distribution
+> ### Aliases: fitggamma
+> 
+> ### ** Examples
+> 
+> library(rmutil)
+
+Attaching package: ‘rmutil’
+
+The following object is masked from ‘package:ERPeq’:
+
+    rlevy
+
+The following object is masked from ‘package:stats’:
+
+    nobs
+
+The following objects are masked from ‘package:base’:
+
+    as.data.frame, units
+
+> data=rggamma(500,2,2,2)
+> fitggamma(starts =c(1,1,1),data=data)
+$KS
+
+	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  data
+D = 0.039272, p-value = 0.4236
+alternative hypothesis: two-sided
+
+
+$mle
+[1] 4.301660 2.013007 1.368629
+
+$AIC
+[1] 638.7258
+
+$CAIC
+[1] 638.7742
+
+$BIC
+[1] 651.3696
+
+$HQIC
+[1] 643.6872
+
+$StdError
+[1] 1.9350447 0.3161663 0.3284673
+
+$logll
+[1] 316.3629
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:rmutil’
+
+> nameEx("fitgumbel")
+> ### * fitgumbel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitgumbel
+> ### Title: Fitting the Gumbel distribution
+> ### Aliases: fitgumbel
+> 
+> ### ** Examples
+> 
+> library(VGAM)
+Loading required package: stats4
+Loading required package: splines
+
+Attaching package: ‘VGAM’
+
+The following object is masked from ‘package:ERPeq’:
+
+    rlevy
+
+> data=rgumbel(500,2,0.5)
+> fitgumbel(starts =c(2,2),data=data)
+$KS
+
+	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  data
+D = 0.04786, p-value = 0.2022
+alternative hypothesis: two-sided
+
+
+$mle
+[1] 2.0067608 0.4723531
+
+$AIC
+[1] 845.0117
+
+$CAIC
+[1] 845.0358
+
+$BIC
+[1] 853.4409
+
+$HQIC
+[1] 848.3193
+
+$StdError
+[1] 0.02220267 0.01671305
+
+$logll
+[1] 420.5058
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:VGAM’, ‘package:splines’, ‘package:stats4’
+
+> nameEx("fitinvgamma")
+> ### * fitinvgamma
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitinvgamma
+> ### Title: Fitting the inverse gamma distribution
+> ### Aliases: fitinvgamma
+> 
+> ### ** Examples
+> 
+> library(invgamma)
+> data=rinvgamma(500,2,0.5)
+> fitinvgamma(starts =c(2,2),data=data)
+$KS
+
+	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  data
+D = 0.027558, p-value = 0.8421
+alternative hypothesis: two-sided
+
+
+$mle
+[1] 1.8962740 0.4876547
+
+$AIC
+[1] 117.7766
+
+$CAIC
+[1] 117.8008
+
+$BIC
+[1] 126.2058
+
+$HQIC
+[1] 121.0842
+
+$StdError
+[1] 0.11099570 0.03264309
+
+$logll
+[1] 56.88831
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:invgamma’
+
+> nameEx("fitiweibull")
+> ### * fitiweibull
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitiweibull
+> ### Title: Fitting the gamma distribution
+> ### Aliases: fitiweibull
+> 
+> ### ** Examples
+> 
+> set.seed(7)
+> data=rgamma(500,shape=1,scale=1)
+> fitiweibull(starts =c(0.5,0.5),data=data)
+$KS
+
+	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  data
+D = 0.14805, p-value = 6.059e-10
+alternative hypothesis: two-sided
+
+
+$mle
+[1] 0.3475643 0.7130184
+
+$AIC
+[1] 1359.188
+
+$CAIC
+[1] 1359.212
+
+$BIC
+[1] 1367.617
+
+$HQIC
+[1] 1362.496
+
+$StdError
+[1] 0.02321216 0.02108287
+
+$logll
+[1] 677.5941
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fitlevy")
+> ### * fitlevy
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitlevy
+> ### Title: Fitting the Levy distribution
+> ### Aliases: fitlevy
+> 
+> ### ** Examples
+> 
+> library(VGAM)
+Loading required package: stats4
+Loading required package: splines
+
+Attaching package: ‘VGAM’
+
+The following object is masked from ‘package:ERPeq’:
+
+    rlevy
+
+> data=ERPeq::rlevy(100,2,0.1)
+> fitlevy(starts =c(0.1),data=data)
+Warning in optim(par = starts, fn = ll, x = data2, method = "Nelder-Mead",  :
+  one-dimensional optimization by Nelder-Mead is unreliable:
+use "Brent" or optimize() directly
+$KS
+
+	Exact one-sample Kolmogorov-Smirnov test
+
+data:  data2
+D = 0.11742, p-value = 0.1203
+alternative hypothesis: two-sided
+
+
+$mle
+[1] 0.07296875
+
+$lower.bound.parameter
+[1] 2.016348
+
+$AIC
+[1] 190.9202
+
+$CAIC
+[1] 190.9614
+
+$BIC
+[1] 193.5153
+
+$HQIC
+[1] 191.9702
+
+$StdError
+[1] 0.01036938
+
+$logll
+[1] 94.4601
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:VGAM’, ‘package:splines’, ‘package:stats4’
+
+> nameEx("fitlnormal")
+> ### * fitlnormal
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitlnormal
+> ### Title: Fitting the log-normal distribution
+> ### Aliases: fitlnormal
+> 
+> ### ** Examples
+> 
+> data=rlnorm(500,2,0.5)
+> fitlnormal(starts =c(2,2),data=data)
+Warning in dlnorm(x, alpha, beta) : NaNs produced
+Warning in plnorm(x, alpha, beta) : NaNs produced
+Warning in dlnorm(x, alpha, beta) : NaNs produced
+Warning in plnorm(x, alpha, beta) : NaNs produced
+$KS
+
+	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  data
+D = 0.036964, p-value = 0.5016
+alternative hypothesis: two-sided
+
+
+$mle
+[1] 2.0112677 0.5055286
+
+$AIC
+[1] 2751.97
+
+$CAIC
+[1] 2751.994
+
+$BIC
+[1] 2760.399
+
+$HQIC
+[1] 2755.278
+
+$StdError
+[1] 0.02260793 0.01598929
+
+$logll
+[1] 1373.985
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fitpareto")
+> ### * fitpareto
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitpareto
+> ### Title: Fitting the Pareto distribution
+> ### Aliases: fitpareto
+> 
+> ### ** Examples
+> 
+> library(VGAM)
+Loading required package: stats4
+Loading required package: splines
+
+Attaching package: ‘VGAM’
+
+The following object is masked from ‘package:ERPeq’:
+
+    rlevy
+
+> data=VGAM::rpareto(500,5,2)
+> fitpareto(starts =c(2),data=data)
+Warning in optim(par = starts, fn = ll, x = data2, method = "Nelder-Mead",  :
+  one-dimensional optimization by Nelder-Mead is unreliable:
+use "Brent" or optimize() directly
+$KS
+
+	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  data
+D = 0.061911, p-value = 0.04329
+alternative hypothesis: two-sided
+
+
+$mle
+[1] 2.075
+
+$lower.bound.parameter
+[1] 5.009836
+
+$AIC
+[1] 2360.101
+
+$CAIC
+[1] 2360.109
+
+$BIC
+[1] 2364.314
+
+$HQIC
+[1] 2361.755
+
+$StdError
+[1] 0.09288974
+
+$logll
+[1] 1179.051
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:VGAM’, ‘package:splines’, ‘package:stats4’
+
+> nameEx("fitrayleigh")
+> ### * fitrayleigh
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitrayleigh
+> ### Title: Fitting the Rayleigh distribution
+> ### Aliases: fitrayleigh
+> 
+> ### ** Examples
+> 
+> library(VGAM)
+Loading required package: stats4
+Loading required package: splines
+
+Attaching package: ‘VGAM’
+
+The following object is masked from ‘package:ERPeq’:
+
+    rlevy
+
+> data=rrayleigh(500,2)
+> fitrayleigh(starts =c(2),data=data)
+Warning in optim(par = starts, fn = ll, x = data, method = "Nelder-Mead",  :
+  one-dimensional optimization by Nelder-Mead is unreliable:
+use "Brent" or optimize() directly
+$KS
+
+	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  data
+D = 0.063379, p-value = 0.03602
+alternative hypothesis: two-sided
+
+
+$mle
+[1] 1.965234
+
+$AIC
+[1] 1599.357
+
+$CAIC
+[1] 1599.365
+
+$BIC
+[1] 1603.572
+
+$HQIC
+[1] 1601.011
+
+$StdError
+[1] 0.04394497
+
+$logll
+[1] 798.6785
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:VGAM’, ‘package:splines’, ‘package:stats4’
+
+> nameEx("fitweibull")
+> ### * fitweibull
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitweibull
+> ### Title: Fitting the Weibull distribution
+> ### Aliases: fitweibull
+> 
+> ### ** Examples
+> 
+> dataweibull=rweibull(500,2,2)
+> fitweibull(starts =c(2,2),data=dataweibull)
+$KS
+
+	Asymptotic one-sample Kolmogorov-Smirnov test
+
+data:  data
+D = 0.047852, p-value = 0.2024
+alternative hypothesis: two-sided
+
+
+$mle
+[1] 2.116959 1.986566
+
+$AIC
+[1] 1252.272
+
+$CAIC
+[1] 1252.296
+
+$BIC
+[1] 1260.702
+
+$HQIC
+[1] 1255.58
+
+$StdError
+[1] 0.07490833 0.04410845
+
+$logll
+[1] 624.1362
+
+$Convergence
+[1] 0
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gammacp")
+> ### * gammacp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gammacp
+> ### Title: Probabilistic estimation of earthquake recurrence interval using
+> ###   gamma distribution
+> ### Aliases: gammacp
+> 
+> ### ** Examples
+> 
+> fit=fitgamma(c(1,1),data=data_earthquake_6_6.5)
+Warning in ks.test.default(x = data, y = "cdfgamma", par = as.vector(parameters)) :
+  ties should not be present for the one-sample Kolmogorov-Smirnov test
+> gammacp(fit,r=2,te=5)
+[1] 0.464928
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ggammacp")
+> ### * ggammacp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ggammacp
+> ### Title: Probabilistic estimation of earthquake recurrence interval using
+> ###   generalized gamma distribution
+> ### Aliases: ggammacp
+> 
+> ### ** Examples
+> 
+> fit=fitggamma(c(1,1,1),data=data_earthquake_6_6.5)
+Warning in ks.test.default(x = data, y = "cdfggamma", par = as.vector(parameters)) :
+  ties should not be present for the one-sample Kolmogorov-Smirnov test
+> ggammacp(fit,r=2,te=5)
+[1] 0.5758618
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gumbelcp")
+> ### * gumbelcp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gumbelcp
+> ### Title: Probabilistic estimation of earthquake recurrence interval using
+> ###   Gumbel distribution
+> ### Aliases: gumbelcp
+> 
+> ### ** Examples
+> 
+> fit=fitgumbel(c(1,1),data=data_earthquake_7)
+> gumbelcp(fit,r=2,te=5)
+[1] 0.2795759
+> 
+> 
+> 
+> cleanEx()
+> nameEx("invgammacp")
+> ### * invgammacp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: invgammacp
+> ### Title: Probabilistic estimation of earthquake recurrence interval using
+> ###   inverse gamma distribution
+> ### Aliases: invgammacp
+> 
+> ### ** Examples
+> 
+> fit=fitinvgamma(c(1,1),data=data_earthquake_7)
+> invgammacp(fit,r=2,te=5)
+[1] 0.1358253
+> 
+> 
+> 
+> cleanEx()
+> nameEx("iweibullcp")
+> ### * iweibullcp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: iweibullcp
+> ### Title: Probabilistic estimation of earthquake recurrence interval using
+> ###   inverse Weibull distribution
+> ### Aliases: iweibullcp
+> 
+> ### ** Examples
+> 
+> fit=fitiweibull(c(1,1),data=data_earthquake_6.5_7)
+Warning in log(pdfiweibull(par, x)) : NaNs produced
+Warning in ks.test.default(x = data, y = "cdfiwweibull", par = as.vector(parameters)) :
+  ties should not be present for the one-sample Kolmogorov-Smirnov test
+> iweibullcp(fit,r=2,te=5)
+[1] 0.09691586
+> 
+> 
+> 
+> cleanEx()
+> nameEx("levycp")
+> ### * levycp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: levycp
+> ### Title: Probabilistic estimation of earthquake recurrence interval using
+> ###   Levy distribution
+> ### Aliases: levycp
+> 
+> ### ** Examples
+> 
+> fit=fitlevy(c(1),data=data_earthquake_7)
+Warning in optim(par = starts, fn = ll, x = data2, method = "Nelder-Mead",  :
+  one-dimensional optimization by Nelder-Mead is unreliable:
+use "Brent" or optimize() directly
+> levycp(fit,r=2,te=5)
+[1] NA
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lnormalcp")
+> ### * lnormalcp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lnormalcp
+> ### Title: Probabilistic estimation of earthquake recurrence interval using
+> ###   log-normal distribution
+> ### Aliases: lnormalcp
+> 
+> ### ** Examples
+> 
+> fit=fitlnormal(c(1,1),data=data_earthquake_6.5_7)
+Warning in ks.test.default(x = data, y = "cdflnormal", par = as.vector(parameters)) :
+  ties should not be present for the one-sample Kolmogorov-Smirnov test
+> lnormalcp(fit,r=2,te=5)
+[1] 0.1672968
+> 
+> 
+> 
+> cleanEx()
+> nameEx("paretocp")
+> ### * paretocp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: paretocp
+> ### Title: Probabilistic estimation of earthquake recurrence interval using
+> ###   Pareto distribution
+> ### Aliases: paretocp
+> 
+> ### ** Examples
+> 
+> library(VGAM)
+Loading required package: stats4
+Loading required package: splines
+
+Attaching package: ‘VGAM’
+
+The following object is masked from ‘package:ERPeq’:
+
+    rlevy
+
+> data=VGAM::rpareto(200,2,5)
+> fit=fitpareto(c(0.5),data=data)
+Warning in optim(par = starts, fn = ll, x = data2, method = "Nelder-Mead",  :
+  one-dimensional optimization by Nelder-Mead is unreliable:
+use "Brent" or optimize() directly
+> paretocp(fit,r=2,te=5)
+[1] NA
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:VGAM’, ‘package:splines’, ‘package:stats4’
+
+> nameEx("pdfbsgdp")
+> ### * pdfbsgdp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdfbsgdp
+> ### Title: Probability density function of the
+> ###   Birnbaum-Saunders-Generalized Pareto distribution
+> ### Aliases: pdfbsgdp
+> 
+> ### ** Examples
+> 
+> pdfbsgdp(c(2,0.5,0.5),1)
+[1] 0.3254349
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pdfeexp")
+> ### * pdfeexp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdfeexp
+> ### Title: Probability density function of the exponentiated exponential
+> ###   distribution
+> ### Aliases: pdfeexp
+> 
+> ### ** Examples
+> 
+> pdfeexp(c(0.5,0.3),2)
+[1] 0.1225563
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pdfer")
+> ### * pdfer
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdfer
+> ### Title: Probability density function of the exponentiated Rayleigh
+> ###   distribution
+> ### Aliases: pdfer
+> 
+> ### ** Examples
+> 
+> pdfer(c(0.5,0.3),2)
+[1] 0.216182
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pdfew")
+> ### * pdfew
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdfew
+> ### Title: Probability density function of the exponentiated Weibull
+> ###   distribution
+> ### Aliases: pdfew
+> 
+> ### ** Examples
+> 
+> pdfew(c(0.5,0.3,0.6),2)
+[1] 0.03022474
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pdfgamma")
+> ### * pdfgamma
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdfgamma
+> ### Title: Probability density function of the Gamma distribution
+> ### Aliases: pdfgamma
+> 
+> ### ** Examples
+> 
+> pdfgamma(c(2,3),5)
+[1] 1.37656e-05
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pdfggamma")
+> ### * pdfggamma
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdfggamma
+> ### Title: Probability density function of the generalized gamma
+> ###   distribution
+> ### Aliases: pdfggamma
+> 
+> ### ** Examples
+> 
+> pdfggamma(c(2,5,3),3)
+[1] 0.5304282
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pdfgumbel")
+> ### * pdfgumbel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdfgumbel
+> ### Title: Probability density function of the gumbel distribution
+> ### Aliases: pdfgumbel
+> 
+> ### ** Examples
+> 
+> pdfgumbel(c(0.5,0.3),2)
+[1] 0.022309
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pdfinvgamma")
+> ### * pdfinvgamma
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdfinvgamma
+> ### Title: Probability density function of the inverse gamma distribution
+> ### Aliases: pdfinvgamma
+> 
+> ### ** Examples
+> 
+> pdfinvgamma(c(2,5,3),3)
+[1] 0.1748848
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pdfiweibull")
+> ### * pdfiweibull
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdfiweibull
+> ### Title: Probability density function of the inverse Weibull distribution
+> ### Aliases: pdfiweibull
+> 
+> ### ** Examples
+> 
+> pdfiweibull(c(2,3),5)
+[1] 0.03601939
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pdflevy")
+> ### * pdflevy
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdflevy
+> ### Title: Probability density function of the Levy distribution
+> ### Aliases: pdflevy
+> 
+> ### ** Examples
+> 
+> pdflevy(c(0.5,0.3),2)
+[1] 0.1076228
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pdflnormal")
+> ### * pdflnormal
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdflnormal
+> ### Title: Probability density function of the log-normal distribution
+> ### Aliases: pdflnormal
+> 
+> ### ** Examples
+> 
+> pdflnormal(c(2,3),5)
+[1] 0.02637172
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pdfpareto")
+> ### * pdfpareto
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdfpareto
+> ### Title: Probability density function of the Pareto distribution
+> ### Aliases: pdfpareto
+> 
+> ### ** Examples
+> 
+> pdfpareto(c(2,5),3)
+[1] 0.2194787
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pdfrayleigh")
+> ### * pdfrayleigh
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdfrayleigh
+> ### Title: Probability density function of the Rayleigh distribution
+> ### Aliases: pdfrayleigh
+> 
+> ### ** Examples
+> 
+> pdfrayleigh(c(2),5)
+[1] 0.05492117
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pdfweibull")
+> ### * pdfweibull
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pdfweibull
+> ### Title: Probability density function of the Weibull distribution
+> ### Aliases: pdfweibull
+> 
+> ### ** Examples
+> 
+> pdfweibull(c(2,3),5)
+[1] 0.06908503
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rayleighcp")
+> ### * rayleighcp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rayleighcp
+> ### Title: Probabilistic estimation of earthquake recurrence interval using
+> ###   Rayleigh distribution
+> ### Aliases: rayleighcp
+> 
+> ### ** Examples
+> 
+> fit=fitrayleigh(c(1),data=data_earthquake_7)
+Warning in optim(par = starts, fn = ll, x = data, method = "Nelder-Mead",  :
+  one-dimensional optimization by Nelder-Mead is unreliable:
+use "Brent" or optimize() directly
+> rayleighcp(fit,r=2,te=5)
+[1] 0.1859399
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rbsgpd")
+> ### * rbsgpd
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rbsgpd
+> ### Title: Generate random observations from Birnbaum-Saunders-Generalized
+> ###   Pareto distribution
+> ### Aliases: rbsgpd
+> 
+> ### ** Examples
+> 
+> rbsgpd(100,2,3,5)
+  [1] 1.344274e+01 6.551452e+01 3.464373e+03 1.695386e+10 6.512965e+00
+  [6] 6.136844e+09 2.680025e+12 3.539042e+04 1.441890e+04 2.504354e+00
+ [11] 6.796607e+00 5.165400e+00 7.936256e+04 8.009735e+01 1.723855e+06
+ [16] 6.638767e+02 2.225446e+05 5.966936e+20 7.477833e+01 2.412624e+06
+ [21] 5.111491e+11 7.237209e+00 2.710624e+04 3.522181e+00 1.374218e+01
+ [26] 8.287809e+01 2.085442e+00 7.780512e+01 5.099770e+08 3.924104e+01
+ [31] 4.845204e+02 6.657222e+03 6.099711e+02 5.626963e+00 3.062811e+07
+ [36] 4.452608e+04 5.289322e+06 3.162268e+00 2.768869e+05 1.282752e+02
+ [41] 2.124905e+07 2.374812e+04 3.097217e+06 2.186606e+03 1.302820e+03
+ [46] 4.182987e+06 2.156102e+00 4.401386e+02 3.800858e+05 9.545282e+04
+ [51] 4.435350e+02 2.714499e+08 2.084603e+02 1.040514e+01 2.606435e+00
+ [56] 3.014283e+00 2.718336e+01 1.026905e+03 3.668074e+04 1.185954e+02
+ [61] 2.857237e+10 1.960171e+01 3.092663e+02 3.468508e+01 2.648591e+04
+ [66] 1.222582e+01 4.517198e+02 1.480264e+06 2.782388e+00 7.932037e+08
+ [71] 3.846650e+01 6.322309e+07 4.335608e+01 3.543067e+01 4.325799e+02
+ [76] 3.396763e+09 3.410025e+08 8.854264e+01 2.399159e+06 8.023326e+13
+ [81] 1.956538e+02 1.859849e+05 1.052280e+02 3.114876e+01 1.004834e+06
+ [86] 6.578113e+00 1.771890e+05 3.436482e+00 1.049116e+01 3.974117e+00
+ [91] 9.790974e+00 2.473599e+00 2.074828e+04 8.561100e+08 2.577954e+06
+ [96] 6.147339e+06 2.876895e+02 1.256007e+02 1.228920e+07 7.628799e+03
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rexpexp")
+> ### * rexpexp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rexpexp
+> ### Title: Generate random observations from exponentiated exponential
+> ###   distribution
+> ### Aliases: rexpexp
+> 
+> ### ** Examples
+> 
+> rexpexp(100,2,3)
+  [1] 0.24139141 0.31388626 0.47138739 1.01919806 0.19872801 0.98444277
+  [7] 1.19118505 0.55869457 0.52528135 0.09525838 0.20161701 0.18168297
+ [13] 0.58844084 0.32231844 0.69962594 0.40746722 0.62604199 1.83592049
+ [19] 0.31944575 0.71159093 1.13508400 0.20575936 0.54880980 0.14582614
+ [25] 0.24253394 0.32374144 0.04099256 0.32110583 0.89889913 0.29187175
+ [31] 0.39507204 0.49620703 0.40414164 0.18826855 0.80117269 0.56718102
+ [37] 0.73941881 0.13277079 0.63395937 0.34176263 0.78836941 0.54389539
+ [43] 0.72046278 0.45375554 0.43376189 0.73111569 0.05525140 0.39127549
+ [49] 0.64541012 0.59520274 0.39157955 0.87709328 0.36146039 0.22758045
+ [55] 0.10301638 0.12629836 0.27546841 0.42451560 0.56001953 0.33854941
+ [61] 1.03701334 0.26018752 0.37726275 0.28642955 0.54795016 0.23639403
+ [67] 0.39230263 0.69419342 0.11428233 0.91414189 0.29099703 0.82647964
+ [73] 0.29622385 0.28737215 0.39059012 0.96416640 0.88498781 0.32649133
+ [79] 0.71139197 1.30586645 0.35890503 0.61952600 0.33363295 0.28163085
+ [85] 0.68034949 0.19940846 0.61776492 0.14300185 0.22804132 0.15856964
+ [91] 0.22413433 0.09269346 0.53886933 0.91677297 0.71394663 0.74473106
+ [97] 0.37437710 0.34090067 0.76914340 0.50135433
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rexprayleigh")
+> ### * rexprayleigh
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rexprayleigh
+> ### Title: Generate random observations from exponentiated Rayleigh
+> ###   distribution
+> ### Aliases: rexprayleigh
+> 
+> ### ** Examples
+> 
+> rexprayleigh(100,2,3)
+  [1] 0.4913160 0.5602555 0.6865766 1.0095534 0.4457892 0.9921909 1.0914142
+  [8] 0.7474587 0.7247630 0.3086396 0.4490178 0.4262428 0.7670990 0.5677310
+ [15] 0.8364365 0.6383316 0.7912282 1.3549614 0.5651953 0.8435585 1.0654032
+ [22] 0.4536071 0.7408170 0.3818719 0.4924773 0.5689828 0.2024662 0.5666620
+ [29] 0.9481029 0.5402516 0.6285476 0.7044196 0.6357214 0.4338992 0.8950825
+ [36] 0.7531142 0.8598947 0.3643773 0.7962157 0.5846047 0.8879017 0.7374926
+ [43] 0.8488008 0.6736138 0.6586060 0.8550530 0.2350562 0.6255202 0.8033742
+ [50] 0.7714938 0.6257632 0.9365326 0.6012158 0.4770539 0.3209617 0.3553848
+ [57] 0.5248508 0.6515486 0.7483445 0.5818500 1.0183385 0.5100858 0.6142172
+ [64] 0.5351911 0.7402366 0.4862037 0.6263407 0.8331827 0.3380567 0.9561077
+ [71] 0.5394414 0.9091093 0.5442645 0.5360710 0.6249721 0.9819198 0.9407379
+ [78] 0.5713942 0.8434406 1.1427451 0.5990868 0.7870997 0.5776097 0.5306890
+ [85] 0.8248330 0.4465517 0.7859802 0.3781559 0.4775367 0.3982080 0.4734283
+ [92] 0.3044560 0.7340772 0.9574826 0.8449536 0.8629780 0.6118636 0.5838670
+ [99] 0.8770082 0.7080638
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rexpweibull")
+> ### * rexpweibull
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rexpweibull
+> ### Title: Generate random observations from exponentiated Weibull
+> ###   distribution
+> ### Aliases: rexpweibull
+> 
+> ### ** Examples
+> 
+> rexpweibull(100,2,3,2)
+  [1] 2.552953 2.911173 3.567557 5.245793 2.316389 5.155575 5.671155 3.883910
+  [9] 3.765979 1.603738 2.333165 2.214823 3.985963 2.950017 4.346251 3.316868
+ [17] 4.111342 7.040586 2.936841 4.383259 5.535997 2.357011 3.849398 1.984265
+ [25] 2.558987 2.956521 1.052045 2.944462 4.926487 2.807229 3.266029 3.660272
+ [33] 3.303305 2.254607 4.650985 3.913296 4.468144 1.893360 4.137258 3.037695
+ [41] 4.613673 3.832124 4.410498 3.500200 3.422217 4.442986 1.221388 3.250298
+ [49] 4.174455 4.008800 3.251561 4.866366 3.124009 2.478845 1.667766 1.846634
+ [57] 2.727205 3.385546 3.888512 3.023381 5.291442 2.650484 3.191566 2.780935
+ [65] 3.846382 2.526389 3.254562 4.329344 1.756594 4.968081 2.803020 4.723870
+ [73] 2.828081 2.785507 3.247450 5.102205 4.888218 2.969051 4.382646 5.937878
+ [81] 3.112947 4.089890 3.001348 2.757541 4.285958 2.320351 4.084073 1.964955
+ [89] 2.481354 2.069150 2.460005 1.582000 3.814377 4.975226 4.390508 4.484165
+ [97] 3.179337 3.033862 4.557068 3.679207
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rlevy")
+> ### * rlevy
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rlevy
+> ### Title: Generate random observations from Levy distribution
+> ### Aliases: rlevy
+> 
+> ### ** Examples
+> 
+> rlevy(500,2,3)
+  [1] 4.419736e+00 5.766195e+00 1.143599e+01 2.276664e+02 3.840318e+00
+  [6] 1.859788e+02 6.249681e+02 1.757989e+01 1.486096e+01 2.859901e+00
+ [11] 3.875590e+00 3.642601e+00 2.048118e+01 5.960258e+00 3.704492e+01
+ [16] 8.524023e+00 2.493824e+01 2.915413e+04 5.893130e+00 3.955118e+01
+ [21] 4.489649e+02 3.927098e+00 1.672057e+01 3.278435e+00 4.437125e+00
+ [26] 5.993905e+00 2.490453e+00 5.931793e+00 1.134712e+02 5.299908e+00
+ [31] 8.070982e+00 1.288332e+01 8.399364e+00 3.716943e+00 6.508455e+01
+ [36] 1.835761e+01 4.610383e+01 3.160958e+00 2.600676e+01 6.443697e+00
+ [41] 6.056586e+01 1.631116e+01 4.152580e+01 1.052501e+01 9.596293e+00
+ [46] 4.403603e+01 2.583241e+00 7.938402e+00 2.764151e+01 2.121301e+01
+ [51] 7.948916e+00 1.001444e+02 6.989509e+00 4.217699e+00 2.918223e+00
+ [56] 3.105346e+00 4.987148e+00 9.201007e+00 1.769883e+01 6.360181e+00
+ [61] 2.526071e+02 4.719795e+00 7.472738e+00 5.193032e+00 1.664812e+01
+ [66] 4.344910e+00 7.973993e+00 3.596343e+01 3.006372e+00 1.238594e+02
+ [71] 5.282515e+00 7.508060e+01 5.387689e+00 5.211317e+00 7.914767e+00
+ [76] 1.653409e+02 1.047725e+02 6.059679e+00 3.950806e+01 1.232419e+03
+ [81] 6.915286e+00 2.409486e+01 6.235235e+00 5.101387e+00 3.335729e+01
+ [86] 3.848578e+00 2.387233e+01 3.252396e+00 4.224204e+00 3.400486e+00
+ [91] 4.169554e+00 2.841014e+00 1.590421e+01 1.257491e+02 4.006556e+01
+ [96] 4.748043e+01 7.381289e+00 6.421147e+00 5.438695e+01 1.320996e+01
+[101] 1.700029e+01 5.480534e+00 4.468270e+00 3.568399e+04 1.519532e+01
+[106] 3.936099e+00 3.304337e+00 7.962402e+00 3.323024e+02 1.283546e+01
+[111] 3.364401e+03 2.753797e+01 5.531975e+00 6.847675e+00 3.435021e+00
+[116] 2.487125e+00 2.459363e+01 3.129678e+00 7.171777e+00 1.572307e+01
+[121] 2.867407e+04 8.460512e+00 8.134290e+00 3.619052e+00 3.276154e+01
+[126] 7.348491e+00 8.949725e+00 3.888612e+00 4.070123e+00 1.265674e+01
+[131] 1.153598e+01 2.959770e+00 2.678885e+00 1.594670e+01 3.757908e+02
+[136] 1.279593e+01 1.087188e+01 9.461588e+00 8.598070e+03 8.834882e+00
+[141] 1.996362e+01 1.300200e+01 4.162539e+00 4.346380e+00 2.705293e+01
+[146] 7.317214e+00 3.631764e+00 3.075590e+01 3.141511e+00 1.050876e+02
+[151] 1.383590e+01 1.070458e+01 5.145618e+00 7.330424e+00 8.607913e+00
+[156] 3.675518e+00 9.593010e+00 2.948149e+00 4.546609e+00 3.931799e+00
+[161] 4.622179e+00 1.745391e+02 7.170662e+00 4.044669e+01 1.350059e+02
+[166] 6.479004e+00 2.873230e+00 5.234155e+00 2.600948e+01 5.262765e+00
+[171] 1.495899e+01 7.617626e+01 9.326893e+01 6.083219e+00 5.900635e+00
+[176] 1.757073e+02 1.607512e+01 2.947734e+01 1.323297e+01 2.043227e+02
+[181] 4.721224e+00 3.756559e+00 1.491250e+02 8.698099e+00 1.273541e+02
+[186] 3.740254e+00 3.362981e+01 2.615016e+01 6.040693e+02 1.029760e+01
+[191] 2.397136e+01 6.041152e+00 3.114544e+00 3.623737e+02 4.605266e+00
+[196] 1.236448e+01 3.176909e+00 7.607492e+01 5.008109e+00 4.149540e+01
+[201] 4.440056e+00 3.982501e+00 9.138080e+00 4.454808e+00 3.677839e+00
+[206] 9.199006e+00 1.095767e+01 3.302870e+00 4.328710e+00 2.499210e+01
+[211] 1.283479e+03 3.109755e+00 3.505694e+01 7.063954e+02 5.905687e+01
+[216] 4.890236e+00 1.653272e+01 8.788078e+02 8.931789e+02 5.294858e+00
+[221] 4.389181e+00 3.559529e+00 5.060835e+00 8.915466e+00 3.313792e+02
+[226] 8.942817e+00 4.341016e+00 2.756658e+00 6.570826e+00 9.059591e+01
+[231] 5.395386e+00 3.318457e+00 5.803622e+00 1.503556e+01 6.061211e+00
+[236] 2.081013e+01 2.078274e+01 1.060559e+01 6.808936e+00 7.320726e+00
+[241] 4.868225e+00 1.171178e+01 2.387361e+02 3.395588e+00 6.516064e+00
+[246] 3.916858e+00 6.790755e+00 3.326995e+00 7.497929e+00 5.879447e+02
+[251] 3.470032e+01 4.253096e+02 7.764988e+00 1.312685e+01 8.152298e+00
+[256] 3.166646e+00 4.245378e+00 8.548827e+00 5.777916e+00 4.487747e+02
+[261] 9.388426e+00 4.997945e+00 4.548837e+00 4.330334e+01 2.255881e+01
+[266] 3.556387e+00 2.877499e+00 3.273166e+01 1.423034e+01 3.590094e+00
+[271] 2.862724e+00 3.168117e+00 5.920713e+00 3.588113e+00 4.777260e+00
+[276] 3.764083e+00 4.336580e+00 3.678328e+00 7.940657e+00 3.732723e+01
+[281] 2.619678e+00 9.508048e+00 1.343350e+02 5.781026e+00 2.766985e+00
+[286] 3.367914e+00 5.052296e+00 3.482219e+00 3.323832e+00 4.005505e+00
+[291] 4.049940e+00 3.318281e+00 5.619787e+03 5.122764e+00 8.812311e+00
+[296] 1.980346e+01 3.103405e+00 3.233696e+00 2.783948e+00 3.825889e+02
+[301] 1.892139e+01 3.075292e+00 8.371448e+00 7.533741e+00 5.815262e+00
+[306] 2.410811e+04 3.641037e+00 5.586533e+01 2.903646e+00 6.243429e+00
+[311] 3.385400e+00 3.772829e+00 7.687657e+01 2.533266e+01 4.437037e+00
+[316] 8.442799e+00 2.999023e+00 5.490482e+00 2.015412e+03 1.453671e+01
+[321] 1.796067e+01 4.940820e+00 6.339041e+00 1.241225e+05 9.193748e+01
+[326] 8.861152e+02 5.520649e+01 4.124685e+01 4.443832e+00 3.475071e+01
+[331] 1.019384e+04 4.719820e+00 6.223691e+00 5.510635e+01 2.960336e+00
+[336] 5.635977e+00 7.088611e+00 3.495775e+00 1.191136e+01 2.146197e+03
+[341] 1.732344e+04 3.641806e+00 1.007308e+01 5.963594e+00 1.919434e+01
+[346] 4.458330e+00 7.728041e+00 3.606714e+00 5.720280e+00 2.631663e+01
+[351] 8.185082e+00 2.873191e+00 4.213527e+01 6.579974e+00 5.301555e+03
+[356] 4.601497e+00 8.353187e+01 2.993350e+00 1.491454e+02 7.797642e+00
+[361] 3.168590e+00 5.204721e+00 7.324762e+01 4.537021e+00 1.216955e+01
+[366] 7.264319e+01 2.921321e+00 2.260478e+01 2.204041e+01 7.593689e+00
+[371] 6.964184e+00 1.092992e+01 3.744089e+02 4.086259e+00 4.009918e+00
+[376] 6.617435e+00 5.207942e+00 1.054923e+02 3.647448e+00 8.392776e+00
+[381] 6.810791e+00 1.102595e+01 1.713478e+01 4.153516e+03 4.101471e+00
+[386] 4.180491e+00 4.726431e+01 6.839972e+01 3.197752e+00 1.419906e+03
+[391] 3.428739e+00 3.402745e+00 3.426211e+02 8.815394e+00 3.482359e+00
+[396] 5.410511e+00 1.748458e+01 4.932114e+00 5.457137e+00 3.432433e+00
+[401] 1.739331e+01 3.708006e+00 9.186038e+02 1.840239e+02 6.034747e+02
+[406] 2.600311e+01 5.738476e+00 4.081975e+01 2.465742e+00 5.370176e+02
+[411] 4.888129e+04 5.541962e+00 3.097738e+01 4.552582e+01 2.306026e+01
+[416] 7.900671e+00 8.432441e+00 4.887371e+00 2.151692e+01 6.181425e+01
+[421] 6.916531e+00 9.068231e+00 1.779890e+01 3.399522e+00 5.356981e+00
+[426] 6.340408e+00 3.013274e+00 4.210676e+02 7.411531e+01 1.323829e+02
+[431] 4.631120e+02 2.929834e+00 5.872344e+00 9.904904e+00 3.141922e+00
+[436] 4.955632e+01 2.916364e+01 2.795549e+00 8.073462e+00 3.033157e+02
+[441] 2.722140e+00 4.724175e+00 8.620560e+00 1.351452e+01 4.407011e+00
+[446] 6.675137e+00 5.679714e+00 5.787576e+02 3.266069e+00 2.914006e+00
+[451] 1.500959e+03 7.086774e+00 5.737153e+00 3.595068e+00 2.809318e+00
+[456] 1.729265e+01 1.170197e+01 1.148097e+04 1.313942e+01 2.880734e+00
+[461] 3.534966e+00 7.889261e+00 2.312102e+00 7.063405e+00 4.373761e+00
+[466] 5.045392e+02 2.463807e+01 3.542114e+00 7.910390e+00 2.089079e+01
+[471] 7.517547e+00 9.503212e+02 2.409895e+01 6.184423e+00 3.225797e+00
+[476] 4.174053e+00 1.036963e+02 6.943563e+00 8.529149e+00 2.110749e+01
+[481] 3.423472e+01 3.486314e+00 8.526791e+01 6.762565e+02 1.224521e+01
+[486] 8.664042e+00 3.744871e+00 2.309093e+00 1.284309e+02 3.336745e+00
+[491] 2.578239e+00 5.165728e+02 4.712428e+00 3.551227e+00 6.219240e+00
+[496] 7.485177e+00 6.901856e+00 9.145338e+00 8.178429e+01 2.815857e+00
+> 
+> 
+> 
+> cleanEx()
+> nameEx("weibullcp")
+> ### * weibullcp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: weibullcp
+> ### Title: Probabilistic estimation of earthquake recurrence interval using
+> ###   Weibull distribution
+> ### Aliases: weibullcp
+> 
+> ### ** Examples
+> 
+> fit=fitweibull(c(1,1),data=data_earthquake_6_6.5)
+Warning in ks.test.default(x = data, y = "cdfweibull", par = as.vector(parameters)) :
+  ties should not be present for the one-sample Kolmogorov-Smirnov test
+> weibullcp(fit,r=2,te=5)
+[1] 0.4292357
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  0.561 0.063 1.081 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

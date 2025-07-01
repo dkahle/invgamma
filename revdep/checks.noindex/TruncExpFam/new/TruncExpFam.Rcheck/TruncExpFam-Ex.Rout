@@ -1,0 +1,426 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "TruncExpFam"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('TruncExpFam')
+Welcome to TruncExpFam 1.2.1.
+Please read the documentation on ?TruncExpFam to learn more about the package.
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("dtrunc")
+> ### * dtrunc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dtruncbeta
+> ### Title: Probability Density Function
+> ### Aliases: dtruncbeta dtruncbinom dtruncchisq dtrunccontbern dtrunc
+> ###   dtruncexp dtruncgamma dtruncinvgamma dtruncinvgauss dtrunclnorm
+> ###   dtrunc.trunc_nbinom dtruncnbinom dtruncnorm dtruncpois
+> 
+> ### ** Examples
+> 
+> # Using the output of rtrunc
+> y <- rtrunc(50, mean = 5, sd = 2)
+> dtrunc(y, eta = c(0, -1))
+ [1] 4.504286e-07 1.739287e-13 8.693861e-06 4.136659e-30 6.972365e-15
+ [6] 7.098190e-06 1.768386e-16 3.420423e-19 2.074786e-17 2.424488e-09
+[11] 6.203106e-29 1.753538e-15 4.165277e-07 4.074042e-01 8.407975e-24
+[16] 1.909167e-11 1.082018e-11 1.407606e-21 3.885672e-20 1.326681e-17
+[21] 2.785137e-21 1.090981e-19 1.724810e-12 1.988088e-01 6.965128e-18
+[26] 2.377487e-11 1.603690e-10 8.149754e-03 4.467402e-08 9.129078e-16
+[31] 7.689079e-27 5.868296e-11 1.843788e-15 2.271844e-11 3.637910e-03
+[36] 1.583005e-08 1.118800e-08 2.530120e-11 1.726958e-23 1.792279e-19
+[41] 1.888317e-10 9.621027e-10 9.919004e-19 3.316208e-17 1.128311e-06
+[46] 1.478238e-06 3.136452e-15 1.558185e-19 7.046342e-11 7.801876e-21
+> 
+> # Directly-inputting values
+> dtruncnorm(y = c(5, 0, -10), eta = c(0, -0.05))
+[1] 0.0361444785 0.1261566261 0.0008500367
+> 
+> 
+> 
+> cleanEx()
+> nameEx("empiricalParameters")
+> ### * empiricalParameters
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: empiricalParameters
+> ### Title: Calculate empirical parameters
+> ### Aliases: empiricalParameters
+> 
+> ### ** Examples
+> 
+> # Normal distribution
+> sampNorm <- rtrunc(50, mean = 5, sd = 2)
+> empiricalParameters(sampNorm)
+    mean       sd 
+5.200897 1.662788 
+attr(,"class")
+[1] "parms_normal"
+> 
+> # Poisson distribution
+> sampPois <- rtrunc(10, lambda = 100, family = "Poisson")
+> empiricalParameters(sampPois)
+lambda 
+ 102.8 
+attr(,"class")
+[1] "parms_poisson"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("empiricalParameters.numeric")
+> ### * empiricalParameters.numeric
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: empiricalParameters.numeric
+> ### Title: Extract parameters
+> ### Aliases: empiricalParameters.numeric
+> 
+> ### ** Examples
+> 
+> # Some random data
+> x <- c(
++   4, 3, 6, 3, 3, 3, 3, 4, 3, 2, 3, 0, 4, 2, 0, 1, 4, 3, 0, 0, 2, 3, 0, 3, 7,
++   2, 1, 1, 2, 3, 2, 3, 3, 3, 2, 2, 2, 0, 2, 0, 2, 1, 0, 2, 3, 1, 0, 4, 2, 2,
++   0, 1, 1, 1, 2, 2, 3, 1, 3, 1, 1, 0, 3, 3, 2, 0, 2, 2, 3, 0, 2, 1, 0, 0, 1,
++   0, 2, 4, 2, 3, 3, 0, 1, 0, 5, 2, 4, 2, 7, 4, 4, 1, 2, 4, 3, 2, 4, 3, 1, 3
++ )
+> 
+> # Extracting parameters under different distribution assumptions
+> empiricalParameters(x, family = "normal")
+   mean      sd 
+2.12000 1.52607 
+attr(,"class")
+[1] "parms_normal"
+> empiricalParameters(x, family = "normal", natural = TRUE)
+      eta1       eta2 
+ 0.9103053 -0.2146947 
+attr(,"class")
+[1] "parms_normal"
+> empiricalParameters(x, family = "binomial", nsize = max(x))
+     size      prob 
+7.0000000 0.3028571 
+attr(,"class")
+[1] "parms_binomial"
+> empiricalParameters(x, family = "poisson", natural = FALSE)
+lambda 
+  2.12 
+attr(,"class")
+[1] "parms_poisson"
+> empiricalParameters(x, family = "poisson", natural = TRUE)
+      eta 
+0.7514161 
+attr(,"class")
+[1] "parms_poisson"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mlEstimationTruncDist")
+> ### * mlEstimationTruncDist
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mlEstimationTruncDist
+> ### Title: ML Estimation of Distribution Parameters
+> ### Aliases: mlEstimationTruncDist
+> 
+> ### ** Examples
+> 
+> sample_size <- 1000
+> # Normal
+> sample.norm <- rtrunc(n = sample_size, mean = 2, sd = 1.5, a = -1)
+> mlEstimationTruncDist(
++   sample.norm,
++   y.min = -1, max.it = 500, delta = 0.33,
++   print.iter = TRUE
++ )
+Estimating parameters for the normal distribution
+ it	 delta.L2	 parameter(s)
+ 1 	  0.001516 	 2.088 1.434 
+ 2 	  0.000812 	 2.069 1.455 
+ 3 	 0.0004586 	 2.055 1.471 
+ 4 	 0.0002691 	 2.043 1.484 
+ 5 	 0.0001624 	 2.035 1.494 
+ 6 	 0.0001001 	 2.028 1.502 
+ 7 	 6.272e-05 	 2.022 1.508 
+ 8 	  3.98e-05 	 2.017 1.513 
+ 9 	 2.551e-05 	 2.014 1.517 
+10 	 1.648e-05 	 2.011 1.52 
+11 	 1.071e-05 	 2.009 1.523 
+12 	 6.997e-06 	 2.007 1.525 
+    mean       sd 
+2.005207 1.526374 
+> 
+> # Log-Normal
+> sample.lognorm <- rtrunc(
++   n = sample_size, family = "lognormal", meanlog = 2.5, sdlog = 0.5, a = 7
++ )
+> ml_lognormal <- mlEstimationTruncDist(
++   sample.lognorm,
++   y.min = 7, max.it = 500, tol = 1e-10, delta = 0.3,
++   print.iter = FALSE
++ )
+> ml_lognormal
+  meanlog     sdlog 
+2.5092683 0.5102324 
+> 
+> # Poisson
+> sample.pois <- rtrunc(
++  n = sample_size, lambda = 10, a = 4, family = "Poisson"
++ )
+> mlEstimationTruncDist(
++   sample.pois,
++   y.min = 4, max.it = 500, delta = 0.33,
++   print.iter = 5
++ )
+Estimating parameters for the poisson distribution
+ it	 delta.L2	 parameter(s)
+  lambda 
+10.20709 
+> 
+> # Gamma
+> sample.gamma <- rtrunc(
++  n = sample_size, shape = 6, rate = 2, a = 2, family = "Gamma"
++ )
+> mlEstimationTruncDist(
++   sample.gamma,
++   y.min = 2, max.it = 1500, delta = 0.3,
++   print.iter = 10
++ )
+Estimating parameters for the gamma distribution
+ it	 delta.L2	 parameter(s)
+ 10 	   0.01819 	 6.963 2.224 
+ 20 	  0.004046 	 6.026 1.991 
+ 30 	  0.001327 	 5.546 1.869 
+ 40 	   0.00054 	 5.257 1.796 
+ 50 	 0.0002491 	 5.067 1.747 
+ 60 	 0.0001245 	 4.936 1.714 
+ 70 	 6.572e-05 	 4.842 1.69 
+ 80 	 3.603e-05 	 4.773 1.672 
+ 90 	  2.03e-05 	 4.722 1.659 
+100 	 1.167e-05 	 4.684 1.649 
+   shape     rate 
+4.670818 1.646215 
+> 
+> # Negative binomial
+> sample.nbinom <- rtruncnbinom(
++  sample_size, size = 50, prob = .3, a = 100, b = 120
++ )
+> mlEstimationTruncDist(sample.nbinom, r=10)
+Warning in mlEstimationTruncDist(sample.nbinom, r = 10) :
+  Maximum number of iterations reached. Convergence is not guaranteed. You might want to run again with a higher value for max.it
+    mean 
+62.74929 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("natural2parameters")
+> ### * natural2parameters
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: natural2parameters
+> ### Title: Convert natural parameters to distribution parameters
+> ### Aliases: natural2parameters
+> 
+> ### ** Examples
+> 
+> samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
+> lambda_hat <- empiricalParameters(samp)
+> eta_hat <- parameters2natural(lambda_hat)
+> natural2parameters(eta_hat)  # yields back lambda
+lambda 
+  2.02 
+attr(,"class")
+[1] "parms_poisson"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("parameters2natural")
+> ### * parameters2natural
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: parameters2natural
+> ### Title: Convert distribution parameters to natural parameters
+> ### Aliases: parameters2natural
+> 
+> ### ** Examples
+> 
+> # Poisson distribution
+> samp <- rtrunc(n = 100, lambda = 2, family = "Poisson")
+> parameters2natural(empiricalParameters(samp))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("probdist-class")
+> ### * probdist-class
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: probdist-class
+> ### Title: Probability distribution class
+> ### Aliases: probdist-class probdist
+> 
+> ### ** Examples
+> 
+> probdist(shape = 2, scale = .25, family = "gamma")
+Family:             Gamma
+Parameters:         shape = 2    scale = 0.25 
+Natural parameters: eta1  = 1    eta2  = -4   > probdist(mean = 2, sd = 10, family = "normal")
+Family:             Normal
+Parameters:         mean = 2      sd   = 10     
+Natural parameters: eta1 = 0.02   eta2 = -0.005 > probdist(eta1 = 2, eta2 = -1, family = "normal")
+Family:             Normal
+Parameters:         mean = 1                 sd   = 0.7071            
+Natural parameters: eta1 = 2                 eta2 = -1                > 
+> 
+> 
+> cleanEx()
+> nameEx("ptrunc")
+> ### * ptrunc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ptrunc
+> ### Title: Cumulative Distribution Function
+> ### Aliases: ptrunc ptruncnorm ptruncbeta ptruncbinom ptruncpois
+> ###   ptruncchisq ptrunccontbern ptruncexp ptruncgamma ptruncinvgamma
+> ###   ptruncinvgauss ptrunclnorm ptruncnbinom
+> 
+> ### ** Examples
+> 
+> ptrunc(0)
+[1] 0.5
+> ptrunc(6, family = "gaussian", mean = 5, sd = 10, b = 7)
+[1] 0.9319271
+> pnorm(6, mean = 5, sd = 10) # for comparison
+[1] 0.5398278
+> 
+> 
+> 
+> cleanEx()
+> nameEx("qtrunc")
+> ### * qtrunc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: qtrunc
+> ### Title: Quantile Function
+> ### Aliases: qtrunc qtruncbeta qtruncbinom qtruncchisq qtrunccontbern
+> ###   qtruncexp qtruncgamma qtruncinvgamma qtruncinvgauss qtrunclnorm
+> ###   qtruncnbinom qtruncnorm qtruncpois
+> 
+> ### ** Examples
+> 
+> qtrunc(0.75)
+[1] 0.6744898
+> qtrunc(.2, family = "gaussian", mean = 5, sd = 10, b = 7)
+[1] -6.959812
+> qnorm(.2, mean = 5, sd = 10) # for comparison
+[1] -3.416212
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rtrunc")
+> ### * rtrunc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rtruncbeta
+> ### Title: The Truncated Exponential Family
+> ### Aliases: rtruncbeta rtruncbinom rtruncchisq rtrunccontbern rtruncexp
+> ###   rtruncgamma rtruncinvgamma rtruncinvgauss rtrunclnorm rtruncnbinom
+> ###   rtruncnorm rtruncpois rtrunc rtrunc_direct
+> 
+> ### ** Examples
+> 
+> # Truncated binomial distribution
+> sample.binom <- rtrunc(
++   100, family = "binomial", prob = 0.6, size = 20, a = 4, b = 10
++ )
+> sample.binom
+  [1]  9  9  8 10  7 10  9 10 10 10 10 10 10 10  9 10  9 10  9 10 10  8 10  9 10
+ [26] 10 10  7  9  8  7  9  7 10  9 10  9 10 10  9  9  9  9 10  8  9 10 10  8 10
+ [51]  8 10  8  8  9 10  9  9 10  9  9 10 10  9  7  9  7 10 10  8  6 10  8 10 10
+ [76] 10  7 10  8  7 10  7 10  9 10 10  9 10  8 10 10  8  9  8  9  8 10  9  6 10
+> plot(
++   table(sample.binom), ylab = "Frequency", main = "Freq. of sampled values"
++ )
+> 
+> # Truncated Log-Normal distribution
+> sample.lognorm <- rtrunc(
++   n = 100, family = "lognormal", meanlog = 2.5, sdlog = 0.5, a = 7
++ )
+> summary(sample.lognorm)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  7.216  10.324  13.534  15.084  18.789  45.814 
+> 
+> hist(
++   sample.lognorm,
++   nclass = 35, xlim = c(0, 60), freq = FALSE,
++   ylim = c(0, 0.15)
++ )
+> 
+> # Normal distribution
+> sample.norm <- rtrunc(n = 100, mean = 2, sd = 1.5, a = -1)
+> head(sample.norm)
+[1]  4.2455615  3.2220541 -0.8046832  2.7230443  2.6842034  1.4698996
+> hist(sample.norm, nclass = 25)
+> 
+> # Gamma distribution
+> sample.gamma <- rtrunc(n = 100, family = "gamma", shape = 6, rate = 2, a = 2)
+> hist(sample.gamma, nclass = 15)
+> 
+> # Poisson distribution
+> sample.pois <- rtrunc(n = 10, family = "poisson", lambda = 10, a = 4)
+> sample.pois
+ [1]  4 14 11 11  9 13 15 16  8  5
+> plot(table(sample.pois))
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  0.12 0.015 0.167 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

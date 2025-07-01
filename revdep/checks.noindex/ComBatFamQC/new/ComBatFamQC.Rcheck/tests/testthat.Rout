@@ -1,0 +1,281 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # This file is part of the standard setup for testthat.
+> # It is recommended that you do not modify it.
+> #
+> # Where should you do additional test configuration?
+> # Learn more about the roles of various files in:
+> # * https://r-pkgs.org/testing-design.html#sec-tests-files-overview
+> # * https://testthat.r-lib.org/articles/special-files.html
+> 
+> library(testthat)
+> library(ComBatFamQC)
+> 
+> test_check("ComBatFamQC")
+Loading required package: shiny
+GAMLSS-RS iteration 1: Global Deviance = 11577.26 
+GAMLSS-RS iteration 2: Global Deviance = 11577.26 
+GAMLSS-RS iteration 3: Global Deviance = 11577.26 
+GAMLSS-RS iteration 1: Global Deviance = 11582.7 
+GAMLSS-RS iteration 2: Global Deviance = 11582.68 
+GAMLSS-RS iteration 3: Global Deviance = 11582.68 
+[1] "Batch levels that contain less than 3 observations are dropped: <strong>no batch level is dropped</strong>."
+[1] "A <strong>noticeable deviation of the mean from zero</strong> in the additive-residual box plot indicates the presence of an additive batch effect"
+[1] "A <strong>substantial variation</strong> in the multiplicative-residual box plot demonstrates a potential multiplicative batch effect."
+[1] "eg: covariate1*covariate2,covariate3*covariate4 <br><br>"
+`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+[1] "<strong>Note</strong>: The Bartlett's test is also a parametric test used for the same purpose as the Levene's test. Compared to the Levene's test, it is even more sensitive to departures from normality."
+[1] "<strong>Note</strong>: The one-way ANOVA test is a statistical technique used to assess whether there are significant differences among the means of three or more groups. It requires meeting several assumptions to obtain reliable results."
+[1] "<strong>Note</strong>: The Levene's test is a parametric test used to assess the equality of variances across multiple groups. It relies on the assumption of normality."
+[1] "<strong>Note</strong>: The Kruskal-Wallis test is a non-parametric statistical test used to compare the medians of two or more groups, which serves as an alternative to the ANOVA test when the assumption of normality or equal variance is not met."
+[1] "<strong>Note</strong>: Correcting Covariance Batch Effects <strong>(CovBat Family)</strong> <br><br>"
+[1] "<strong>Note</strong>: a method allows for preservation of non-linear covariate effects through use of the generalized additive model. <strong>(ComBat-GAM)</strong> <br><br>"
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+Taking the result from the visual preparation stage as input...
+No observation is dropped due to missing values.
+Starting Empirical Bayes assumption check...
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting Empirical Bayes assumption check...
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting first-time harmonization...
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting first-time harmonization...
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting first-time harmonization...
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting first-time harmonization...
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting out-of-sample harmonization using the saved ComBat Model...
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting first-time harmonization...
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting first-time harmonization...
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: 1 level(s) are dropped, corresponding to 2 observations.
+Starting out-of-sample harmonization using the reference dataset...
+Joining with `by = join_by(ID, site, subid, IMAGE_ID, VISIT, visit, EXAM_DATE, dateAcquired, timedays, timeyrs, AGE, baselineAge, SEX, DIAGNOSIS, MMSCORE, manufac, manufac.model, manufac.model.site, manufac.model.strength.site, manufac.model.coil.site, manufac.model.coil.strength.site, manufac.model.strength.site.indicator, manufac.model.coil.strength.site.indicator, strength, Field_Strength, Manufacturer, Mfg_Model, Weighting, Pulse_Sequence, Slice_Thickness, TE, TR, TI, Coil, Flip_Angle, Acquisition_Plane, Matrix_X, Matrix_Y, Matrix_Z, Pixel_Spacing_X, Pixel_Spacing_Y, X, thickness.left.fusiform, thickness.left.inferior.parietal, thickness.left.inferior.temporal, thickness.left.isthmus.cingulate, thickness.left.lateral.occipital, thickness.left.lateral.orbitofrontal, thickness.left.lingual, thickness.left.medial.orbitofrontal, thickness.left.middle.temporal, thickness.left.parahippocampal, thickness.left.paracentral, thickness.left.pars.opercularis, thickness.left.pars.orbitalis, thickness.left.pars.triangularis, thickness.left.pericalcarine, thickness.left.postcentral, thickness.left.posterior.cingulate, thickness.left.precentral, thickness.left.precuneus, thickness.left.rostral.anterior.cingulate, thickness.left.rostral.middle.frontal, thickness.left.superior.frontal, thickness.left.superior.parietal, thickness.left.superior.temporal, thickness.left.supramarginal, thickness.left.transverse.temporal, thickness.left.insula, thickness.right.caudal.anterior.cingulate, thickness.right.caudal.middle.frontal, thickness.right.cuneus, thickness.right.entorhinal, thickness.right.fusiform, thickness.right.inferior.parietal, thickness.right.inferior.temporal, thickness.right.isthmus.cingulate, thickness.right.lateral.occipital, thickness.right.lateral.orbitofrontal, thickness.right.lingual, thickness.right.medial.orbitofrontal, thickness.right.middle.temporal, thickness.right.parahippocampal, thickness.right.paracentral, thickness.right.pars.opercularis, thickness.right.pars.orbitalis, thickness.right.pars.triangularis, thickness.right.pericalcarine, thickness.right.postcentral, thickness.right.posterior.cingulate, thickness.right.precentral, thickness.right.precuneus, thickness.right.rostral.anterior.cingulate, thickness.right.rostral.middle.frontal, thickness.right.superior.frontal, thickness.right.superior.parietal, thickness.right.superior.temporal, thickness.right.supramarginal, thickness.right.transverse.temporal, thickness.right.insula)`
+The reference data is included in the new unharmonized dataset
+Joining with `by = join_by(ID, site, subid, IMAGE_ID, VISIT, visit, EXAM_DATE, dateAcquired, timedays, timeyrs, AGE, baselineAge, SEX, DIAGNOSIS, MMSCORE, manufac, manufac.model, manufac.model.site, manufac.model.strength.site, manufac.model.coil.site, manufac.model.coil.strength.site, manufac.model.strength.site.indicator, manufac.model.coil.strength.site.indicator, strength, Field_Strength, Manufacturer, Mfg_Model, Weighting, Pulse_Sequence, Slice_Thickness, TE, TR, TI, Coil, Flip_Angle, Acquisition_Plane, Matrix_X, Matrix_Y, Matrix_Z, Pixel_Spacing_X, Pixel_Spacing_Y, X, thickness.left.fusiform, thickness.left.inferior.parietal, thickness.left.inferior.temporal, thickness.left.isthmus.cingulate, thickness.left.lateral.occipital, thickness.left.lateral.orbitofrontal, thickness.left.lingual, thickness.left.medial.orbitofrontal, thickness.left.middle.temporal, thickness.left.parahippocampal, thickness.left.paracentral, thickness.left.pars.opercularis, thickness.left.pars.orbitalis, thickness.left.pars.triangularis, thickness.left.pericalcarine, thickness.left.postcentral, thickness.left.posterior.cingulate, thickness.left.precentral, thickness.left.precuneus, thickness.left.rostral.anterior.cingulate, thickness.left.rostral.middle.frontal, thickness.left.superior.frontal, thickness.left.superior.parietal, thickness.left.superior.temporal, thickness.left.supramarginal, thickness.left.transverse.temporal, thickness.left.insula, thickness.right.caudal.anterior.cingulate, thickness.right.caudal.middle.frontal, thickness.right.cuneus, thickness.right.entorhinal, thickness.right.fusiform, thickness.right.inferior.parietal, thickness.right.inferior.temporal, thickness.right.isthmus.cingulate, thickness.right.lateral.occipital, thickness.right.lateral.orbitofrontal, thickness.right.lingual, thickness.right.medial.orbitofrontal, thickness.right.middle.temporal, thickness.right.parahippocampal, thickness.right.paracentral, thickness.right.pars.opercularis, thickness.right.pars.orbitalis, thickness.right.pars.triangularis, thickness.right.pericalcarine, thickness.right.postcentral, thickness.right.posterior.cingulate, thickness.right.precentral, thickness.right.precuneus, thickness.right.rostral.anterior.cingulate, thickness.right.rostral.middle.frontal, thickness.right.superior.frontal, thickness.right.superior.parietal, thickness.right.superior.temporal, thickness.right.supramarginal, thickness.right.transverse.temporal, thickness.right.insula)`
+Joining with `by = join_by(ID, site, subid, IMAGE_ID, VISIT, visit, EXAM_DATE, dateAcquired, timedays, timeyrs, AGE, baselineAge, SEX, DIAGNOSIS, MMSCORE, manufac, manufac.model, manufac.model.site, manufac.model.strength.site, manufac.model.coil.site, manufac.model.coil.strength.site, manufac.model.strength.site.indicator, manufac.model.coil.strength.site.indicator, strength, Field_Strength, Manufacturer, Mfg_Model, Weighting, Pulse_Sequence, Slice_Thickness, TE, TR, TI, Coil, Flip_Angle, Acquisition_Plane, Matrix_X, Matrix_Y, Matrix_Z, Pixel_Spacing_X, Pixel_Spacing_Y, X, thickness.left.fusiform, thickness.left.inferior.parietal, thickness.left.inferior.temporal, thickness.left.isthmus.cingulate, thickness.left.lateral.occipital, thickness.left.lateral.orbitofrontal, thickness.left.lingual, thickness.left.medial.orbitofrontal, thickness.left.middle.temporal, thickness.left.parahippocampal, thickness.left.paracentral, thickness.left.pars.opercularis, thickness.left.pars.orbitalis, thickness.left.pars.triangularis, thickness.left.pericalcarine, thickness.left.postcentral, thickness.left.posterior.cingulate, thickness.left.precentral, thickness.left.precuneus, thickness.left.rostral.anterior.cingulate, thickness.left.rostral.middle.frontal, thickness.left.superior.frontal, thickness.left.superior.parietal, thickness.left.superior.temporal, thickness.left.supramarginal, thickness.left.transverse.temporal, thickness.left.insula, thickness.right.caudal.anterior.cingulate, thickness.right.caudal.middle.frontal, thickness.right.cuneus, thickness.right.entorhinal, thickness.right.fusiform, thickness.right.inferior.parietal, thickness.right.inferior.temporal, thickness.right.isthmus.cingulate, thickness.right.lateral.occipital, thickness.right.lateral.orbitofrontal, thickness.right.lingual, thickness.right.medial.orbitofrontal, thickness.right.middle.temporal, thickness.right.parahippocampal, thickness.right.paracentral, thickness.right.pars.opercularis, thickness.right.pars.orbitalis, thickness.right.pars.triangularis, thickness.right.pericalcarine, thickness.right.postcentral, thickness.right.posterior.cingulate, thickness.right.precentral, thickness.right.precuneus, thickness.right.rostral.anterior.cingulate, thickness.right.rostral.middle.frontal, thickness.right.superior.frontal, thickness.right.superior.parietal, thickness.right.superior.temporal, thickness.right.supramarginal, thickness.right.transverse.temporal, thickness.right.insula)`
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: 1 level(s) are dropped, corresponding to 2 observations.
+Starting out-of-sample harmonization using the reference dataset...
+Joining with `by = join_by(ID, site, subid, IMAGE_ID, VISIT, visit, EXAM_DATE, dateAcquired, timedays, timeyrs, AGE, baselineAge, SEX, DIAGNOSIS, MMSCORE, manufac, manufac.model, manufac.model.site, manufac.model.strength.site, manufac.model.coil.site, manufac.model.coil.strength.site, manufac.model.strength.site.indicator, manufac.model.coil.strength.site.indicator, strength, Field_Strength, Manufacturer, Mfg_Model, Weighting, Pulse_Sequence, Slice_Thickness, TE, TR, TI, Coil, Flip_Angle, Acquisition_Plane, Matrix_X, Matrix_Y, Matrix_Z, Pixel_Spacing_X, Pixel_Spacing_Y, X, thickness.left.fusiform, thickness.left.inferior.parietal, thickness.left.inferior.temporal, thickness.left.isthmus.cingulate, thickness.left.lateral.occipital, thickness.left.lateral.orbitofrontal, thickness.left.lingual, thickness.left.medial.orbitofrontal, thickness.left.middle.temporal, thickness.left.parahippocampal, thickness.left.paracentral, thickness.left.pars.opercularis, thickness.left.pars.orbitalis, thickness.left.pars.triangularis, thickness.left.pericalcarine, thickness.left.postcentral, thickness.left.posterior.cingulate, thickness.left.precentral, thickness.left.precuneus, thickness.left.rostral.anterior.cingulate, thickness.left.rostral.middle.frontal, thickness.left.superior.frontal, thickness.left.superior.parietal, thickness.left.superior.temporal, thickness.left.supramarginal, thickness.left.transverse.temporal, thickness.left.insula, thickness.right.caudal.anterior.cingulate, thickness.right.caudal.middle.frontal, thickness.right.cuneus, thickness.right.entorhinal, thickness.right.fusiform, thickness.right.inferior.parietal, thickness.right.inferior.temporal, thickness.right.isthmus.cingulate, thickness.right.lateral.occipital, thickness.right.lateral.orbitofrontal, thickness.right.lingual, thickness.right.medial.orbitofrontal, thickness.right.middle.temporal, thickness.right.parahippocampal, thickness.right.paracentral, thickness.right.pars.opercularis, thickness.right.pars.orbitalis, thickness.right.pars.triangularis, thickness.right.pericalcarine, thickness.right.postcentral, thickness.right.posterior.cingulate, thickness.right.precentral, thickness.right.precuneus, thickness.right.rostral.anterior.cingulate, thickness.right.rostral.middle.frontal, thickness.right.superior.frontal, thickness.right.superior.parietal, thickness.right.superior.temporal, thickness.right.supramarginal, thickness.right.transverse.temporal, thickness.right.insula)`
+The reference data is included in the new unharmonized dataset
+Joining with `by = join_by(ID, site, subid, IMAGE_ID, VISIT, visit, EXAM_DATE, dateAcquired, timedays, timeyrs, AGE, baselineAge, SEX, DIAGNOSIS, MMSCORE, manufac, manufac.model, manufac.model.site, manufac.model.strength.site, manufac.model.coil.site, manufac.model.coil.strength.site, manufac.model.strength.site.indicator, manufac.model.coil.strength.site.indicator, strength, Field_Strength, Manufacturer, Mfg_Model, Weighting, Pulse_Sequence, Slice_Thickness, TE, TR, TI, Coil, Flip_Angle, Acquisition_Plane, Matrix_X, Matrix_Y, Matrix_Z, Pixel_Spacing_X, Pixel_Spacing_Y, X, thickness.left.fusiform, thickness.left.inferior.parietal, thickness.left.inferior.temporal, thickness.left.isthmus.cingulate, thickness.left.lateral.occipital, thickness.left.lateral.orbitofrontal, thickness.left.lingual, thickness.left.medial.orbitofrontal, thickness.left.middle.temporal, thickness.left.parahippocampal, thickness.left.paracentral, thickness.left.pars.opercularis, thickness.left.pars.orbitalis, thickness.left.pars.triangularis, thickness.left.pericalcarine, thickness.left.postcentral, thickness.left.posterior.cingulate, thickness.left.precentral, thickness.left.precuneus, thickness.left.rostral.anterior.cingulate, thickness.left.rostral.middle.frontal, thickness.left.superior.frontal, thickness.left.superior.parietal, thickness.left.superior.temporal, thickness.left.supramarginal, thickness.left.transverse.temporal, thickness.left.insula, thickness.right.caudal.anterior.cingulate, thickness.right.caudal.middle.frontal, thickness.right.cuneus, thickness.right.entorhinal, thickness.right.fusiform, thickness.right.inferior.parietal, thickness.right.inferior.temporal, thickness.right.isthmus.cingulate, thickness.right.lateral.occipital, thickness.right.lateral.orbitofrontal, thickness.right.lingual, thickness.right.medial.orbitofrontal, thickness.right.middle.temporal, thickness.right.parahippocampal, thickness.right.paracentral, thickness.right.pars.opercularis, thickness.right.pars.orbitalis, thickness.right.pars.triangularis, thickness.right.pericalcarine, thickness.right.postcentral, thickness.right.posterior.cingulate, thickness.right.precentral, thickness.right.precuneus, thickness.right.rostral.anterior.cingulate, thickness.right.rostral.middle.frontal, thickness.right.superior.frontal, thickness.right.superior.parietal, thickness.right.superior.temporal, thickness.right.supramarginal, thickness.right.transverse.temporal, thickness.right.insula)`
+Joining with `by = join_by(ID, site, subid, IMAGE_ID, VISIT, visit, EXAM_DATE, dateAcquired, timedays, timeyrs, AGE, baselineAge, SEX, DIAGNOSIS, MMSCORE, manufac, manufac.model, manufac.model.site, manufac.model.strength.site, manufac.model.coil.site, manufac.model.coil.strength.site, manufac.model.strength.site.indicator, manufac.model.coil.strength.site.indicator, strength, Field_Strength, Manufacturer, Mfg_Model, Weighting, Pulse_Sequence, Slice_Thickness, TE, TR, TI, Coil, Flip_Angle, Acquisition_Plane, Matrix_X, Matrix_Y, Matrix_Z, Pixel_Spacing_X, Pixel_Spacing_Y, X, thickness.left.fusiform, thickness.left.inferior.parietal, thickness.left.inferior.temporal, thickness.left.isthmus.cingulate, thickness.left.lateral.occipital, thickness.left.lateral.orbitofrontal, thickness.left.lingual, thickness.left.medial.orbitofrontal, thickness.left.middle.temporal, thickness.left.parahippocampal, thickness.left.paracentral, thickness.left.pars.opercularis, thickness.left.pars.orbitalis, thickness.left.pars.triangularis, thickness.left.pericalcarine, thickness.left.postcentral, thickness.left.posterior.cingulate, thickness.left.precentral, thickness.left.precuneus, thickness.left.rostral.anterior.cingulate, thickness.left.rostral.middle.frontal, thickness.left.superior.frontal, thickness.left.superior.parietal, thickness.left.superior.temporal, thickness.left.supramarginal, thickness.left.transverse.temporal, thickness.left.insula, thickness.right.caudal.anterior.cingulate, thickness.right.caudal.middle.frontal, thickness.right.cuneus, thickness.right.entorhinal, thickness.right.fusiform, thickness.right.inferior.parietal, thickness.right.inferior.temporal, thickness.right.isthmus.cingulate, thickness.right.lateral.occipital, thickness.right.lateral.orbitofrontal, thickness.right.lingual, thickness.right.medial.orbitofrontal, thickness.right.middle.temporal, thickness.right.parahippocampal, thickness.right.paracentral, thickness.right.pars.opercularis, thickness.right.pars.orbitalis, thickness.right.pars.triangularis, thickness.right.pericalcarine, thickness.right.postcentral, thickness.right.posterior.cingulate, thickness.right.precentral, thickness.right.precuneus, thickness.right.rostral.anterior.cingulate, thickness.right.rostral.middle.frontal, thickness.right.superior.frontal, thickness.right.superior.parietal, thickness.right.superior.temporal, thickness.right.supramarginal, thickness.right.transverse.temporal, thickness.right.insula)`
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+Taking the result from the visual preparation stage as input...
+No observation is dropped due to missing values.
+Starting data preparation for the post-harmonization stage...
+No existing model is provided. Fitting the regression model from scratch!
+No observation is dropped due to missing values.
+Starting data preparation for the post-harmonization stage...
+No existing model is provided. Fitting the regression model from scratch!
+No observation is dropped due to missing values.
+Starting data preparation for the post-harmonization stage...
+No existing model is provided. Fitting the regression model from scratch!
+No observation is dropped due to missing values.
+Starting data preparation for the post-harmonization stage...
+No observation is dropped due to missing values.
+Template moved to: /var/folders/r3/126_d6t55f5d32tplbg5mk1d0c48s9/T//RtmprgYyUe/fileec4225e95a82/diagnosis_report.qmd
+
+
+processing file: diagnosis_report.qmd
+output file: diagnosis_report.knit.md
+
+pandoc --output diagnosis_report.html
+  to: html
+  standalone: true
+  self-contained: true
+  section-divs: true
+  html-math-method: mathjax
+  wrap: none
+  default-image-extension: png
+  number-sections: true
+  toc: true
+  variables: {}
+  
+metadata
+  document-css: false
+  link-citations: true
+  date-format: long
+  lang: en
+  title: Batch Effect Diagnostics
+  editor: visual
+  date: '`r Sys.Date()`'
+  title-block-banner: true
+  page-layout: full
+  toc-title: Contents
+  toc-location: left
+  theme: minty
+  cap-location: bottom
+  
+Output created: diagnosis_report.html
+
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+Starting first-time harmonization...
+Starting data preparation for the post-harmonization stage...
+No existing model is provided. Fitting the regression model from scratch!
+No observation is dropped due to missing values.
+New names:
+* `residual_y` -> `residual_y...1`
+* `residual_y` -> `residual_y...2`
+* `residual_y` -> `residual_y...3`
+* `residual_y` -> `residual_y...4`
+Starting data preparation for the post-harmonization stage...
+No existing model is provided. Fitting the regression model from scratch!
+No observation is dropped due to missing values.
+New names:
+* `X3` -> `X3...1`
+* `X3` -> `X3...2`
+* `X3` -> `X3...3`
+* `X3` -> `X3...4`
+Starting data preparation for the post-harmonization stage...
+No observation is dropped due to missing values.
+Starting data preparation for the post-harmonization stage...
+No existing model is provided. Fitting the regression model from scratch!
+No observation is dropped due to missing values.
+New names:
+* `residual_y` -> `residual_y...1`
+* `residual_y` -> `residual_y...2`
+* `residual_y` -> `residual_y...3`
+* `residual_y` -> `residual_y...4`
+Starting data preparation for the post-harmonization stage...
+No observation is dropped due to missing values.
+Starting data preparation for the post-harmonization stage...
+No observation is dropped due to missing values.
+New names:
+* `residual_y` -> `residual_y...1`
+* `residual_y` -> `residual_y...2`
+* `residual_y` -> `residual_y...3`
+* `residual_y` -> `residual_y...4`
+Starting data preparation for the post-harmonization stage...
+No existing model is provided. Fitting the regression model from scratch!
+No observation is dropped due to missing values.
+New names:
+* `residual_y` -> `residual_y...1`
+* `residual_y` -> `residual_y...2`
+* `residual_y` -> `residual_y...3`
+* `residual_y` -> `residual_y...4`
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+          Statistic Numer.DF Pseudo.R2 Analytic.p.value    
+(Omnibus)    0.0495        2    0.0472          < 1e-20 ***
+manufacs     0.0495        2    0.0472          < 1e-20 ***
+---
+Signif. codes:  0 "***" 0.001 "**" 0.01 "*" 0.05 "." 0.1 " " 1Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+          Statistic Numer.DF Pseudo.R2 Analytic.p.value    
+(Omnibus)     0.363        2     0.266          < 1e-20 ***
+manufacs      0.363        2     0.266          < 1e-20 ***
+---
+Signif. codes:  0 "***" 0.001 "**" 0.01 "*" 0.05 "." 0.1 " " 1refitting model(s) with ML (instead of REML)
+refitting model(s) with ML (instead of REML)
+refitting model(s) with ML (instead of REML)
+refitting model(s) with ML (instead of REML)
+Starting data preparation for the batch effect diagnostic and harmonization stage...
+The result from the visual prepration stage is not provided! The required parameters should be specified...
+No observation is dropped due to missing values.
+Batch levels that contain less than 3 observations are dropped: no batch level is dropped.
+          Statistic Numer.DF Pseudo.R2 Analytic.p.value    
+(Omnibus)    0.0534        2    0.0507          < 1e-20 ***
+manufacs     0.0534        2    0.0507          < 1e-20 ***
+---
+Signif. codes:  0 "***" 0.001 "**" 0.01 "*" 0.05 "." 0.1 " " 1[ FAIL 0 | WARN 115 | SKIP 0 | PASS 240 ]
+
+[ FAIL 0 | WARN 115 | SKIP 0 | PASS 240 ]
+> 
+> proc.time()
+   user  system elapsed 
+ 62.759   4.057  85.138 

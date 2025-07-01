@@ -1,0 +1,613 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "mvpd"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('mvpd')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("adaptIntegrate_inf_limPD")
+> ### * adaptIntegrate_inf_limPD
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: adaptIntegrate_inf_limPD
+> ### Title: Adaptive multivariate integration over hypercubes (admitting
+> ###   infinite limits)
+> ### Aliases: adaptIntegrate_inf_limPD
+> ### Keywords: integration multivariate numerical
+> 
+> ### ** Examples
+> 
+> ## integrate Cauchy Density from -Inf to Inf
+> adaptIntegrate_inf_limPD(function(x) 1/pi * 1/(1+x^2), -Inf, Inf)
+$integral
+[1] 1
+
+$error
+[1] 1.901365e-06
+
+$functionEvaluations
+[1] 45
+
+$returnCode
+[1] 0
+
+> adaptIntegrate_inf_limPD(function(x, scale) 1/(pi*scale) * 1/(1+(x/scale)^2), -Inf, Inf, scale=4)
+$integral
+[1] 1
+
+$error
+[1] 2.705388e-06
+
+$functionEvaluations
+[1] 165
+
+$returnCode
+[1] 0
+
+> ## integrate Cauchy Density from -Inf to -3
+> adaptIntegrate_inf_limPD(function(x) 1/pi * 1/(1+x^2), -Inf, -3)$int
+[1] 0.1024164
+> stats::pcauchy(-3)
+[1] 0.1024164
+> adaptIntegrate_inf_limPD(function(x, scale) 1/(pi*scale) * 1/(1+(x/scale)^2), -Inf, -3, scale=4)$int
+[1] 0.2951672
+> stats::pcauchy(-3, scale=4)
+[1] 0.2951672
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dkolm")
+> ### * dkolm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dkolm
+> ### Title: Density for the Kolmogorov Distribution
+> ### Aliases: dkolm
+> 
+> ### ** Examples
+> 
+> ## see https://swihart.github.io/mvpd/articles/deep_dive_kolm.html
+> dkolm(1)
+[1] 1.071949
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dmvss")
+> ### * dmvss
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dmvss
+> ### Title: Multivariate Subgaussian Stable Density
+> ### Aliases: dmvss
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> 
+> ## print("mvsubgaussPD (d=2, alpha=1.71):")
+> Q <- matrix(c(10,7.5,7.5,10),2)
+> mvpd::dmvss(x=c(0,1), alpha=1.71, Q=Q)
+0.01211828 with absolute error < 5.8e-05
+> 
+> ## more accuracy = longer runtime
+> mvpd::dmvss(x=c(0,1),alpha=1.71, Q=Q, abs.tol=1e-8)
+0.01211828 with absolute error < 5.7e-07
+> 
+> Q <- matrix(c(10,7.5,7.5,7.5,10,7.5,7.5,7.5,10),3)
+> ## print("mvsubgausPD (d=3, alpha=1.71):")
+> mvpd::dmvss(x=c(0,1,2), alpha=1.71, Q=Q)
+0.001602922 with absolute error < 4.4e-05
+> mvpd::dmvss(x=c(0,1,2), alpha=1.71, Q=Q, spherical=TRUE)
+0.001602922 with absolute error < 4.4e-05
+> 
+> ## How `delta` works: same as centering
+> X <- c(1,1,1)
+> Q <- matrix(c(10,7.5,7.5,7.5,10,7.5,7.5,7.5,10),3)
+> D <- c(0.75, 0.65, -0.35)
+> mvpd::dmvss(X-D, alpha=1.71, Q=Q)
+0.001940025 with absolute error < 6e-05
+> mvpd::dmvss(X  , alpha=1.71, Q=Q, delta=D)
+0.001940025 with absolute error < 6e-05
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dmvss_mat")
+> ### * dmvss_mat
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dmvss_mat
+> ### Title: Multivariate Subgaussian Stable Density for matrix inputs
+> ### Aliases: dmvss_mat
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> 
+> ## print("mvsubgaussPD (d=2, alpha=1.71):")
+> Q <- matrix(c(10,7.5,7.5,10),2)
+> mvpd::dmvss(x=c(0,1), alpha=1.71, Q=Q)
+0.01211828 with absolute error < 5.8e-05
+> 
+> ## more accuracy = longer runtime
+> mvpd::dmvss(x=c(0,1),alpha=1.71, Q=Q, abs.tol=1e-8)
+0.01211828 with absolute error < 5.7e-07
+> 
+> Q <- matrix(c(10,7.5,7.5,7.5,10,7.5,7.5,7.5,10),3)
+> ## print("mvsubgausPD (d=3, alpha=1.71):")
+> mvpd::dmvss(x=c(0,1,2), alpha=1.71, Q=Q)
+0.001602922 with absolute error < 4.4e-05
+> mvpd::dmvss(x=c(0,1,2), alpha=1.71, Q=Q, spherical=TRUE)
+0.001602922 with absolute error < 4.4e-05
+> 
+> ## How `delta` works: same as centering
+> X <- c(1,1,1)
+> Q <- matrix(c(10,7.5,7.5,7.5,10,7.5,7.5,7.5,10),3)
+> D <- c(0.75, 0.65, -0.35)
+> mvpd::dmvss(X-D, alpha=1.71, Q=Q)
+0.001940025 with absolute error < 6e-05
+> mvpd::dmvss(X  , alpha=1.71, Q=Q, delta=D)
+0.001940025 with absolute error < 6e-05
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dmvt_mat")
+> ### * dmvt_mat
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dmvt_mat
+> ### Title: Multivariate t-Distribution Density for matrix inputs
+> ### Aliases: dmvt_mat
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> 
+> x <- c(1.23, 4.56)
+> mu <- 1:2
+> Sigma <- matrix(c(4, 2, 2, 3), ncol=2)
+> df01 <- mvtnorm::dmvt(x, delta = mu, sigma = Sigma, df =  1, log=FALSE) # default log = TRUE!
+> df10 <- mvtnorm::dmvt(x, delta = mu, sigma = Sigma, df = 10, log=FALSE) # default log = TRUE!
+> df30 <- mvtnorm::dmvt(x, delta = mu, sigma = Sigma, df = 30, log=FALSE) # default log = TRUE!
+> df01
+[1] 0.007027824
+> df10
+[1] 0.01164573
+> df30
+[1] 0.01223266
+> 
+> 
+> dmvt_mat(
++   matrix(x,ncol=2),
++   df = 1,
++   Q = Sigma,
++   delta=mu)$int
+[1] 0.007027824
+> 
+> 
+> dmvt_mat(
++   matrix(x,ncol=2),
++   df = 10,
++   Q = Sigma,
++   delta=mu)$int
+[1] 0.01164573
+> 
+> 
+> dmvt_mat(
++   matrix(x,ncol=2),
++   df = 30,
++   Q = Sigma,
++   delta=mu)$int
+[1] 0.01223266
+> 
+> ## Q: can we do non-integer degrees of freedom?
+> ## A: yes for both mvpd::dmvt_mat and mvtnorm::dmvt
+> 
+> df1.5 <- mvtnorm::dmvt(x, delta = mu, sigma = Sigma, df =  1.5, log=FALSE) # default log = TRUE!
+> df1.5
+[1] 0.008221199
+> 
+> dmvt_mat(
++   matrix(x,ncol=2),
++   df = 1.5,
++   Q = Sigma,
++   delta=mu)$int
+[1] 0.008221199
+> 
+> 
+> ## Q: can we do <1 degrees of freedom but >0?
+> ## A: yes for both mvpd::dmvt_mat and mvtnorm::dmvt
+> 
+> df0.5 <- mvtnorm::dmvt(x, delta = mu, sigma = Sigma, df =  0.5, log=FALSE) # default log = TRUE!
+> df0.5
+[1] 0.004938052
+> 
+> dmvt_mat(
++   matrix(x,ncol=2),
++   df = 0.5,
++   Q = Sigma,
++   delta=mu)$int
+[1] 0.004938052
+> 
+> df0.0001 <- mvtnorm::dmvt(x, delta = mu, sigma = Sigma, df =  0.0001, 
++                           log=FALSE) # default log = TRUE!
+> df0.0001
+[1] 1.873233e-06
+> 
+> dmvt_mat(
++   matrix(x,ncol=2),
++   df = 0.0001,
++   Q = Sigma,
++   delta=mu)$int
+[1] 1.873233e-06
+> 
+> 
+> 
+> ## Q: can we do ==0 degrees of freedom?
+> ## A: No for both mvpd::dmvt_mat and mvtnorm::dmvt
+> 
+> ## this just becomes normal, as per the manual for mvtnorm::dmvt
+> df0.0 <- mvtnorm::dmvt(x, delta = mu, sigma = Sigma, df =  0, log=FALSE) # default log = TRUE!
+> df0.0
+[1] 0.01254144
+> 
+> ## Not run: 
+> ##D dmvt_mat(
+> ##D   matrix(x,ncol=2),
+> ##D   df = 0,
+> ##D   Q = Sigma,
+> ##D   delta=mu)$int 
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fit_mvss")
+> ### * fit_mvss
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fit_mvss
+> ### Title: Fit a Multivariate Subgaussian Distribution
+> ### Aliases: fit_mvss
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pmvlogis")
+> ### * pmvlogis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pmvlogis
+> ### Title: Multivariate Elliptically Contoured Logistic Distribution
+> ### Aliases: pmvlogis
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> 
+> ## bivariate
+> U <- c(1,1)
+> L <- -U
+> Q <- matrix(c(10,7.5,7.5,10),2)
+> mvpd::pmvlogis(L, U, nterms=1000, Q=Q)
+0.03930985 with absolute error < 4.1e-06
+> 
+> ## trivariate
+> U <- c(1,1,1)
+> L <- -U
+> Q <- matrix(c(10,7.5,7.5,7.5,10,7.5,7.5,7.5,10),3)
+> mvpd::pmvlogis(L, U, nterms=1000, Q=Q)
+0.01164198 with absolute error < 5.2e-07
+> 
+> ## How `delta` works: same as centering
+> U <- c(1,1,1)
+> L <- -U
+> Q <- matrix(c(10,7.5,7.5,7.5,10,7.5,7.5,7.5,10),3)
+> D <- c(0.75, 0.65, -0.35)
+> mvpd::pmvlogis(L-D, U-D, nterms=100, Q=Q)
+0.01063649 with absolute error < 1.1e-06
+> mvpd::pmvlogis(L  , U  , nterms=100, Q=Q, delta=D)
+0.01063657 with absolute error < 1.1e-06
+> 
+> ## recover univariate from trivariate
+> crit_val <- -1.3
+> Q <- matrix(c(10,7.5,7.5,7.5,20,7.5,7.5,7.5,30),3) / 10
+> Q
+     [,1] [,2] [,3]
+[1,] 1.00 0.75 0.75
+[2,] 0.75 2.00 0.75
+[3,] 0.75 0.75 3.00
+> pmvlogis(c(-Inf,-Inf,-Inf), 
++          c( Inf, Inf, crit_val),
++          Q=Q)
+0.3207003 with absolute error < 1.4e-07
+> plogis(crit_val, scale=sqrt(Q[3,3]))
+[1] 0.3207003
+> 
+> pmvlogis(c(-Inf,     -Inf,-Inf), 
++          c( Inf, crit_val, Inf ),
++          Q=Q)
+0.285113 with absolute error < 3.1e-07
+> plogis(crit_val, scale=sqrt(Q[2,2]))
+[1] 0.285113
+> 
+> pmvlogis(c(     -Inf, -Inf,-Inf), 
++          c( crit_val,  Inf, Inf ),
++          Q=Q)
+0.214165 with absolute error < 6.5e-07
+> plogis(crit_val, scale=sqrt(Q[1,1]))
+[1] 0.214165
+>  
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pmvss")
+> ### * pmvss
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pmvss
+> ### Title: Multivariate Subgaussian Stable Distribution
+> ### Aliases: pmvss
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> 
+> ## bivariate
+> U <- c(1,1)
+> L <- -U
+> Q <- matrix(c(10,7.5,7.5,10),2)
+> mvpd::pmvss(L, U, alpha=1.71, Q=Q)
+0.04973221 with absolute error < 4.2e-05
+> 
+> ## trivariate
+> U <- c(1,1,1)
+> L <- -U
+> Q <- matrix(c(10,7.5,7.5,7.5,10,7.5,7.5,7.5,10),3)
+> mvpd::pmvss(L, U, alpha=1.71, Q=Q)
+0.015912 with absolute error < 2.2e-05
+> 
+> ## How `delta` works: same as centering
+> U <- c(1,1,1)
+> L <- -U
+> Q <- matrix(c(10,7.5,7.5,7.5,10,7.5,7.5,7.5,10),3)
+> D <- c(0.75, 0.65, -0.35)
+> mvpd::pmvss(L-D, U-D, alpha=1.71, Q=Q)
+0.01446925 with absolute error < 0.00011
+> mvpd::pmvss(L  , U  , alpha=1.71, Q=Q, delta=D)
+0.01446922 with absolute error < 0.00011
+> 
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pmvss_mc")
+> ### * pmvss_mc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pmvss_mc
+> ### Title: Monte Carlo Multivariate Subgaussian Stable Distribution
+> ### Aliases: pmvss_mc
+> 
+> ### ** Examples
+> 
+> 
+> ## print("mvpd (d=2, alpha=1.71):")
+> U <- c(1,1)
+> L <- -U
+> Q <- matrix(c(10,7.5,7.5,10),2)
+> mvpd::pmvss_mc(L, U, alpha=1.71, Q=Q, n=1e3)
+[1] 0.047
+> mvpd::pmvss   (L, U, alpha=1.71, Q=Q)
+0.04973221 with absolute error < 4.2e-05
+> 
+> ## more accuracy = longer runtime
+> mvpd::pmvss_mc(L, U, alpha=1.71, Q=Q, n=1e4)
+[1] 0.0503
+> 
+> U <- c(1,1,1)
+> L <- -U
+> Q <- matrix(c(10,7.5,7.5,7.5,10,7.5,7.5,7.5,10),3)
+> ## print("mvpd: (d=3, alpha=1.71):")
+> mvpd::pmvss_mc(L, U, alpha=1.71, Q=Q, n=1e3)
+[1] 0.023
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rkolm")
+> ### * rkolm
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rkolm
+> ### Title: Random Variates for the Kolmogorov Distribution
+> ### Aliases: rkolm
+> 
+> ### ** Examples
+> 
+> ## see https://swihart.github.io/mvpd/articles/deep_dive_kolm.html
+> rkolm(10)
+           [,1]
+ [1,] 0.9069639
+ [2,] 0.9291095
+ [3,] 0.6328738
+ [4,] 0.8895656
+ [5,] 0.7045976
+ [6,] 1.2999830
+ [7,] 1.0076017
+ [8,] 0.8348871
+ [9,] 0.8339159
+[10,] 0.5929662
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rmvlogis")
+> ### * rmvlogis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rmvlogis
+> ### Title: Multivariate Logistic Random Variables
+> ### Aliases: rmvlogis
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> rmvlogis(10, Q=diag(5))
+            [,1]       [,2]       [,3]       [,4]       [,5]
+ [1,]  4.6528899 -1.7201059 -1.2500079  1.3593951  0.5782809
+ [2,] -1.2323863 -2.1075530 -2.0877818 -2.0838891 -1.7175918
+ [3,]  2.8882186 -0.8490886  1.6313377  0.5605099  0.1250548
+ [4,]  0.8938498 -1.2063771  1.7189261  1.2878984 -0.6422815
+ [5,]  0.2764787  0.4642845 -2.0004206 -0.9770003 -1.2510690
+ [6,]  1.3095250 -1.0874180  0.3938196  0.7644753  4.6776288
+ [7,] -2.8602397 -7.3984161 -3.9677387  1.3172191  0.4135027
+ [8,]  3.0992079 -1.7194147  1.4447749 -0.9442655  2.5220120
+ [9,]  3.6711225 -0.7067439 -3.3699163  0.3668366 -0.2893932
+[10,] -0.1457881  1.0956272 -0.9317951 -1.3836117 -1.0145143
+> 
+> ## Not run: 
+> ##D QMAT <- matrix(c(1,0,0,1),nrow=2)
+> ##D draw_NNMD  <- NonNorMvtDist::rmvlogis(2e3, parm1=rep(0,2), parm2=rep(1,2))
+> ##D draw_mvpd  <-          mvpd::rmvlogis(2e3,     Q=QMAT)
+> ##D 
+> ##D mean(draw_NNMD[,1]   < -1 & draw_NNMD[,2]   < 3)
+> ##D mean(draw_mvpd[,1] < -1 & draw_mvpd[,2] < 3)
+> ##D 
+> ##D plogis(-1)
+> ##D mean(draw_NNMD[,1] < -1)
+> ##D mean(draw_mvpd[,1] < -1)
+> ##D 
+> ##D plogis(3)
+> ##D mean(draw_NNMD[,2] < 3)
+> ##D mean(draw_mvpd[,2] < 3)
+> ##D  
+> ##D rangex <- range(c(draw_mvpd[,1],draw_NNMD[,1]))
+> ##D rangey <- range(c(draw_mvpd[,2],draw_NNMD[,2]))
+> ##D 
+> ##D par(mfrow=c(3,2), pty="s", mai=c(.5,.1,.1,.1))
+> ##D plot(draw_NNMD, xlim=rangex, ylim=rangey); abline(h=0,v=0)
+> ##D plot(draw_mvpd   , xlim=rangex, ylim=rangey); abline(h=0,v=0)
+> ##D 
+> ##D hist(draw_NNMD[,1]  , breaks = 100,  xlim=rangex, probability=TRUE, ylim=c(0,.40))
+> ##D curve(dlogis(x), add=TRUE, col="blue",lwd=2)
+> ##D hist(draw_mvpd[,1], breaks = 100,  xlim=rangex, probability=TRUE, ylim=c(0,.40))
+> ##D curve(dlogis(x), add=TRUE, col="blue",lwd=2)
+> ##D hist(draw_NNMD[,2]  , breaks = 100,  xlim=rangex, probability=TRUE, ylim=c(0,.40))
+> ##D curve(dlogis(x), add=TRUE, col="blue",lwd=2)
+> ##D hist(draw_mvpd[,2], breaks = 100,  xlim=rangex, probability=TRUE, ylim=c(0,.40))
+> ##D curve(dlogis(x), add=TRUE, col="blue",lwd=2)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rmvss")
+> ### * rmvss
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rmvss
+> ### Title: Multivariate Subgaussian Stable Random Variates
+> ### Aliases: rmvss
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+> ## generate 10 random variates of a bivariate mvss
+> rmvss(n=10, alpha=1.71, Q=matrix(c(10,7.5,7.5,10),2))
+           [,1]        [,2]
+ [1,]  5.548748   3.5252843
+ [2,] -7.293248 -11.2262490
+ [3,]  4.335467   1.8166835
+ [4,]  3.515787   8.0333025
+ [5,]  3.829233   3.3908664
+ [6,]  3.945247   3.7124219
+ [7,] -3.330078  -7.9088244
+ [8,]  2.723749   1.0247851
+ [9,] -5.126583  -9.6380584
+[10,] -1.100852   0.7685342
+> 
+> ## generate 10 random variates of a trivariate mvss
+> Q <- matrix(c(10,7.5,7.5,7.5,10,7.5,7.5,7.5,10),3)
+> rmvss(n=10, alpha=1.71, Q=Q)
+             [,1]        [,2]        [,3]
+ [1,]  0.12777071 -0.18215570   3.1332110
+ [2,] -0.09184375 -2.45137769  -2.4868809
+ [3,]  2.29474291  3.13719937   1.3000894
+ [4,]  2.93511307  1.89423464  -0.2826202
+ [5,]  1.68253917 -1.38768694   3.9623293
+ [6,]  5.08138753  0.09123605  -1.3476242
+ [7,]  4.76547104  3.48062576   8.1051301
+ [8,]  1.04051768  2.72687225   1.1960696
+ [9,] -7.25810159 -4.48993019 -10.4112353
+[10,] 13.59252477  9.34373854  15.8817344
+> 
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  1.221 0.786 1.65 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

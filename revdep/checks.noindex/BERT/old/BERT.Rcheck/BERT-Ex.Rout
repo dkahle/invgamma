@@ -1,0 +1,164 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "BERT"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('BERT')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("BERT")
+> ### * BERT
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BERT
+> ### Title: Adjust data using the BERT algorithm.
+> ### Aliases: BERT
+> 
+> ### ** Examples
+> 
+> # generate dataset with 1000 features, 5 batches, 10 samples per batch and
+> # two genotypes
+> data = generate_dataset(1000,5,10,0.1, 2)
+> corrected = BERT(data, cores=2)
+2025-07-01 17:00:45.299991 INFO::Formatting Data.
+2025-07-01 17:00:45.311721 INFO::Replacing NaNs with NAs.
+2025-07-01 17:00:45.316499 INFO::Removing potential empty rows and columns
+2025-07-01 17:00:45.832908 INFO::Found  5000  missing values.
+2025-07-01 17:00:45.858883 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:00:45.859282 INFO::Done
+2025-07-01 17:00:45.859562 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:00:45.89119 INFO::Starting hierarchical adjustment
+2025-07-01 17:00:45.891613 INFO::Found  5  batches.
+2025-07-01 17:00:46.060943 INFO::Set up parallel execution backend with 2 workers
+2025-07-01 17:00:46.061245 INFO::Processing subtree level 1 with 5 batches using 2 cores.
+2025-07-01 17:00:51.631957 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:00:51.632975 INFO::Adjusting sequential tree level 1 with 2 batches
+2025-07-01 17:00:56.55898 INFO::Done
+2025-07-01 17:00:56.559286 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:00:56.565254 INFO::ASW Batch was 0.541073106204741 prior to batch effect correction and is now -0.0623651320630383 .
+2025-07-01 17:00:56.565564 INFO::ASW Label was 0.387816242848595 prior to batch effect correction and is now 0.813757610359287 .
+2025-07-01 17:00:56.565944 INFO::Total function execution time is  11.3337800502777  s and adjustment time is  10.6673309803009 s ( 94.12 )
+> 
+> 
+> 
+> cleanEx()
+> nameEx("compute_asw")
+> ### * compute_asw
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: compute_asw
+> ### Title: Compute the average silhouette width (ASW) for the dataset with
+> ###   respect to both label and batch.
+> ### Aliases: compute_asw
+> 
+> ### ** Examples
+> 
+> # generate dataset with 1000 features, 5 batches, 10 samples per batch and
+> # two genotypes
+> data = generate_dataset(1000,5,10,0.1, 2)
+> asw = compute_asw(data)
+> asw
+$Label
+[1] 0.3878162
+
+$Batch
+[1] 0.5410731
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("count_existing")
+> ### * count_existing
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: count_existing
+> ### Title: Count the number of numeric features in this dataset. Columns
+> ###   labeled "Batch", "Sample" or "Label" will be ignored.
+> ### Aliases: count_existing
+> 
+> ### ** Examples
+> 
+> # generate dataset with 1000 features, 5 batches, 10 samples per batch and
+> # two genotypes
+> data = generate_dataset(1000,5,10, 0.1, 2)
+> count_existing(data)
+[1] 45000
+> 
+> 
+> 
+> cleanEx()
+> nameEx("generate_data_covariables")
+> ### * generate_data_covariables
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: generate_data_covariables
+> ### Title: Generate dataset with batch-effects and 2 classes with a
+> ###   specified imbalance.
+> ### Aliases: generate_data_covariables
+> 
+> ### ** Examples
+> 
+> # generate dataset with 1000 features, 5 batches, 10 samples per batch and
+> # two genotypes. The class ratio will either be 7:3 or 3:7 per batch.
+> data = generate_data_covariables(1000,5,10, 0.1, 0.3)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("generate_dataset")
+> ### * generate_dataset
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: generate_dataset
+> ### Title: Generate dataset with batch-effects and biological labels using
+> ###   a simple LS model
+> ### Aliases: generate_dataset
+> 
+> ### ** Examples
+> 
+> # generate dataset with 1000 features, 5 batches, 10 samples per batch and
+> # two genotypes
+> data = generate_dataset(1000,5,10, 0.1, 2)
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  3.763 0.236 11.454 6.817 0.475 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

@@ -1,0 +1,23 @@
+Package: invgamma
+Type: Package
+Title: The Inverse Gamma Distribution
+Version: 1.1
+URL: https://github.com/dkahle/invgamma
+BugReports: https://github.com/dkahle/invgamma/issues
+Authors@R: c(
+    person("David", "Kahle", email = "david.kahle@gmail.com", role = c("aut", "cre", "cph")),
+    person("James", "Stamey", email = "james_stamey@baylor.edu", role = c("aut", "cph"))
+  )
+Description: Light weight implementation of the standard distribution
+  functions for the inverse gamma distribution, wrapping those for the gamma
+  distribution in the stats package.
+License: GPL-2
+RoxygenNote: 6.0.1
+NeedsCompilation: no
+Packaged: 2017-05-07 03:26:36 UTC; david_kahle
+Author: David Kahle [aut, cre, cph],
+  James Stamey [aut, cph]
+Maintainer: David Kahle <david.kahle@gmail.com>
+Repository: CRAN
+Date/Publication: 2017-05-07 05:22:52 UTC
+Built: R 4.5.0; ; 2025-03-31 22:51:49 UTC; unix

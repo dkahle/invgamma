@@ -1,0 +1,1437 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "bayespm"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('bayespm')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("ECE")
+> ### * ECE
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ECE
+> ### Title: ECE dataset for the PCC process for Poisson with rate parameter
+> ###   unknown
+> ### Aliases: ECE
+> 
+> ### ** Examples
+> 
+> # Loading data
+> attach(ECE)
+> 
+> # Plotting data
+> graphpar <- par( oma = c(1,3,2,3) )
+> plot( 1:length(defect_counts), defect_counts/inspected_units, type = "b", lty = 1,
++       xlab = "Observations", ylab = "", xlim = c(0, 25), ylim = c(1.5, 10.5),
++       lwd = 1, pch = 16, axes = FALSE, yaxs = "i", main = "ECE dataset" )
+> 
+> # Adding points
+> points( 1:length(defect_counts), inspected_units, type = "b",
++         lty = 2, lwd = 1, pch = 21, col = "gray55" )
+> # Adding legend
+> legend( "topleft", legend=c(expression(paste(s[i])), expression(paste(x[i]/s[i])) ), bty = "n",
++         cex = 0.8, lty = c(2, 1), lwd = 1, col = c ("gray55", "black") , pch = c(21, 16) )
+> # Adding axis with names
+> axis(1) ; axis(2) ; axis(4, col.axis = "gray55", col = "gray55")
+> mtext( "Number of Defects \n per unit", side = 2,  line = 2.2, cex = 0.9 )
+> mtext( "Inspected units", side = 4,  line = 2, cex = 0.9, col = "gray55" )
+> # Resetting graphical paramaters
+> par(graphpar)
+> 
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+
+detaching ‘ECE’
+
+> nameEx("aPTT")
+> ### * aPTT
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: aPTT
+> ### Title: Dataset for PCC process for Normal with both parameters unknown
+> ### Aliases: aPTT
+> 
+> ### ** Examples
+> 
+> # Loading data
+> attach(aPTT)
+> 
+> # Plotting data
+> plot( 1:length(aPTT_current), aPTT_current, type = "b", lty = 1, xlab = "", ylab = "",
++       ylim = c(27.3, 33.4), xlim = c(-30, 30), lwd = 1, pch = 16, axes = FALSE, yaxs = "i",
++       main = "aPTT dataset" )
+> 
+> # x - axis for historical and current data
+> pastx <- c( -30, -20, -10, 0 ) ; currentx <- c( 0, 10, 20, 30 )
+> # Adding points
+> points( -length(aPTT_historical):(-1), aPTT_historical,
++         type = "b", lty = 2, xlab = "", ylab = "", lwd = 1, pch = 21, col = "gray55" )
+> # Adding axis with names
+> axis(2)
+> mtext( "Current Data", side = 1, at = 15, line = 2.2, cex = 1.1 )
+> mtext( "Historical Data", side = 1, at = -15, line = 2.2, cex = 1.1, col = "gray55" )
+> mtext( "aPTT [sec]", side = 2, line = 2.2, cex = 1.1 )
+> axis( 1, at = currentx, labels = currentx )
+> axis( 1, at = pastx, labels = pastx, col.axis = "gray55", col = "gray55", lty = 2 )
+> segments( 0, 27.5, 0, 33.5, lwd = 1 )
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘aPTT’
+
+> nameEx("betabinom_HM")
+> ### * betabinom_HM
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: betabinom_HM
+> ### Title: The Highest Mass (HM) interval of Beta-Binomial distribution.
+> ### Aliases: betabinom_HM
+> 
+> ### ** Examples
+> 
+> betabinom_HM(0.95, 10, 20, 180, plot = TRUE)
+  lower.bound upper.bound  coverage
+1           0           2 0.9252346
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("betanbinom_HM")
+> ### * betanbinom_HM
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: betanbinom_HM
+> ### Title: The Highest Mass (HM) interval of Beta-Negative Binomial
+> ###   distribution.
+> ### Aliases: betanbinom_HM
+> 
+> ### ** Examples
+> 
+> betanbinom_HM(0.95, 5, 20, 80, plot = TRUE)
+  lower.bound upper.bound  coverage
+1           3          45 0.9513001
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("binom_PCC")
+> ### * binom_PCC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: binom_PCC
+> ### Title: PCC for Binomial data with probability parameter unknown
+> ### Aliases: binom_PCC
+> 
+> ### ** Examples
+> 
+> # 30 Binomial observations introducing an outlier at the 15th observation
+> set.seed(10)
+> SimData <- rbinom( n = 30, size = 20, prob = 0.6 )
+> SimData[15] <- round( SimData[15] + 3*sqrt(20*0.6*0.4) )
+> binom_PCC( SimData, n = rep(20, 30) )
+   data HPrD_LL HPrD_UL     Alarms
+1    12      NA      NA           
+2    13       4      19           
+3    12       5      19           
+4    11       5      18           
+5    15       5      18           
+6    14       6      19           
+7    13       6      18           
+8    13       6      18           
+9    11       7      19           
+10   12       6      18           
+11   11       6      18           
+12   12       6      18           
+13   15       6      18           
+14   11       6      18           
+15   20       6      18 Alarm (UL)
+16   12       7      19           
+17   15       7      19           
+18   13       7      19           
+19   13       7      19           
+20   10       7      19           
+21   10       7      19           
+22   11       6      18           
+23   10       6      18           
+24   13       6      18           
+25   13       6      18           
+26   11       6      18           
+27   10       6      18           
+28   14       6      18           
+29   10       6      18           
+30   13       6      18           
+> 
+> 
+> 
+> cleanEx()
+> nameEx("binom_PRC")
+> ### * binom_PRC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: binom_PRC
+> ### Title: PRC for Binomial data with probability parameter unknown
+> ### Aliases: binom_PRC
+> 
+> ### ** Examples
+> 
+> 
+> # the PRC process for the first 30 data points in the third application in
+> # "Design and properties of the Predictive Ratio Cusum (PRC) control charts"
+> 
+> 
+> ### HISTORICAL DATA (FIRST BATCH)
+> HD <- c( 3, 3, 1, 5, 2, 1, 3, 3, 3, 0, 2, 1, 2, 1, 4, 1, 1, 0, 3, 2, 4, 6, 0, 1, 3, 2, 2, 4, 2, 1 )
+> 
+> ### Bernoulli trials
+> nn <- 50
+> 
+> N0 <- length(HD)
+> NN0 <- rep(50, N0)
+> 
+> binom_PRC(data = HD, n = NN0)
+   data        Sn Alarms
+1     3 0.0000000       
+2     3 0.0000000       
+3     1 0.0000000       
+4     5 0.8425923       
+5     2 0.0000000       
+6     1 0.0000000       
+7     3 0.0000000       
+8     3 0.0000000       
+9     3 0.0000000       
+10    0 0.0000000       
+11    2 0.0000000       
+12    1 0.0000000       
+13    2 0.0000000       
+14    1 0.0000000       
+15    4 0.6197286       
+16    1 0.0000000       
+17    1 0.0000000       
+18    0 0.0000000       
+19    3 0.1052326       
+20    2 0.0000000       
+21    4 0.7192969       
+22    6 2.6505284       
+23    0 0.4131042       
+24    1 0.0000000       
+25    3 0.0000000       
+26    2 0.0000000       
+27    2 0.0000000       
+28    4 0.6060025       
+29    2 0.0000000       
+30    1 0.0000000       
+> 
+> 
+> # the PRC process for the last 10 data points in the third application in
+> # "Design and properties of the Predictive Ratio Cusum (PRC) control charts"
+> 
+> ### prior parameters before the first batch
+> 
+> a0 <- 1/2
+> b0 <- 1/2
+> 
+> ### posterior parameters after the first batch
+> 
+> ap <- sum(HD) + a0
+> bp <- sum(NN0) - sum(HD) + b0
+> 
+> hl = 4.332 # the decision limit is derived by the function binom_PRC_h
+> 
+> ### CURRENT DATA (SECOND BATCH)
+> CD <- c(2, 4, 5, 2, 4, 8, 4, 4, 8, 5)
+> 
+> N <- length(CD)
+> NN <- rep(50, N)
+> 
+> binom_PRC(data = CD, n = NN, a0 = ap, b0 = bp, h = hl)
+   data        Sn Alarms
+1     2 0.0000000       
+2     4 0.6017284       
+3     5 1.8186194       
+4     2 0.9375147       
+5     4 1.4208408       
+6     8 4.5075351  Alarm
+7     4 4.8024280  Alarm
+8     4 5.0607401  Alarm
+9     8 7.9509595  Alarm
+10    5 8.7216186  Alarm
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("binom_PRC_h")
+> ### * binom_PRC_h
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: binom_PRC_h
+> ### Title: Derivation of the decision limit for the PRC for Binomial data
+> ###   with probability parameter unknown
+> ### Aliases: binom_PRC_h
+> 
+> ### ** Examples
+> 
+> 
+> binom_PRC_h(ARL_0 = NULL, FAP = 0.05, N = 20, n = 10, a0 = 20, b0 = 180)
+[1] 3.256485
+> 
+> # derivation of the decision limit of the third application in
+> # "Design and properties of the Predictive Ratio Cusum (PRC) control charts"
+> 
+> arl0 <- 400
+> ap <- 66.5
+> bp <- 1434.5
+> kl <- 2
+> 
+> 
+> # To replicate results from application set 'ARL0tol = .001' and 'it = 1e4'
+> binom_PRC_h(ARL_0 = arl0, ARL0tol = .01, k = kl, n = 50, a0 = ap, b0 = bp, it = 1e3)
+[1] "It 1: Suggested h=4.167, achieved ARL_0=342.279"
+[1] "It 2: Suggested h=4.425, achieved ARL_0=422.347"
+[1] "It 3: Suggested h=4.353, achieved ARL_0=396.122"
+[1] 4.352863
+> 
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("compgamma_HD")
+> ### * compgamma_HD
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: compgamma_HD
+> ### Title: The Highest Density (HD) interval of Compound Gamma
+> ###   distribution.
+> ### Aliases: compgamma_HD
+> 
+> ### ** Examples
+> 
+> compgamma_HD(0.95, 2, 10, 10, plot = TRUE)
+  lower.bound upper.bound coverage
+1  0.02551874    5.745005     0.95
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gamma_PCC")
+> ### * gamma_PCC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gamma_PCC
+> ### Title: PCC for Gamma data with rate parameter unknown
+> ### Aliases: gamma_PCC
+> 
+> ### ** Examples
+> 
+> # 30 Gamma observations introducing an outlier of 3*sd at the 15th observation
+> set.seed(100)
+> out <- rgamma( n = 30, shape = 4, rate = 4 )
+> out[15] <- out[15] + 1.5
+> gamma_PCC( out, al = 4 )
+        data    HPrD_LL  HPrD_UL     Alarms
+1  0.6558834         NA       NA           
+2  0.2904607 0.01335085 5.924644           
+3  1.3389048 0.01605182 2.429138           
+4  0.9305634 0.03118834 3.250711           
+5  1.0303709 0.03631773 3.129885           
+6  0.6240473 0.04075752 3.129587           
+7  1.0914351 0.04058816 2.884012           
+8  0.7125786 0.04386825 2.948195           
+9  0.9175454 0.04394774 2.832197           
+10 0.9206076 0.04522261 2.820501           
+11 0.7832354 0.04628515 2.811968           
+12 1.5168797 0.04648555 2.764001           
+13 0.6209599 0.05004881 2.922873           
+14 0.7025806 0.04925631 2.833121           
+15 3.0408781 0.04889359 2.775745 Alarm (UL)
+16 1.0362720 0.05742043 3.223072           
+17 0.4279223 0.05781819 3.213329           
+18 1.2688434 0.05612021 3.091730           
+19 1.0018102 0.05728627 3.131446           
+20 1.2741115 0.05752518 3.122619           
+21 0.5355599 0.05853084 3.157288           
+22 0.5239257 0.05740044 3.078731           
+23 0.9863479 0.05633552 3.006005           
+24 0.4172927 0.05653358 3.002337           
+25 0.5402669 0.05532575 2.925474           
+26 1.8899603 0.05449832 2.870239           
+27 0.8116784 0.05678730 2.979786           
+28 0.8119816 0.05655930 2.957704           
+29 0.7743398 0.05634733 2.937289           
+30 1.9460729 0.05607241 2.914337           
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gb2_HD")
+> ### * gb2_HD
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gb2_HD
+> ### Title: The Highest Density (HD) interval of Generalized Beta of the
+> ###   second kind distribution.
+> ### Aliases: gb2_HD
+> 
+> ### ** Examples
+> 
+> gb2_HD(0.95, 4, 6, 6, plot = TRUE)
+  lower.bound upper.bound coverage
+1  0.03353983   0.8282028     0.95
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("invgamma_PCC")
+> ### * invgamma_PCC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: invgamma_PCC
+> ### Title: PCC for Inverse-Gamma data with scale parameter unknown
+> ### Aliases: invgamma_PCC
+> 
+> ### ** Examples
+> 
+> # 30 Inverse-Gamma observations introducing an outlier at the 15th observation
+> set.seed(100)
+> SimData <- 1/rgamma(n = 30, shape = 3, rate = 2)
+> SimData[15] <- SimData[15] + 3
+> invgamma_PCC(SimData, al = 3)
+        data     HPrD_LL   HPrD_UL Alarms
+1  1.1305736          NA        NA       
+2  3.2192817 0.004778412 15.774752       
+3  0.4879564 0.067937302 21.082804       
+4  0.7439457 0.065538383 11.204847       
+5  0.6602448 0.079538281 10.348143       
+6  1.2013973 0.086342418  9.601835       
+7  0.6174585 0.100087187 10.051645       
+8  1.0224557 0.101047068  9.447231       
+9  0.7563889 0.108755348  9.642972       
+10 0.7534261 0.111509447  9.491476       
+11 0.9126782 0.113696898  9.368779       
+12 0.4233439 0.117522249  9.431814       
+13 1.2087179 0.111020321  8.717137       
+14 1.0400582 0.116150622  8.953303       
+15 3.4158834 0.119879459  9.096289       
+16 0.6558623 0.127883188  9.572385       
+17 1.9275289 0.126956841  9.390790       
+18 0.5189369 0.132596601  9.705879       
+19 0.6822788 0.128999677  9.355353       
+20 0.5164757 0.128505060  9.242544       
+21 1.4512136 0.125672381  8.971723       
+22 1.4915561 0.129210437  9.162428       
+23 0.6948089 0.132660765  9.349783       
+24 1.9909345 0.132196217  9.265261       
+25 1.4354755 0.136127731  9.492244       
+26 0.3305377 0.138989678  9.646455       
+27 0.8746342 0.131443730  9.083355       
+28 0.8742451 0.132282515  9.104807       
+29 0.9252360 0.133064716  9.124696       
+30 0.3199118 0.134035221  9.159547       
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lnorm1_PCC")
+> ### * lnorm1_PCC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lnorm1_PCC
+> ### Title: PCC for LogNormal data with scale parameter unknown
+> ### Aliases: lnorm1_PCC
+> 
+> ### ** Examples
+> 
+> set.seed(9)
+> SimData <- rlnorm(n = 30, meanlog = 0, sdlog = 1/2)
+> SimData[15] <- SimData[15] + 3*sqrt( exp(1/4)*( exp(1/4)-1 ) )
+> plot(SimData)
+> lnorm1_PCC(SimData, sdl = 1/2)
+        data    HPrD_LL  HPrD_UL     Alarms
+1  0.6815416         NA       NA           
+2  0.6648265 0.03501983 4.879510           
+3  0.9316784 0.05774131 3.706749           
+4  0.8703999 0.07705409 3.749607           
+5  1.2437779 0.08770623 3.699374           
+6  0.5524257 0.10188775 3.937973           
+7  1.8148330 0.09838424 3.584843           
+8  0.9909461 0.11374818 3.972293           
+9  0.8833425 0.11759931 3.977194           
+10 0.8340446 0.11916041 3.930244           
+11 1.8941786 0.11973943 3.870636           
+12 0.7910069 0.12952570 4.118366           
+13 1.0361657 0.12858578 4.032419           
+14 0.8754483 0.13047928 4.044164           
+15 4.3275966 0.13054463 4.005703 Alarm (UL)
+16 0.6572276 0.14528422 4.419229           
+17 0.9620162 0.14181258 4.280753           
+18 0.2701298 0.14196525 4.256492           
+19 1.5588401 0.13242011 3.946492           
+20 0.7020535 0.13645004 4.044744           
+21 2.4072776 0.13470100 3.973565           
+22 1.0954071 0.14118419 4.146548           
+23 0.8750761 0.14216830 4.158789           
+24 1.5891683 0.14168287 4.129474           
+25 0.7070415 0.14479478 4.206055           
+26 3.8228455 0.14300959 4.141401           
+27 1.1176880 0.15086282 4.356392           
+28 0.7023410 0.15146053 4.362123           
+29 1.2319603 0.14951622 4.295579           
+30 1.2029518 0.15061900 4.317389           
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lnorm2_PCC")
+> ### * lnorm2_PCC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lnorm2_PCC
+> ### Title: PCC for LogNormal data with shape parameter unknown
+> ### Aliases: lnorm2_PCC
+> 
+> ### ** Examples
+> 
+> # 30 LogNormal observations introducing an outlier at the 15th observation
+> set.seed(1)
+> SimData <- rlnorm(n = 30, meanlog = 0, sdlog = 1/2)
+> SimData[15] <- SimData[15] + 3*sqrt( exp(1/4)*( exp(1/4)-1 ) )
+> plot(SimData)
+> lnorm2_PCC(SimData, ml = 0)
+        data       HPrD_LL      HPrD_UL Alarms
+1  0.7310840            NA           NA       
+2  1.0961693  0.000000e+00 1.091798e+16       
+3  0.6584845  0.000000e+00 2.283411e+01       
+4  2.2202957  0.000000e+00 9.219359e+00       
+5  1.1791029  0.000000e+00 1.379335e+01       
+6  0.6634948  0.000000e+00 7.668180e+00       
+7  1.2759800 4.162372e-159 6.226850e+00       
+8  1.4465224  2.748292e-02 5.089170e+00       
+9  1.3336115  5.384998e-02 4.631567e+00       
+10 0.8583922  8.303562e-02 4.211032e+00       
+11 2.1295072  1.163083e-01 3.810934e+00       
+12 1.2152157  8.625593e-02 4.361676e+00       
+13 0.7329921  1.090282e-01 4.045781e+00       
+14 0.3304335  1.246776e-01 3.869909e+00       
+15 3.5666956  6.857416e-02 5.007061e+00       
+16 0.9777837  3.460168e-02 6.490948e+00       
+17 0.9919375  4.532963e-02 6.008680e+00       
+18 1.6030661  5.635109e-02 5.610839e+00       
+19 1.5077381  6.162556e-02 5.473834e+00       
+20 1.3457489  6.784108e-02 5.310962e+00       
+21 1.5832642  7.574575e-02 5.108395e+00       
+22 1.4785593  8.010331e-02 5.018430e+00       
+23 1.0379862  8.562522e-02 4.900001e+00       
+24 0.3698433  9.482543e-02 4.700599e+00       
+25 1.3633063  7.974756e-02 5.109198e+00       
+26 0.9723258  8.560893e-02 4.969424e+00       
+27 0.9250590  9.336399e-02 4.792118e+00       
+28 0.4793251  1.008872e-01 4.634871e+00       
+29 0.7873558  9.634324e-02 4.752666e+00       
+30 1.2324090  1.021717e-01 4.633624e+00       
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lnorm3_PCC")
+> ### * lnorm3_PCC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lnorm3_PCC
+> ### Title: PCC for LogNormal data with both parameters unknown
+> ### Aliases: lnorm3_PCC
+> 
+> ### ** Examples
+> 
+> # 30 LogNormal observations introducing an outlier at the 15th observation
+> ssddll <- 1/2
+> set.seed(9)
+> SimData <- rlnorm( n = 30, meanlog = 0, sdlog = ssddll)
+> SimData[15] <- SimData[15] + 3*sqrt( exp(ssddll^2)*( exp(ssddll^2)-1 ) )
+> plot(SimData)
+> lnorm3_PCC(SimData)
+'df' has not been defined
+        data       HPrD_LL   HPrD_UL     Alarms
+1  0.6815416            NA        NA           
+2  0.6648265            NA        NA           
+3  0.9316784  0.000000e+00  8.495514           
+4  0.8703999  0.000000e+00 14.239145           
+5  1.2437779  0.000000e+00  3.107587           
+6  0.5524257  0.000000e+00  3.983838           
+7  1.8148330  1.438048e-02  3.471364           
+8  0.9909461 3.766611e-161  5.739377           
+9  0.8833425  2.773696e-02  4.516027           
+10 0.8340446  7.016369e-02  3.759870           
+11 1.8941786  1.100310e-01  3.274058           
+12 0.7910069  8.284135e-02  4.092375           
+13 1.0361657  1.078813e-01  3.689018           
+14 0.8754483  1.358876e-01  3.423811           
+15 4.3275966  1.601574e-01  3.176530 Alarm (UL)
+16 0.6572276  4.798793e-02  6.061413           
+17 0.9620162  5.425749e-02  5.670286           
+18 0.2701298  6.780903e-02  5.253717           
+19 1.5588401  3.480632e-02  6.166941           
+20 0.7020535  4.039943e-02  6.138963           
+21 2.4072776  4.661572e-02  5.752308           
+22 1.0954071  4.299329e-02  6.368768           
+23 0.8750761  5.090333e-02  6.052446           
+24 1.5891683  5.822616e-02  5.726525           
+25 0.7070415  6.344004e-02  5.716194           
+26 3.8228455  6.792959e-02  5.468533           
+27 1.1176880  5.101502e-02  6.675920           
+28 0.7023410  5.745999e-02  6.409260           
+29 1.2319603  6.072212e-02  6.161810           
+30 1.2029518  6.693228e-02  5.981833           
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lnorm_HD")
+> ### * lnorm_HD
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lnorm_HD
+> ### Title: The Highest Density (HD) interval of Lognormal distribution.
+> ### Aliases: lnorm_HD
+> 
+> ### ** Examples
+> 
+> lnorm_HD(0.95, 0, 1/2, plot = TRUE)
+  lower.bound upper.bound coverage
+1   0.2616523    2.318079     0.95
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lt_HD")
+> ### * lt_HD
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lt_HD
+> ### Title: The Highest Density (HD) interval of Logt distribution.
+> ### Aliases: lt_HD
+> 
+> ### ** Examples
+> 
+> lt_HD(0.95, 10, 0, 1/2, plot = TRUE)
+  lower.bound upper.bound coverage
+1    0.180761    2.526628     0.95
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("nbinom_HM")
+> ### * nbinom_HM
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: nbinom_HM
+> ### Title: The Highest Mass (HM) interval of Beta-Negative Binomial
+> ###   distribution.
+> ### Aliases: nbinom_HM
+> 
+> ### ** Examples
+> 
+> nbinom_HM(0.95, 4, 0.2, plot = TRUE)
+  lower.bound upper.bound  coverage
+1           2          33 0.9482936
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("nbinom_PCC")
+> ### * nbinom_PCC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: nbinom_PCC
+> ### Title: PCC for Negative Binomial data with probability parameter
+> ###   unknown
+> ### Aliases: nbinom_PCC
+> 
+> ### ** Examples
+> 
+> # 30 Negative Binomial observations introducing an outlier at the 15th observation
+> set.seed(5)
+> SimData <- rnbinom(n = 30, size = 10, prob = 0.9)
+> SimData[15] <- round( SimData[15] + 3*sqrt(10*0.1/(0.9^2)) )
+> nbinom_PCC(SimData, rl = 10)
+   data HPrD_LL HPrD_UL     Alarms
+1     0      NA      NA           
+2     1       0       8           
+3     1       0       6           
+4     0       0       6           
+5     1       0       5           
+6     2       0       5           
+7     1       0       5           
+8     3       0       5           
+9     0       0       6           
+10    0       0       5           
+11    0       0       5           
+12    3       0       5           
+13    0       0       5           
+14    1       0       5           
+15    7       0       5 Alarm (UL)
+16    1       0       6           
+17    1       0       6           
+18    3       0       6           
+19    0       0       6           
+20    3       0       6           
+21    2       0       6           
+22    1       0       6           
+23    1       0       6           
+24    1       0       6           
+25    1       0       6           
+26    1       0       6           
+27    2       0       6           
+28    1       0       6           
+29    0       0       6           
+30    0       0       6           
+> 
+> 
+> 
+> cleanEx()
+> nameEx("norm1_PCC")
+> ### * norm1_PCC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: norm1_PCC
+> ### Title: PCC for Normal data with mean unknown
+> ### Aliases: norm1_PCC
+> 
+> ### ** Examples
+> 
+> # 30 Normal observations introducing an outlier of 3*sd at the 15th observation
+> set.seed(1234)
+> out <- rnorm(30)
+> out[15] <- out[15] + 3
+> norm1_PCC(out, sdl = 1)
+          data   HPrD_LL  HPrD_UL     Alarms
+1  -1.20706575        NA       NA           
+2   0.27742924 -5.449708 3.035577           
+3   1.08444118 -4.139055 3.209418           
+4  -2.34569770 -3.412502 3.515705           
+5   0.42912469 -3.901827 2.806380           
+6   0.50605589 -3.638691 2.933983           
+7  -0.57473996 -3.449657 3.031086           
+8  -0.54663186 -3.468630 2.945643           
+9  -0.56445200 -3.479117 2.884846           
+10 -0.89003783 -3.489116 2.835442           
+11 -0.47719270 -3.529585 2.763271           
+12 -0.99838644 -3.525105 2.741693           
+13 -0.77625389 -3.564763 2.680238           
+14  0.06445882 -3.581203 2.645294           
+15  3.95949406 -3.535221 2.675372 Alarm (UL)
+16 -0.11028549 -3.235685 2.961091           
+17 -0.51100951 -3.227939 2.956722           
+18 -0.91119542 -3.244667 2.929285           
+19 -0.83717168 -3.281761 2.882656           
+20  2.41583518 -3.311048 2.844825           
+21  0.13408822 -3.174751 2.973423           
+22 -0.49068590 -3.160085 2.981114           
+23 -0.44054787 -3.175147 2.959704           
+24  0.45958944 -3.186717 2.942332           
+25 -0.69372025 -3.159815 2.963912           
+26 -1.44820491 -3.181195 2.937631           
+27  0.57475572 -3.229948 2.884351           
+28 -1.02365572 -3.200163 2.909940           
+29 -0.01513830 -3.229591 2.876615           
+30 -0.93594860 -3.222211 2.880363           
+> 
+> # Real data application
+> attach(aPTT)
+> norm1_PCC(data = aPTT_current, historical_data = aPTT_historical, sdl = 0.57)
+   data  HPrD_LL  HPrD_UL Alarms
+1  30.8       NA       NA       
+2  30.2 28.39402 32.58265       
+3  30.9 28.41768 32.36676       
+4  30.2 28.60733 32.43101       
+5  30.5 28.58212 32.32855       
+6  30.4 28.61577 32.30979       
+7  30.9 28.62574 32.28188       
+8  30.2 28.69585 32.32331       
+9  30.3 28.67269 32.27768       
+10 30.1 28.66420 32.25113       
+11 30.6 28.63911 32.21119       
+12 29.9 28.65990 32.21955       
+13 30.5 28.62365 32.17276       
+14 29.8 28.63546 32.17550       
+15 30.5 28.59903 32.13119       
+16 28.8 28.61091 32.13617       
+17 30.3 28.52140 32.04056       
+18 30.4 28.52518 32.03890       
+19 30.6 28.53382 32.04267       
+20 30.2 28.55160 32.05606       
+21 30.8 28.54865 32.04913       
+22 30.7 28.57323 32.07010       
+23 31.0 28.59134 32.08490       
+24 30.3 28.62043 32.11096       
+25 30.7 28.61920 32.10693       
+26 30.2 28.63345 32.11860       
+27 30.3 28.62813 32.11089       
+28 30.6 28.62676 32.10729       
+29 30.4 28.63582 32.11429       
+30 30.2 28.63762 32.11416       
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘aPTT’
+
+> nameEx("norm2_PCC")
+> ### * norm2_PCC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: norm2_PCC
+> ### Title: PCC for Normal data with variance unknown
+> ### Aliases: norm2_PCC
+> 
+> ### ** Examples
+> 
+> # 30 Normal observations introducing an outlier of 3*sd at the 15th observation
+> set.seed(1234)
+> out <- rnorm(30)
+> out[15] <- out[15] + 3
+> norm2_PCC(out, ml = 0)
+          data     HPrD_LL    HPrD_UL     Alarms
+1  -1.20706575          NA         NA           
+2   0.27742924 -284.629182 284.629182           
+3   1.08444118  -16.820884  16.820884           
+4  -2.34569770   -8.762029   8.762029           
+5   0.42912469   -9.485802   9.485802           
+6   0.50605589   -7.136483   7.136483           
+7  -0.57473996   -5.889147   5.889147           
+8  -0.54663186   -5.131616   5.131616           
+9  -0.56445200   -4.606489   4.606489           
+10 -0.89003783   -4.228590   4.228590           
+11 -0.47719270   -4.033834   4.033834           
+12 -0.99838644   -3.782881   3.782881           
+13 -0.77625389   -3.703708   3.703708           
+14  0.06445882   -3.581576   3.581576           
+15  3.95949406   -3.397322   3.397322 Alarm (UL)
+16 -0.11028549   -4.891341   4.891341           
+17 -0.51100951   -4.681187   4.681187           
+18 -0.91119542   -4.515456   4.515456           
+19 -0.83717168   -4.411768   4.411768           
+20  2.41583518   -4.310362   4.310362           
+21  0.13408822   -4.561996   4.561996           
+22 -0.49068590   -4.423996   4.423996           
+23 -0.44054787   -4.311161   4.311161           
+24  0.45958944   -4.204999   4.204999           
+25 -0.69372025   -4.108174   4.108174           
+26 -1.44820491   -4.033520   4.033520           
+27  0.57475572   -4.049758   4.049758           
+28 -1.02365572   -3.975615   3.975615           
+29 -0.01513830   -3.941852   3.941852           
+30 -0.93594860   -3.860508   3.860508           
+> 
+> # Real data application
+> attach(aPTT)
+> norm2_PCC(data = aPTT_current, historical_data = aPTT_historical, ml = 30)
+   data  HPrD_LL  HPrD_UL Alarms
+1  30.8       NA       NA       
+2  30.2 16.57584 43.42416       
+3  30.9 24.63238 35.36762       
+4  30.2 25.52584 34.47416       
+5  30.5 26.63481 33.36519       
+6  30.4 27.08699 32.91301       
+7  30.9 27.41638 32.58362       
+8  30.2 27.34340 32.65660       
+9  30.3 27.58666 32.41334       
+10 30.1 27.75568 32.24432       
+11 30.6 27.91476 32.08524       
+12 29.9 27.94195 32.05805       
+13 30.5 28.05680 31.94320       
+14 29.8 28.09411 31.90589       
+15 30.5 28.17433 31.82567       
+16 28.8 28.19784 31.80216       
+17 30.3 27.99103 32.00897       
+18 30.4 28.04991 31.95009       
+19 30.6 28.09095 31.90905       
+20 30.2 28.09662 31.90338       
+21 30.8 28.14871 31.85129       
+22 30.7 28.11187 31.88813       
+23 31.0 28.09894 31.90106       
+24 30.3 28.02629 31.97371       
+25 30.7 28.06457 31.93543       
+26 30.2 28.05600 31.94400       
+27 30.3 28.09542 31.90458       
+28 30.6 28.12707 31.87293       
+29 30.4 28.12967 31.87033       
+30 30.2 28.15127 31.84873       
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘aPTT’
+
+> nameEx("norm3_PCC")
+> ### * norm3_PCC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: norm3_PCC
+> ### Title: PCC for Normal data with both parameters unknown
+> ### Aliases: norm3_PCC
+> 
+> ### ** Examples
+> 
+> # 30 Normal observations introducing an outlier of 3*sd at the 15th observation
+> set.seed(1234)
+> out <- rnorm(30)
+> out[15] <- out[15] + 3
+> norm3_PCC(out)
+'df' has not been defined
+          data     HPrD_LL    HPrD_UL     Alarms
+1  -1.20706575          NA         NA           
+2   0.27742924          NA         NA           
+3   1.08444118 -303.615023 302.685386           
+4  -2.34569770  -25.726546  25.829749           
+5   0.42912469  -16.305892  15.210445           
+6   0.50605589  -10.463526   9.758818           
+7  -0.57473996   -7.914487   7.495916           
+8  -0.54663186   -6.503061   5.980074           
+9  -0.56445200   -5.615144   5.020873           
+10 -0.89003783   -5.011348   4.357673           
+11 -0.47719270   -4.659163   3.892848           
+12 -0.99838644   -4.297750   3.514338           
+13 -0.77625389   -4.120781   3.236255           
+14  0.06445882   -3.920319   2.984410           
+15  3.95949406   -3.722051   2.862202 Alarm (UL)
+16 -0.11028549   -5.411424   5.136830           
+17 -0.51100951   -5.151937   4.880719           
+18 -0.91119542   -4.960629   4.645247           
+19 -0.83717168   -4.848077   4.448972           
+20  2.41583518   -4.733540   4.267317           
+21  0.13408822   -4.918117   4.716789           
+22 -0.49068590   -4.748962   4.569991           
+23 -0.44054787   -4.630223   4.414779           
+24  0.45958944   -4.516883   4.272498           
+25 -0.69372025   -4.388525   4.192622           
+26 -1.44820491   -4.317701   4.074136           
+27  0.57475572   -4.356499   4.010902           
+28 -1.02365572   -4.256499   3.966277           
+29 -0.01513830   -4.231552   3.878576           
+30 -0.93594860   -4.137662   3.795814           
+> 
+> # Real data application
+> attach(aPTT)
+> norm3_PCC(data = aPTT_current, historical_data = aPTT_historical)
+   data    HPrD_LL   HPrD_UL     Alarms
+1  30.8         NA        NA           
+2  30.2 -173.73514 234.71181           
+3  30.9   18.70408  42.08036           
+4  30.2   25.36952  35.66881           
+5  30.5   27.15114  33.75953           
+6  30.4   28.03630  32.88926           
+7  30.9   28.49756  32.41006           
+8  30.2   28.68486  32.33431           
+9  30.3   28.80755  32.14282           
+10 30.1   28.94122  31.97411           
+11 30.6   28.97057  31.87973           
+12 29.9   29.07990  31.79954           
+13 30.5   29.00079  31.79562           
+14 29.8   29.08713  31.72382           
+15 30.5   28.98637  31.74386           
+16 28.8   29.05629  31.69079 Alarm (LL)
+17 30.3   28.40477  32.15719           
+18 30.4   28.48337  32.08070           
+19 30.6   28.55593  32.02056           
+20 30.2   28.61546  31.99221           
+21 30.8   28.66516  31.93262           
+22 30.7   28.69640  31.94694           
+23 31.0   28.73778  31.93845           
+24 30.3   28.74274  31.98865           
+25 30.7   28.78275  31.94339           
+26 30.2   28.81954  31.93251           
+27 30.3   28.84634  31.89267           
+28 30.6   28.87836  31.85568           
+29 30.4   28.91210  31.83801           
+30 30.2   28.94384  31.80793           
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘aPTT’
+
+> nameEx("norm_HD")
+> ### * norm_HD
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: norm_HD
+> ### Title: The Highest Density (HD) interval of Normal distribution.
+> ### Aliases: norm_HD
+> 
+> ### ** Examples
+> 
+> norm_HD(0.95, mu = 10, sdv = 1/2, plot = TRUE)
+  lower.bound upper.bound coverage
+1    9.020018    10.97998     0.95
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("norm_mean2_PRC")
+> ### * norm_mean2_PRC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: norm_mean2_PRC
+> ### Title: PRC for Normal data with unknown parameters (mean)
+> ### Aliases: norm_mean2_PRC
+> 
+> ### ** Examples
+> 
+> 
+> 
+> # the PRC process for the first application in
+> # "Design and properties of the Predictive Ratio Cusum (PRC) control charts"
+> 
+> 
+> ### CD: Current data (New reagent)
+> ### HD: Historical data (Previous reagent)
+> 
+> CD <- c( 31.0, 30.0, 32.0, 28.0, 33.2, 33.2, 35.1, 35.1, 33.9, 37.9,
++          33.2, 36.5, 33.2, 35.1, 34.5, 36.5, 33.2, 35.1, 37.2, 32.6, 36.5 )
+> HD <- c( 31, 30, 33, 30, 33, 30, 31, 32, 32, 30, 33, 31, 34, 31, 34, 34, 36, 30,
++          33, 29, 34, 32, 32, 28, 34, 32, 32, 30, 31, 29, 31, 29, 31, 32,34,34,32 )
+> 
+> N <- length(CD)
+> n0 <- length(HD)
+> 
+> ### initial prior parameters
+> 
+> M0F <- 31.8
+> LF <- 1/2
+> AF <- 2
+> BF <- 2.1^2
+> 
+> norm_mean2_PRC( data = CD, historical_data = HD, alpha_0 = 1/n0, mu0 = M0F,
++                 l0 = LF, a0 = AF, b0 = BF, h = 3.749, two.sided = TRUE )
+   data    Snplus    Snminus    Alarms
+1  31.0 0.0000000  0.0000000          
+2  30.0 0.0000000 -0.3901569          
+3  32.0 0.1849938  0.0000000          
+4  28.0 0.0000000 -1.1588013          
+5  33.2 0.8533776  0.0000000          
+6  33.2 1.5171578  0.0000000          
+7  35.1 2.7570939  0.0000000          
+8  35.1 3.7623565  0.0000000 Alarm (U)
+9  33.9 4.1098206  0.0000000 Alarm (U)
+10 37.9 5.6885661  0.0000000 Alarm (U)
+11 33.2 5.4052820  0.0000000 Alarm (U)
+12 36.5 6.3676197  0.0000000 Alarm (U)
+13 33.2 5.9609545  0.0000000 Alarm (U)
+14 35.1 6.3063605  0.0000000 Alarm (U)
+15 34.5 6.3648368  0.0000000 Alarm (U)
+16 36.5 7.1999324  0.0000000 Alarm (U)
+17 33.2 6.6279524  0.0000000 Alarm (U)
+18 35.1 6.8449509  0.0000000 Alarm (U)
+19 37.2 7.8748871  0.0000000 Alarm (U)
+20 32.6 6.9704931  0.0000000 Alarm (U)
+21 36.5 7.6727951  0.0000000 Alarm (U)
+> 
+> 
+> 
+> ### a real data application to aPTT values
+> 
+> ### CURRENT DATA aPTT
+> CD <- c( 29.0, 29.1, 28.7, 28.2, 28.0, 29.1, 28.6, 28.7, 28.6, 29.0, 28.4,
++          28.1, 28.8, 29.7, 28.8, 29.8, 28.8, 29.4, 28.4, 28.7, 28.7, 29.5,
++          28.5, 28.4, 28.1, 28.6, 28.2, 29.6, 28.9, 29.1, 29.0, 29.9, 28.6,
++          29.3, 28.2, 28.6, 27.6, 27.3, 28.7, 27.2, 28.4, 28.0, 28.4, 27.8,
++          28.4, 28.4, 27.7, 29.2, 27.5, 27.7)
+> 
+> ### HISTORICAL DATA aPTT
+> HD <- c( 28.0, 28.9, 27.7, 29.3, 28.9, 29.5, 28.2, 27.5, 28.8, 28.9, 28.7,
++          27.4, 28.6, 28.5, 29.6, 28.7, 21.3, 29.4, 28.1, 28.9, 28.3, 27.6,
++          29.0, 29.2, 27.8, 29.1, 28.9, 29.4, 29.4, 28.9, 28.9, 29.2, 29.4,
++          29.4, 28.1, 28.5, 29.7, 29.3, 28.6, 29.2, 29.3, 29.3, 29.3, 30.0,
++          29.1, 29.1, 26.8, 29.0, 29.3, 28.3)
+> 
+> 
+> norm_mean2_PRC( data = CD, historical_data = HD, mu0 = 28.9,
++                 l0 = 1/4, a0 = 2, b0 = 0.49, two.sided = TRUE )
+   data    Snplus    Snminus    Alarms
+1  29.0 0.0000000  0.0000000          
+2  29.1 0.0000000  0.0000000          
+3  28.7 0.0000000  0.0000000          
+4  28.2 0.0000000 -0.5370750          
+5  28.0 0.0000000 -1.1823087          
+6  29.1 0.3003031 -0.2084179          
+7  28.6 0.0000000  0.0000000          
+8  28.7 0.0000000  0.0000000          
+9  28.6 0.0000000  0.0000000          
+10 29.0 0.1512718  0.0000000          
+11 28.4 0.0000000 -0.1084060          
+12 28.1 0.0000000 -0.7338276          
+13 28.8 0.0000000  0.0000000          
+14 29.7 1.3992062  0.0000000          
+15 28.8 1.0993670  0.0000000          
+16 29.8 2.4757977  0.0000000          
+17 28.8 2.0495874  0.0000000          
+18 29.4 2.6715546  0.0000000          
+19 28.4 1.5425361 -0.2661435          
+20 28.7 0.9168132  0.0000000          
+21 28.7 0.2933987  0.0000000          
+22 29.5 1.1350903  0.0000000          
+23 28.5 0.1214887 -0.1105572          
+24 28.4 0.0000000 -0.3897336          
+25 28.1 0.0000000 -1.1923323          
+26 28.6 0.0000000 -1.0169521          
+27 28.2 0.0000000 -1.5868859          
+28 29.6 1.1142035  0.0000000          
+29 28.9 0.8862379  0.0000000          
+30 29.1 1.0278247  0.0000000          
+31 29.0 0.9652920  0.0000000          
+32 29.9 2.5032872  0.0000000          
+33 28.6 1.6374189  0.0000000          
+34 29.3 2.0553486  0.0000000          
+35 28.2 0.5144919 -0.6765061          
+36 28.6 0.0000000 -0.5832620          
+37 27.6 0.0000000 -2.2288095          
+38 27.3 0.0000000 -4.1637609          
+39 28.7 0.0000000 -3.7412232          
+40 27.2 0.0000000 -5.6609503 Alarm (D)
+41 28.4 0.0000000 -5.6505738 Alarm (D)
+42 28.0 0.0000000 -6.2709031 Alarm (D)
+43 28.4 0.0000000 -6.2260897 Alarm (D)
+44 27.8 0.0000000 -7.1304284 Alarm (D)
+45 28.4 0.0000000 -7.0438787 Alarm (D)
+46 28.4 0.0000000 -6.9518629 Alarm (D)
+47 27.7 0.0000000 -7.9750583 Alarm (D)
+48 29.2 0.4474986 -6.6054729 Alarm (D)
+49 27.5 0.0000000 -7.8995160 Alarm (D)
+50 27.7 0.0000000 -8.8317939 Alarm (D)
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("norm_mean2_PRC_h")
+> ### * norm_mean2_PRC_h
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: norm_mean2_PRC_h
+> ### Title: Derivation of the decision limit for the PRC for Normal data
+> ###   with unknown parameters (mean)
+> ### Aliases: norm_mean2_PRC_h
+> 
+> ### ** Examples
+> 
+> 
+> # Derivation of the decision limit of the first application in
+> # "Design and properties of the Predictive Ratio Cusum (PRC) control charts"
+> 
+> CD <- c( 31.0, 30.0, 32.0, 28.0, 33.2, 33.2, 35.1, 35.1, 33.9, 37.9,
++          33.2, 36.5, 33.2, 35.1, 34.5, 36.5, 33.2, 35.1, 37.2, 32.6, 36.5 )
+> HD <- c( 31, 30, 33, 30, 33, 30, 31, 32, 32, 30, 33, 31, 34, 31, 34, 34, 36, 30,
++          33, 29, 34, 32, 32, 28, 34, 32, 32, 30, 31, 29, 31, 29, 31, 32, 34, 34, 32 )
+> 
+> N <- length(CD)
+> n0 <- length(HD)
+> Pa0 <- 1/n0
+> M0F <- 31.8
+> LF <- 1/2
+> AF <- 2
+> BF <- 2.1^2
+> M0F ; LF ; AF ; BF
+[1] 31.8
+[1] 0.5
+[1] 2
+[1] 4.41
+> 
+> # To replicate results from application set 'it = 1e5'
+> norm_mean2_PRC_h( ARL_0 = NULL, FAP = 0.05, N = N, l0 = LF, a0 = AF,
++                   historical_data = HD, alpha_0 = Pa0, it = 1e4 )
+[1] 3.691278
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pois_PCC")
+> ### * pois_PCC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pois_PCC
+> ### Title: PCC for Poisson data with rate parameter unknown
+> ### Aliases: pois_PCC
+> 
+> ### ** Examples
+> 
+> # 30 Poisson observations introducing an outlier at the 15th observation
+> set.seed(1111)
+> out <- rpois(n = 30, lambda = 4)
+> out[15] <- out[15] + 6
+> pois_PCC(out)
+   data HPrD_LL HPrD_UL     Alarms
+1     4      NA      NA           
+2     3       0      16           
+3     7       0      12           
+4     2       0      13           
+5     5       0      12           
+6     8       0      12           
+7     6       0      13           
+8     2       0      13           
+9     4       0      12           
+10    2       0      12           
+11    0       0      11           
+12    5       0      11           
+13    5       0      11           
+14    5       0      11           
+15   12       0      11 Alarm (UL)
+16    2       0      12           
+17    7       0      11           
+18    4       0      12           
+19    7       0      12           
+20    5       0      12           
+21    2       0      12           
+22    3       0      11           
+23    6       0      11           
+24    9       0      11           
+25    1       0      12           
+26    3       0      11           
+27    1       0      11           
+28    3       0      11           
+29    5       0      11           
+30    2       0      11           
+> 
+> # Real data application
+> attach(ECE)
+> pois_PCC(data = defect_counts, s = inspected_units)
+   data HPrD_LL HPrD_UL     Alarms
+1    17      NA      NA           
+2    23       9      62           
+3    24       5      35           
+4    27      12      49           
+5    32      12      47           
+6    33      13      48           
+7    18      11      42           
+8    28      13      46           
+9    29      13      46           
+10   31      11      41           
+11   39      17      53           
+12   29      12      42           
+13   30       4      25 Alarm (UL)
+14   31      19      56           
+15   21      22      61 Alarm (LL)
+16   26      12      42           
+17   20      14      47           
+18   24       8      35           
+19   29      14      46           
+20   15       4      24           
+21   32      11      41           
+22   20      18      53           
+23   24      17      51           
+24   24      14      46           
+25   14      17      51 Alarm (LL)
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘ECE’
+
+> nameEx("pois_PRC")
+> ### * pois_PRC
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pois_PRC
+> ### Title: PRC for Poisson data with rate parameter unknown
+> ### Aliases: pois_PRC
+> 
+> ### ** Examples
+> 
+> # the PRC process for the second application in
+> # "Design and properties of the Predictive Ratio Cusum (PRC) control charts"
+> 
+> ### CURRENT DATA
+> CD <- c(1, 0, 0, 0, 1, 0, 3, 3, 3, 2, 5, 5, 2, 4, 4, 3, 4, 3, 8, 3, 2, 2)
+> 
+> ### product exposures per million
+> 
+> sn <- c( 0.206, 0.313, 0.368, 0.678, 0.974, 0.927, 0.814, 0.696, 0.659, 0.775, 0.731,
++          0.710, 0.705, 0.754, 0.682, 0.686, 0.763, 0.833, 0.738, 0.741, 0.843, 0.792 )
+> 
+> # regular process
+> pois_PRC(data = CD, s = sn)
+   data       Sn Alarms
+1     1 0.000000       
+2     0 0.000000       
+3     0 0.000000       
+4     0 0.000000       
+5     1 0.000000       
+6     0 0.000000       
+7     3 1.121835       
+8     3 2.088495       
+9     3 2.896040       
+10    2 2.741495       
+11    5 4.404234       
+12    5 5.835431  Alarm
+13    2 5.202655  Alarm
+14    4 5.677913  Alarm
+15    4 6.238627  Alarm
+16    3 6.045400  Alarm
+17    4 6.203293  Alarm
+18    3 5.426384  Alarm
+19    8 8.130471  Alarm
+20    3 7.349873  Alarm
+21    2 5.563734  Alarm
+22    2 4.014035       
+> 
+> # FIR process
+> pois_PRC(data = CD, s = sn, FIR = TRUE)
+   data       Sn Alarms
+1     1 0.000000       
+2     0 0.000000       
+3     0 0.000000       
+4     0 0.000000       
+5     1 0.000000       
+6     0 0.000000       
+7     3 1.254943       
+8     3 2.307626       
+9     3 3.169068       
+10    2 3.006787       
+11    5 4.731949  Alarm
+12    5 6.203444  Alarm
+13    2 5.557305  Alarm
+14    4 6.040091  Alarm
+15    4 6.607465  Alarm
+16    3 6.412516  Alarm
+17    4 6.571465  Alarm
+18    3 5.790662  Alarm
+19    8 8.504912  Alarm
+20    3 7.722114  Alarm
+21    2 5.932199  Alarm
+22    2 4.380042       
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pois_PRC_h")
+> ### * pois_PRC_h
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pois_PRC_h
+> ### Title: Derivation of the decision limit for the PRC for Poisson data
+> ###   with probability parameter unknown
+> ### Aliases: pois_PRC_h
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> pois_PRC_h(ARL_0 = 150, c0 = 40, d0 = 10, it = 1e3)
+[1] "It 1: Suggested h=3.26, achieved ARL_0=99.685"
+[1] "It 2: Suggested h=4.14, achieved ARL_0=214.816"
+[1] "It 3: Suggested h=3.645, achieved ARL_0=140.605"
+[1] "It 4: Suggested h=3.707, achieved ARL_0=149.785"
+[1] 3.70722
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("t_HD")
+> ### * t_HD
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: t_HD
+> ### Title: The Highest Density (HD) interval of Student's t distribution.
+> ### Aliases: t_HD
+> 
+> ### ** Examples
+> 
+> t_HD( 0.95, df = 2, mu = 2, sdv = 3, plot = TRUE )
+  lower.bound upper.bound coverage
+1   -10.90796    14.90796     0.95
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  6.008 0.436 7.295 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

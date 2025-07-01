@@ -1,0 +1,83 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "BayesFBHborrow"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('BayesFBHborrow')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("BayesFBHborrow.NoBorrow")
+> ### * BayesFBHborrow.NoBorrow
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BayesFBHborrow.NoBorrow
+> ### Title: Run the MCMC sampler without Bayesian Borrowing
+> ### Aliases: BayesFBHborrow.NoBorrow
+> 
+> ### ** Examples
+> 
+> set.seed(123)
+> # Load the example data
+> data(piecewise_exp_cc, package = "BayesFBHborrow")
+> 
+> # Set your tuning parameters
+> tuning_parameters <- list("Jmax" = 5,
++                           "cprop_beta" = 3.25)
+>                           
+> # Set initial values to default
+> out <- BayesFBHborrow(piecewise_exp_cc, NULL, borrow = FALSE, 
++                       tuning_parameters = tuning_parameters,
++                       iter = 2, warmup_iter = 0)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("BayesFBHborrow")
+> ### * BayesFBHborrow
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BayesFBHborrow
+> ### Title: BayesFBHborrow: Run MCMC for a piecewise exponential model
+> ### Aliases: BayesFBHborrow
+> 
+> ### ** Examples
+> 
+> set.seed(123)
+> # Load the example data
+> data(piecewise_exp_cc, package = "BayesFBHborrow")
+> data(piecewise_exp_hist, package = "BayesFBHborrow")
+> 
+> # Set your tuning parameters
+> tuning_parameters <- list("Jmax" = 5,
++                           "pi_b" = 0.5,
++                           "cprop_beta" = 3.25,
++                           "alpha" = 0.4)
+>                           
+> # Set hyperparameters to default, with the borrowing model "mix"
+> out <- BayesFBHborrow(data = piecewise_exp_cc, data_hist = piecewise_exp_hist,
++                       model_choice = 'mix', tuning_parameters = tuning_parameters,
++                       iter = 2, warmup_iter = 0)
+Error in if (shape <= 0.01) { : the condition has length > 1
+Calls: BayesFBHborrow ... GibbsMH -> GibbsMH.WBorrow -> .tau_update -> <Anonymous>
+Execution halted

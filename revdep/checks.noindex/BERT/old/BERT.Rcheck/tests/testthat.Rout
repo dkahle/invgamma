@@ -1,0 +1,558 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # This file is part of the standard setup for testthat.
+> # It is recommended that you do not modify it.
+> #
+> # Where should you do additional test configuration?
+> # Learn more about the roles of various files in:
+> # * https://r-pkgs.org/tests.html
+> # * https://testthat.r-lib.org/reference/test_package.html#special-files
+> 
+> library(testthat)
+> library(BERT)
+> 
+> test_check("BERT")
+2025-07-01 17:01:06.139885 INFO::Formatting Data.
+2025-07-01 17:01:06.149582 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:06.153829 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:06.385537 INFO::Found  0  missing values.
+2025-07-01 17:01:06.386936 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:06.387268 INFO::Done
+2025-07-01 17:01:06.387522 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:06.406378 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:06.406779 INFO::Found  3  batches.
+2025-07-01 17:01:06.407047 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:06.407632 INFO::Using default BPPARAM
+2025-07-01 17:01:06.407895 INFO::Processing subtree level 1
+2025-07-01 17:01:06.493506 INFO::Adjusting the last 1 batches sequentially
+2025-07-01 17:01:06.49441 INFO::Done
+2025-07-01 17:01:06.494644 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:06.496182 INFO::ASW Batch was 0.0947637175071579 prior to batch effect correction and is now 0.0947637175071579 .
+2025-07-01 17:01:06.497022 INFO::Total function execution time is  0.357312917709351  s and adjustment time is  0.0877170562744141 s ( 24.55 )
+2025-07-01 17:01:06.550396 INFO::Formatting Data.
+2025-07-01 17:01:06.550816 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:06.551274 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:06.552085 INFO::Found  0  missing values.
+2025-07-01 17:01:06.552627 INFO::BERT requires at least 2 numeric values per batch/covariate level. This may reduce the number of adjustable features considerably, depending on the quantification technique.
+2025-07-01 17:01:06.55839 INFO::Formatting Data.
+2025-07-01 17:01:06.558764 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:06.55936 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:06.560148 INFO::Found  0  missing values.
+2025-07-01 17:01:06.560802 INFO::BERT requires at least 2 numeric values per batch/covariate level. This may reduce the number of adjustable features considerably, depending on the quantification technique.
+2025-07-01 17:01:06.596754 INFO::Formatting Data.
+2025-07-01 17:01:06.59713 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:06.597486 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:06.597889 INFO::Found  0  missing values.
+2025-07-01 17:01:06.598242 INFO::BERT requires at least 2 numeric values per batch/covariate level. This may reduce the number of adjustable features considerably, depending on the quantification technique.
+2025-07-01 17:01:06.59983 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:06.600059 INFO::Done
+2025-07-01 17:01:06.600262 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:06.601115 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:06.60138 INFO::Found  2  batches.
+2025-07-01 17:01:06.601581 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:06.601855 INFO::Using default BPPARAM
+2025-07-01 17:01:06.602034 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:06.602364 INFO::Adjusting sequential tree level 1 with 2 batches
+2025-07-01 17:01:06.612864 INFO::Done
+2025-07-01 17:01:06.613199 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:06.614401 INFO::ASW Batch was -0.00632075531678099 prior to batch effect correction and is now -0.111893775254625 .
+2025-07-01 17:01:06.614897 INFO::Total function execution time is  0.0182020664215088  s and adjustment time is  0.0114989280700684 s ( 63.17 )
+2025-07-01 17:01:06.616339 INFO::Formatting Data.
+2025-07-01 17:01:06.616655 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:06.621468 INFO::Formatting Data.
+2025-07-01 17:01:06.64367 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:06.644424 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:06.64486 INFO::Found  0  missing values.
+2025-07-01 17:01:06.645864 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:06.64616 INFO::Done
+2025-07-01 17:01:06.646351 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:06.647161 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:06.647475 INFO::Found  2  batches.
+2025-07-01 17:01:06.647655 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:06.647856 INFO::Using default BPPARAM
+2025-07-01 17:01:06.648026 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:06.648337 INFO::Adjusting sequential tree level 1 with 2 batches
+design matrix of interest not specified. Assuming a one-group experiment.
+2025-07-01 17:01:06.654762 INFO::Done
+2025-07-01 17:01:06.655081 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:06.656058 INFO::ASW Batch was 0.0089347722037571 prior to batch effect correction and is now -0.106770969279326 .
+2025-07-01 17:01:06.656398 INFO::Total function execution time is  0.0349750518798828  s and adjustment time is  0.00731992721557617 s ( 20.93 )
+2025-07-01 17:01:06.65679 INFO::Formatting Data.
+2025-07-01 17:01:06.65705 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:06.657362 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:06.657713 INFO::Found  0  missing values.
+2025-07-01 17:01:06.658733 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:06.659171 INFO::Done
+2025-07-01 17:01:06.65942 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:06.660266 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:06.660553 INFO::Found  2  batches.
+2025-07-01 17:01:06.660735 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:06.660942 INFO::Using default BPPARAM
+2025-07-01 17:01:06.661112 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:06.661422 INFO::Adjusting sequential tree level 1 with 2 batches
+design matrix of interest not specified. Assuming a one-group experiment.
+2025-07-01 17:01:06.667462 INFO::Done
+2025-07-01 17:01:06.667772 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:06.668678 INFO::ASW Batch was 0.0089347722037571 prior to batch effect correction and is now -0.106770969279326 .
+2025-07-01 17:01:06.669044 INFO::Total function execution time is  0.0122411251068115  s and adjustment time is  0.00694084167480469 s ( 56.7 )
+2025-07-01 17:01:08.065313 INFO::Formatting Data.
+2025-07-01 17:01:08.065633 INFO::Recognized SummarizedExperiment
+2025-07-01 17:01:08.065812 INFO::Typecasting input to dataframe.
+2025-07-01 17:01:08.079844 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:08.080335 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:08.081674 INFO::Found  0  missing values.
+2025-07-01 17:01:08.084415 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:08.084742 INFO::Done
+2025-07-01 17:01:08.084986 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:08.086844 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:08.087336 INFO::Found  2  batches.
+2025-07-01 17:01:08.087654 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:08.088222 INFO::Using default BPPARAM
+2025-07-01 17:01:08.088615 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:08.089428 INFO::Adjusting sequential tree level 1 with 2 batches
+2025-07-01 17:01:08.110802 INFO::Done
+2025-07-01 17:01:08.11114 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:08.112881 INFO::ASW Batch was 0.00651935102567484 prior to batch effect correction and is now -0.0985596299695496 .
+2025-07-01 17:01:08.113284 INFO::Total function execution time is  0.0481140613555908  s and adjustment time is  0.0235538482666016 s ( 48.95 )
+2025-07-01 17:01:08.127457 INFO::Formatting Data.
+2025-07-01 17:01:08.127849 INFO::Recognized SummarizedExperiment
+2025-07-01 17:01:08.128099 INFO::Typecasting input to dataframe.
+2025-07-01 17:01:08.132462 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:08.133001 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:08.134539 INFO::Found  0  missing values.
+2025-07-01 17:01:08.13765 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:08.137955 INFO::Done
+2025-07-01 17:01:08.138331 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:08.140013 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:08.140334 INFO::Found  2  batches.
+2025-07-01 17:01:08.140526 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:08.140743 INFO::Using default BPPARAM
+2025-07-01 17:01:08.140915 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:08.141296 INFO::Adjusting sequential tree level 1 with 2 batches
+2025-07-01 17:01:08.150611 INFO::Done
+2025-07-01 17:01:08.150954 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:08.152613 INFO::ASW Batch was -0.0170337961644078 prior to batch effect correction and is now -0.0170337961644078 .
+2025-07-01 17:01:08.15308 INFO::Total function execution time is  0.025597095489502  s and adjustment time is  0.0102999210357666 s ( 40.24 )
+2025-07-01 17:01:08.18176 INFO::Formatting Data.
+2025-07-01 17:01:08.182113 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:08.18266 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:08.183187 INFO::Found  0  missing values.
+2025-07-01 17:01:08.18473 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:08.185007 INFO::Done
+2025-07-01 17:01:08.1852 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:08.186067 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:08.186381 INFO::Found  3  batches.
+2025-07-01 17:01:08.186571 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:08.186876 INFO::Using default BPPARAM
+2025-07-01 17:01:08.187079 INFO::Processing subtree level 1
+2025-07-01 17:01:08.378219 INFO::Adjusting the last 1 batches sequentially
+2025-07-01 17:01:08.379261 INFO::Done
+2025-07-01 17:01:08.379524 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:08.380722 INFO::ASW Batch was -0.081178070727641 prior to batch effect correction and is now -0.175445347707563 .
+2025-07-01 17:01:08.381208 INFO::Total function execution time is  0.199470996856689  s and adjustment time is  0.192919969558716 s ( 96.72 )
+2025-07-01 17:01:08.449776 INFO::Skipping initial DF formatting
+2025-07-01 17:01:08.450108 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:08.451658 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:08.451976 INFO::Found  5  batches.
+2025-07-01 17:01:08.452423 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:08.452724 INFO::Using default BPPARAM
+2025-07-01 17:01:08.452928 INFO::Processing subtree level 1
+2025-07-01 17:01:08.55677 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:08.557973 INFO::Adjusting sequential tree level 1 with 2 batches
+2025-07-01 17:01:08.570826 INFO::Done
+2025-07-01 17:01:08.571261 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:08.57344 INFO::ASW Batch was 0.541427984084042 prior to batch effect correction and is now 0.541427984084042 .
+2025-07-01 17:01:08.573728 INFO::ASW Label was 0.309301353912628 prior to batch effect correction and is now 0.309301353912628 .
+2025-07-01 17:01:08.57415 INFO::Total function execution time is  0.124397993087769  s and adjustment time is  0.118873834609985 s ( 95.56 )
+2025-07-01 17:01:08.627276 INFO::Formatting Data.
+2025-07-01 17:01:08.627622 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:08.627994 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:08.628438 INFO::Found  0  missing values.
+2025-07-01 17:01:08.630075 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:08.630339 INFO::Done
+2025-07-01 17:01:08.63056 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:08.631801 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:08.632126 INFO::Found  5  batches.
+2025-07-01 17:01:08.632322 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:08.632565 INFO::Using default BPPARAM
+2025-07-01 17:01:08.632755 INFO::Processing subtree level 1
+design matrix of interest not specified. Assuming a one-group experiment.
+
+design matrix of interest not specified. Assuming a one-group experiment.
+design matrix of interest not specified. Assuming a one-group experiment.
+
+2025-07-01 17:01:08.716174 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:08.717011 INFO::Adjusting sequential tree level 1 with 2 batches
+design matrix of interest not specified. Assuming a one-group experiment.
+2025-07-01 17:01:08.725084 INFO::Done
+2025-07-01 17:01:08.725389 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:08.727237 INFO::ASW Batch was 0.447712378735193 prior to batch effect correction and is now -0.0656921407983597 .
+2025-07-01 17:01:08.72759 INFO::ASW Label was 0.181382421082753 prior to batch effect correction and is now 0.78771439905707 .
+2025-07-01 17:01:08.727966 INFO::Total function execution time is  0.100731134414673  s and adjustment time is  0.0930168628692627 s ( 92.34 )
+2025-07-01 17:01:08.728289 INFO::Formatting Data.
+2025-07-01 17:01:08.728557 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:08.728943 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:08.729461 INFO::Found  0  missing values.
+2025-07-01 17:01:08.731131 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:08.73138 INFO::Done
+2025-07-01 17:01:08.731578 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:08.73277 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:08.733094 INFO::Found  5  batches.
+2025-07-01 17:01:08.733302 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:08.733571 INFO::Using default BPPARAM
+2025-07-01 17:01:08.733798 INFO::Processing subtree level 1
+design matrix of interest not specified. Assuming a one-group experiment.
+
+design matrix of interest not specified. Assuming a one-group experiment.
+design matrix of interest not specified. Assuming a one-group experiment.
+
+2025-07-01 17:01:08.821029 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:08.821872 INFO::Adjusting sequential tree level 1 with 2 batches
+design matrix of interest not specified. Assuming a one-group experiment.
+2025-07-01 17:01:08.829052 INFO::Done
+2025-07-01 17:01:08.8294 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:08.830808 INFO::ASW Batch was 0.447712378735193 prior to batch effect correction and is now -0.0656921407983597 .
+2025-07-01 17:01:08.831068 INFO::ASW Label was 0.181382421082753 prior to batch effect correction and is now 0.78771439905707 .
+2025-07-01 17:01:08.831396 INFO::Total function execution time is  0.103078126907349  s and adjustment time is  0.0960180759429932 s ( 93.15 )
+2025-07-01 17:01:08.855553 INFO::Formatting Data.
+2025-07-01 17:01:08.855941 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:08.85635 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:08.856771 INFO::Found  0  missing values.
+2025-07-01 17:01:08.85842 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:08.858693 INFO::Done
+2025-07-01 17:01:08.858898 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:08.860223 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:08.860571 INFO::Found  5  batches.
+2025-07-01 17:01:08.860769 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:08.861035 INFO::Using default BPPARAM
+2025-07-01 17:01:08.861294 INFO::Processing subtree level 1
+design matrix of interest not specified. Assuming a one-group experiment.
+
+design matrix of interest not specified. Assuming a one-group experiment.
+design matrix of interest not specified. Assuming a one-group experiment.
+
+2025-07-01 17:01:08.942501 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:08.943283 INFO::Adjusting sequential tree level 1 with 2 batches
+design matrix of interest not specified. Assuming a one-group experiment.
+2025-07-01 17:01:08.949859 INFO::Done
+2025-07-01 17:01:08.950173 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:08.951489 INFO::ASW Batch was 0.403536906026854 prior to batch effect correction and is now -0.101048541420239 .
+2025-07-01 17:01:08.951797 INFO::ASW Label was 0.291030685588065 prior to batch effect correction and is now 0.882443862643743 .
+2025-07-01 17:01:08.952117 INFO::Total function execution time is  0.0966019630432129  s and adjustment time is  0.0893449783325195 s ( 92.49 )
+2025-07-01 17:01:08.952421 INFO::Formatting Data.
+2025-07-01 17:01:08.952656 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:08.952975 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:08.953338 INFO::Found  0  missing values.
+2025-07-01 17:01:08.954691 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:08.954924 INFO::Done
+2025-07-01 17:01:08.955102 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:08.956193 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:08.956496 INFO::Found  5  batches.
+2025-07-01 17:01:08.956686 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:08.956928 INFO::Using default BPPARAM
+2025-07-01 17:01:08.957119 INFO::Processing subtree level 1
+design matrix of interest not specified. Assuming a one-group experiment.
+
+design matrix of interest not specified. Assuming a one-group experiment.
+design matrix of interest not specified. Assuming a one-group experiment.
+
+2025-07-01 17:01:09.03906 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:09.040156 INFO::Adjusting sequential tree level 1 with 2 batches
+design matrix of interest not specified. Assuming a one-group experiment.
+2025-07-01 17:01:09.048003 INFO::Done
+2025-07-01 17:01:09.048352 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:09.050234 INFO::ASW Batch was 0.403536906026854 prior to batch effect correction and is now -0.101048541420239 .
+2025-07-01 17:01:09.050564 INFO::ASW Label was 0.291030685588065 prior to batch effect correction and is now 0.882443862643743 .
+2025-07-01 17:01:09.050947 INFO::Total function execution time is  0.0984728336334229  s and adjustment time is  0.0915417671203613 s ( 92.96 )
+2025-07-01 17:01:09.07702 INFO::Formatting Data.
+2025-07-01 17:01:09.077433 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:09.077877 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:09.078382 INFO::Found  0  missing values.
+2025-07-01 17:01:09.079566 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:09.079862 INFO::Done
+2025-07-01 17:01:09.080089 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:09.081315 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:09.081638 INFO::Found  2  batches.
+2025-07-01 17:01:09.081825 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:09.082076 INFO::Using default BPPARAM
+2025-07-01 17:01:09.082262 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:09.08258 INFO::Adjusting sequential tree level 1 with 2 batches
+design matrix of interest not specified. Assuming a one-group experiment.
+2025-07-01 17:01:09.089469 INFO::Done
+2025-07-01 17:01:09.089778 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:09.091018 INFO::ASW Batch was 0.398880461376709 prior to batch effect correction and is now 0.0391808866580954 .
+2025-07-01 17:01:09.091288 INFO::ASW Label was 0.637803696229759 prior to batch effect correction and is now 0.911638434738538 .
+2025-07-01 17:01:09.091595 INFO::Total function execution time is  0.0146629810333252  s and adjustment time is  0.0078740119934082 s ( 53.7 )
+2025-07-01 17:01:09.091869 INFO::Formatting Data.
+2025-07-01 17:01:09.092078 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:09.092419 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:09.092798 INFO::Found  0  missing values.
+2025-07-01 17:01:09.093756 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:09.093981 INFO::Done
+2025-07-01 17:01:09.094176 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:09.095321 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:09.095673 INFO::Found  2  batches.
+2025-07-01 17:01:09.095893 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:09.096122 INFO::Using default BPPARAM
+2025-07-01 17:01:09.096312 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:09.096631 INFO::Adjusting sequential tree level 1 with 2 batches
+design matrix of interest not specified. Assuming a one-group experiment.
+2025-07-01 17:01:09.102545 INFO::Done
+2025-07-01 17:01:09.102847 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:09.104037 INFO::ASW Batch was 0.398880461376709 prior to batch effect correction and is now 0.0391808866580954 .
+2025-07-01 17:01:09.104327 INFO::ASW Label was 0.637803696229759 prior to batch effect correction and is now 0.911638434738538 .
+2025-07-01 17:01:09.104684 INFO::Total function execution time is  0.0127851963043213  s and adjustment time is  0.00693488121032715 s ( 54.24 )
+2025-07-01 17:01:09.144734 INFO::Formatting Data.
+2025-07-01 17:01:09.145093 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:09.14544 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:09.145766 INFO::Found  0  missing values.
+2025-07-01 17:01:09.146556 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:09.146787 INFO::Done
+2025-07-01 17:01:09.146976 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:09.147748 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:09.148024 INFO::Found  2  batches.
+2025-07-01 17:01:09.148228 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:09.148446 INFO::Using default BPPARAM
+2025-07-01 17:01:09.148623 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:09.148951 INFO::Adjusting sequential tree level 1 with 2 batches
+2025-07-01 17:01:09.161088 INFO::Done
+2025-07-01 17:01:09.161371 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:09.162097 INFO::ASW Batch was 0.106916392895901 prior to batch effect correction and is now -0.14167673934376 .
+2025-07-01 17:01:09.162402 INFO::Total function execution time is  0.017733097076416  s and adjustment time is  0.0131001472473145 s ( 73.87 )
+2025-07-01 17:01:09.189574 INFO::Formatting Data.
+2025-07-01 17:01:09.189988 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:09.190365 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:09.190774 INFO::Found  0  missing values.
+2025-07-01 17:01:09.191286 INFO::BERT requires at least 2 numeric values per batch/covariate level. This may reduce the number of adjustable features considerably, depending on the quantification technique.
+2025-07-01 17:01:09.192932 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:09.193166 INFO::Done
+2025-07-01 17:01:09.193352 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:09.194478 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:09.194759 INFO::Found  2  batches.
+2025-07-01 17:01:09.194947 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:09.195148 INFO::Using default BPPARAM
+2025-07-01 17:01:09.19531 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:09.1956 INFO::Adjusting sequential tree level 1 with 2 batches
+2025-07-01 17:01:09.202261 INFO::Done
+2025-07-01 17:01:09.202584 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:09.203773 INFO::ASW Batch was 0.553382834104857 prior to batch effect correction and is now 0.0271852261055588 .
+2025-07-01 17:01:09.204041 INFO::ASW Label was 0.515543157715879 prior to batch effect correction and is now 0.892309798474373 .
+2025-07-01 17:01:09.204328 INFO::Total function execution time is  0.0148370265960693  s and adjustment time is  0.00753211975097656 s ( 50.77 )
+2025-07-01 17:01:09.204604 INFO::Formatting Data.
+2025-07-01 17:01:09.20481 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:09.205128 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:09.205494 INFO::Found  0  missing values.
+2025-07-01 17:01:09.205813 INFO::BERT requires at least 2 numeric values per batch/covariate level. This may reduce the number of adjustable features considerably, depending on the quantification technique.
+2025-07-01 17:01:09.207429 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:09.207696 INFO::Done
+2025-07-01 17:01:09.207891 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:09.209003 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:09.209301 INFO::Found  2  batches.
+2025-07-01 17:01:09.209499 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:09.209719 INFO::Using default BPPARAM
+2025-07-01 17:01:09.20988 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:09.210236 INFO::Adjusting sequential tree level 1 with 2 batches
+2025-07-01 17:01:09.216224 INFO::Done
+2025-07-01 17:01:09.216517 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:09.21752 INFO::ASW Batch was 0.553382834104857 prior to batch effect correction and is now 0.0271852261055588 .
+2025-07-01 17:01:09.217748 INFO::ASW Label was 0.515543157715879 prior to batch effect correction and is now 0.892309798474373 .
+2025-07-01 17:01:09.218012 INFO::Total function execution time is  0.0134170055389404  s and adjustment time is  0.00696110725402832 s ( 51.88 )
+2025-07-01 17:01:09.354044 INFO::Formatting Data.
+2025-07-01 17:01:09.354387 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:09.354713 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:09.355082 INFO::Found  0  missing values.
+2025-07-01 17:01:09.356073 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:09.356296 INFO::Done
+2025-07-01 17:01:09.35647 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:09.357667 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:09.358005 INFO::Found  3  batches.
+2025-07-01 17:01:09.358195 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:09.358406 INFO::Using default BPPARAM
+2025-07-01 17:01:09.358574 INFO::Processing subtree level 1
+2025-07-01 17:01:09.430403 INFO::Adjusting the last 1 batches sequentially
+2025-07-01 17:01:09.431237 INFO::Done
+2025-07-01 17:01:09.431453 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:09.432423 INFO::ASW Batch was -0.088931115893223 prior to batch effect correction and is now -0.088931115893223 .
+2025-07-01 17:01:09.43281 INFO::Total function execution time is  0.0788102149963379  s and adjustment time is  0.0732851028442383 s ( 92.99 )
+2025-07-01 17:01:09.43316 INFO::Formatting Data.
+2025-07-01 17:01:09.433363 INFO::Typecasting input to dataframe.
+2025-07-01 17:01:09.433602 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:09.43392 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:09.434329 INFO::Found  0  missing values.
+2025-07-01 17:01:09.435371 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:09.435584 INFO::Done
+2025-07-01 17:01:09.435755 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:09.436458 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:09.436737 INFO::Found  3  batches.
+2025-07-01 17:01:09.436908 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:09.437133 INFO::Using default BPPARAM
+2025-07-01 17:01:09.437306 INFO::Processing subtree level 1
+2025-07-01 17:01:09.497131 INFO::Adjusting the last 1 batches sequentially
+2025-07-01 17:01:09.498119 INFO::Done
+2025-07-01 17:01:09.498373 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:09.499451 INFO::ASW Batch was -0.088931115893223 prior to batch effect correction and is now -0.088931115893223 .
+2025-07-01 17:01:09.499958 INFO::Total function execution time is  0.0667080879211426  s and adjustment time is  0.0614218711853027 s ( 92.08 )
+2025-07-01 17:01:09.576562 INFO::Formatting Data.
+2025-07-01 17:01:09.577207 INFO::Typecasting input to dataframe.
+2025-07-01 17:01:09.577731 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:09.578225 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:09.578952 INFO::Found  0  missing values.
+2025-07-01 17:01:09.580258 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:09.580498 INFO::Done
+2025-07-01 17:01:09.580834 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:09.581864 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:09.582226 INFO::Found  3  batches.
+2025-07-01 17:01:09.582416 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:09.582765 INFO::Using default BPPARAM
+2025-07-01 17:01:09.583076 INFO::Processing subtree level 1
+2025-07-01 17:01:09.642387 INFO::Adjusting the last 1 batches sequentially
+2025-07-01 17:01:09.643808 INFO::Done
+2025-07-01 17:01:09.644084 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:09.645227 INFO::ASW Batch was -0.0379839817867192 prior to batch effect correction and is now -0.0379839817867192 .
+2025-07-01 17:01:09.646009 INFO::Total function execution time is  0.0695950984954834  s and adjustment time is  0.0616278648376465 s ( 88.55 )
+2025-07-01 17:01:09.795045 INFO::Formatting Data.
+2025-07-01 17:01:09.795433 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:09.795889 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:09.796927 INFO::Found  1000  missing values.
+2025-07-01 17:01:09.803113 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:09.803434 INFO::Done
+2025-07-01 17:01:09.803625 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:09.806798 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:09.807156 INFO::Found  10  batches.
+2025-07-01 17:01:09.807354 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:09.807593 INFO::Using default BPPARAM
+2025-07-01 17:01:09.807773 INFO::Processing subtree level 1
+2025-07-01 17:01:09.907264 INFO::Processing subtree level 2
+2025-07-01 17:01:09.984342 INFO::Adjusting the last 1 batches sequentially
+2025-07-01 17:01:09.985444 INFO::Done
+2025-07-01 17:01:09.98568 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:09.988118 INFO::ASW Batch was 0.493754826651314 prior to batch effect correction and is now 0.493754826651314 .
+2025-07-01 17:01:09.988379 INFO::ASW Label was 0.310761352840842 prior to batch effect correction and is now 0.310761352840842 .
+2025-07-01 17:01:09.988771 INFO::Total function execution time is  0.193764209747314  s and adjustment time is  0.178349018096924 s ( 92.04 )
+2025-07-01 17:01:09.989075 INFO::Formatting Data.
+2025-07-01 17:01:09.98931 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:09.989744 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:09.990699 INFO::Found  1000  missing values.
+2025-07-01 17:01:09.997296 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:09.997591 INFO::Done
+2025-07-01 17:01:09.997787 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:09.999908 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:10.000219 INFO::Found  10  batches.
+2025-07-01 17:01:10.433756 INFO::Set up parallel execution backend with 2 workers
+2025-07-01 17:01:10.434047 INFO::Processing subtree level 1 with 10 batches using 2 cores.
+2025-07-01 17:01:10.989689 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 17:01:10.990254 INFO::Adjusting sequential tree level 1 with 2 batches
+2025-07-01 17:01:10.995967 INFO::Done
+2025-07-01 17:01:10.996243 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:10.998174 INFO::ASW Batch was 0.493754826651314 prior to batch effect correction and is now 0.493754826651314 .
+2025-07-01 17:01:10.998394 INFO::ASW Label was 0.310761352840842 prior to batch effect correction and is now 0.310761352840842 .
+2025-07-01 17:01:10.998643 INFO::Total function execution time is  1.0095751285553  s and adjustment time is  0.995796918869019 s ( 98.64 )
+2025-07-01 17:01:11.165312 INFO::Formatting Data.
+2025-07-01 17:01:11.165677 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:11.16618 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:11.166877 INFO::Found  0  missing values.
+2025-07-01 17:01:11.168611 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:11.16888 INFO::Done
+2025-07-01 17:01:11.169076 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 17:01:11.170311 INFO::Starting hierarchical adjustment
+2025-07-01 17:01:11.17067 INFO::Found  3  batches.
+2025-07-01 17:01:11.170865 INFO::Cores argument is not defined or BPPARAM has been specified. Argument corereduction will not be used.
+2025-07-01 17:01:11.171106 INFO::Using default BPPARAM
+2025-07-01 17:01:11.171285 INFO::Processing subtree level 1
+2025-07-01 17:01:11.240013 INFO::Adjusting the last 1 batches sequentially
+2025-07-01 17:01:11.24215 INFO::Done
+2025-07-01 17:01:11.242486 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 17:01:11.244266 INFO::ASW Batch was 0.302642421287837 prior to batch effect correction and is now -0.169168856995425 .
+2025-07-01 17:01:11.244565 INFO::ASW Label was -0.205873024727967 prior to batch effect correction and is now -0.015370205619774 .
+2025-07-01 17:01:11.244982 INFO::Total function execution time is  0.0797200202941895  s and adjustment time is  0.0715279579162598 s ( 89.72 )
+2025-07-01 17:01:11.439723 INFO::Formatting Data.
+2025-07-01 17:01:11.440089 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:11.440438 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:11.440881 INFO::Found  2  missing values.
+2025-07-01 17:01:11.442001 INFO::Introduced 1 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:11.442214 INFO::Done
+2025-07-01 17:01:11.479699 INFO::Found NA in Reference column
+2025-07-01 17:01:11.493337 INFO::Require at least two references per batch.
+2025-07-01 17:01:11.524006 INFO::Formatting Data.
+2025-07-01 17:01:11.524347 INFO::Recognized SummarizedExperiment
+2025-07-01 17:01:11.524625 INFO::Typecasting input to dataframe.
+2025-07-01 17:01:11.530378 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:11.531269 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:11.533052 INFO::Found  0  missing values.
+2025-07-01 17:01:11.536695 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:11.537027 INFO::Done
+2025-07-01 17:01:11.546963 INFO::Formatting Data.
+2025-07-01 17:01:11.547315 INFO::Recognized SummarizedExperiment
+2025-07-01 17:01:11.547526 INFO::Typecasting input to dataframe.
+2025-07-01 17:01:11.554405 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:11.554946 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:11.556486 INFO::Found  0  missing values.
+2025-07-01 17:01:11.560707 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:11.560974 INFO::Done
+2025-07-01 17:01:11.572102 INFO::Formatting Data.
+2025-07-01 17:01:11.572545 INFO::Recognized SummarizedExperiment
+2025-07-01 17:01:11.57277 INFO::Typecasting input to dataframe.
+2025-07-01 17:01:11.581111 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:11.581562 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:11.582063 INFO::Found  0  missing values.
+2025-07-01 17:01:11.582423 INFO::BERT requires at least 2 numeric values per batch/covariate level. This may reduce the number of adjustable features considerably, depending on the quantification technique.
+2025-07-01 17:01:11.584426 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:11.584661 INFO::Done
+2025-07-01 17:01:11.597381 INFO::Formatting Data.
+2025-07-01 17:01:11.597786 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:11.598158 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:11.598598 INFO::Found  0  missing values.
+2025-07-01 17:01:11.599745 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:11.599983 INFO::Done
+2025-07-01 17:01:11.612718 INFO::Formatting Data.
+2025-07-01 17:01:11.613089 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:11.613454 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:11.613963 INFO::Found  0  missing values.
+2025-07-01 17:01:11.615171 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:11.615419 INFO::Done
+2025-07-01 17:01:11.673246 INFO::Formatting Data.
+2025-07-01 17:01:11.673644 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:11.674162 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:11.674864 INFO::Found  1  missing values.
+2025-07-01 17:01:11.676219 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:11.676463 INFO::Done
+2025-07-01 17:01:11.71168 INFO::Formatting Data.
+2025-07-01 17:01:11.712042 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:11.712379 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:11.712808 INFO::Found  2  missing values.
+2025-07-01 17:01:11.71317 INFO::BERT requires at least 2 numeric values per batch/covariate level. This may reduce the number of adjustable features considerably, depending on the quantification technique.
+2025-07-01 17:01:11.714027 INFO::Introduced 4 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:11.714247 INFO::Done
+2025-07-01 17:01:11.725917 INFO::Formatting Data.
+2025-07-01 17:01:11.726294 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:11.726634 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:11.727018 INFO::Found  2  missing values.
+2025-07-01 17:01:11.727644 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:11.727872 INFO::Done
+2025-07-01 17:01:11.747256 INFO::Formatting Data.
+2025-07-01 17:01:11.747732 INFO::Typecasting input to dataframe.
+2025-07-01 17:01:11.74806 INFO::Replacing NaNs with NAs.
+2025-07-01 17:01:11.748388 INFO::Removing potential empty rows and columns
+2025-07-01 17:01:11.748764 INFO::Found  0  missing values.
+2025-07-01 17:01:11.749733 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 17:01:11.749924 INFO::Done
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 134 ]
+> 
+> proc.time()
+   user  system elapsed 
+  7.416   2.189  14.776 

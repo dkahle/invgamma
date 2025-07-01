@@ -1,0 +1,513 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "DTAT"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('DTAT')
+Loading required package: survival
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("Onoue.Friberg")
+> ### * Onoue.Friberg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: Onoue.Friberg
+> ### Title: POMP PK/PD model for docetaxel, combining Onoue et al (2016)
+> ###   with Friberg et al (2002)
+> ### Aliases: Onoue.Friberg
+> 
+> ### ** Examples
+> 
+> # Reproduce the sim$pkpd model and sim$pop population from reference #3:
+> library(pomp)
+> Onoue.Friberg(N=25)
+> sim$pop # NB: this differs from pop of original paper...
+   id     Circ0     gamma      Emax      EC50       CL         Q       Vc
+1   1  3555.246 0.1651082  63.99923  7.392212 40.53307  7.333707 5.596454
+2   2  5948.401 0.1495120 121.61409  5.664653 32.44467  8.982510 6.263845
+3   3  7428.758 0.1634747  43.51647  7.898124 32.06465  4.900721 4.980831
+4   4  6019.015 0.1623479  95.35028  5.639582 21.71666  4.248490 5.546921
+5   5  8015.674 0.1619575  77.17042  8.208696 38.41807  3.653630 5.375882
+6   6  6973.882 0.1686986  95.67916  4.266096 36.05129  2.866084 6.659034
+7   7  4328.215 0.1666622  80.24284 19.250197 32.22480  7.808962 5.786180
+8   8  5466.732 0.1725879  88.25225 17.167504 37.50925  3.611218 6.133372
+9   9  2982.799 0.1602062  83.93061  6.012755 27.39618  3.903561 5.692527
+10 10  2663.098 0.1651304 119.15779  4.975971 36.35995  6.186671 5.465306
+11 11  8221.538 0.1734062 100.87944  3.060004 27.52787  2.719544 5.503213
+12 12  5140.122 0.1640077  67.60032 14.018194 40.27541  8.817441 5.995988
+13 13  3866.613 0.1723641  67.68711  5.222739 29.03302  4.476805 5.611178
+14 14  4687.547 0.1717652  78.16441  5.295907 31.65057  7.908236 5.727709
+15 15  3792.748 0.1633829  69.08174  7.556896 20.82983  6.322654 4.948216
+16 16  4045.118 0.1626387  44.60683 10.433315 19.94833  4.136377 5.160740
+17 17 12133.839 0.1550247  48.82419  7.255835 32.42200  4.481555 5.257922
+18 18  3214.936 0.1590981  53.13122 14.751691 36.95559  4.682027 6.414239
+19 19  3893.491 0.1613868  52.43333  5.389823 34.65826 19.047231 5.831372
+20 20  4888.982 0.1627794 108.80385 16.351750 44.14118 10.389370 5.101526
+21 21  5538.683 0.1663460  79.61771 12.049294 26.00576  4.213017 5.259632
+22 22  5978.880 0.1683651  56.31485  3.430549 49.87171  3.051074 6.012674
+23 23  5997.466 0.1734045  75.22067  1.847983 68.10989  7.712012 6.090955
+24 24  6256.580 0.1656964  73.51902  2.920073 43.62911 12.337028 5.594579
+25 25  6613.610 0.1523461  83.95905  4.227295 29.48043  2.823435 6.910115
+          Vp        kTR       MTT
+1  27.165300 0.03470220 115.26645
+2  15.690387 0.04947397  80.85060
+3   8.264436 0.03952393 101.20451
+4  10.616675 0.03604108 110.98446
+5  13.679732 0.03964402 100.89795
+6  35.951630 0.04560528  87.70914
+7   7.052752 0.05293738  75.56098
+8   6.292163 0.05979019  66.90061
+9  22.251097 0.04275203  93.56280
+10 22.650914 0.04073211  98.20262
+11  7.590641 0.04004541  99.88661
+12 30.079280 0.05182101  77.18877
+13 14.782143 0.04822663  82.94173
+14 10.755207 0.04856977  82.35575
+15  9.188122 0.04717818  84.78497
+16  7.020999 0.04971881  80.45245
+17  4.519467 0.04466833  89.54889
+18 18.689764 0.03816976 104.79500
+19 14.457026 0.03147117 127.10047
+20 19.811545 0.04725168  84.65307
+21  9.894580 0.05664525  70.61492
+22  8.758387 0.05035651  79.43363
+23 10.912210 0.03418642 117.00553
+24  5.198801 0.04598652  86.98201
+25  9.023915 0.04511441  88.66348
+> 
+> # Whereas the present version of Onoue.Friberg() draws simulated populations
+> # using pomp::rprior(), to reproduce the original F1000Research paper [3] we
+> # re-draw sim$pop as originally & prosaically done (see https://osf.io/vwnqz/):
+> set.seed(2016)
+> N <- 25
+> dtx.mm <- 0.808 # molar mass (mg/µM) of docetaxel
+> sim$pop$Circ0 <- rlnorm(N, meanlog=log(5050), sdlog=0.42) # units=cells/mm^3
+> sim$pop$MTT <- rlnorm(N, meanlog=log(89.3), sdlog=0.16)  # mean transit time
+> sim$pop$gamma <- rlnorm(N, meanlog=log(0.163), sdlog=0.039) # feedback factor
+> sim$pop$Emax <- rlnorm(N, meanlog=log(83.9), sdlog=0.33)
+> sim$pop$EC50 <- rlnorm(N, meanlog=log(7.17*dtx.mm), sdlog=0.50)
+> # PK params from 2-compartment docetaxel model of Onoue et al (2016)
+> sim$pop$CL <- rlnorm(N, meanlog=log(32.6), sdlog=0.295)
+> sim$pop$Q  <- rlnorm(N, meanlog=log(5.34), sdlog=0.551)
+> sim$pop$Vc <- rlnorm(N, meanlog=log(5.77), sdlog=0.1) # Onoue gives no CV% for V1
+> sim$pop$Vp <- rlnorm(N, meanlog=log(11.0), sdlog=0.598) # Called 'V2' in Onoue
+> sim$pop$kTR=4/sim$pop$MTT
+> 
+> # Now we run the sim$pkpd model, separately for each of N simultated individuals:
+> allout <- data.frame() # accumulator for N individual ODE solutions
+> for (id in 1:sim$N) {
++   out <- trajectory(sim$pkpd,
++                     params=c(sim$pop[sim$pop$id==id, -which(names(sim$pop) %in% c('id','MTT'))]
++                              , sigma=0.05, dose=100, duration=1),
++                     format="data.frame")
++   # drop 'traj' and shift 'time' to first column
++   out <- out[,c('time',setdiff(colnames(out),c('time','traj')))]
++   out$id <- paste("id",id,sep="")
++   allout <- rbind(allout, out)
++ }
+> 
+> library(Hmisc)
+
+Attaching package: ‘Hmisc’
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+> allout <- upData(allout
++                  , id = ordered(id, levels=paste("id",1:sim$N,sep=""))
++                  , units=c(Prol="cells/mm^3", Tx.1="cells/mm^3",
++                            Tx.2="cells/mm^3", Tx.3="cells/mm^3",
++                            Circ="cells/mm^3",
++                            Cc="ng/mL", Cp="ng/mL",
++                            time="hours"), print=FALSE)
+> 
+> library(tidyr)
+> cout <- gather(allout, key="Series", value="Concentration"
++ , Cc, Cp
++ , factor_key = TRUE)
+> 
+> label(cout$Concentration) <- "Drug Concentration"
+> 
+> # Figure 1 from reference [3]:
+> library(RColorBrewer)
+> xYplot(Concentration ~ time | id, group=Series
++        , data=cout, subset=time<6
++        , layout=c(5,NA)
++        , type='l', as.table=TRUE
++        , label.curves=FALSE
++        , par.settings=list(superpose.line=list(lwd=2,col=brewer.pal(4,"PRGn")[c(1,4)]))
++        , scales=list(y=list(log=TRUE, lim=c(10^-3,10^1)))
++        , auto.key=list(points=FALSE, lines=TRUE, columns=2))
+> 
+> mout <- gather(allout, key="Series", value="ANC"
++ , Prol, Tx.1, Tx.2, Tx.3, Circ
++ , factor_key = TRUE)
+> 
+> mout <- upData(mout
++                , time = time/24
++                , units = c(time="days")
++                , print = FALSE)
+> 
+> # Figure 3 from citation [3]:
+> xYplot(ANC ~ time | id, group=Series
++        , data=mout
++        , layout=c(5,5)
++        , type='l', as.table=TRUE
++        , label.curves=FALSE
++        , par.settings=list(superpose.line=list(lwd=2,col=brewer.pal(11,"RdYlBu")[c(1,3,4,8,10)]))
++        , scales=list(y=list(log=TRUE, lim=c(100,15000), at=c(200, 500, 1000, 2000, 5000, 10000)))
++        , auto.key=list(points=FALSE, lines=TRUE, columns=5))
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:RColorBrewer’, ‘package:tidyr’, ‘package:Hmisc’,
+  ‘package:pomp’
+
+> nameEx("de.bioRxiv.240846")
+> ### * de.bioRxiv.240846
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: de.bioRxiv.240846
+> ### Title: Simulated '3+3/PC' dose-titration study from bioRxiv paper no.
+> ###   240846
+> ### Aliases: de.bioRxiv.240846
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> 
+> data(de.bioRxiv.240846)
+> # Demonstrate that the new S4 3+3/PC implementation reproduces the
+> # simulated trial from the paper:
+> set.seed(2017)
+> CV <- 0.7; mean_mtd <- 1.0
+> shape <- CV^-2; scale <- mean_mtd/shape
+> trial <- new("DE", doses=0.25 * 1.4^(0:6),
++              MTDi=rgamma(24, shape=shape, scale=scale),
++              units="mg")
+> trial <- titration(trial, periods=10)
+> stopifnot(all(trial@data == de.bioRxiv.240846[[10]]))
+> stopifnot(trial@stop_esc == attr(de.bioRxiv.240846[[10]],'stop.esc'))
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dose.survfit")
+> ### * dose.survfit
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dose.survfit
+> ### Title: Calculate a dose-survival curve from a dose titration study,
+> ###   adding a confidence band
+> ### Aliases: dose.survfit
+> ### Keywords: survival
+> 
+> ### ** Examples
+> 
+> CV <- 0.7; mean_mtd <- 1.0
+> shape <- CV^-2; scale <- mean_mtd/shape
+> trial <- new("DE", doses=0.25 * 1.4^(0:6),
++              MTDi=rgamma(24, shape=shape, scale=scale),
++              units="mg")
+> trial <- titration(trial, periods=10)
+> sf <- dose.survfit(trial@data)
+> summary(sf)
+Call: survfit(formula = S ~ 1, weights = weights)
+
+ time n.risk n.event survival std.err lower 95% CI upper 95% CI
+  0.5   24.5     0.5    0.980 0.02087       0.9029        0.996
+  1.5   24.0     2.0    0.898 0.07509       0.7931        0.953
+  2.5   22.0     3.0    0.776 0.10614       0.6522        0.864
+  3.5   19.0     4.0    0.612 0.10699       0.4829        0.728
+  4.5   14.0     2.0    0.525 0.09557       0.3968        0.650
+  5.5   10.0     6.0    0.210 0.02827       0.1177        0.346
+  6.5    3.0     2.0    0.070 0.00502       0.0222        0.200
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dose.survival")
+> ### * dose.survival
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dose.survival
+> ### Title: Extract interval-censored dose tolerance data from a dose
+> ###   titration study
+> ### Aliases: dose.survival
+> ### Keywords: survival
+> 
+> ### ** Examples
+> 
+> CV <- 0.7; mean_mtd <- 1.0
+> shape <- CV^-2; scale <- mean_mtd/shape
+> trial <- new("DE", doses=0.25 * 1.4^(0:6),
++              MTDi=rgamma(24, shape=shape, scale=scale),
++              units="mg")
+> trial <- titration(trial, periods=10)
+> dose.survival(trial@data)
+ [1] [2, 3] [6, 7] [6, 7] [5, 6] 7+     [5, 6] [5, 6] [3, 4] [1, 2] [2, 3]
+[11] [3, 4] [4, 5] [1, 2] [5, 6] [5, 6] 6+     [5, 6] [4, 5] 5+     5+    
+[21] [2, 3] [3, 4] [3, 4] 4+    
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ds.curve")
+> ### * ds.curve
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ds.curve
+> ### Title: Extract the dose-survival curve, with its upper and lower
+> ###   confidence band limits
+> ### Aliases: ds.curve
+> ### Keywords: survival
+> 
+> ### ** Examples
+> 
+> CV <- 0.7; mean_mtd <- 1.0
+> shape <- CV^-2; scale <- mean_mtd/shape
+> trial <- new("DE", doses=0.25 * 1.4^(0:6),
++              MTDi=rgamma(24, shape=shape, scale=scale),
++              units="mg")
+> trial <- titration(trial, periods=10)
+> ds.curve(trial@data)
+$surv
+[1] 0.97959184 0.89795918 0.77551020 0.61224490 0.52478134 0.20991254 0.06997085
+
+$lower
+[1] 0.90294543 0.79307302 0.65219715 0.48286468 0.39676196 0.11768098 0.02215063
+
+$upper
+[1] 0.9959783 0.9528424 0.8642058 0.7275217 0.6496244 0.3460768 0.1999215
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dtat1000")
+> ### * dtat1000
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dtat1000
+> ### Title: Precomputed neutrophil-guided chemotherapy dose titration for
+> ###   1000 simulated subjects.
+> ### Aliases: dtat1000
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> 
+> data(dtat1000)
+> # 1. Extract the N final doses, assuming convergence by the tenth course
+> MTD_i <- with(dtat1000, dose[time==27])
+> MTD_i <- MTD_i[MTD_i < 5000] # Exclude few outliers
+> # 2. Do a kernel density plot
+> library(Hmisc)
+
+Attaching package: ‘Hmisc’
+
+The following objects are masked from ‘package:base’:
+
+    format.pval, units
+
+> library(latticeExtra)
+Loading required package: lattice
+> hist <- histogram(~MTD_i, breaks=c(0,100,200,300,400,600,900,1500,2500,4000,5000)
++                   , xlab=expression(MTD[i]))
+> approx <- data.frame(mtd_i=seq(0, 5000, 10))
+> approx <- upData(approx,
++                  gamma = dgamma(mtd_i, shape=1.75, scale=200))
+Input object size:	 4736 bytes;	 1 variables	 501 observations
+Added variable		gamma
+New object size:	6864 bytes;	2 variables	501 observations
+> dist <- xyplot(gamma ~ mtd_i, data=approx, type='l', col='black', lwd=2)
+> library(grid)
+> hist + dist
+> grid.text(expression(MTD[i] %~%
++                      paste("Gamma(", alpha==1.75, ", ", beta==1/200,")"))
++          , x=unit(0.5,"npc")
++          , y=unit(0.75,"npc")
++          )
+> ## A very long repro, which a user of this package may well wish to verify
+> ## by running the examples interactively, although it takes many minutes
+> ## to compute.  (Enclosed in a dontest block to avoid overburdening CRAN.)
+> 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:grid’, ‘package:latticeExtra’, ‘package:lattice’,
+  ‘package:Hmisc’
+
+> nameEx("runDTATapp")
+> ### * runDTATapp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: runDTATapp
+> ### Title: Run Shiny apps included in package DTAT
+> ### Aliases: runDTATapp
+> 
+> ### ** Examples
+> 
+> if(interactive()){
++ runDTATapp("Sim33PC")
++ runDTATapp("TheCost")
++ }
+> 
+> 
+> 
+> cleanEx()
+> nameEx("seq.function")
+> ### * seq.function
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: seq.function
+> ### Title: A seq method supporting custom-scaled plot axes.
+> ### Aliases: seq.function
+> 
+> ### ** Examples
+> 
+> 
+> # Provide evenly-spaced length-6 sequence from 100 to 1000,
+> # evenly spaced on a fourth-root scale:
+> seq(function(dose, a=4.0) dose^(1/a), from=100, to=1000, length.out=6, digits=0)
+[1]  100  178  296  463  693 1000
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("sim")
+> ### * sim
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: sim
+> ### Title: Environment for simulation global variables.
+> ### Aliases: sim
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> 
+> # Even when nrow(pop) is large, one may easily restrict
+> # time-consuming simulations to pop[1:N,], as follows:
+> sim$N <- 25
+> # Now perform simulation work
+> ## Not run: 
+> ##D titrate(...)
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("titrate")
+> ### * titrate
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: titrate
+> ### Title: Perform neutrophil-guided dose titration of a chemotherapy drug.
+> ### Aliases: titrate
+> 
+> ### ** Examples
+> 
+> if(interactive()){
++ # Reproduce Figure 5 from the F1000Research paper (run time > 10 s).
++ # 1. Set up sim$pop & sim$pkpd by running the repro for Figures 1 & 3:
++ example(topic="Onoue.Friberg", package="DTAT", ask=FALSE)
++ # 2. Do the neutrophil-nadir-guided dose titration:
++ chemo <- titrate(doserange = c(50, 3000),
++                  dta=newton.raphson(dose1 = 50,
++                                     omega = 0.75,
++                                     slope1 = -2.0,
++                                     slopeU = -0.2)
++                  )
++ library(latticeExtra)
++ newton <- chemo$course
++ new.ts <- chemo$anc.ts
++ anc.tics <- c(200,500,1500,4000,10000)
++ right <- xYplot(ANC ~ time | id, data=new.ts
++                 , as.table=TRUE, type="l"
++                 , layout=c(5,5)
++                 , scales=list(y=list(log=TRUE, lim=c(100,1.5e4)
++                                      , at=anc.tics
++                                      , lab=as.character(anc.tics)),
++                               x=list(at=seq(0,30,3)))
++ )
++ newton <- upData(newton
++                  , time = 3*(cycle-1)
++                  , labels = c(time="Time")
++                  , units = c(time="weeks")
++                  , print = FALSE)
++ dose.tics <- c(50, 200, 600, 1500, 3000)
++ left <- xYplot(scaled.dose ~ time | id, data=newton
++                , as.table=TRUE, type='p', pch='+', cex=1.5
++                , layout=c(5,5)
++                , scales=list(y=list(lim=DTAT:::scaled(c(30,3200))
++                                     , at=DTAT:::scaled(dose.tics)
++                                     , lab=as.character(dose.tics)),
++                              x=list(lim=c(-1,31)
++                                     , at=seq(0,30,3)
++                                     , lab=c('0','','6','','12','','18','','24','','30')))
++ )
++ update(doubleYScale(left, right, add.ylab2=TRUE)
++        , par.settings = simpleTheme(col=brewer.pal(4,"PRGn")[c(4,1)])
++ )
++ }
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  2.215 0.22 5.601 0.227 0.18 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

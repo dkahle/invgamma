@@ -1,0 +1,35 @@
+* installing *source* package ‘bartcs’ ...
+** this is package ‘bartcs’ version ‘1.3.0’
+** package ‘bartcs’ successfully unpacked and MD5 sums checked
+** using staged installation
+** libs
+using C++ compiler: ‘Apple clang version 17.0.0 (clang-1700.0.13.5)’
+using SDK: ‘’
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I'/Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/bartcs/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2  -I/opt/homebrew/Cellar/gsl/2.7.1/include  -c BART.cpp -o BART.o
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I'/Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/bartcs/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2  -I/opt/homebrew/Cellar/gsl/2.7.1/include  -c Models.cpp -o Models.o
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I'/Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/bartcs/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2  -I/opt/homebrew/Cellar/gsl/2.7.1/include  -c Node.cpp -o Node.o
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I'/Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/bartcs/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2  -I/opt/homebrew/Cellar/gsl/2.7.1/include  -c RcppExports.cpp -o RcppExports.o
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I'/Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/bartcs/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2  -I/opt/homebrew/Cellar/gsl/2.7.1/include  -c change.cpp -o change.o
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I'/Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/bartcs/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2  -I/opt/homebrew/Cellar/gsl/2.7.1/include  -c count_omp_thread.cpp -o count_omp_thread.o
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I'/Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/bartcs/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2  -I/opt/homebrew/Cellar/gsl/2.7.1/include  -c grow.cpp -o grow.o
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I'/Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/bartcs/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2  -I/opt/homebrew/Cellar/gsl/2.7.1/include  -c prune.cpp -o prune.o
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I'/Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/bartcs/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2  -I/opt/homebrew/Cellar/gsl/2.7.1/include  -c separate_bart.cpp -o separate_bart.o
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I'/Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/bartcs/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2  -I/opt/homebrew/Cellar/gsl/2.7.1/include  -c single_bart.cpp -o single_bart.o
+clang++ -arch arm64 -std=gnu++17 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I'/Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/bartcs/Rcpp/include' -I/opt/R/arm64/include    -fPIC  -falign-functions=64 -Wall -g -O2  -I/opt/homebrew/Cellar/gsl/2.7.1/include  -c util.cpp -o util.o
+clang++ -arch arm64 -std=gnu++17 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -L/Library/Frameworks/R.framework/Resources/lib -L/opt/R/arm64/lib -L/opt/homebrew/Cellar/gsl/2.7.1/lib -L/opt/homebrew/lib/gcc/current -o bartcs.so BART.o Models.o Node.o RcppExports.o change.o count_omp_thread.o grow.o prune.o separate_bart.o single_bart.o util.o -F/Library/Frameworks/R.framework/.. -framework R
+ld: warning: search path '/opt/homebrew/Cellar/gsl/2.7.1/lib' not found
+installing to /Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/checks.noindex/bartcs/old/bartcs.Rcheck/00LOCK-bartcs/00new/bartcs/libs
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded from temporary location
+** checking absolute paths in shared objects and dynamic libraries
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (bartcs)

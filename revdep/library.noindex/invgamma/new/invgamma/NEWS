@@ -1,0 +1,36 @@
+Version 1.1
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* (d/p/q/r)invgamma() now defaults the rate parameter to 1, like
+  (d/p/q/r)gamma().
+
+FIXES
+
+* README images moved from figures/ to tools/
+
+
+Version 1.0
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* (d/p/q/r)invchisq() and (d/p/q/r)invexp() are now included, tied to their
+  base R counterparts.
+
+
+Version 0.1
+-------------------------------------------------------------------------
+
+NEW FEATURES
+
+* dinvgamma() is now tied to dgamma() in base, instead of being a custom
+  implementation of the density.
+
+
+
+Version 0.0
+-------------------------------------------------------------------------
+
+PACKAGE GENESIS

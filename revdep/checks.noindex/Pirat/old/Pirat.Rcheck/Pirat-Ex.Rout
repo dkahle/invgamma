@@ -1,0 +1,1130 @@
+
+R version 4.5.1 (2025-06-13) -- "Great Square Root"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "Pirat"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('Pirat')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("estimate_gamma")
+> ### * estimate_gamma
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: estimate_gamma
+> ### Title: Estimate missingness parameters Gamma
+> ### Aliases: estimate_gamma
+> 
+> ### ** Examples
+> 
+> data(subbouyssie)
+> estimate_gamma(subbouyssie$peptides_ab)
+
+Call:
+stats::lm(formula = log(probs) ~ m_ab_sorted[seq(length(probs))])
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.64780 -0.25838  0.06931  0.35373  0.76279 
+
+Coefficients:
+                                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                      13.1950     1.5687   8.411 1.19e-07 ***
+m_ab_sorted[seq(length(probs))]  -0.7937     0.0758 -10.471 4.38e-09 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.42 on 18 degrees of freedom
+Multiple R-squared:  0.859,	Adjusted R-squared:  0.8511 
+F-statistic: 109.6 on 1 and 18 DF,  p-value: 4.378e-09
+
+$gamma_0
+(Intercept) 
+  -13.19496 
+
+$gamma_1
+m_ab_sorted[seq(length(probs))] 
+                      0.7937527 
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("estimate_psi_df")
+> ### * estimate_psi_df
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: estimate_psi_df
+> ### Title: Estimate psi and degrees of freedom
+> ### Aliases: estimate_psi_df
+> 
+> ### ** Examples
+> 
+> data(subbouyssie)
+> obj <- subbouyssie
+> # Keep only fully observed peptides
+> obs2NApep <- obj$peptides_ab[ ,colSums(is.na(obj$peptides_ab)) <= 0] 
+> estimate_psi_df(obs2NApep)
+$df
+       a 
+10.29453 
+
+$psi
+        b 
+0.4670457 
+
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get_indexes_embedded_prots")
+> ### * get_indexes_embedded_prots
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get_indexes_embedded_prots
+> ### Title: Indexes of PGs embedded in each others
+> ### Aliases: get_indexes_embedded_prots
+> 
+> ### ** Examples
+> 
+> data(subbouyssie)
+> get_indexes_embedded_prots(subbouyssie$adj)
+NULL
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("impute_block_llk_reset")
+> ### * impute_block_llk_reset
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: impute_block_llk_reset
+> ### Title: Impute each PG.
+> ### Aliases: impute_block_llk_reset
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("impute_block_llk_reset_PG")
+> ### * impute_block_llk_reset_PG
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: impute_block_llk_reset_PG
+> ### Title: Impute each PG.
+> ### Aliases: impute_block_llk_reset_PG
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("impute_from_blocks")
+> ### * impute_from_blocks
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: impute_from_blocks
+> ### Title: Impute abundance table from PGs results
+> ### Aliases: impute_from_blocks
+> 
+> ### ** Examples
+> 
+> Py_impute_block_llk_reset <- function(data.pep.rna.mis, psi) { 
++ proc <- basilisk::basiliskStart(envPirat)
++ 
++ func <- basilisk::basiliskRun(proc, 
++     fun = function(arg1, arg2) {
++         
++         imputed_pgs <- Pirat::impute_block_llk_reset(arg1, arg2)
++         imputed_pgs 
++     }, arg1 = data.pep.rna.mis, arg2 = psi)
++ 
++ basilisk::basiliskStop(proc)
++ func
++ }
+> 
+> 
+> data(subbouyssie)
+> obj <- subbouyssie
+> # Keep only fully observed peptides
+> obs2NApep <- obj$peptides_ab[ ,colSums(is.na(obj$peptides_ab)) <= 0] 
+> res_hyperparam <- estimate_psi_df(obs2NApep)
+> psi <- res_hyperparam$psi
+> imputed_pgs <- Py_impute_block_llk_reset(obj, psi)
+trying URL 'https://github.com/conda-forge/miniforge/releases/download/24.11.3-0/Miniforge3-24.11.3-0-MacOSX-arm64.sh'
+Content type 'application/octet-stream' length 60871287 bytes (58.1 MB)
+==================================================
+downloaded 58.1 MB
+
+PREFIX=/Users/david_kahle/Library/Caches/org.R-project.R/R/basilisk/1.20.0/0
+Unpacking payload ...
+Extracting bzip2-1.0.8-h99b78c6_7.conda
+Extracting c-ares-1.34.4-h5505292_0.conda
+Extracting ca-certificates-2024.12.14-hf0a4a13_0.conda
+Extracting icu-75.1-hfee45f7_0.conda
+Extracting libcxx-19.1.7-ha82da77_0.conda
+Extracting libev-4.33-h93a5062_2.conda
+Extracting libexpat-2.6.4-h286801f_0.conda
+Extracting libffi-3.4.2-h3422bc3_5.tar.bz2
+Extracting libiconv-1.17-h0d3ecfb_2.conda
+Extracting liblzma-5.6.3-h39f12f2_1.conda
+Extracting libzlib-1.3.1-h8359307_2.conda
+Extracting lzo-2.10-h93a5062_1001.conda
+Extracting ncurses-6.5-h5e97a16_2.conda
+Extracting pybind11-abi-4-hd8ed1ab_3.tar.bz2
+Extracting python_abi-3.12-5_cp312.conda
+Extracting reproc-14.2.5.post0-h5505292_0.conda
+Extracting tzdata-2025a-h78e105d_0.conda
+Extracting fmt-11.0.2-h420ef59_0.conda
+Extracting libedit-3.1.20240808-pl5321hafb1f1b_0.conda
+Extracting libsolv-0.7.30-h6c9b7f8_0.conda
+Extracting libsqlite-3.48.0-h3f77e49_0.conda
+Extracting libxml2-2.13.5-h178c5d8_1.conda
+Extracting lz4-c-1.10.0-h286801f_1.conda
+Extracting openssl-3.4.0-h81ee809_1.conda
+Extracting readline-8.2-h92ec313_1.conda
+Extracting reproc-cpp-14.2.5.post0-h286801f_0.conda
+Extracting tk-8.6.13-h5083fa2_1.conda
+Extracting yaml-cpp-0.8.0-h13dd4ca_0.conda
+Extracting zstd-1.5.6-hb46c0d2_0.conda
+Extracting krb5-1.21.3-h237132a_0.conda
+Extracting libarchive-3.7.7-h3b16cec_3.conda
+Extracting libnghttp2-1.64.0-h6d7220d_0.conda
+Extracting libssh2-1.11.1-h9cc3647_0.conda
+Extracting python-3.12.8-hc22306f_1_cpython.conda
+Extracting libcurl-8.11.1-h73640d1_0.conda
+Extracting menuinst-2.2.0-py312h81bd7bf_0.conda
+Extracting archspec-0.2.5-pyhd8ed1ab_0.conda
+Extracting boltons-24.0.0-pyhd8ed1ab_1.conda
+Extracting brotli-python-1.1.0-py312hde4cb15_2.conda
+Extracting certifi-2024.12.14-pyhd8ed1ab_0.conda
+Extracting charset-normalizer-3.4.1-pyhd8ed1ab_0.conda
+Extracting colorama-0.4.6-pyhd8ed1ab_1.conda
+Extracting distro-1.9.0-pyhd8ed1ab_1.conda
+Extracting frozendict-2.4.6-py312h0bf5046_0.conda
+Extracting hpack-4.0.0-pyhd8ed1ab_1.conda
+Extracting hyperframe-6.0.1-pyhd8ed1ab_1.conda
+Extracting idna-3.10-pyhd8ed1ab_1.conda
+Extracting jsonpointer-3.0.0-py312h81bd7bf_1.conda
+Extracting libmamba-1.5.12-hdf44a08_0.conda
+Extracting packaging-24.2-pyhd8ed1ab_2.conda
+Extracting platformdirs-4.3.6-pyhd8ed1ab_1.conda
+Extracting pluggy-1.5.0-pyhd8ed1ab_1.conda
+Extracting pycosat-0.6.6-py312hea69d52_2.conda
+Extracting pycparser-2.22-pyh29332c3_1.conda
+Extracting pysocks-1.7.1-pyha55dd90_7.conda
+Extracting ruamel.yaml.clib-0.2.8-py312h0bf5046_1.conda
+Extracting setuptools-75.8.0-pyhff2d567_0.conda
+Extracting truststore-0.10.0-pyhd8ed1ab_0.conda
+Extracting wheel-0.45.1-pyhd8ed1ab_1.conda
+Extracting cffi-1.17.1-py312h0fad829_0.conda
+Extracting h2-4.1.0-pyhd8ed1ab_1.conda
+Extracting jsonpatch-1.33-pyhd8ed1ab_1.conda
+Extracting libmambapy-1.5.12-py312h86ad8a2_0.conda
+Extracting pip-24.3.1-pyh8b19718_2.conda
+Extracting ruamel.yaml-0.18.10-py312hea69d52_0.conda
+Extracting tqdm-4.67.1-pyhd8ed1ab_1.conda
+Extracting zstandard-0.23.0-py312h15fbf35_1.conda
+Extracting conda-package-streaming-0.11.0-pyhd8ed1ab_0.conda
+Extracting urllib3-2.3.0-pyhd8ed1ab_0.conda
+Extracting requests-2.32.3-pyhd8ed1ab_1.conda
+Extracting conda-package-handling-2.4.0-pyh7900ff3_2.conda
+Extracting conda-libmamba-solver-24.9.0-pyhd8ed1ab_0.conda
+Extracting conda-24.11.3-py312h81bd7bf_0.conda
+Extracting mamba-1.5.12-py312h14bc7db_0.conda
+
+Installing base environment...
+
+Transaction
+
+  Prefix: /Users/david_kahle/Library/Caches/org.R-project.R/R/basilisk/1.20.0/0
+
+  Updating specs:
+
+   - conda-forge/osx-arm64::bzip2==1.0.8=h99b78c6_7[md5=fc6948412dbbbe9a4c9ddbbcfe0a79ab]
+   - conda-forge/osx-arm64::c-ares==1.34.4=h5505292_0[md5=c1c999a38a4303b29d75c636eaa13cf9]
+   - conda-forge/osx-arm64::ca-certificates==2024.12.14=hf0a4a13_0[md5=7cb381a6783d91902638e4ed1ebd478e]
+   - conda-forge/osx-arm64::icu==75.1=hfee45f7_0[md5=5eb22c1d7b3fc4abb50d92d621583137]
+   - conda-forge/osx-arm64::libcxx==19.1.7=ha82da77_0[md5=5b3e1610ff8bd5443476b91d618f5b77]
+   - conda-forge/osx-arm64::libev==4.33=h93a5062_2[md5=36d33e440c31857372a72137f78bacf5]
+   - conda-forge/osx-arm64::libexpat==2.6.4=h286801f_0[md5=38d2656dd914feb0cab8c629370768bf]
+   - conda-forge/osx-arm64::libffi==3.4.2=h3422bc3_5[md5=086914b672be056eb70fd4285b6783b6]
+   - conda-forge/osx-arm64::libiconv==1.17=h0d3ecfb_2[md5=69bda57310071cf6d2b86caf11573d2d]
+   - conda-forge/osx-arm64::liblzma==5.6.3=h39f12f2_1[md5=b2553114a7f5e20ccd02378a77d836aa]
+   - conda-forge/osx-arm64::libzlib==1.3.1=h8359307_2[md5=369964e85dc26bfe78f41399b366c435]
+   - conda-forge/osx-arm64::lzo==2.10=h93a5062_1001[md5=915996063a7380c652f83609e970c2a7]
+   - conda-forge/osx-arm64::ncurses==6.5=h5e97a16_2[md5=f6f7c5b7d0983be186c46c4f6f8f9af8]
+   - conda-forge/noarch::pybind11-abi==4=hd8ed1ab_3[md5=878f923dd6acc8aeb47a75da6c4098be]
+   - conda-forge/osx-arm64::python_abi==3.12=5_cp312[md5=b76f9b1c862128e56ac7aa8cd2333de9]
+   - conda-forge/osx-arm64::reproc==14.2.5.post0=h5505292_0[md5=f1d129089830365d9dac932c4dd8c675]
+   - conda-forge/noarch::tzdata==2025a=h78e105d_0[md5=dbcace4706afdfb7eb891f7b37d07c04]
+   - conda-forge/osx-arm64::fmt==11.0.2=h420ef59_0[md5=0e44849fd4764e9f85ed8caa9f24c118]
+   - conda-forge/osx-arm64::libedit==3.1.20240808=pl5321hafb1f1b_0[md5=af89aa84ffb5ee551ce0c137b951a3b5]
+   - conda-forge/osx-arm64::libsolv==0.7.30=h6c9b7f8_0[md5=a5795a7ca73c9c99f112abce7864b500]
+   - conda-forge/osx-arm64::libsqlite==3.48.0=h3f77e49_0[md5=714719df4f49e30f9728956f240846ca]
+   - conda-forge/osx-arm64::libxml2==2.13.5=h178c5d8_1[md5=3dc3cff0eca1640a6acbbfab2f78139e]
+   - conda-forge/osx-arm64::lz4-c==1.10.0=h286801f_1[md5=01511afc6cc1909c5303cf31be17b44f]
+   - conda-forge/osx-arm64::openssl==3.4.0=h81ee809_1[md5=22f971393637480bda8c679f374d8861]
+   - conda-forge/osx-arm64::readline==8.2=h92ec313_1[md5=8cbb776a2f641b943d413b3e19df71f4]
+   - conda-forge/osx-arm64::reproc-cpp==14.2.5.post0=h286801f_0[md5=11a3d09937d250fc4423bf28837d9363]
+   - conda-forge/osx-arm64::tk==8.6.13=h5083fa2_1[md5=b50a57ba89c32b62428b71a875291c9b]
+   - conda-forge/osx-arm64::yaml-cpp==0.8.0=h13dd4ca_0[md5=e783a232972a5c7dca549111e63a78b2]
+   - conda-forge/osx-arm64::zstd==1.5.6=hb46c0d2_0[md5=d96942c06c3e84bfcc5efb038724a7fd]
+   - conda-forge/osx-arm64::krb5==1.21.3=h237132a_0[md5=c6dc8a0fdec13a0565936655c33069a1]
+   - conda-forge/osx-arm64::libarchive==3.7.7=h3b16cec_3[md5=1c2eda2163510220b9f9d56a85c8da9d]
+   - conda-forge/osx-arm64::libnghttp2==1.64.0=h6d7220d_0[md5=3408c02539cee5f1141f9f11450b6a51]
+   - conda-forge/osx-arm64::libssh2==1.11.1=h9cc3647_0[md5=ddc7194676c285513706e5fc64f214d7]
+   - conda-forge/osx-arm64::python==3.12.8=hc22306f_1_cpython[md5=54ca5b5d92ef3a3ba61e195ee882a518]
+   - conda-forge/osx-arm64::libcurl==8.11.1=h73640d1_0[md5=46d7524cabfdd199bffe63f8f19a552b]
+   - conda-forge/osx-arm64::menuinst==2.2.0=py312h81bd7bf_0[md5=4ecad32f75f4ad25268e38778cac2b7f]
+   - conda-forge/noarch::archspec==0.2.5=pyhd8ed1ab_0[md5=845b38297fca2f2d18a29748e2ece7fa]
+   - conda-forge/noarch::boltons==24.0.0=pyhd8ed1ab_1[md5=d88c38e66d85ecc9c7e2c4110676bbf4]
+   - conda-forge/osx-arm64::brotli-python==1.1.0=py312hde4cb15_2[md5=a83c2ef76ccb11bc2349f4f17696b15d]
+   - conda-forge/noarch::certifi==2024.12.14=pyhd8ed1ab_0[md5=6feb87357ecd66733be3279f16a8c400]
+   - conda-forge/noarch::charset-normalizer==3.4.1=pyhd8ed1ab_0[md5=e83a31202d1c0a000fce3e9cf3825875]
+   - conda-forge/noarch::colorama==0.4.6=pyhd8ed1ab_1[md5=962b9857ee8e7018c22f2776ffa0b2d7]
+   - conda-forge/noarch::distro==1.9.0=pyhd8ed1ab_1[md5=0a2014fd9860f8b1eaa0b1f3d3771a08]
+   - conda-forge/osx-arm64::frozendict==2.4.6=py312h0bf5046_0[md5=22df6d6ec0345fc46182ce47e7ee8e24]
+   - conda-forge/noarch::hpack==4.0.0=pyhd8ed1ab_1[md5=2aa5ff7fa34a81b9196532c84c10d865]
+   - conda-forge/noarch::hyperframe==6.0.1=pyhd8ed1ab_1[md5=566e75c90c1d0c8c459eb0ad9833dc7a]
+   - conda-forge/noarch::idna==3.10=pyhd8ed1ab_1[md5=39a4f67be3286c86d696df570b1201b7]
+   - conda-forge/osx-arm64::jsonpointer==3.0.0=py312h81bd7bf_1[md5=80f403c03290e1662be03e026fb5f8ab]
+   - conda-forge/osx-arm64::libmamba==1.5.12=hdf44a08_0[md5=2fed7585516edec9b1c517068661f0c0]
+   - conda-forge/noarch::packaging==24.2=pyhd8ed1ab_2[md5=3bfed7e6228ebf2f7b9eaa47f1b4e2aa]
+   - conda-forge/noarch::platformdirs==4.3.6=pyhd8ed1ab_1[md5=577852c7e53901ddccc7e6a9959ddebe]
+   - conda-forge/noarch::pluggy==1.5.0=pyhd8ed1ab_1[md5=e9dcbce5f45f9ee500e728ae58b605b6]
+   - conda-forge/osx-arm64::pycosat==0.6.6=py312hea69d52_2[md5=b62d16d1aabb9349c8e81d842dfb2268]
+   - conda-forge/noarch::pycparser==2.22=pyh29332c3_1[md5=12c566707c80111f9799308d9e265aef]
+   - conda-forge/noarch::pysocks==1.7.1=pyha55dd90_7[md5=461219d1a5bd61342293efa2c0c90eac]
+   - conda-forge/osx-arm64::ruamel.yaml.clib==0.2.8=py312h0bf5046_1[md5=2ed5f254c9ea57b6d0fd4e12baa4b87f]
+   - conda-forge/noarch::setuptools==75.8.0=pyhff2d567_0[md5=8f28e299c11afdd79e0ec1e279dcdc52]
+   - conda-forge/noarch::truststore==0.10.0=pyhd8ed1ab_0[md5=ad1c20cd193e3044bcf17798c33b9d67]
+   - conda-forge/noarch::wheel==0.45.1=pyhd8ed1ab_1[md5=75cb7132eb58d97896e173ef12ac9986]
+   - conda-forge/osx-arm64::cffi==1.17.1=py312h0fad829_0[md5=19a5456f72f505881ba493979777b24e]
+   - conda-forge/noarch::h2==4.1.0=pyhd8ed1ab_1[md5=825927dc7b0f287ef8d4d0011bb113b1]
+   - conda-forge/noarch::jsonpatch==1.33=pyhd8ed1ab_1[md5=cb60ae9cf02b9fcb8004dec4089e5691]
+   - conda-forge/osx-arm64::libmambapy==1.5.12=py312h86ad8a2_0[md5=8c6cb111a10d85de0fc97412bf21c9d3]
+   - conda-forge/noarch::pip==24.3.1=pyh8b19718_2[md5=04e691b9fadd93a8a9fad87a81d4fd8f]
+   - conda-forge/osx-arm64::ruamel.yaml==0.18.10=py312hea69d52_0[md5=29a66b19662a643786715a8885c645d0]
+   - conda-forge/noarch::tqdm==4.67.1=pyhd8ed1ab_1[md5=9efbfdc37242619130ea42b1cc4ed861]
+   - conda-forge/osx-arm64::zstandard==0.23.0=py312h15fbf35_1[md5=a4cde595509a7ad9c13b1a3809bcfe51]
+   - conda-forge/noarch::conda-package-streaming==0.11.0=pyhd8ed1ab_0[md5=bc9533d8616a97551ed144789bf9c1cd]
+   - conda-forge/noarch::urllib3==2.3.0=pyhd8ed1ab_0[md5=32674f8dbfb7b26410ed580dd3c10a29]
+   - conda-forge/noarch::requests==2.32.3=pyhd8ed1ab_1[md5=a9b9368f3701a417eac9edbcae7cb737]
+   - conda-forge/noarch::conda-package-handling==2.4.0=pyh7900ff3_2[md5=32c158f481b4fd7630c565030f7bc482]
+   - conda-forge/noarch::conda-libmamba-solver==24.9.0=pyhd8ed1ab_0[md5=45378d089c5f72c9c0d63d58414c645d]
+   - conda-forge/osx-arm64::conda==24.11.3=py312h81bd7bf_0[md5=18fa2b450241200ac0e9f3ce77efa839]
+   - conda-forge/osx-arm64::mamba==1.5.12=py312h14bc7db_0[md5=0ff51f6fbec6337beffa02576aba3de0]
+
+
+  Package                         Version  Build               Channel         Size
+─────────────────────────────────────────────────────────────────────────────────────
+  Install:
+─────────────────────────────────────────────────────────────────────────────────────
+
+  + bzip2                           1.0.8  h99b78c6_7          conda-forge         
+  + c-ares                         1.34.4  h5505292_0          conda-forge         
+  + ca-certificates            2024.12.14  hf0a4a13_0          conda-forge         
+  + icu                              75.1  hfee45f7_0          conda-forge         
+  + libcxx                         19.1.7  ha82da77_0          conda-forge         
+  + libev                            4.33  h93a5062_2          conda-forge         
+  + libexpat                        2.6.4  h286801f_0          conda-forge         
+  + libffi                          3.4.2  h3422bc3_5          conda-forge         
+  + libiconv                         1.17  h0d3ecfb_2          conda-forge         
+  + liblzma                         5.6.3  h39f12f2_1          conda-forge         
+  + libzlib                         1.3.1  h8359307_2          conda-forge         
+  + lzo                              2.10  h93a5062_1001       conda-forge         
+  + ncurses                           6.5  h5e97a16_2          conda-forge         
+  + pybind11-abi                        4  hd8ed1ab_3          conda-forge         
+  + python_abi                       3.12  5_cp312             conda-forge         
+  + reproc                   14.2.5.post0  h5505292_0          conda-forge         
+  + tzdata                          2025a  h78e105d_0          conda-forge         
+  + fmt                            11.0.2  h420ef59_0          conda-forge         
+  + libedit                  3.1.20240808  pl5321hafb1f1b_0    conda-forge         
+  + libsolv                        0.7.30  h6c9b7f8_0          conda-forge         
+  + libsqlite                      3.48.0  h3f77e49_0          conda-forge         
+  + libxml2                        2.13.5  h178c5d8_1          conda-forge         
+  + lz4-c                          1.10.0  h286801f_1          conda-forge         
+  + openssl                         3.4.0  h81ee809_1          conda-forge         
+  + readline                          8.2  h92ec313_1          conda-forge         
+  + reproc-cpp               14.2.5.post0  h286801f_0          conda-forge         
+  + tk                             8.6.13  h5083fa2_1          conda-forge         
+  + yaml-cpp                        0.8.0  h13dd4ca_0          conda-forge         
+  + zstd                            1.5.6  hb46c0d2_0          conda-forge         
+  + krb5                           1.21.3  h237132a_0          conda-forge         
+  + libarchive                      3.7.7  h3b16cec_3          conda-forge         
+  + libnghttp2                     1.64.0  h6d7220d_0          conda-forge         
+  + libssh2                        1.11.1  h9cc3647_0          conda-forge         
+  + python                         3.12.8  hc22306f_1_cpython  conda-forge         
+  + libcurl                        8.11.1  h73640d1_0          conda-forge         
+  + menuinst                        2.2.0  py312h81bd7bf_0     conda-forge         
+  + archspec                        0.2.5  pyhd8ed1ab_0        conda-forge         
+  + boltons                        24.0.0  pyhd8ed1ab_1        conda-forge         
+  + brotli-python                   1.1.0  py312hde4cb15_2     conda-forge         
+  + certifi                    2024.12.14  pyhd8ed1ab_0        conda-forge         
+  + charset-normalizer              3.4.1  pyhd8ed1ab_0        conda-forge         
+  + colorama                        0.4.6  pyhd8ed1ab_1        conda-forge         
+  + distro                          1.9.0  pyhd8ed1ab_1        conda-forge         
+  + frozendict                      2.4.6  py312h0bf5046_0     conda-forge         
+  + hpack                           4.0.0  pyhd8ed1ab_1        conda-forge         
+  + hyperframe                      6.0.1  pyhd8ed1ab_1        conda-forge         
+  + idna                             3.10  pyhd8ed1ab_1        conda-forge         
+  + jsonpointer                     3.0.0  py312h81bd7bf_1     conda-forge         
+  + libmamba                       1.5.12  hdf44a08_0          conda-forge         
+  + packaging                        24.2  pyhd8ed1ab_2        conda-forge         
+  + platformdirs                    4.3.6  pyhd8ed1ab_1        conda-forge         
+  + pluggy                          1.5.0  pyhd8ed1ab_1        conda-forge         
+  + pycosat                         0.6.6  py312hea69d52_2     conda-forge         
+  + pycparser                        2.22  pyh29332c3_1        conda-forge         
+  + pysocks                         1.7.1  pyha55dd90_7        conda-forge         
+  + ruamel.yaml.clib                0.2.8  py312h0bf5046_1     conda-forge         
+  + setuptools                     75.8.0  pyhff2d567_0        conda-forge         
+  + truststore                     0.10.0  pyhd8ed1ab_0        conda-forge         
+  + wheel                          0.45.1  pyhd8ed1ab_1        conda-forge         
+  + cffi                           1.17.1  py312h0fad829_0     conda-forge         
+  + h2                              4.1.0  pyhd8ed1ab_1        conda-forge         
+  + jsonpatch                        1.33  pyhd8ed1ab_1        conda-forge         
+  + libmambapy                     1.5.12  py312h86ad8a2_0     conda-forge         
+  + pip                            24.3.1  pyh8b19718_2        conda-forge         
+  + ruamel.yaml                   0.18.10  py312hea69d52_0     conda-forge         
+  + tqdm                           4.67.1  pyhd8ed1ab_1        conda-forge         
+  + zstandard                      0.23.0  py312h15fbf35_1     conda-forge         
+  + conda-package-streaming        0.11.0  pyhd8ed1ab_0        conda-forge         
+  + urllib3                         2.3.0  pyhd8ed1ab_0        conda-forge         
+  + requests                       2.32.3  pyhd8ed1ab_1        conda-forge         
+  + conda-package-handling          2.4.0  pyh7900ff3_2        conda-forge         
+  + conda-libmamba-solver          24.9.0  pyhd8ed1ab_0        conda-forge         
+  + conda                         24.11.3  py312h81bd7bf_0     conda-forge         
+  + mamba                          1.5.12  py312h14bc7db_0     conda-forge         
+
+  Summary:
+
+  Install: 74 packages
+
+  Total download: 0 B
+
+─────────────────────────────────────────────────────────────────────────────────────
+
+
+
+Transaction starting
+
+Transaction finished
+
+To activate this environment, use:
+
+    micromamba activate /Users/david_kahle/Library/Caches/org.R-project.R/R/basilisk/1.20.0/0
+
+Or to execute a single command in this environment, use:
+
+    micromamba run -p /Users/david_kahle/Library/Caches/org.R-project.R/R/basilisk/1.20.0/0 mycommand
+
+installation finished.
+Warning in file.symlink(target, symlink) :
+  cannot symlink '/Users/david_kahle/Library/Caches/org.R-project.R/R/basilisk/1.20.0/Pirat/1.2.0/envPirat/lib' to '/var/folders/r3/126_d6t55f5d32tplbg5mk1d0c48s9/T/rstudio-fallback-library-path-588431228', reason 'File exists'
+/Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/Pirat/reticulate/python/rpytools/loader.py:120: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  return _find_and_load(name, import_)
+> impute_from_blocks(imputed_pgs, obj)
+                        ELISMAK  EDLLVTK  VVIEPHR  HAGVYIAR 
+raw_abundance_10amol_1  24.07467 25.08683 24.79494  25.90383
+raw_abundance_10amol_2  24.05896 25.11780 25.04157  26.20225
+raw_abundance_10amol_3  23.94210 24.97989 24.67742  25.97934
+raw_abundance_10amol_4  24.00094 24.93289 24.31135  25.80639
+raw_abundance_50amol_1  24.05962 25.03968 24.66224  25.86291
+raw_abundance_50amol_2  24.02732 25.02199 24.65812  25.84511
+raw_abundance_50amol_3  24.06725 25.06694 24.69292  26.01393
+raw_abundance_50amol_4  23.65226 24.71794 24.20774  25.68758
+raw_abundance_100amol_1 24.30121 25.20289 24.94194  26.10274
+raw_abundance_100amol_2 24.18248 25.25818 24.82535  26.12298
+raw_abundance_100amol_3 24.26049 25.20827 25.05612  26.26125
+raw_abundance_100amol_4 23.93643 24.83889 24.38290  25.86306
+raw_abundance_250amol_1 24.03507 25.04916 24.69544  25.94330
+raw_abundance_250amol_2 23.96114 24.92080 24.56330  25.86517
+raw_abundance_250amol_3 24.18880 25.09258 24.73309  26.03682
+raw_abundance_250amol_4 23.70719 24.73940 24.18486  25.59743
+raw_abundance_500amol_1 24.15510 25.11638 24.78206  25.93387
+raw_abundance_500amol_2 23.98587 25.03191 24.60892  25.89236
+raw_abundance_500amol_3 24.05755 25.04582 25.10448  26.16264
+raw_abundance_500amol_4 23.83159 24.87089 24.31850  25.74549
+raw_abundance_1fmol_1   23.99498 24.95679 24.86694  25.98328
+raw_abundance_1fmol_2   24.01007 24.95446 24.56475  25.80717
+raw_abundance_1fmol_3   24.17206 25.14185 24.87854  26.06088
+raw_abundance_1fmol_4   24.00178 24.96843 24.47971  25.88108
+raw_abundance_5fmol_1   23.91512 25.06296 24.81275  25.84061
+raw_abundance_5fmol_2   23.90345 24.97353 24.52411  25.77773
+raw_abundance_5fmol_3   24.15769 25.16103 24.69539  26.03903
+raw_abundance_5fmol_4   23.86321 24.90300 24.40801  25.96090
+raw_abundance_10fmol_1  24.02074 25.13340 24.86727  25.92352
+raw_abundance_10fmol_2  23.99873 25.10992 24.56203  25.82774
+raw_abundance_10fmol_3  24.08452 25.18194 24.64481  26.02665
+raw_abundance_10fmol_4  23.81467 24.98284 24.34137  25.96025
+raw_abundance_25fmol_1  24.12898 25.29852 25.00967  26.14705
+raw_abundance_25fmol_2  23.83844 25.08665 24.53220  25.86194
+raw_abundance_25fmol_3  24.05357 25.23672 24.55227  25.98011
+raw_abundance_25fmol_4  23.79700 24.95291 24.42775  25.89623
+raw_abundance_50fmol_1  23.88995 25.21803 24.87253  26.02655
+raw_abundance_50fmol_2  23.60076 24.97269 24.55574  25.88267
+raw_abundance_50fmol_3  23.92314 25.20682 24.62724  26.02781
+raw_abundance_50fmol_4  22.71294 23.97048 23.96986  25.58827
+                        DHCIVVGR Carbamidomethyl (C3) DQGGVVISIK  RISVEEPSK 
+raw_abundance_10amol_1                       24.77011    24.48980   22.23174
+raw_abundance_10amol_2                       24.98623    24.66830   22.44779
+raw_abundance_10amol_3                       24.69103    24.45470   22.07909
+raw_abundance_10amol_4                       24.50651    24.41513   22.07794
+raw_abundance_50amol_1                       24.68406    24.48559   22.08037
+raw_abundance_50amol_2                       24.66596    24.35802   21.99286
+raw_abundance_50amol_3                       24.86137    24.55293   22.33748
+raw_abundance_50amol_4                       24.30109    24.16073   21.83429
+raw_abundance_100amol_1                      24.89732    24.75155   22.30602
+raw_abundance_100amol_2                      24.85230    24.50885   22.23252
+raw_abundance_100amol_3                      24.99643    24.63556   22.44955
+raw_abundance_100amol_4                      24.56408    24.42372   21.97578
+raw_abundance_250amol_1                      24.70377    24.55307   22.08261
+raw_abundance_250amol_2                      24.63287    24.34892   21.99907
+raw_abundance_250amol_3                      24.77524    24.63380   22.19328
+raw_abundance_250amol_4                      24.29680    24.21223   21.82472
+raw_abundance_500amol_1                      24.72838    24.60177   22.17328
+raw_abundance_500amol_2                      24.71946    24.42528   22.03360
+raw_abundance_500amol_3                      25.12265    24.58700   22.40987
+raw_abundance_500amol_4                      24.41318    24.35408   21.91893
+raw_abundance_1fmol_1                        24.79873    24.43667   22.18440
+raw_abundance_1fmol_2                        24.59367    24.35786   22.06514
+raw_abundance_1fmol_3                        24.92077    24.50269   22.40314
+raw_abundance_1fmol_4                        24.62753    24.40999   22.16126
+raw_abundance_5fmol_1                        24.76878    24.53503   22.14565
+raw_abundance_5fmol_2                        24.63602    24.42304   21.99686
+raw_abundance_5fmol_3                        24.84184    24.79520   22.19866
+raw_abundance_5fmol_4                        24.59569    24.58685   22.21433
+raw_abundance_10fmol_1                       24.77657    24.65834   22.13417
+raw_abundance_10fmol_2                       24.69958    24.54842   22.19561
+raw_abundance_10fmol_3                       24.81438    24.77746   22.29955
+raw_abundance_10fmol_4                       24.65592    24.63615   22.18190
+raw_abundance_25fmol_1                       24.99712    24.71840   22.42746
+raw_abundance_25fmol_2                       24.66478    24.49485   22.11931
+raw_abundance_25fmol_3                       24.75777    24.66551   22.18955
+raw_abundance_25fmol_4                       24.72868    24.39657   22.32902
+raw_abundance_50fmol_1                       24.91001    24.98816   22.33468
+raw_abundance_50fmol_2                       24.58273    24.65479   22.02759
+raw_abundance_50fmol_3                       24.77330    24.82683   22.32473
+raw_abundance_50fmol_4                       24.46625    23.68611   21.85732
+                        NMAPGESVYGEK  IIALNSHMFLK  NMAPGESVYGEK Oxidation (M2)
+raw_abundance_10amol_1       23.57427     23.36843                    20.24416
+raw_abundance_10amol_2       23.65742     23.29715                    20.28443
+raw_abundance_10amol_3       23.37966     23.07079                    20.26822
+raw_abundance_10amol_4       23.41380     23.08108                    20.42357
+raw_abundance_50amol_1       23.64386     23.24976                    20.08049
+raw_abundance_50amol_2       23.45805     23.33405                    20.00584
+raw_abundance_50amol_3       23.57098     23.30721                    20.43558
+raw_abundance_50amol_4       23.28273     22.74367                    19.69449
+raw_abundance_100amol_1      23.75370     23.48354                    20.47621
+raw_abundance_100amol_2      23.66732     23.42655                    20.53532
+raw_abundance_100amol_3      23.88071     23.38759                    20.32605
+raw_abundance_100amol_4      23.53105     23.10582                    20.06472
+raw_abundance_250amol_1      23.73112     23.27873                    20.10464
+raw_abundance_250amol_2      23.42444     23.24845                    19.97648
+raw_abundance_250amol_3      23.67814     23.34488                    20.31570
+raw_abundance_250amol_4      23.25423     22.87061                    19.91530
+raw_abundance_500amol_1      23.56449     23.27410                    20.42667
+raw_abundance_500amol_2      23.53394     23.27101                    20.05534
+raw_abundance_500amol_3      23.79126     23.42069                    20.24498
+raw_abundance_500amol_4      23.43813     23.16575                    19.82780
+raw_abundance_1fmol_1        23.67230     23.28375                    20.10656
+raw_abundance_1fmol_2        23.46254     23.20789                    19.99417
+raw_abundance_1fmol_3        23.75702     23.27678                    20.35859
+raw_abundance_1fmol_4        23.51590     23.21635                    20.26828
+raw_abundance_5fmol_1        23.52131     23.25700                    20.24133
+raw_abundance_5fmol_2        23.37543     23.14559                    20.30745
+raw_abundance_5fmol_3        23.73795     23.36982                    20.50720
+raw_abundance_5fmol_4        23.49699     23.24654                    20.28689
+raw_abundance_10fmol_1       23.52252     23.32156                    20.38371
+raw_abundance_10fmol_2       23.46028     23.21760                    20.50196
+raw_abundance_10fmol_3       23.71377     23.39048                    20.60800
+raw_abundance_10fmol_4       23.49827     23.19431                    20.62508
+raw_abundance_25fmol_1       23.71984     23.46476                    21.00730
+raw_abundance_25fmol_2       23.24451     23.25020                    20.40374
+raw_abundance_25fmol_3       23.50929     23.30804                    20.81460
+raw_abundance_25fmol_4       23.32835     23.05534                    20.82616
+raw_abundance_50fmol_1       23.42591     23.44608                    21.09893
+raw_abundance_50fmol_2       23.20050     23.13723                    20.81688
+raw_abundance_50fmol_3       23.46097     23.23596                    20.94690
+raw_abundance_50fmol_4       22.35126     22.59199                    20.17651
+                        RPNIIPIIEDAR  ISVEEPSKEDGVPPTK  IKPLEQLTLEPYER 
+raw_abundance_10amol_1       21.47871          21.67603        24.61029
+raw_abundance_10amol_2       21.58249          21.46788        24.70626
+raw_abundance_10amol_3       21.27596          21.10872        24.62321
+raw_abundance_10amol_4       21.15742          21.36003        24.50429
+raw_abundance_50amol_1       21.41144          21.51056        24.52184
+raw_abundance_50amol_2       21.33943          21.38367        24.52910
+raw_abundance_50amol_3       21.43262          20.99388        24.69912
+raw_abundance_50amol_4       21.18821          21.01955        24.43128
+raw_abundance_100amol_1      21.45371          21.72293        24.80664
+raw_abundance_100amol_2      21.72130          21.15664        24.74117
+raw_abundance_100amol_3      21.55065          21.63864        24.79271
+raw_abundance_100amol_4      21.21845          20.87787        24.62253
+raw_abundance_250amol_1      21.35873          21.49198        24.59845
+raw_abundance_250amol_2      21.22856          21.46192        24.54189
+raw_abundance_250amol_3      21.22621          21.38897        24.81569
+raw_abundance_250amol_4      20.96177          21.00025        24.41100
+raw_abundance_500amol_1      21.48066          21.49233        24.57932
+raw_abundance_500amol_2      21.12598          21.48878        24.52824
+raw_abundance_500amol_3      21.55856          21.32641        24.77807
+raw_abundance_500amol_4      21.24126          21.21813        24.58517
+raw_abundance_1fmol_1        21.16404          21.31205        24.44175
+raw_abundance_1fmol_2        21.28802          20.91829        24.49447
+raw_abundance_1fmol_3        21.29174          21.65327        24.72483
+raw_abundance_1fmol_4        21.27679          21.28514        24.71692
+raw_abundance_5fmol_1        21.29033          21.32643        24.39301
+raw_abundance_5fmol_2        21.19894          21.33923        24.53404
+raw_abundance_5fmol_3        21.42383          21.74411        24.87382
+raw_abundance_5fmol_4        21.10137          21.09447        24.64223
+raw_abundance_10fmol_1       21.51898          21.38213        24.62185
+raw_abundance_10fmol_2       21.33631          21.11482        24.58483
+raw_abundance_10fmol_3       21.46220          21.76088        24.90449
+raw_abundance_10fmol_4       21.48187          21.44330        24.58407
+raw_abundance_25fmol_1       21.55959          21.39312        24.87202
+raw_abundance_25fmol_2       21.19169          21.39763        24.64673
+raw_abundance_25fmol_3       21.55612          21.25415        24.92176
+raw_abundance_25fmol_4       21.13903          21.31524        24.68049
+raw_abundance_50fmol_1       21.68329          21.94048        24.98357
+raw_abundance_50fmol_2       21.35696          21.13534        24.70559
+raw_abundance_50fmol_3       21.57831          21.74266        24.95944
+raw_abundance_50fmol_4       20.67465          20.15140        24.35639
+                        ANCIDSTVDAETVFAR Carbamidomethyl (C3) FGLGNSTK 
+raw_abundance_10amol_1                               22.76687  22.51465
+raw_abundance_10amol_2                               23.02305  22.67532
+raw_abundance_10amol_3                               22.78728  22.49925
+raw_abundance_10amol_4                               22.67676  22.42504
+raw_abundance_50amol_1                               22.81264  22.36284
+raw_abundance_50amol_2                               22.64339  22.57601
+raw_abundance_50amol_3                               22.88239  22.58093
+raw_abundance_50amol_4                               22.64429  22.14740
+raw_abundance_100amol_1                              22.90618  22.71703
+raw_abundance_100amol_2                              22.88567  22.91519
+raw_abundance_100amol_3                              23.02886  22.87025
+raw_abundance_100amol_4                              22.88371  22.45405
+raw_abundance_250amol_1                              22.88158  22.65723
+raw_abundance_250amol_2                              22.70348  22.65794
+raw_abundance_250amol_3                              22.94103  22.92923
+raw_abundance_250amol_4                              22.55253  22.13622
+raw_abundance_500amol_1                              22.71567  22.58369
+raw_abundance_500amol_2                              22.64940  22.56118
+raw_abundance_500amol_3                              23.07680  22.64326
+raw_abundance_500amol_4                              22.82009  22.29698
+raw_abundance_1fmol_1                                22.75586  22.61877
+raw_abundance_1fmol_2                                22.69395  22.57893
+raw_abundance_1fmol_3                                23.01200  22.70287
+raw_abundance_1fmol_4                                22.97961  22.61253
+raw_abundance_5fmol_1                                22.51465  22.52681
+raw_abundance_5fmol_2                                22.66781  22.48952
+raw_abundance_5fmol_3                                23.01114  22.63401
+raw_abundance_5fmol_4                                22.89576  22.40205
+raw_abundance_10fmol_1                               22.89672  22.83161
+raw_abundance_10fmol_2                               22.72012  22.57642
+raw_abundance_10fmol_3                               23.14840  22.89139
+raw_abundance_10fmol_4                               23.13394  22.43766
+raw_abundance_25fmol_1                               23.16784  22.99886
+raw_abundance_25fmol_2                               22.78066  22.63040
+raw_abundance_25fmol_3                               23.01255  22.72050
+raw_abundance_25fmol_4                               22.98013  22.36357
+raw_abundance_50fmol_1                               23.29079  22.92651
+raw_abundance_50fmol_2                               22.96681  22.58404
+raw_abundance_50fmol_3                               23.28181  22.94501
+raw_abundance_50fmol_4                               22.54247  21.56644
+                        DNIYLSR  LLGPIEEK  VTGHPLVLK  NTMDEVYYK  DRDWNVDLIPK 
+raw_abundance_10amol_1  22.18682  23.02220   22.03143   20.99185     20.08091
+raw_abundance_10amol_2  22.39771  23.13395   22.05326   20.91438     20.17644
+raw_abundance_10amol_3  22.25284  22.89404   21.74687   20.71198     20.05285
+raw_abundance_10amol_4  22.15893  22.89571   21.75010   20.73303     20.06542
+raw_abundance_50amol_1  22.31426  23.00350   21.80011   20.89517     20.46607
+raw_abundance_50amol_2  22.12488  23.04546   21.78407   20.82136     20.33009
+raw_abundance_50amol_3  22.39876  22.99135   22.07361   20.85453     20.45742
+raw_abundance_50amol_4  21.98403  22.62503   21.46226   20.39549     20.20994
+raw_abundance_100amol_1 22.42251  23.27762   22.06745   21.05837     20.71823
+raw_abundance_100amol_2 22.47760  23.09437   21.91587   21.00337     20.34209
+raw_abundance_100amol_3 22.43802  23.12777   22.09575   21.18574     20.38831
+raw_abundance_100amol_4 22.17266  22.86726   21.69631   20.58899     20.24951
+raw_abundance_250amol_1 22.26227  22.95429   21.90714   21.08018     20.23695
+raw_abundance_250amol_2 22.26491  23.01430   21.89305   20.87093     20.21164
+raw_abundance_250amol_3 22.44605  23.07758   22.08250   20.84959     20.46899
+raw_abundance_250amol_4 21.94433  22.68221   21.57832   20.61225     19.79675
+raw_abundance_500amol_1 22.19864  23.00406   21.89081   21.13972     20.39540
+raw_abundance_500amol_2 22.24332  23.01528   21.81720   20.89702     20.40010
+raw_abundance_500amol_3 22.41114  22.97628   22.30024   20.98501     20.68774
+raw_abundance_500amol_4 22.20905  22.70514   21.50739   20.70290     20.17362
+raw_abundance_1fmol_1   22.29847  22.90686   21.92504   20.79649     20.31693
+raw_abundance_1fmol_2   22.24788  22.91917   21.76817   20.77008     20.45551
+raw_abundance_1fmol_3   22.45219  23.05482   21.90543   21.30831     20.47308
+raw_abundance_1fmol_4   22.38007  22.95695   21.78900   20.65589     20.47127
+raw_abundance_5fmol_1   22.19840  22.97301   21.87077   20.74745     20.04630
+raw_abundance_5fmol_2   22.29835  22.83817   21.55588   20.81456     20.16172
+raw_abundance_5fmol_3   22.37046  23.12266   21.92949   21.07867     20.50107
+raw_abundance_5fmol_4   22.23710  22.87797   21.75757   20.74932     20.15962
+raw_abundance_10fmol_1  22.42674  22.98882   21.88233   20.64464     20.43897
+raw_abundance_10fmol_2  22.34531  23.03341   21.87034   20.80430     20.24166
+raw_abundance_10fmol_3  22.60376  23.05362   21.84804   21.03220     20.42518
+raw_abundance_10fmol_4  22.36661  22.98674   21.75520   20.67547     20.19802
+raw_abundance_25fmol_1  22.67547  23.29325   22.14728   21.36292     20.52332
+raw_abundance_25fmol_2  22.25904  22.96238   21.75794   20.89237     20.33397
+raw_abundance_25fmol_3  22.52770  23.01142   21.74994   20.88845     20.55621
+raw_abundance_25fmol_4  22.24183  22.90192   21.83595   20.75725     20.23235
+raw_abundance_50fmol_1  22.57328  23.18788   21.99296   21.10332     20.81466
+raw_abundance_50fmol_2  22.27109  22.98008   21.71969   20.84955     20.52440
+raw_abundance_50fmol_3  22.63363  23.11673   21.86734   21.26446     20.61103
+raw_abundance_50fmol_4  21.40243  21.77342   20.78188   19.62884     19.47266
+                        EDGSKDNIYLSR  APLVIADPTYFPEK  SYDASSHFESMTDDVK 
+raw_abundance_10amol_1       18.36588        22.31648          19.75936
+raw_abundance_10amol_2       18.72229        22.47052          19.78449
+raw_abundance_10amol_3       18.48814        22.18911          19.76869
+raw_abundance_10amol_4       18.38101        22.28707          19.56971
+raw_abundance_50amol_1       18.51581        22.16497          19.82748
+raw_abundance_50amol_2       18.63243        22.21215          20.21449
+raw_abundance_50amol_3       18.76944        22.34937          20.14327
+raw_abundance_50amol_4       18.51143        22.19931          19.83572
+raw_abundance_100amol_1      18.66318        22.26543          19.84841
+raw_abundance_100amol_2      18.83581        22.29937          20.07506
+raw_abundance_100amol_3      18.62797        22.53262          20.03277
+raw_abundance_100amol_4      18.52666        22.38266          19.59683
+raw_abundance_250amol_1      18.53902        22.14353          20.02651
+raw_abundance_250amol_2      18.53241        22.05195          19.66589
+raw_abundance_250amol_3      18.79282        22.45883          19.88009
+raw_abundance_250amol_4      18.32628        22.13695          19.29929
+raw_abundance_500amol_1      18.53292        22.27135          19.95221
+raw_abundance_500amol_2      18.54359        22.13907          19.67084
+raw_abundance_500amol_3      18.96417        22.43974          20.08875
+raw_abundance_500amol_4      18.52248        22.39107          19.85486
+raw_abundance_1fmol_1        18.83823        21.98530          20.02564
+raw_abundance_1fmol_2        18.60660        22.16663          19.49941
+raw_abundance_1fmol_3        18.47983        22.41020          20.30906
+raw_abundance_1fmol_4        18.68394        22.49084          19.83819
+raw_abundance_5fmol_1        18.35775        21.97880          19.65019
+raw_abundance_5fmol_2        18.45560        22.19360          19.51289
+raw_abundance_5fmol_3        18.21750        22.47295          19.67747
+raw_abundance_5fmol_4        18.42032        22.49495          19.62587
+raw_abundance_10fmol_1       18.68076        22.26926          19.58188
+raw_abundance_10fmol_2       18.59461        22.16283          19.73934
+raw_abundance_10fmol_3       18.57319        22.63505          19.85286
+raw_abundance_10fmol_4       18.62749        22.45377          19.78995
+raw_abundance_25fmol_1       18.74024        22.40345          20.27861
+raw_abundance_25fmol_2       18.47639        22.24365          19.71307
+raw_abundance_25fmol_3       18.50518        22.66610          19.60020
+raw_abundance_25fmol_4       18.45920        22.36730          19.48017
+raw_abundance_50fmol_1       18.80500        22.53652          19.93744
+raw_abundance_50fmol_2       18.48906        22.30849          19.60192
+raw_abundance_50fmol_3       18.46052        22.53032          19.89349
+raw_abundance_50fmol_4       18.06436        21.57504          18.40826
+                        SDIYVAIVSDAHNVCSK Carbamidomethyl (C15)
+raw_abundance_10amol_1                                 20.96029
+raw_abundance_10amol_2                                 20.92586
+raw_abundance_10amol_3                                 20.82960
+raw_abundance_10amol_4                                 20.61322
+raw_abundance_50amol_1                                 20.87315
+raw_abundance_50amol_2                                 20.83574
+raw_abundance_50amol_3                                 21.07042
+raw_abundance_50amol_4                                 20.60626
+raw_abundance_100amol_1                                21.16964
+raw_abundance_100amol_2                                21.11273
+raw_abundance_100amol_3                                20.96547
+raw_abundance_100amol_4                                20.83603
+raw_abundance_250amol_1                                20.93760
+raw_abundance_250amol_2                                20.86431
+raw_abundance_250amol_3                                21.08290
+raw_abundance_250amol_4                                20.47378
+raw_abundance_500amol_1                                20.74244
+raw_abundance_500amol_2                                20.87625
+raw_abundance_500amol_3                                21.08711
+raw_abundance_500amol_4                                20.66041
+raw_abundance_1fmol_1                                  20.99208
+raw_abundance_1fmol_2                                  20.95218
+raw_abundance_1fmol_3                                  20.76650
+raw_abundance_1fmol_4                                  20.97081
+raw_abundance_5fmol_1                                  20.82843
+raw_abundance_5fmol_2                                  20.95173
+raw_abundance_5fmol_3                                  21.13192
+raw_abundance_5fmol_4                                  20.90512
+raw_abundance_10fmol_1                                 21.08905
+raw_abundance_10fmol_2                                 20.92588
+raw_abundance_10fmol_3                                 21.09291
+raw_abundance_10fmol_4                                 20.84779
+raw_abundance_25fmol_1                                 21.29135
+raw_abundance_25fmol_2                                 20.90194
+raw_abundance_25fmol_3                                 21.07360
+raw_abundance_25fmol_4                                 20.73514
+raw_abundance_50fmol_1                                 21.47995
+raw_abundance_50fmol_2                                 20.95262
+raw_abundance_50fmol_3                                 21.12210
+raw_abundance_50fmol_4                                 20.48614
+                        SYDASSHFESMTDDVKDIYFR  ALVPLLK  GSYVFFDPQR 
+raw_abundance_10amol_1                19.31886 21.27904    20.04057
+raw_abundance_10amol_2                19.37799 21.64418    20.92613
+raw_abundance_10amol_3                18.48629 21.36158    20.64438
+raw_abundance_10amol_4                18.39721 21.17189    20.76465
+raw_abundance_50amol_1                18.59901 21.22190    20.66879
+raw_abundance_50amol_2                18.70936 21.32965    20.88433
+raw_abundance_50amol_3                19.08681 21.44393    21.13945
+raw_abundance_50amol_4                18.47419 21.05969    20.71379
+raw_abundance_100amol_1               19.19939 21.36505    20.54617
+raw_abundance_100amol_2               18.85343 21.36297    20.74652
+raw_abundance_100amol_3               19.13404 21.78750    21.00169
+raw_abundance_100amol_4               18.98858 21.25262    19.97938
+raw_abundance_250amol_1               19.00310 21.30205    20.74179
+raw_abundance_250amol_2               18.96387 21.17603    20.73752
+raw_abundance_250amol_3               18.72202 21.36112    20.81860
+raw_abundance_250amol_4               19.28951 21.14886    20.60607
+raw_abundance_500amol_1               19.06443 21.36315    20.99901
+raw_abundance_500amol_2               19.16832 20.99001    20.73954
+raw_abundance_500amol_3               19.21198 21.46845    20.98319
+raw_abundance_500amol_4               18.30894 21.19247    20.64565
+raw_abundance_1fmol_1                 18.86952 21.28814    20.90957
+raw_abundance_1fmol_2                 19.18808 21.22467    20.71579
+raw_abundance_1fmol_3                 18.91189 21.46933    20.98832
+raw_abundance_1fmol_4                 19.27512 21.46256    20.88200
+raw_abundance_5fmol_1                 18.69647 21.27616    20.65469
+raw_abundance_5fmol_2                 19.23116 21.14700    20.68895
+raw_abundance_5fmol_3                 18.84249 21.66064    20.80486
+raw_abundance_5fmol_4                 19.01809 21.45443    20.82839
+raw_abundance_10fmol_1                19.27854 21.30135    20.76964
+raw_abundance_10fmol_2                19.26254 21.13171    20.93102
+raw_abundance_10fmol_3                18.72063 21.33786    20.74189
+raw_abundance_10fmol_4                19.69602 21.19682    21.14403
+raw_abundance_25fmol_1                19.26301 21.51455    20.96806
+raw_abundance_25fmol_2                18.46529 21.47781    20.70882
+raw_abundance_25fmol_3                18.66692 21.56832    21.04096
+raw_abundance_25fmol_4                19.06867 21.17593    20.79275
+raw_abundance_50fmol_1                19.54945 21.54058    21.13775
+raw_abundance_50fmol_2                18.61588 21.16136    20.77860
+raw_abundance_50fmol_3                18.83230 21.57485    21.10745
+raw_abundance_50fmol_4                18.07791 20.87522    20.35197
+                        VLDTFQSPWAETSR  HDNEVPVDAK  ATLIHEDDFYK  NHEVLGAFWK 
+raw_abundance_10amol_1         19.70472    18.58450     19.91912    18.74601
+raw_abundance_10amol_2         20.07413    18.68523     19.62090    19.04303
+raw_abundance_10amol_3         19.56838    18.40481     20.10689    19.12163
+raw_abundance_10amol_4         19.92164    18.10114     19.75221    19.07926
+raw_abundance_50amol_1         19.68487    18.25812     19.66687    19.24626
+raw_abundance_50amol_2         19.91424    18.16841     19.32161    19.33202
+raw_abundance_50amol_3         19.84823    18.29480     19.83697    19.98183
+raw_abundance_50amol_4         19.85743    17.85351     19.71183    19.58545
+raw_abundance_100amol_1        19.85695    18.60949     19.75757    19.31209
+raw_abundance_100amol_2        19.79647    18.44719     20.19235    19.56777
+raw_abundance_100amol_3        20.17986    18.47194     20.18368    19.97395
+raw_abundance_100amol_4        19.70358    18.17834     19.80395    19.51113
+raw_abundance_250amol_1        19.81285    18.27947     19.76585    19.47954
+raw_abundance_250amol_2        19.85907    18.28263     19.83352    19.47779
+raw_abundance_250amol_3        19.95867    18.43058     20.00835    19.29800
+raw_abundance_250amol_4        19.57676    17.87160     19.71696    19.06104
+raw_abundance_500amol_1        20.19857    18.23439     19.63136    19.41588
+raw_abundance_500amol_2        19.94593    18.19569     19.72217    19.63813
+raw_abundance_500amol_3        20.27967    18.73425     19.96158    19.74789
+raw_abundance_500amol_4        19.64608    18.22335     19.50564    19.66247
+raw_abundance_1fmol_1          19.85591    18.37746     19.89883    19.40785
+raw_abundance_1fmol_2          19.78888    18.21782     19.66474    19.58242
+raw_abundance_1fmol_3          20.29078    18.45440     19.75054    19.54111
+raw_abundance_1fmol_4          20.05570    18.37730     20.21955    19.69528
+raw_abundance_5fmol_1          19.83819    18.25460     19.79816    19.39137
+raw_abundance_5fmol_2          19.64372    18.06189     19.99774    19.08715
+raw_abundance_5fmol_3          19.79531    18.34709     20.09313    19.99817
+raw_abundance_5fmol_4          19.93927    18.41369     19.82760    18.92074
+raw_abundance_10fmol_1         19.87550    18.50715     19.85134    19.46927
+raw_abundance_10fmol_2         19.80895    18.16089     19.64647    19.68685
+raw_abundance_10fmol_3         19.79720    18.40470     19.86813    19.78064
+raw_abundance_10fmol_4         19.82734    18.24086     19.79127    19.34947
+raw_abundance_25fmol_1         20.22539    18.46765     19.88598    19.56594
+raw_abundance_25fmol_2         19.95147    18.20934     19.60825    19.52257
+raw_abundance_25fmol_3         19.92800    18.38395     19.95638    19.56271
+raw_abundance_25fmol_4         19.98277    18.08433     19.77199    19.11844
+raw_abundance_50fmol_1         20.44430    18.27801     20.23060    19.90222
+raw_abundance_50fmol_2         19.95754    18.03817     20.09661    19.45086
+raw_abundance_50fmol_3         20.12598    18.30889     20.21489    19.80910
+raw_abundance_50fmol_4         19.11815    17.89453     19.28726    18.74364
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pipeline_llkimpute")
+> ### * pipeline_llkimpute
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pipeline_llkimpute
+> ### Title: Pirat imputation function
+> ### Aliases: pipeline_llkimpute my_pipeline_llkimpute
+> 
+> ### ** Examples
+> 
+> # Pirat classical mode
+> data(subbouyssie)
+> myResult <- my_pipeline_llkimpute(subbouyssie)
+Starting Python environment...
+
+
+Call:
+stats::lm(formula = log(probs) ~ m_ab_sorted[seq(length(probs))])
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.64780 -0.25838  0.06931  0.35373  0.76279 
+
+Coefficients:
+                                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                      13.1950     1.5687   8.411 1.19e-07 ***
+m_ab_sorted[seq(length(probs))]  -0.7937     0.0758 -10.471 4.38e-09 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.42 on 18 degrees of freedom
+Multiple R-squared:  0.859,	Adjusted R-squared:  0.8511 
+F-statistic: 109.6 on 1 and 18 DF,  p-value: 4.378e-09
+
+> 
+> # Pirat with transcriptomic integration for singleton PGs
+> data(subropers)
+> nsamples = nrow(subropers$peptides_ab)
+> myResult <- my_pipeline_llkimpute(subropers, 
++ extension = "T",
++ rna.cond.mask = seq(nsamples), 
++ pep.cond.mask = seq(nsamples),
++ max.pg.size.pirat.t = 1)
+Starting Python environment...
+
+Warning in log(dens(parm, ...)) : NaNs produced
+
+Call:
+stats::lm(formula = log(probs) ~ m_ab_sorted[seq(length(probs))])
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1.40672 -0.15008  0.08833  0.28986  0.84125 
+
+Coefficients:
+                                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                     14.40677    1.19049   12.10 2.48e-16 ***
+m_ab_sorted[seq(length(probs))] -0.91419    0.06469  -14.13  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.4549 on 49 degrees of freedom
+Multiple R-squared:  0.803,	Adjusted R-squared:  0.799 
+F-statistic: 199.7 on 1 and 49 DF,  p-value: < 2.2e-16
+
+> 
+> ## Not run: 
+> ##D myResult <- pipeline_llkimpute(subbouyssie)
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pirat2SE")
+> ### * pirat2SE
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pirat2SE
+> ### Title: COnvert Pirat dataset to SummarizedExperiment
+> ### Aliases: pirat2SE
+> 
+> ### ** Examples
+> 
+> data(subbouyssie)
+> peptides_ab <- subbouyssie$peptides_ab
+> adj <- subbouyssie$adj
+> mask_prot_diff <- subbouyssie$mask_prot_diff
+> mask_pep_diff <- subbouyssie$mask_pep_diff
+> obj <- pirat2SE(peptides_ab, adj, mask_prot_diff, mask_pep_diff )
+> obj
+class: SummarizedExperiment 
+dim: 31 40 
+metadata(1): adj
+assays(1): ''
+rownames(31): ELISMAK EDLLVTK ... ATLIHEDDFYK NHEVLGAFWK
+rowData names(0):
+colnames(40): raw_abundance_10amol_1 raw_abundance_10amol_2 ...
+  raw_abundance_50fmol_3 raw_abundance_50fmol_4
+colData names(2): Condition Sample
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot2hists")
+> ### * plot2hists
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot2hists
+> ### Title: Plot 2 histograms
+> ### Aliases: plot2hists
+> 
+> ### ** Examples
+> 
+> v1 <- 1:10
+> v2 <- 5:25
+> plot2hists(v1, v2)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot_pep_correlations")
+> ### * plot_pep_correlations
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot_pep_correlations
+> ### Title: Empirical density of peptide correlations
+> ### Aliases: plot_pep_correlations
+> 
+> ### ** Examples
+> 
+> data(subbouyssie)
+> plot_pep_correlations(subbouyssie, 'test')
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("rm_pg_from_idx_merge_pg")
+> ### * rm_pg_from_idx_merge_pg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rm_pg_from_idx_merge_pg
+> ### Title: Remove PGs by index and merge
+> ### Aliases: rm_pg_from_idx_merge_pg
+> 
+> ### ** Examples
+> 
+> data(ropers)
+> idxs_emb_prot = get_indexes_embedded_prots(ropers$adj)
+> ropers_wo_emb_prot = rm_pg_from_idx_merge_pg(ropers, idxs_emb_prot)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("split_large_pg")
+> ### * split_large_pg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: split_large_pg
+> ### Title: Split too large PGs
+> ### Aliases: split_large_pg
+> 
+> ### ** Examples
+> 
+> data(subbouyssie)
+> split.obj <- split_large_pg(subbouyssie$adj, 5)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("split_large_pg_PG")
+> ### * split_large_pg_PG
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: split_large_pg_PG
+> ### Title: Splits too large PGs in proteogenomics context
+> ### Aliases: split_large_pg_PG
+> 
+> ### ** Examples
+> 
+> data(subropers)
+> split.obj <- split_large_pg_PG(subropers$adj, 5, subropers$adj_rna_pg)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("wrapper_pipeline_llkimpute")
+> ### * wrapper_pipeline_llkimpute
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: wrapper_pipeline_llkimpute
+> ### Title: Imputation method using SummarizedExperiment dataset
+> ### Aliases: wrapper_pipeline_llkimpute
+> 
+> ### ** Examples
+> 
+> data(subbouyssie)
+> obj <- pirat2SE(subbouyssie$peptides_ab, subbouyssie$adj, 
++ subbouyssie$mask_prot_diff, subbouyssie$mask_pep_diff )
+> res <- wrapper_pipeline_llkimpute(obj)
+Starting Python environment...
+
+
+Call:
+stats::lm(formula = log(probs) ~ m_ab_sorted[seq(length(probs))])
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.64780 -0.25838  0.06931  0.35373  0.76279 
+
+Coefficients:
+                                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                      13.1950     1.5687   8.411 1.19e-07 ***
+m_ab_sorted[seq(length(probs))]  -0.7937     0.0758 -10.471 4.38e-09 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.42 on 18 degrees of freedom
+Multiple R-squared:  0.859,	Adjusted R-squared:  0.8511 
+F-statistic: 109.6 on 1 and 18 DF,  p-value: 4.378e-09
+
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  29.131 2.671 272.773 30.136 26.843 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
