@@ -144,6 +144,7 @@ In January 2023 I did a little poking around into this for `rinvgamma()` and fou
 rinvgamma(10, shape = .001, rate = 7)
 ```
 
+Notice that `rinvgamma()` issues a warning in this circumstance; this is the general behavior of **invgamma**: if a particular parameter configuration is known to not produce valid results, a warning is issued.
 
 
 #### KS tests for sampling accuracy

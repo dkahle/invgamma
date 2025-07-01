@@ -6,9 +6,12 @@
   
 ## Changes
 
-* `rinvgamma()` now errors for `shape` parameter less than 0.01, as it is unreliable there.
+* `rinvgamma()` now warns for `shape` less than 0.01, as it is unreliable there.
+* `rinvchisq()` now warns for `df <= .01` and `ncp <= 10`, as it is unreliable there.
+* PDF functions now return `0` at `x = 0` and `-Inf` at `x = 0` on a log scale, consistent with the gamma distribution functions.
 * **invgamma** now cautions users about the parameterizations used in `(d/p/q/r)invgamma()` functions.
 * **invgamma** now has a MIT license.
+* Quantile functions now perform properly on a log scale, thanks to Keefe Murphy!
 
 
 # invgamma 1.1

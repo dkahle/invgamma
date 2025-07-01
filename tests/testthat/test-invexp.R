@@ -58,6 +58,7 @@ test_that("`pinvexp(log.p = TRUE)` == `log(pinvexp())`", {
 # qinvexp(log.p = TRUE) works properly
 
 test_that("`qinvexp(log.p = TRUE)` works properly", {
+
   expect_equal(
     qinvexp(0.25, "rate" = rate),
     qinvexp(log(0.25), "rate" = rate, log.p = TRUE)
@@ -67,5 +68,29 @@ test_that("`qinvexp(log.p = TRUE)` works properly", {
     qinvexp(0.25, "rate" = rate, lower.tail = FALSE),
     qinvexp(log(0.25), "rate" = rate, lower.tail = FALSE, log.p = TRUE)
   )
+
 })
+
+
+
+
+test_that("`dinvexp()` handles x = 0 properly", {
+  # this is more consistent with dgamma() and dgamma(log = TRUE)
+  # dexp(0, 3)
+  # dexp(0, 3, log = TRUE)
+  # dexp(Inf, 3)
+  # dexp(Inf, 3, log = TRUE)
+
+  expect_equal(
+    dinvexp(0 , "rate" = rate),
+    0
+  )
+
+  expect_equal(
+    dinvexp(0 , "rate" = rate, log = TRUE),
+    -Inf
+  )
+
+})
+
 

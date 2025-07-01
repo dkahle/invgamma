@@ -74,6 +74,7 @@ NULL
 dinvgamma <- function(x, shape, rate = 1, scale = 1/rate, log = FALSE) {
   if(missing(rate) && !missing(scale)) rate <- 1/scale
   log_f <- dgamma(1/x, shape, rate, log = TRUE) - 2*log(x)
+  log_f[x == 0] <- -Inf
   if(log) log_f else exp(log_f)
 }
 
@@ -99,9 +100,9 @@ pinvgamma <- function(q, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log
 qinvgamma <- function(p, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log.p = FALSE) {
   if(missing(rate) && !missing(scale)) rate <- 1/scale
   if (log.p) {
-    qgamma(  p, shape, rate, lower.tail = !lower.tail, log.p = log.p)^(-1)
+    qgamma(  p, shape, rate, lower.tail = !lower.tail, log.p = TRUE)^(-1)
   } else {
-    qgamma(1-p, shape, rate, lower.tail = lower.tail, log.p = log.p)^(-1)
+    qgamma(1-p, shape, rate, lower.tail = lower.tail, log.p = FALSE)^(-1)
   }
 }
 # this solves P(1/X = x) = p for x given p

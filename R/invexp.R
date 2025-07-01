@@ -45,6 +45,7 @@ NULL
 #' @export
 dinvexp <- function(x, rate = 1, log = FALSE) {
   log_f <- dexp(1/x, rate, log = TRUE) - 2*log(x)
+  log_f[x == 0] <- -Inf
   if(log) return(log_f)
   exp(log_f)
 }
@@ -64,7 +65,11 @@ pinvexp <- function(q, rate = 1, lower.tail = TRUE, log.p = FALSE) {
 #' @rdname invexp
 #' @export
 qinvexp <- function(p, rate = 1, lower.tail = TRUE, log.p = FALSE) {
-  qexp(1-p, rate, lower.tail = lower.tail, log.p = log.p)^(-1)
+  if (log.p) {
+    qexp(  p, rate, lower.tail = !lower.tail, log.p = TRUE)^(-1)
+  } else {
+    qexp(1-p, rate, lower.tail = lower.tail, log.p = FALSE)^(-1)
+  }
 }
 
 

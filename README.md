@@ -181,7 +181,7 @@ and found that it performs poorly when the shape parameter is less than
 draws from these distributions returned by `rinvgamma()` are so large
 that they get rounded to either very large numbers (where the floating
 point representation of numbers does not provide many numbers) or
-infinity. Example:
+infinity. Here’s an example:
 
 ``` r
 rinvgamma(10, shape = .001, rate = 7)
@@ -189,6 +189,11 @@ rinvgamma(10, shape = .001, rate = 7)
 #   [1]           Inf           Inf 1.192692e+213           Inf 3.289218e+167
 #   [6]           Inf           Inf 7.899428e+197  3.938612e+97           Inf
 ```
+
+Notice that `rinvgamma()` issues a warning in this circumstance; this is
+the general behavior of **invgamma**: if a particular parameter
+configuration is known to not produce valid results, a warning is
+issued.
 
 #### KS tests for sampling accuracy
 

@@ -54,6 +54,7 @@ NULL
 #' @export
 dinvchisq <- function(x, df, ncp = 0, log = FALSE) {
   log_f <- dchisq(1/x, df, ncp, log = TRUE) - 2*log(x)
+  log_f[x == 0] <- -Inf
   if(log) return(log_f)
   exp(log_f)
 }
@@ -73,7 +74,11 @@ pinvchisq <- function(q, df, ncp = 0, lower.tail = TRUE, log.p = FALSE) {
 #' @rdname invchisq
 #' @export
 qinvchisq <- function(p, df, ncp = 0, lower.tail = TRUE, log.p = FALSE) {
-  qchisq(1-p, df, ncp, lower.tail = lower.tail, log.p = log.p)^(-1)
+  if (log.p) {
+    qchisq(  p, df, ncp, lower.tail = !lower.tail, log.p = TRUE)^(-1)
+  } else {
+    qchisq(1-p, df, ncp, lower.tail = lower.tail, log.p = FALSE)^(-1)
+  }
 }
 
 

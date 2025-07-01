@@ -81,3 +81,24 @@ test_that("`qinvchisq(log.p = TRUE)` works properly", {
 
 })
 
+
+
+
+test_that("`dinvchisq()` handles x = 0 properly", {
+  # this is more consistent with dgamma() and dgamma(log = TRUE)
+  # dchisq(0, 3)
+  # dchisq(0, 3, log = TRUE)
+  # dchisq(Inf, 3)
+  # dchisq(Inf, 3, log = TRUE)
+
+  expect_equal(
+    dinvchisq(0 , "df" = df, "ncp" = ncp),
+    0
+  )
+
+  expect_equal(
+    dinvchisq(0 , "df" = df, "ncp" = ncp, log = TRUE),
+    -Inf
+  )
+
+})

@@ -104,3 +104,24 @@ test_that("`qinvgamma(log.p = TRUE)` works properly", {
 
 })
 
+
+
+test_that("`dinvgamma()` handles x = 0 properly", {
+  # this is more consistent with dgamma() and dgamma(log = TRUE)
+  # dgamma(0, 3, 4)
+  # dgamma(0, 3, 4, log = TRUE)
+  # dgamma(Inf, 3, 4)
+  # dgamma(Inf, 3, 4, log = TRUE)
+
+  expect_equal(
+    dinvgamma(0 , "shape" = shape, "rate" = rate),
+    0
+  )
+
+  expect_equal(
+    dinvgamma(0 , "shape" = shape, "rate" = rate, log = TRUE),
+    -Inf
+  )
+
+})
+
