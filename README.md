@@ -12,7 +12,7 @@ coverage](https://codecov.io/gh/dkahle/invgamma/graph/badge.svg)](https://app.co
 **invgamma** implements the `[dpqr]` statistics functions for the
 [inverse gamma
 distribution](https://en.wikipedia.org/wiki/Inverse-gamma_distribution)
-in [R](http://cran.r-project.org). It is ideal for using in other
+in [R](https://cran.r-project.org). It is ideal for using in other
 packages since it is lightweight and leverages the `[dpqr]gamma()` line
 of functions maintained by CRAN.
 
