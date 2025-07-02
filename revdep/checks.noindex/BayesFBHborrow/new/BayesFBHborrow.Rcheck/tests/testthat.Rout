@@ -24,11 +24,13 @@ Type 'q()' to quit R.
 > # * https://testthat.r-lib.org/articles/special-files.html
 > 
 > library(testthat)
-> library(survregVB)
+> library(BayesFBHborrow)
 > 
-> test_check("survregVB")
-[ FAIL 0 | WARN 0 | SKIP 0 | PASS 72 ]
+> test_check("BayesFBHborrow")
+[ FAIL 0 | WARN 1 | SKIP 0 | PASS 613 ]
+
+[ FAIL 0 | WARN 1 | SKIP 0 | PASS 613 ]
 > 
 > proc.time()
    user  system elapsed 
-  2.828   0.224   5.805 
+104.213   3.893 122.733 

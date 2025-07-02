@@ -130,7 +130,7 @@ qinvgamma <- function(p, shape, rate = 1, scale = 1/rate, lower.tail = TRUE, log
 #' @export
 rinvgamma <- function(n, shape, rate = 1, scale = 1/rate) {
   if(missing(rate) && !missing(scale)) rate <- 1/scale
-  if (shape <= .01) {
+  if ( any(shape <= .01) ) {
     warning("`rinvgamma()` is unreliable for `shape` <= .01.",
             call. = FALSE, immediate. = TRUE)
   }

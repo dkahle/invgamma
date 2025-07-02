@@ -40,24 +40,24 @@ Type 'q()' to quit R.
 > # two genotypes
 > data = generate_dataset(1000,5,10,0.1, 2)
 > corrected = BERT(data, cores=2)
-2025-07-01 17:01:12.615605 INFO::Formatting Data.
-2025-07-01 17:01:12.631591 INFO::Replacing NaNs with NAs.
-2025-07-01 17:01:12.636391 INFO::Removing potential empty rows and columns
-2025-07-01 17:01:12.988707 INFO::Found  5000  missing values.
-2025-07-01 17:01:13.010454 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
-2025-07-01 17:01:13.010797 INFO::Done
-2025-07-01 17:01:13.010991 INFO::Acquiring quality metrics before batch effect correction.
-2025-07-01 17:01:13.047463 INFO::Starting hierarchical adjustment
-2025-07-01 17:01:13.047853 INFO::Found  5  batches.
-2025-07-01 17:01:13.141647 INFO::Set up parallel execution backend with 2 workers
-2025-07-01 17:01:13.141937 INFO::Processing subtree level 1 with 5 batches using 2 cores.
-2025-07-01 17:01:17.289385 INFO::Adjusting the last 2 batches sequentially
-2025-07-01 17:01:17.29026 INFO::Adjusting sequential tree level 1 with 2 batches
-2025-07-01 17:01:21.975573 INFO::Done
-2025-07-01 17:01:21.975876 INFO::Acquiring quality metrics after batch effect correction.
-2025-07-01 17:01:21.981313 INFO::ASW Batch was 0.541073106204741 prior to batch effect correction and is now -0.0623651320630383 .
-2025-07-01 17:01:21.981585 INFO::ASW Label was 0.387816242848595 prior to batch effect correction and is now 0.813757610359287 .
-2025-07-01 17:01:21.981929 INFO::Total function execution time is  9.40895509719849  s and adjustment time is  8.92762017250061 s ( 94.88 )
+2025-07-01 22:03:33.609867 INFO::Formatting Data.
+2025-07-01 22:03:33.625117 INFO::Replacing NaNs with NAs.
+2025-07-01 22:03:33.630291 INFO::Removing potential empty rows and columns
+2025-07-01 22:03:33.931309 INFO::Found  5000  missing values.
+2025-07-01 22:03:33.952417 INFO::Introduced 0 missing values due to singular proteins at batch/covariate level.
+2025-07-01 22:03:33.95274 INFO::Done
+2025-07-01 22:03:33.95292 INFO::Acquiring quality metrics before batch effect correction.
+2025-07-01 22:03:33.968693 INFO::Starting hierarchical adjustment
+2025-07-01 22:03:33.9691 INFO::Found  5  batches.
+2025-07-01 22:03:34.064379 INFO::Set up parallel execution backend with 2 workers
+2025-07-01 22:03:34.064688 INFO::Processing subtree level 1 with 5 batches using 2 cores.
+2025-07-01 22:03:39.230297 INFO::Adjusting the last 2 batches sequentially
+2025-07-01 22:03:39.231016 INFO::Adjusting sequential tree level 1 with 2 batches
+2025-07-01 22:03:43.406972 INFO::Done
+2025-07-01 22:03:43.407245 INFO::Acquiring quality metrics after batch effect correction.
+2025-07-01 22:03:43.412573 INFO::ASW Batch was 0.541073106204741 prior to batch effect correction and is now -0.0623651320630383 .
+2025-07-01 22:03:43.412824 INFO::ASW Label was 0.387816242848595 prior to batch effect correction and is now 0.813757610359287 .
+2025-07-01 22:03:43.413155 INFO::Total function execution time is  9.82493209838867  s and adjustment time is  9.43781900405884 s ( 96.06 )
 > 
 > 
 > 
@@ -152,7 +152,7 @@ $Batch
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  3.825 0.231 9.519 6.657 0.42 
+Time elapsed:  3.575 0.234 9.949 6.479 0.455 
 > grDevices::dev.off()
 null device 
           1 

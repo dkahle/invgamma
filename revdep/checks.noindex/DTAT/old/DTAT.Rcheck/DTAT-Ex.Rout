@@ -501,7 +501,7 @@ detaching ‘package:grid’, ‘package:latticeExtra’, ‘package:lattice’,
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  2.206 0.185 6.749 0.238 0.202 
+Time elapsed:  2.247 0.216 8.599 0.227 0.204 
 > grDevices::dev.off()
 null device 
           1 

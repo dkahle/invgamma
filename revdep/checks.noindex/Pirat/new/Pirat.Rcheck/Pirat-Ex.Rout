@@ -185,1114 +185,6 @@ NULL
 > res_hyperparam <- estimate_psi_df(obs2NApep)
 > psi <- res_hyperparam$psi
 > imputed_pgs <- Py_impute_block_llk_reset(obj, psi)
-Warning in check_forbidden_install("Python packages") :
-  cannot install Python packages during R CMD check
-Warning in check_forbidden_install("Conda Environments") :
-  cannot install Conda Environments during R CMD check
-+ /Users/david_kahle/Library/Caches/org.R-project.R/R/basilisk/1.20.0/0/bin/conda create --yes --prefix /Users/david_kahle/Library/Caches/org.R-project.R/R/basilisk/1.20.0/Pirat/1.2.0/envPirat 'python=3.9.5' --quiet -c bioconda -c conda-forge -c pytorch -c torch --override-channels
-Retrieving notices: ...working... done
-Channels:
- - bioconda
- - conda-forge
- - pytorch
- - torch
-Platform: osx-arm64
-Collecting package metadata (repodata.json): ...working... done
-Solving environment: ...working... done
-
-## Package Plan ##
-
-  environment location: /Users/david_kahle/Library/Caches/org.R-project.R/R/basilisk/1.20.0/Pirat/1.2.0/envPirat
-
-  added / updated specs:
-    - python=3.9.5
-
-
-The following packages will be downloaded:
-
-    package                    |            build
-    ---------------------------|-----------------
-    ca-certificates-2025.6.15  |       hbd8a1cb_0         148 KB  conda-forge
-    liblzma-5.8.1              |       h39f12f2_2          90 KB  conda-forge
-    liblzma-devel-5.8.1        |       h39f12f2_2         114 KB  conda-forge
-    libsqlite-3.46.0           |       hfb93653_0         811 KB  conda-forge
-    libzlib-1.2.13             |       hfb2fe0b_6          46 KB  conda-forge
-    ncurses-6.5                |       h5e97a16_3         778 KB  conda-forge
-    openssl-1.1.1w             |       h53f4e23_0         1.6 MB  conda-forge
-    pip-25.1.1                 |     pyh8b19718_0         1.2 MB  conda-forge
-    python-3.9.5               |h54d631c_0_cpython        12.1 MB  conda-forge
-    readline-8.2               |       h1d1bf99_2         246 KB  conda-forge
-    setuptools-80.9.0          |     pyhff2d567_0         731 KB  conda-forge
-    sqlite-3.46.0              |       h5838104_0         803 KB  conda-forge
-    tzdata-2025b               |       h78e105d_0         120 KB  conda-forge
-    xz-5.8.1                   |       h9a6d368_2          23 KB  conda-forge
-    xz-gpl-tools-5.8.1         |       h9a6d368_2          33 KB  conda-forge
-    xz-tools-5.8.1             |       h39f12f2_2          84 KB  conda-forge
-    zlib-1.2.13                |       hfb2fe0b_6          76 KB  conda-forge
-    ------------------------------------------------------------
-                                           Total:        18.8 MB
-
-The following NEW packages will be INSTALLED:
-
-  ca-certificates    conda-forge/noarch::ca-certificates-2025.6.15-hbd8a1cb_0 
-  liblzma            conda-forge/osx-arm64::liblzma-5.8.1-h39f12f2_2 
-  liblzma-devel      conda-forge/osx-arm64::liblzma-devel-5.8.1-h39f12f2_2 
-  libsqlite          conda-forge/osx-arm64::libsqlite-3.46.0-hfb93653_0 
-  libzlib            conda-forge/osx-arm64::libzlib-1.2.13-hfb2fe0b_6 
-  ncurses            conda-forge/osx-arm64::ncurses-6.5-h5e97a16_3 
-  openssl            conda-forge/osx-arm64::openssl-1.1.1w-h53f4e23_0 
-  pip                conda-forge/noarch::pip-25.1.1-pyh8b19718_0 
-  python             conda-forge/osx-arm64::python-3.9.5-h54d631c_0_cpython 
-  readline           conda-forge/osx-arm64::readline-8.2-h1d1bf99_2 
-  setuptools         conda-forge/noarch::setuptools-80.9.0-pyhff2d567_0 
-  sqlite             conda-forge/osx-arm64::sqlite-3.46.0-h5838104_0 
-  tk                 conda-forge/osx-arm64::tk-8.6.13-h5083fa2_1 
-  tzdata             conda-forge/noarch::tzdata-2025b-h78e105d_0 
-  wheel              conda-forge/noarch::wheel-0.45.1-pyhd8ed1ab_1 
-  xz                 conda-forge/osx-arm64::xz-5.8.1-h9a6d368_2 
-  xz-gpl-tools       conda-forge/osx-arm64::xz-gpl-tools-5.8.1-h9a6d368_2 
-  xz-tools           conda-forge/osx-arm64::xz-tools-5.8.1-h39f12f2_2 
-  zlib               conda-forge/osx-arm64::zlib-1.2.13-hfb2fe0b_6 
-
-
-Preparing transaction: ...working... done
-Verifying transaction: ...working... done
-Executing transaction: ...working... done
-+ /Users/david_kahle/Library/Caches/org.R-project.R/R/basilisk/1.20.0/0/bin/conda install --yes --prefix /Users/david_kahle/Library/Caches/org.R-project.R/R/basilisk/1.20.0/Pirat/1.2.0/envPirat 'python=3.9.5' -c bioconda -c conda-forge -c pytorch -c torch --override-channels
-Channels:
- - bioconda
- - conda-forge
- - pytorch
- - torch
-Platform: osx-arm64
-Collecting package metadata (repodata.json): ...working... done
-Solving environment: ...working... done
-
-
-==> WARNING: A newer version of conda exists. <==
-    current version: 24.11.3
-    latest version: 25.5.1
-
-Please update conda by running
-
-    $ conda update -n base -c conda-forge conda
-
-
-
-# All requested packages already installed.
-
-+ /Users/david_kahle/Library/Caches/org.R-project.R/R/basilisk/1.20.0/0/bin/conda install --yes --prefix /Users/david_kahle/Library/Caches/org.R-project.R/R/basilisk/1.20.0/Pirat/1.2.0/envPirat -c bioconda -c conda-forge -c pytorch -c torch 'python=3.9.5' 'python=3.9.5' 'numpy=1.20.2' 'pytorch=1.10.0' --override-channels
-Channels:
- - bioconda
- - conda-forge
- - pytorch
- - torch
-Platform: osx-arm64
-Collecting package metadata (repodata.json): ...working... done
-Solving environment: ...working... done
-
-
-==> WARNING: A newer version of conda exists. <==
-    current version: 24.11.3
-    latest version: 25.5.1
-
-Please update conda by running
-
-    $ conda update -n base -c conda-forge conda
-
-
-
-## Package Plan ##
-
-  environment location: /Users/david_kahle/Library/Caches/org.R-project.R/R/basilisk/1.20.0/Pirat/1.2.0/envPirat
-
-  added / updated specs:
-    - numpy=1.20.2
-    - python[version='3.9.5.*,3.9.5.*']
-    - pytorch=1.10.0
-
-
-The following packages will be downloaded:
-
-    package                    |            build
-    ---------------------------|-----------------
-    cffi-1.17.1                |   py39h7f933ea_0         222 KB  conda-forge
-    future-1.0.0               |     pyhd8ed1ab_2         356 KB  conda-forge
-    libblas-3.9.0              |32_h10e41b3_openblas          17 KB  conda-forge
-    libcblas-3.9.0             |32_hb3479ef_openblas          17 KB  conda-forge
-    libcxx-20.1.7              |       ha82da77_0         554 KB  conda-forge
-    libffi-3.4.6               |       h1da3d7d_1          39 KB  conda-forge
-    libgfortran-5.0.0          |14_2_0_h6c33f7e_103         153 KB  conda-forge
-    libgfortran5-14.2.0        |     h6c33f7e_103         788 KB  conda-forge
-    liblapack-3.9.0            |32_hc9a63f6_openblas          17 KB  conda-forge
-    libopenblas-0.3.30         |openmp_hf332438_0         4.0 MB  conda-forge
-    libprotobuf-3.19.6         |       hb5ab8b9_0         1.8 MB  conda-forge
-    llvm-openmp-20.1.7         |       hdb05f8b_0         275 KB  conda-forge
-    ninja-1.13.0               |       ha024513_0         162 KB  conda-forge
-    numpy-1.20.2               |   py39h1f3b974_0         5.0 MB  conda-forge
-    python_abi-3.9             |           7_cp39           7 KB  conda-forge
-    pytorch-1.10.0             |cpu_py39hbfdb42d_1        36.1 MB  conda-forge
-    sleef-3.8                  |       h8391f65_0         571 KB  conda-forge
-    typing_extensions-4.14.0   |     pyhe01879c_0          50 KB  conda-forge
-    ------------------------------------------------------------
-                                           Total:        50.1 MB
-
-The following NEW packages will be INSTALLED:
-
-  cffi               conda-forge/osx-arm64::cffi-1.17.1-py39h7f933ea_0 
-  future             conda-forge/noarch::future-1.0.0-pyhd8ed1ab_2 
-  libblas            conda-forge/osx-arm64::libblas-3.9.0-32_h10e41b3_openblas 
-  libcblas           conda-forge/osx-arm64::libcblas-3.9.0-32_hb3479ef_openblas 
-  libcxx             conda-forge/osx-arm64::libcxx-20.1.7-ha82da77_0 
-  libffi             conda-forge/osx-arm64::libffi-3.4.6-h1da3d7d_1 
-  libgfortran        conda-forge/osx-arm64::libgfortran-5.0.0-14_2_0_h6c33f7e_103 
-  libgfortran5       conda-forge/osx-arm64::libgfortran5-14.2.0-h6c33f7e_103 
-  liblapack          conda-forge/osx-arm64::liblapack-3.9.0-32_hc9a63f6_openblas 
-  libopenblas        conda-forge/osx-arm64::libopenblas-0.3.30-openmp_hf332438_0 
-  libprotobuf        conda-forge/osx-arm64::libprotobuf-3.19.6-hb5ab8b9_0 
-  llvm-openmp        conda-forge/osx-arm64::llvm-openmp-20.1.7-hdb05f8b_0 
-  ninja              conda-forge/osx-arm64::ninja-1.13.0-ha024513_0 
-  numpy              conda-forge/osx-arm64::numpy-1.20.2-py39h1f3b974_0 
-  pycparser          conda-forge/noarch::pycparser-2.22-pyh29332c3_1 
-  python_abi         conda-forge/noarch::python_abi-3.9-7_cp39 
-  pytorch            conda-forge/osx-arm64::pytorch-1.10.0-cpu_py39hbfdb42d_1 
-  sleef              conda-forge/osx-arm64::sleef-3.8-h8391f65_0 
-  typing_extensions  conda-forge/noarch::typing_extensions-4.14.0-pyhe01879c_0 
-
-
-
-Downloading and Extracting Packages: ...working...pytorch-1.10.0       | 36.1 MB   |            |   0% 
-numpy-1.20.2         | 5.0 MB    |            |   0% [A
-
-libopenblas-0.3.30   | 4.0 MB    |            |   0% [A[A
-
-
-libprotobuf-3.19.6   | 1.8 MB    |            |   0% [A[A[A
-
-
-
-libgfortran5-14.2.0  | 788 KB    |            |   0% [A[A[A[A
-
-
-
-
-sleef-3.8            | 571 KB    |            |   0% [A[A[A[A[A
-
-
-
-
-
-libcxx-20.1.7        | 554 KB    |            |   0% [A[A[A[A[A[A
-
-
-
-
-
-
-future-1.0.0         | 356 KB    |            |   0% [A[A[A[A[A[A[A
-
-
-
-
-
-
-
-llvm-openmp-20.1.7   | 275 KB    |            |   0% [A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-cffi-1.17.1          | 222 KB    |            |   0% [A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-ninja-1.13.0         | 162 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-libgfortran-5.0.0    | 153 KB    |            |   0% [A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-typing_extensions-4. | 50 KB     |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-libffi-3.4.6         | 39 KB     |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-libblas-3.9.0        | 17 KB     |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-liblapack-3.9.0      | 17 KB     |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-libcblas-3.9.0       | 17 KB     |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-python_abi-3.9       | 7 KB      |            |   0% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-libgfortran5-14.2.0  | 788 KB    | 2          |   2% [A[A[A[A
-
-libopenblas-0.3.30   | 4.0 MB    |            |   0% [A[A
-
-
-
-libgfortran5-14.2.0  | 788 KB    | 6          |   6% [A[A[A[A
-
-
-libprotobuf-3.19.6   | 1.8 MB    |            |   1% [A[A[Apytorch-1.10.0       | 36.1 MB   |            |   0% 
-
-libopenblas-0.3.30   | 4.0 MB    | 1          |   2% [A[A
-
-
-libprotobuf-3.19.6   | 1.8 MB    | 7          |   8% [A[A[Apytorch-1.10.0       | 36.1 MB   |            |   1% 
-
-libopenblas-0.3.30   | 4.0 MB    | 7          |   7% [A[A
-
-
-
-libgfortran5-14.2.0  | 788 KB    | ######7    |  67% [A[A[A[A
-numpy-1.20.2         | 5.0 MB    |            |   0% [A
-
-
-
-libgfortran5-14.2.0  | 788 KB    | ########## | 100% [A[A[A[A
-
-
-libprotobuf-3.19.6   | 1.8 MB    | ##5        |  26% [A[A[A
-
-libopenblas-0.3.30   | 4.0 MB    | ###1       |  32% [A[Apytorch-1.10.0       | 36.1 MB   | 1          |   2% 
-numpy-1.20.2         | 5.0 MB    | 2          |   2% [A
-
-
-
-
-sleef-3.8            | 571 KB    | 2          |   3% [A[A[A[A[A
-
-
-
-libgfortran5-14.2.0  | 788 KB    | ########## | 100% [A[A[A[A
-
-
-
-libgfortran5-14.2.0  | 788 KB    | ########## | 100% [A[A[A[A
-
-libopenblas-0.3.30   | 4.0 MB    | #####9     |  59% [A[Apytorch-1.10.0       | 36.1 MB   | 3          |   4% 
-
-
-libprotobuf-3.19.6   | 1.8 MB    | ######     |  60% [A[A[A
-
-
-
-
-sleef-3.8            | 571 KB    | ########## | 100% [A[A[A[A[A
-numpy-1.20.2         | 5.0 MB    | 5          |   5% [A
-
-libopenblas-0.3.30   | 4.0 MB    | ########## | 100% [A[A
-
-
-libprotobuf-3.19.6   | 1.8 MB    | ########## | 100% [A[A[A
-
-
-
-
-sleef-3.8            | 571 KB    | ########## | 100% [A[A[A[A[A
-
-
-
-
-sleef-3.8            | 571 KB    | ########## | 100% [A[A[A[A[Apytorch-1.10.0       | 36.1 MB   | 8          |   9% 
-
-
-
-
-
-libcxx-20.1.7        | 554 KB    | 2          |   3% [A[A[A[A[A[A
-numpy-1.20.2         | 5.0 MB    | ##3        |  24% [A
-
-
-
-
-
-libcxx-20.1.7        | 554 KB    | ########## | 100% [A[A[A[A[A[A
-
-
-
-
-
-
-future-1.0.0         | 356 KB    | 4          |   4% [A[A[A[A[A[A[A
-
-libopenblas-0.3.30   | 4.0 MB    | ########## | 100% [A[A
-
-libopenblas-0.3.30   | 4.0 MB    | ########## | 100% [A[A
-
-
-
-
-
-
-future-1.0.0         | 356 KB    | ########## | 100% [A[A[A[A[A[A[A
-
-
-
-
-
-
-
-llvm-openmp-20.1.7   | 275 KB    | 5          |   6% [A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-llvm-openmp-20.1.7   | 275 KB    | ########## | 100% [A[A[A[A[A[A[A[Apytorch-1.10.0       | 36.1 MB   | #6         |  17% 
-
-
-
-
-
-libcxx-20.1.7        | 554 KB    | ########## | 100% [A[A[A[A[A[A
-
-
-
-
-
-libcxx-20.1.7        | 554 KB    | ########## | 100% [A[A[A[A[A[A
-numpy-1.20.2         | 5.0 MB    | ####9      |  49% [Apytorch-1.10.0       | 36.1 MB   | ##7        |  27% 
-
-
-
-
-
-
-
-
-cffi-1.17.1          | 222 KB    | 7          |   7% [A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-cffi-1.17.1          | 222 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-ninja-1.13.0         | 162 KB    | 9          |  10% [A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-ninja-1.13.0         | 162 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-libgfortran-5.0.0    | 153 KB    | #          |  10% [A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-llvm-openmp-20.1.7   | 275 KB    | ########## | 100% [A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-llvm-openmp-20.1.7   | 275 KB    | ########## | 100% [A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-libgfortran-5.0.0    | 153 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[Apytorch-1.10.0       | 36.1 MB   | ###4       |  34% 
-numpy-1.20.2         | 5.0 MB    | #########9 |  99% [A
-
-
-
-
-
-
-
-
-
-
-
-typing_extensions-4. | 50 KB     | ###2       |  32% [A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-libffi-3.4.6         | 39 KB     | ####1      |  41% [A[A[A[A[A[A[A[A[A[A[A[A[Apytorch-1.10.0       | 36.1 MB   | ####8      |  48% 
-
-
-
-
-
-
-
-
-
-
-
-
-
-libblas-3.9.0        | 17 KB     | #########3 |  94% [A[A[A[A[A[A[A[A[A[A[A[A[A[Apytorch-1.10.0       | 36.1 MB   | #####6     |  57% 
-
-
-libprotobuf-3.19.6   | 1.8 MB    | ########## | 100% [A[A[A
-
-
-libprotobuf-3.19.6   | 1.8 MB    | ########## | 100% [A[A[A
-numpy-1.20.2         | 5.0 MB    | ########## | 100% [A
-
-
-
-
-
-
-
-
-
-
-
-
-
-libblas-3.9.0        | 17 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-libffi-3.4.6         | 39 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-typing_extensions-4. | 50 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-libffi-3.4.6         | 39 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-typing_extensions-4. | 50 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[Apytorch-1.10.0       | 36.1 MB   | #######3   |  74% 
-
-
-
-
-
-
-
-
-
-ninja-1.13.0         | 162 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-ninja-1.13.0         | 162 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-cffi-1.17.1          | 222 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-cffi-1.17.1          | 222 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-python_abi-3.9       | 7 KB      | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-libcblas-3.9.0       | 17 KB     | #########3 |  94% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[Apytorch-1.10.0       | 36.1 MB   | ########4  |  85% 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-liblapack-3.9.0      | 17 KB     | #########3 |  94% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-liblapack-3.9.0      | 17 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-libcblas-3.9.0       | 17 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-python_abi-3.9       | 7 KB      | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-future-1.0.0         | 356 KB    | ########## | 100% [A[A[A[A[A[A[A
-
-
-
-
-
-
-future-1.0.0         | 356 KB    | ########## | 100% [A[A[A[A[A[A[Apytorch-1.10.0       | 36.1 MB   | #########5 |  95% 
-
-
-
-
-
-
-
-
-
-
-libgfortran-5.0.0    | 153 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-libgfortran-5.0.0    | 153 KB    | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-libblas-3.9.0        | 17 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[Apytorch-1.10.0       | 36.1 MB   | ########## | 100% 
-
-
-
-
-
-
-
-
-
-
-
-typing_extensions-4. | 50 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-libffi-3.4.6         | 39 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-libcblas-3.9.0       | 17 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-libcblas-3.9.0       | 17 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-liblapack-3.9.0      | 17 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-liblapack-3.9.0      | 17 KB     | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-python_abi-3.9       | 7 KB      | ########## | 100% [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-numpy-1.20.2         | 5.0 MB    | ########## | 100% [Apytorch-1.10.0       | 36.1 MB   | ########## | 100%                                                      
-                                                     [A
-
-                                                     [A[A
-
-
-                                                     [A[A[A
-
-
-
-                                                     [A[A[A[A
-
-
-
-
-                                                     [A[A[A[A[A
-
-
-
-
-
-                                                     [A[A[A[A[A[A
-
-
-
-
-
-
-                                                     [A[A[A[A[A[A[A
-
-
-
-
-
-
-
-                                                     [A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-                                                     [A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-                                                     [A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-                                                     [A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-                                                     [A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                     [A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A done
-Preparing transaction: - \ | / done
-Verifying transaction: \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ done
-Executing transaction: / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | / - \ | done
-Processing ./Pirat/myModules
-  Preparing metadata (setup.py): started
-  Preparing metadata (setup.py): finished with status 'done'
-Building wheels for collected packages: PyPirat
-  DEPRECATION: Building 'PyPirat' using the legacy setup.py bdist_wheel mechanism, which will be removed in a future version. pip 25.3 will enforce this behaviour change. A possible replacement is to use the standardized build interface by setting the `--use-pep517` option, (possibly combined with `--no-build-isolation`), or adding a `pyproject.toml` file to the source tree of 'PyPirat'. Discussion can be found at https://github.com/pypa/pip/issues/6334
-  Building wheel for PyPirat (setup.py): started
-  Building wheel for PyPirat (setup.py): finished with status 'done'
-  Created wheel for PyPirat: filename=pypirat-0.1-py3-none-any.whl size=16155 sha256=f281eb234aeab460b1d39a85bcb26f67bd50e7621e9476ac82d6823f63c04b99
-  Stored in directory: /private/var/folders/r3/126_d6t55f5d32tplbg5mk1d0c48s9/T/pip-ephem-wheel-cache-wqe89jfh/wheels/6b/6f/30/dae83af19b8287ce880af4e6e3239b6a6937dc70dcc726461e
-Successfully built PyPirat
-Installing collected packages: PyPirat
-Successfully installed PyPirat-0.1
 /Users/david_kahle/Dropbox/dev/invgamma/invgamma/revdep/library.noindex/Pirat/reticulate/python/rpytools/loader.py:120: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
   return _find_and_load(name, import_)
 > impute_from_blocks(imputed_pgs, obj)
@@ -1955,7 +847,7 @@ F-statistic: 109.6 on 1 and 18 DF,  p-value: 4.378e-09
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  28.958 2.571 272.905 30.707 18.941 
+Time elapsed:  29.649 2.431 49.519 1.639 0.837 
 > grDevices::dev.off()
 null device 
           1 

@@ -21,8 +21,8 @@ Config/testthat/edition: 3
 RemoteType: local
 RemoteUrl: /Users/david_kahle/Dropbox/dev/invgamma/invgamma
 NeedsCompilation: no
-Packaged: 2025-07-01 21:56:47 UTC; david_kahle
+Packaged: 2025-07-02 03:00:21 UTC; david_kahle
 Author: David Kahle [aut, cre, cph],
   James Stamey [aut, cph]
 Maintainer: David Kahle <david.kahle@gmail.com>
-Built: R 4.5.1; ; 2025-07-01 21:56:48 UTC; unix
+Built: R 4.5.1; ; 2025-07-02 03:00:21 UTC; unix

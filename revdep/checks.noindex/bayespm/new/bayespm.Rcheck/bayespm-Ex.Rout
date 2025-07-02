@@ -1425,7 +1425,7 @@ detaching ‘ECE’
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  5.93 0.405 6.965 0 0 
+Time elapsed:  5.954 0.479 7.107 0 0 
 > grDevices::dev.off()
 null device 
           1 

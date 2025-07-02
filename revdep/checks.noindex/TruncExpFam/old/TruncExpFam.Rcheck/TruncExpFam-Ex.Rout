@@ -414,7 +414,7 @@ Natural parameters: eta1 = 2                 eta2 = -1                >
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  0.126 0.015 0.208 0 0 
+Time elapsed:  0.126 0.017 0.222 0 0 
 > grDevices::dev.off()
 null device 
           1 

@@ -4682,7 +4682,7 @@ attr(,"secondLine")
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  3.536 0.25 7.388 0.003 0.004 
+Time elapsed:  3.442 0.262 6.302 0.002 0.004 
 > grDevices::dev.off()
 null device 
           1 

@@ -23,4 +23,4 @@ Please read the documentation on ?TruncExpFam to learn more about the package.
 > 
 > proc.time()
    user  system elapsed 
- 31.502   3.138  40.740 
+ 31.474   3.732  40.988 

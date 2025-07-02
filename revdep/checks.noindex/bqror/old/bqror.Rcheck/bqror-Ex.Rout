@@ -1081,7 +1081,7 @@ sigmadraws    50     data.frame list
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.205 0.126 10.233 0 0 
+Time elapsed:  9.385 0.139 10.642 0 0 
 > grDevices::dev.off()
 null device 
           1 

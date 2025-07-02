@@ -78,6 +78,495 @@ Type 'q()' to quit R.
 > out <- BayesFBHborrow(data = piecewise_exp_cc, data_hist = piecewise_exp_hist,
 +                       model_choice = 'mix', tuning_parameters = tuning_parameters,
 +                       iter = 2, warmup_iter = 0)
-Error in if (shape <= 0.01) { : the condition has length > 1
-Calls: BayesFBHborrow ... GibbsMH -> GibbsMH.WBorrow -> .tau_update -> <Anonymous>
-Execution halted
+> 
+> # Create a summary of the output
+> summary(out$out, estimator = "out_fixed")
+# A tibble: 4 × 7
+  id       Mean    sd `2.5%`  `25%`  `75%` `97.5%`
+  <chr>   <dbl> <dbl>  <dbl>  <dbl>  <dbl>   <dbl>
+1 J       3        NA  3      3      3       3    
+2 mu     -2.18     NA -2.18  -2.18  -2.18   -2.18 
+3 sigma2  1.02     NA  1.02   1.02   1.02    1.02 
+4 beta_1 -0.241    NA -0.241 -0.241 -0.241  -0.241
+> 
+> # Plot the predictive curves for the treatment group
+> plots <- plot(out$out, out$out$time_grid, x_pred = c(1))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("BayesFBHborrow.WBorrow")
+> ### * BayesFBHborrow.WBorrow
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: BayesFBHborrow.WBorrow
+> ### Title: Run the MCMC sampler with Bayesian Borrowing
+> ### Aliases: BayesFBHborrow.WBorrow
+> 
+> ### ** Examples
+> 
+> set.seed(123)
+> # Load the example data
+> data(piecewise_exp_cc, package = "BayesFBHborrow")
+> data(piecewise_exp_hist, package = "BayesFBHborrow")
+> 
+> # Set your tuning parameters
+> tuning_parameters <- list("Jmax" = 5,
++                           "pi_b" = 0.5,
++                           "cprop_beta" = 3.25,
++                           "alpha" = 0.4)
+>                           
+> # Set hyperparameters to default, with the borrowing model "mix"
+> out <- BayesFBHborrow(data = piecewise_exp_cc, data_hist = piecewise_exp_hist,
++                       model_choice = 'mix', tuning_parameters = tuning_parameters,
++                       iter = 2, warmup_iter = 0)
+> 
+> # Create a summary of the output
+> summary(out$out, estimator = "out_fixed")
+# A tibble: 4 × 7
+  id       Mean    sd `2.5%`  `25%`  `75%` `97.5%`
+  <chr>   <dbl> <dbl>  <dbl>  <dbl>  <dbl>   <dbl>
+1 J       3        NA  3      3      3       3    
+2 mu     -2.18     NA -2.18  -2.18  -2.18   -2.18 
+3 sigma2  1.02     NA  1.02   1.02   1.02    1.02 
+4 beta_1 -0.241    NA -0.241 -0.241 -0.241  -0.241
+> 
+> # Plot the predictive curves for the treatment group
+> plots <- plot(out$out, out$out$time_grid, x_pred = c(1))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("GibbsMH.NoBorrow")
+> ### * GibbsMH.NoBorrow
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: GibbsMH.NoBorrow
+> ### Title: GibbsMH sampler, without Bayesian Borrowing
+> ### Aliases: GibbsMH.NoBorrow
+> 
+> ### ** Examples
+> 
+> set.seed(123)
+> # Load example data and set your hyper parameters
+> data(weibull_cc, package = "BayesFBHborrow")
+> data(weibull_hist, package = "BayesFBHborrow")
+> 
+> # The datasets consists of 3 (2) columns named "tte", "event" and "X".
+> # To explicitly run the sampler, extract the samples as following
+> Y <- weibull_cc$tte
+> I <- weibull_cc$event
+> X <- matrix(weibull_cc$X_trt)
+> 
+> # Specify hyperparameters and tuning parameters
+> hyper <-  list("a_sigma" = 2,
++                "b_sigma" = 2,
++                "clam_smooth" = 0.5,
++                "phi" = 3)
+> 
+> tuning_parameters <- list("Jmax" = 5,
++                           "pi_b" = 0.5,
++                           "cprop_beta" = 0.5)
+>                           
+> # Set initial values to 'NULL' for default settings
+> output <- GibbsMH(Y, I, X, NULL, NULL, NULL,
++                   tuning_parameters = tuning_parameters, hyperparameters = hyper, 
++                   iter = 5, warmup_iter = 1)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("GibbsMH")
+> ### * GibbsMH
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: GibbsMH
+> ### Title: S3 generic, calls the correct GibbsMH sampler
+> ### Aliases: GibbsMH
+> 
+> ### ** Examples
+> 
+> set.seed(123)
+> # Load example data and set your initial values and hyper parameters
+> data(weibull_cc, package = "BayesFBHborrow")
+> data(weibull_hist, package = "BayesFBHborrow")
+> 
+> # The datasets consists of 3 (2) columns named "tte", "event" and "X" 
+> # (only for concurrent). To explicitly run the sampler, extract the samples as
+> # following
+> Y <- weibull_cc$tte
+> I <- weibull_cc$event
+> X <- matrix(weibull_cc$X_trt)
+> 
+> Y_0 <- weibull_hist$tte
+> I_0 <- weibull_hist$event
+> X_0 <- NULL
+> 
+> # Specify hyperparameters and tuning parameters
+> hyper <-  list("a_tau" = 1, 
++                "b_tau" = 0.001,
++                "c_tau" = 1,
++                "d_tau" = 1, 
++                "type" = 'all',
++                "p_0" = 0.5, 
++                "a_sigma" = 2,
++                "b_sigma" = 2,
++                "clam_smooth" = 0.5,
++                "phi" = 3)
+> 
+> tuning_parameters <- list("Jmax" = 5,
++                           "pi_b" = 0.5,
++                           "cprop_beta" = 0.5,
++                           "alpha" = 0.4)
+>                           
+> output <- GibbsMH(Y, I, X, Y_0, I_0, X_0,
++                   tuning_parameters, hyper, 
++                   iter = 5, warmup_iter = 1)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("GibbsMH.WBorrow")
+> ### * GibbsMH.WBorrow
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: GibbsMH.WBorrow
+> ### Title: GibbsMH sampler, with Bayesian Borrowing
+> ### Aliases: GibbsMH.WBorrow
+> 
+> ### ** Examples
+> 
+> set.seed(123)
+> # Load example data and set your initial values and hyper parameters
+> data(weibull_cc, package = "BayesFBHborrow")
+> data(weibull_hist, package = "BayesFBHborrow")
+> 
+> # The datasets consists of 3 (2) columns named "tte", "event" and "X" 
+> # (only for concurrent). To explicitly run the sampler, extract the samples as
+> # following
+> Y <- weibull_cc$tte
+> I <- weibull_cc$event
+> X <- matrix(weibull_cc$X_trt)
+> 
+> Y_0 <- weibull_hist$tte
+> I_0 <- weibull_hist$event
+> X_0 <- NULL
+> 
+> # Specify hyperparameters and tuning parameters
+> hyper <-  list("a_tau" = 1, 
++                "b_tau" = 0.001,
++                "c_tau" = 1,
++                "d_tau" = 1, 
++                "type" = "all",
++                "p_0" = 0.5, 
++                "a_sigma" = 2,
++                "b_sigma" = 2,
++                "clam_smooth" = 0.5,
++                "phi" = 3)
+> 
+> tuning_parameters <- list("Jmax" = 5,
++                           "pi_b" = 0.5,
++                           "cprop_beta" = 0.5,
++                           "alpha" = 0.4)
+>           
+> output <- GibbsMH(Y, I, X, Y_0, I_0, X_0, tuning_parameters = tuning_parameters,
++                   hyperparameters = hyper, iter = 5, warmup_iter = 1)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("coef.BayesFBHborrow")
+> ### * coef.BayesFBHborrow
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: coef.BayesFBHborrow
+> ### Title: Extract mean posterior values
+> ### Aliases: coef.BayesFBHborrow
+> 
+> ### ** Examples
+> 
+> data(weibull_cc, package = "BayesFBHborrow")
+> 
+> # Set your tuning parameters
+> tuning_parameters <- list("Jmax" = 5,
++                           "pi_b" = 0.5,
++                           "cprop_beta" = 0.5)
+>                           
+> # run the MCMC sampler
+> out <- BayesFBHborrow(weibull_cc, NULL, tuning_parameters = tuning_parameters,
++                       iter = 3, warmup_iter = 1)
+> 
+> # Plot the posterior mean values of the fixed parameters
+> coef(out$out)
+         J         mu     sigma2     beta_1 
+ 3.0000000 -0.6790125  0.5774282 -0.3590602 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("group_summary")
+> ### * group_summary
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: group_summary
+> ### Title: Create group level data
+> ### Aliases: group_summary
+> 
+> ### ** Examples
+> 
+> set.seed(111)
+> # Load example data and set your initial values and hyper parameters
+> data(weibull_cc, package = "BayesFBHborrow")
+> data(weibull_hist, package = "BayesFBHborrow")
+> 
+> Y <- weibull_cc$tte
+> I <- weibull_cc$event
+> X <- weibull_cc$X_trt
+> 
+> # Say we want to know the group level data for the following split points
+> s <- quantile(Y, c(0, 0.45, 0.65, 1), names = FALSE)
+> 
+> group_summary(Y, I, X, s)
+$events_c
+[1] 52 17 21
+
+$events_trt
+[1] 57 31 25
+
+$time_c
+[1] 120.71560  32.44352  16.45639
+
+$time_trt
+[1] 189.98202  64.18279  46.09445
+
+$num_at_risk_c
+[1] 100  47  30
+
+$num_at_risk_trt
+[1] 149  90  58
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("init_lambda_hyperparameters")
+> ### * init_lambda_hyperparameters
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: init_lambda_hyperparameters
+> ### Title: Initialize lambda hyperparameters
+> ### Aliases: init_lambda_hyperparameters
+> 
+> ### ** Examples
+> 
+> set.seed(111)
+> # Load example data and set your initial values and hyper parameters
+> data(weibull_cc, package = "BayesFBHborrow")
+> data(weibull_hist, package = "BayesFBHborrow")
+> 
+> Y <- weibull_cc$tte
+> I <- weibull_cc$event
+> X <- weibull_cc$X_trt
+> 
+> # Say we want to know the group level data for the following split points
+> s <- quantile(Y, c(0, 0.45, 0.65, 1), names = FALSE)
+> 
+> group_data <- group_summary(Y, I, NULL, s)
+> init_lambda_hyperparameters(group_data, s)
+$shape
+[1] 124.5  68.5  44.0
+
+$rate
+[1] 334.17674 139.28617  46.13419
+
+$t2
+[1] 0.8835994
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("piecewise_exp_cc")
+> ### * piecewise_exp_cc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: piecewise_exp_cc
+> ### Title: Example data, simulated from a piecewise exponential model.
+> ### Aliases: piecewise_exp_cc
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(piecewise_exp_cc)
+> survival_model <- survival::survfit(survival::Surv(tte, event) ~ X_trt, data = piecewise_exp_cc)
+> line_colors <- c("blue", "red")  # Adjust colors as needed
+> line_types <- 1:length(unique(piecewise_exp_cc$X_trt))
+> plot(survival_model, col = line_colors, lty = line_types, 
++      xlab = "Time (tte)", ylab = "Survival Probability", 
++      main = "Kaplan-Meier Survival Curves by Treatment")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("piecewise_exp_hist")
+> ### * piecewise_exp_hist
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: piecewise_exp_hist
+> ### Title: Example data, simulated from a piecewise exponential model.
+> ### Aliases: piecewise_exp_hist
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(piecewise_exp_cc)
+> data(piecewise_exp_hist)
+> piecewise_exp_hist$X_trt <- 0
+> survival_model <- survival::survfit(survival::Surv(tte, event) ~ X_trt, 
++                                     data = rbind(piecewise_exp_cc, 
++                                     piecewise_exp_hist))
+> line_colors <- c("blue", "red", "green")  # Adjust colors as needed
+> line_types <- 1:length(unique(piecewise_exp_cc$X_trt))
+> plot(survival_model, col = line_colors, lty = line_types, 
++      xlab = "Time (tte)", ylab = "Survival Probability", 
++      main = "Kaplan-Meier Survival Curves by Treatment")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot.BayesFBHborrow")
+> ### * plot.BayesFBHborrow
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot.BayesFBHborrow
+> ### Title: Plot the MCMC results
+> ### Aliases: plot.BayesFBHborrow
+> 
+> ### ** Examples
+> 
+> data(weibull_cc, package = "BayesFBHborrow")
+> 
+> # Set your tuning parameters
+> tuning_parameters <- list("Jmax" = 5,
++                           "pi_b" = 0.5,
++                           "cprop_beta" = 0.5)
+>                           
+> # run the MCMC sampler
+> out <- BayesFBHborrow(weibull_cc, NULL, tuning_parameters = tuning_parameters,
++                       iter = 3, warmup_iter = 1)
+> 
+> # for the treatment group
+> plots <- plot(out$out, out$out$time_grid, x_pred = c(1))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("summary.BayesFBHborrow")
+> ### * summary.BayesFBHborrow
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: summary.BayesFBHborrow
+> ### Title: Summarize fixed MCMC results
+> ### Aliases: summary.BayesFBHborrow
+> 
+> ### ** Examples
+> 
+> data(piecewise_exp_cc, package = "BayesFBHborrow")
+> 
+> # Set your tuning parameters
+> tuning_parameters <- list("Jmax" = 5,
++                           "pi_b" = 0.5,
++                           "cprop_beta" = 0.5)
+>                           
+> # run the MCMC sampler
+> out <- BayesFBHborrow(piecewise_exp_cc, NULL, tuning_parameters = tuning_parameters,
++                       iter = 3, warmup_iter = 1)
+> 
+> # Create a summary of the output
+> summary(out$out, estimator = "out_fixed")
+# A tibble: 4 × 7
+  id       Mean    sd `2.5%`  `25%`  `75%` `97.5%`
+  <chr>   <dbl> <dbl>  <dbl>  <dbl>  <dbl>   <dbl>
+1 J       3     0      3      3      3       3    
+2 mu     -2.31  0.457 -2.66  -2.57  -2.13   -1.83 
+3 sigma2  1.86  1.40   0.938  1.06   2.33    3.35 
+4 beta_1 -0.438 0.104 -0.550 -0.475 -0.379  -0.367
+> 
+> 
+> 
+> cleanEx()
+> nameEx("weibull_cc")
+> ### * weibull_cc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: weibull_cc
+> ### Title: Example data, simulated from a Weibull distribution.
+> ### Aliases: weibull_cc
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(weibull_cc)
+> survival_model <- survival::survfit(survival::Surv(tte, event) ~ X_trt, data = weibull_cc)
+> line_colors <- c("blue", "red")  # Adjust colors as needed
+> line_types <- 1:length(unique(weibull_cc$X_trt))
+> plot(survival_model, col = line_colors, lty = line_types, 
++      xlab = "Time (tte)", ylab = "Survival Probability", 
++      main = "Kaplan-Meier Survival Curves by Treatment")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("weibull_hist")
+> ### * weibull_hist
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: weibull_hist
+> ### Title: Example data, simulated from a Weibull distribution
+> ### Aliases: weibull_hist
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> data(weibull_cc)
+> data(weibull_hist)
+> weibull_hist$X_trt <- 0
+> survival_model <- survival::survfit(survival::Surv(tte, event) ~ X_trt, 
++                                     data = rbind(weibull_cc, 
++                                     weibull_hist))
+> line_colors <- c("blue", "red", "green")  # Adjust colors as needed
+> line_types <- 1:length(unique(weibull_cc$X_trt))
+> plot(survival_model, col = line_colors, lty = line_types, 
++      xlab = "Time (tte)", ylab = "Survival Probability", 
++      main = "Kaplan-Meier Survival Curves by Treatment")
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  8.196 0.133 8.937 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

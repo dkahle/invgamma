@@ -35,4 +35,4 @@ Skipping tests on CRAN
 > 
 > proc.time()
    user  system elapsed 
-  0.163   0.051   1.079 
+  0.152   0.040   0.718 

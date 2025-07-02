@@ -23,9 +23,3 @@
 
 # Revdeps
 
-## New problems (1)
-
-|package        |version |error  |warning |note |
-|:--------------|:-------|:------|:-------|:----|
-|[BayesFBHborrow](problems.md#bayesfbhborrow)|2.0.2   |__+2__ |        |     |
-

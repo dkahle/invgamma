@@ -161,7 +161,7 @@ Warning in survregVB.fit(Y = survival::Surv(simulation_nofrailty$Time, simulatio
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  1.565 0.045 2.341 0 0 
+Time elapsed:  1.532 0.044 1.708 0 0 
 > grDevices::dev.off()
 null device 
           1 

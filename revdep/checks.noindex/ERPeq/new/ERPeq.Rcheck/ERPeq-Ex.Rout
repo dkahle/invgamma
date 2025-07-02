@@ -1859,7 +1859,7 @@ Warning in ks.test.default(x = data, y = "cdfweibull", par = as.vector(parameter
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  0.572 0.07 1.087 0 0 
+Time elapsed:  0.566 0.067 0.923 0 0 
 > grDevices::dev.off()
 null device 
           1 
