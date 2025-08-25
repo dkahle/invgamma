@@ -5,8 +5,10 @@
 
 <!-- badges: start -->
 
-[![Codecov test
-coverage](https://codecov.io/gh/dkahle/invgamma/graph/badge.svg)](https://app.codecov.io/gh/dkahle/invgamma)
+<!-- [![Codecov test coverage](https://codecov.io/gh/dkahle/invgamma/graph/badge.svg)](https://app.codecov.io/gh/dkahle/invgamma) -->
+
+[![DOI](https://zenodo.org/badge/61824677.svg)](https://doi.org/10.5281/zenodo.16944076)
+
 <!-- badges: end -->
 
 **invgamma** implements the `[dpqr]` statistics functions for the

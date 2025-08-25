@@ -39,41 +39,34 @@
 NULL
 
 
-
-
 #' @rdname invexp
 #' @export
 dinvexp <- function(x, rate = 1, log = FALSE) {
-  log_f <- dexp(1/x, rate, log = TRUE) - 2*log(x)
+  log_f <- dexp(1 / x, rate, log = TRUE) - 2 * log(x)
   log_f[x == 0] <- -Inf
-  if(log) return(log_f)
+  if (log) {
+    return(log_f)
+  }
   exp(log_f)
 }
-
-
 
 
 #' @rdname invexp
 #' @export
 pinvexp <- function(q, rate = 1, lower.tail = TRUE, log.p = FALSE) {
-  pexp(1/q, rate, lower.tail = !lower.tail, log.p = log.p)
+  pexp(1 / q, rate, lower.tail = !lower.tail, log.p = log.p)
 }
-
-
 
 
 #' @rdname invexp
 #' @export
 qinvexp <- function(p, rate = 1, lower.tail = TRUE, log.p = FALSE) {
   if (log.p) {
-    qexp(  p, rate, lower.tail = !lower.tail, log.p = TRUE)^(-1)
+    qexp(p, rate, lower.tail = !lower.tail, log.p = TRUE)^(-1)
   } else {
-    qexp(1-p, rate, lower.tail = lower.tail, log.p = FALSE)^(-1)
+    qexp(1 - p, rate, lower.tail = lower.tail, log.p = FALSE)^(-1)
   }
 }
-
-
-
 
 
 #' @rdname invexp
@@ -81,19 +74,3 @@ qinvexp <- function(p, rate = 1, lower.tail = TRUE, log.p = FALSE) {
 rinvexp <- function(n, rate = 1) {
   1 / rexp(n, rate)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
